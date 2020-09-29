@@ -25,10 +25,11 @@ const getRightNav = () => {
     );
   } else {
     return (
-      <>
-        <Link to="/register">register</Link>
+      < div className="userLink">
+        <Link to="/register">Register</Link>
+        <br />
         <Link to="/login">Login</Link>
-      </>
+      </div>
     );
   }
 };
