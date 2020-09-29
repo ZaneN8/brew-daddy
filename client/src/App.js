@@ -16,8 +16,9 @@ import { Container } from 'react-bootstrap';
 
 const App = () => (
   <Fragment>
-  <FetchUser>
+  
     <NavBar />
+    <FetchUser>
     <br />
     <Container>
       <Switch>

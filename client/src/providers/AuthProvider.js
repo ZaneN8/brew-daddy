@@ -12,7 +12,6 @@ const AuthProvider = (props) => {
   const handleRegister = async (user,history) => {
     
     try {
-      //axios calls return a promise so use await
       let res = await axios.post("/api/auth",user);
       setUser(res.data.data);
       history.push("./home");
@@ -24,7 +23,7 @@ const AuthProvider = (props) => {
 
     const handleLogin = async (user,history) => {
       try {
-        let res = await axios.post("api/auth/sign_in", user);
+        let res = await axios.post("/api/auth/sign_in", user);
         setUser(res.data.data);
         history.push("/home")
       } catch (err) {

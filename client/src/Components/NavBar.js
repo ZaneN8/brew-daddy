@@ -47,6 +47,9 @@ return (
 <NavDropdown title="User" id="basic-nav-dropdown">
 {getRightNav()}
 </NavDropdown>
+<Nav.Item>
+  <Nav.Link href="/whatever">Sample</Nav.Link>
+</Nav.Item>
 </Nav>
 
 )
