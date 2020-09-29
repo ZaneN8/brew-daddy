@@ -33,7 +33,7 @@ const AuthProvider = (props) => {
       }
     };
   
-    const handleLogout = async (user,history) => {
+    const handleLogout = async (history) => {
       try {
         // await block until done
         let res = await axios.delete("/api/auth/sign_out");

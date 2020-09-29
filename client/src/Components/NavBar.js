@@ -1,5 +1,5 @@
 import React, {useContext}from 'react';
-import {Nav} from 'react-bootstrap';
+import {Nav, NavDropdown} from 'react-bootstrap';
 import {AuthContext} from '../providers/AuthProvider'
 import {Link,useHistory} from "react-router-dom"
 
@@ -13,8 +13,15 @@ const getRightNav = () => {
   if (user) {
     return (
       <>
-        <div onclick={() => handleLogout(history)}> logout!</div>
+      <NavDropdown.Item
+        onClick={() => console.log("hello")}> User Info
+      </NavDropdown.Item>
+      <NavDropdown.Item
+        onClick={() => 
+        handleLogout(history)}> Log Out
+      </NavDropdown.Item>
       </>
+      
     );
   } else {
     return (
@@ -36,15 +43,22 @@ return (
 <Nav.Item>
   <Nav.Link href="/about">About</Nav.Link>
 </Nav.Item>
-<Nav.Item>
-<Nav.Link>{getRightNav}</Nav.Link>
-</Nav.Item>
-<Nav.Item>
-  <Nav.Link href="/whatever">Sample</Nav.Link>
-</Nav.Item>
+<NavDropdown title="User" id="basic-nav-dropdown">
+{getRightNav()}
+</NavDropdown>
 </Nav>
 
 )
 }
 
 export default NavBar;
+
+
+
+
+
+
+
+
+
+
