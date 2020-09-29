@@ -12,8 +12,8 @@
 
 5. run rails db:create db:migrate db:seed
 
-Check seeds page
 6. rails s -p 3001 to start rails server
+
 7. cd client && yarn start to start yarn server
 ## Handle Git/GitHub
 you can ether remove the remote and add your own, or you can remove the git repo. Remove the remote keeps the commit history from the starter project. rm -rf .git will completely remove it.

@@ -8,6 +8,7 @@ const NavBar =()=> {
 const history = useHistory();
 const {user,handleLogout} = useContext(AuthContext)
 
+
 const getRightNav = () => {
   if (user) {
     return (
@@ -19,7 +20,7 @@ const getRightNav = () => {
     return (
       <>
         <Link to="/register">register</Link>
-        <Link to="/login">login</Link>
+        <Link to="/login">Login</Link>
       </>
     );
   }
@@ -36,10 +37,10 @@ return (
   <Nav.Link href="/about">About</Nav.Link>
 </Nav.Item>
 <Nav.Item>
-  <Nav.Link href="/whatever">Sample</Nav.Link>
+<Nav.Link>{getRightNav}</Nav.Link>
 </Nav.Item>
 <Nav.Item>
-<Nav.Link>{getRightNav}</Nav.Link>
+  <Nav.Link href="/whatever">Sample</Nav.Link>
 </Nav.Item>
 </Nav>
 
