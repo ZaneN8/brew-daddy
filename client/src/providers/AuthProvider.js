@@ -28,7 +28,6 @@ const AuthProvider = (props) => {
         history.push("/home")
       } catch (err) {
         alert("error in logging in");
-        debugger;
       }
     };
   
@@ -39,7 +38,7 @@ const AuthProvider = (props) => {
         setUser(res.data.data);
         history.push("/login")
       } catch (err) {
-        debugger;
+      console.log("Logout Failed")
       }
     };
   
