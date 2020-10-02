@@ -2,10 +2,10 @@
 
 one:
   up_vote: false
-  belongs_to: 
-  belongs_to: 
+  review: one
+  user: one
 
 two:
   up_vote: false
-  belongs_to: 
-  belongs_to: 
+  review: two
+  user: two

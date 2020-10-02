@@ -10,10 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_02_224049) do
+ActiveRecord::Schema.define(version: 2020_10_02_232008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "coffee_shops", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "image"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.boolean "open"
+    t.string "contact_info"
+    t.integer "cost"
+    t.boolean "delivery"
+    t.boolean "pickup"
+    t.boolean "order_online"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_coffee_shops_on_user_id"
+  end
+
+  create_table "review_pics", force: :cascade do |t|
+    t.string "image"
+    t.bigint "reviews_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["reviews_id"], name: "index_review_pics_on_reviews_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.float "rating"
+    t.float "coffee_rating"
+    t.float "work_friendly"
+    t.float "food"
+    t.float "noise_level"
+    t.bigint "coffee_shop_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coffee_shop_id"], name: "index_reviews_on_coffee_shop_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
 
   create_table "samples", force: :cascade do |t|
     t.string "name"
@@ -53,4 +96,20 @@ ActiveRecord::Schema.define(version: 2020_10_02_224049) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.boolean "up_vote"
+    t.bigint "review_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["review_id"], name: "index_votes_on_review_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
+  add_foreign_key "coffee_shops", "users"
+  add_foreign_key "review_pics", "reviews", column: "reviews_id"
+  add_foreign_key "reviews", "coffee_shops"
+  add_foreign_key "reviews", "users"
+  add_foreign_key "votes", "reviews"
+  add_foreign_key "votes", "users"
 end

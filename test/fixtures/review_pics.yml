@@ -2,8 +2,8 @@
 
 one:
   image: MyString
-  belongs_to: 
+  reviews: one
 
 two:
   image: MyString
-  belongs_to: 
+  reviews: two
