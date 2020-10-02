@@ -1,0 +1,2 @@
+class ReviewPic < ApplicationRecord
+end

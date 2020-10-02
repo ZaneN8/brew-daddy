@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  image: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  open: false
+  contact_info: MyString
+  cost: 1
+  delivery: false
+  pickup: false
+  order_online: false
+  user: one
+
+two:
+  name: MyString
+  description: MyText
+  image: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  open: false
+  contact_info: MyString
+  cost: 1
+  delivery: false
+  pickup: false
+  order_online: false
+  user: two

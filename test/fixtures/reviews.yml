@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  body: MyText
+  rating: 1.5
+  coffee_rating: 1.5
+  work_friendly: 1.5
+  food: 1.5
+  noise_level: 1.5
+  coffee_shop: one
+  user: one
+
+two:
+  title: MyString
+  body: MyText
+  rating: 1.5
+  coffee_rating: 1.5
+  work_friendly: 1.5
+  food: 1.5
+  noise_level: 1.5
+  coffee_shop: two
+  user: two

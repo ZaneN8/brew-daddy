@@ -1,18 +1,15 @@
-import React from 'react';
-import {Button, Container} from 'react-bootstrap';
-
+import React from "react";
 
 const Lander = () => (
   <div>
-  <Container>
-  <h1 className="landing">Welcome to (Project-Name)</h1>
-  <br />
-  <br />
-  <Button  href="/login"variant="info" block>Login</Button>
-
-  <Button href="/register" variant="success" block>Sign Up</Button>
-  </Container>
+    <h1 className="landing">Welcome to BrewDaddy</h1>
+    <br />
+    <br />
+    <button href="/login" variant="info" block>
+      Login
+    </button>
+    <button>Sign Up</button>
   </div>
-)
+);
 
 export default Lander;

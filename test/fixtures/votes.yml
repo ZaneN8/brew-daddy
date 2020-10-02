@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  up_vote: false
+  belongs_to: 
+  belongs_to: 
+
+two:
+  up_vote: false
+  belongs_to: 
+  belongs_to: 

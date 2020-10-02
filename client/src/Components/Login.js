@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormInput } from "../customHooks/useFormInput";
 import { AuthContext } from "../providers/AuthProvider";
-import {Form,Button} from 'react-bootstrap';
+import { Form, Button } from "react-bootstrap";
 
 const Login = (props) => {
   const history = useHistory();
@@ -23,17 +23,21 @@ const Login = (props) => {
       <h1 className="landing">Login</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
-        <Form.Label>Email</Form.Label>
-        <Form.Control autoFocus {...email} />
+          <Form.Label>Email</Form.Label>
+          <Form.Control autoFocus {...email} />
         </Form.Group>
         <Form.Group>
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" {...password} />
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" {...password} />
         </Form.Group>
-        <Button variant="info"type="submit">Login</Button>
+        <button variant="info" type="submit">
+          Login
+        </button>
       </Form>
       <br />
-      <Button variant="success" href="/">Back</Button>
+      <button variant="success" href="/">
+        Back
+      </button>
     </div>
   );
 };

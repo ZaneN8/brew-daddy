@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormInput } from "../customHooks/useFormInput";
 import { AuthContext } from "../providers/AuthProvider";
-import {Form,Button,Container} from 'react-bootstrap';
+import { Form, Button, Container } from "react-bootstrap";
 
 const Register = (props) => {
   const email = useFormInput("", "Email");
@@ -10,7 +10,7 @@ const Register = (props) => {
   const passwordConfrimation = useFormInput("", "Password Confrimation");
 
   const { handleRegister } = useContext(AuthContext);
-  const history = useHistory()
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,15 +18,14 @@ const Register = (props) => {
     if (password.value !== passwordConfrimation.value) {
       alert("passwords don not match");
     } else {
-    
       // register user
-      handleRegister({
-    
-        email: email.value,
-        password: password.value,
-        passwordConfrimation: passwordConfrimation.value,
-      },
-      history
+      handleRegister(
+        {
+          email: email.value,
+          password: password.value,
+          passwordConfrimation: passwordConfrimation.value,
+        },
+        history
       );
     }
   };
@@ -42,10 +41,14 @@ const Register = (props) => {
         <Form.Control type="password" {...passwordConfrimation} />
         <br />
         <br />
-        <Button variant="success" type="submit">Register</Button>
+        <button variant="success" type="submit">
+          Register
+        </button>
       </Form>
       <br />
-      <Button variant="info" href="/">Back</Button>
+      <button variant="info" href="/">
+        Back
+      </button>
     </Container>
   );
 };

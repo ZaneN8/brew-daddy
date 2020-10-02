@@ -1,7 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const About = () => (
-  <h1>About</h1>
-)
+  <p>
+    Brew Daddy was started on the second of October in the grim year of 2020.
+    Four bearded heros brought together by a common goal, make life better with
+    all things brew.
+  </p>
+);
 
 export default About;
