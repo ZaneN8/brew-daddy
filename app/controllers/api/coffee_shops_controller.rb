@@ -3,7 +3,7 @@ before_action :authenticate_user!
 before_action :set_coffee_shop, only: [:show, :update, :destroy]
 
   def index 
-    json: CoffeeShop.all
+    render json: CoffeeShop.all
   end
 
   def show
