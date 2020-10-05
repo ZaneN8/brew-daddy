@@ -1,4 +1,9 @@
 
+img {
+  height:50px;
+  width:50px;
+}
+
 .landing{
   margin-top: 10%;
   text-align: center;
