@@ -2,7 +2,7 @@ class Api::ReviewsController < ApplicationController
   before_action :set_coffee_shop
   before_action :set_review, only: [:update, :destroy]
 
-  def coffee_shop_reviews
+  def index
     render json: @coffee_shop.reviews
   end
 
@@ -56,3 +56,4 @@ class Api::ReviewsController < ApplicationController
     @coffee_shop = CoffeeShop.find(params[:coffee_shop_id])
   end
 end
+

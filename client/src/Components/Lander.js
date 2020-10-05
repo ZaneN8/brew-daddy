@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 
 const Lander = () => (
   <div>
-    <h1 className="landing">Welcome to BrewDaddy</h1>
+    <h1 className="landing">Welcome to BrewDaddy LANDER</h1>
     <br />
     <br />
     <Link to="/login" >
