@@ -3,11 +3,14 @@ import { useHistory } from "react-router-dom";
 import { useFormInput } from "../customHooks/useFormInput";
 import { AuthContext } from "../providers/AuthProvider";
 import { Form, Button, Container } from "react-bootstrap";
+import { Link } from 'react-router-dom'
 
 const Register = (props) => {
   const email = useFormInput("", "Email");
   const password = useFormInput("", "Password");
-  const passwordConfrimation = useFormInput("", "Password Confrimation");
+  const lastName = useFormInput("","Last Name");
+  const firstName= useFormInput("", "Fist Name");
+  const passwordConfirmation = useFormInput("", "Password Confirmation");
 
   const { handleRegister } = useContext(AuthContext);
   const history = useHistory();
@@ -15,15 +18,17 @@ const Register = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     //check valid email
-    if (password.value !== passwordConfrimation.value) {
+    if (password.value !== passwordConfirmation.value) {
       alert("passwords don not match");
     } else {
       // register user
       handleRegister(
         {
+          firstName: firstName.value,
+          lastName: lastName.value,
           email: email.value,
           password: password.value,
-          passwordConfrimation: passwordConfrimation.value,
+          passwordConfirmation: passwordConfirmation.value,
         },
         history
       );
@@ -33,22 +38,26 @@ const Register = (props) => {
     <Container>
       <h1 className="landing">Register</h1>
       <Form onSubmit={handleSubmit}>
+        <Form.Label>First Name</Form.Label>
+        <Form.Control autoFocus {...firstName} />
+        <Form.Label>Last Name</Form.Label>
+        <Form.Control autoFocus {...lastName} />
         <Form.Label>Email</Form.Label>
         <Form.Control autoFocus {...email} />
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" {...password} />
         <Form.Label>Password Confirmation</Form.Label>
-        <Form.Control type="password" {...passwordConfrimation} />
+        <Form.Control type="password" {...passwordConfirmation} />
         <br />
         <br />
-        <button variant="success" type="submit">
+        <button type="submit">
           Register
         </button>
       </Form>
       <br />
-      <button variant="info" href="/">
+      <Link  to="/">
         Back
-      </button>
+      </Link>
     </Container>
   );
 };
