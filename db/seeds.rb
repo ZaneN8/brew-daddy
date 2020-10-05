@@ -23,6 +23,7 @@ puts "Cleaning up Users Data"
 User.destroy_all
 5.times do |i|    
  user = User.new
+ user.id = i
  user.email = "test#{i}@example.com"
  user.password = '123456'
  user.password_confirmation = '123456'
@@ -52,6 +53,9 @@ puts "Seeding Coffee Shops"
 #     t.datetime "updated_at", precision: 6, null: false
 #     t.index ["user_id"], name: "index_coffee_shops_on_user_id"
 #   end
+
+
+
 
 puts "Seeding Reviews... (and Pictures)"
 
