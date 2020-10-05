@@ -18,8 +18,9 @@ puts "Seeding Users"
 #     t.string "last_name"
 
 #### UNCOMMIT THIS IF YOU DO NOT WANT USERS DATA TO BE ERASED ###
-puts "Cleaning up Users Data"
+puts "Cleaning up Users and Coffee Shops Data"
 
+CoffeeShop.destroy_all
 User.destroy_all
 5.times do |i|    
  user = User.new
@@ -32,6 +33,28 @@ User.destroy_all
  user.image = Faker::Avatar.image(slug: "#{user.first_name}#{i}", size: "300x300", format: "png", set: "set1")
  user.save!
  puts user.email + " created"
+
+ puts "Seeding Coffee for User #{i}"
+
+ 3.times do |j|
+    cs = CoffeeShop.new
+    cs.name = Faker::Coffee.blend_name
+    cs.description = Faker::Coffee.notes
+    cs.image = Faker::Avatar.image(slug: "#{user.first_name}#{j}", size: "300x300", format: "png", set: "set4")
+    cs.city = Faker::Address.city
+    cs.state = Faker::Address.state
+    cs.zip = Faker::Address.zip
+    cs.open = true
+    cs.contact_info = Faker::PhoneNumber.phone_number
+    cs.cost = 3
+    cs.delivery = true
+    cs.pickup = true
+    cs.order_online = true
+    cs.user_id = i
+    cs.save!
+    end
+puts "----------------------------"    
+
 end
 
 puts "Seeding Coffee Shops"
