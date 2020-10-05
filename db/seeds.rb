@@ -22,6 +22,7 @@ puts "Cleaning up Users and Coffee Shops Data"
 
 CoffeeShop.destroy_all
 User.destroy_all
+
 5.times do |i|    
  user = User.new
  user.id = i
@@ -38,6 +39,7 @@ User.destroy_all
 
  3.times do |j|
     cs = CoffeeShop.new
+    cs.id = j + (i * 3)
     cs.name = Faker::Coffee.blend_name
     cs.description = Faker::Coffee.notes
     cs.image = Faker::Avatar.image(slug: "#{user.first_name}#{j}", size: "300x300", format: "png", set: "set4")
@@ -77,10 +79,29 @@ puts "Seeding Coffee Shops"
 #     t.index ["user_id"], name: "index_coffee_shops_on_user_id"
 #   end
 
+puts 
 
 
+puts "Seeding Reviews..."
 
-puts "Seeding Reviews... (and Pictures)"
+20.times do |r|
+    max = 5
+    review = Review.new
+    review.title = Faker::Quote.robin
+    review.body = Faker::Restaurant.review 
+    review.rating = rand(max)
+    review.coffee_rating = rand(max)
+    review.work_friendly = rand(max)
+    review.food = rand(max)
+    review.noise_level = rand(max)
+    review.coffee_shop_id = rand(CoffeeShop.count)
+    review.user_id = rand(User.count)
+    review.save!
+
+end
+
+puts "#{Review.count} Reviews has been seeded randomly."
+puts "----------------------------"    
 
 #   create_table "reviews", force: :cascade do |t|
 #     t.string "title"
