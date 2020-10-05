@@ -7,7 +7,7 @@ class Api::ReviewsController < ApplicationController
   end
 
   def all
-    render json: Reviews.all
+    render json: Review.all
   end
 
   def create
