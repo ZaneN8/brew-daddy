@@ -1,0 +1,12 @@
+development:
+  cloud_name: <%= ENV['dmut1f41i'] %>
+  api_key: <%= ENV['767718689547186'] %>
+  api_secret: <%= ENV['cZPOwe8K7QretywwfEs8ns94seE'] %>
+production:
+  cloud_name: <%= ENV['dmut1f41i'] %>
+  api_key: <%= ENV['767718689547186'] %>
+  api_secret: <%= ENV['cZPOwe8K7QretywwfEs8ns94seE'] %>
+test:
+  cloud_name: <%= ENV['dmut1f41i'] %>
+  api_key: <%= ENV['767718689547186'] %>
+  api_secret: <%= ENV['cZPOwe8K7QretywwfEs8ns94seE'] %>
