@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthProvider from "./providers/AuthProvider";
 import {initMiddleware} from "devise-axios";
 
+
 initMiddleware();
 
 

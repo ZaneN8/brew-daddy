@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     #This will list ALL review in database, for database validation. 
     #Remove the line below to disable view of all reviews.
     get "/reviews/all", to: "reviews#all"
-
     resources :coffee_shops do
       resources :reviews
     end

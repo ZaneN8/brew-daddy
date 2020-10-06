@@ -1,23 +1,16 @@
-// import React, { useContext, useEffect, useState } from "react";
-// import Axios from "axios";
-// import { AuthContext } from "../providers/AuthProvider";
+import React from "react";
+import { Link } from "react-router-dom";
 
-// const User = () => {
-//   const auth = useContext(AuthContext);
+const User = () => (
+  <>
+    <h1>User Info</h1>
 
-//   const renderReviews = () => {};
+    <p>Avatar</p>
+    <p> First Name</p>
+    <p> Last Name</p>
+    <p>Email</p>
+    <Link to="/user/coffee_create">Create a CoffeeShop</Link>
+  </>
+);
 
-//   return (
-//     <div>
-//       <h1>Hello {auth.firstName}</h1>
-//       <p>
-//         {auth.firstName}
-//         {auth.lastName}
-//       </p>
-//       <p>{auth.image}</p>
-//       <p>{auth.email}</p>
-//     </div>
-//   );
-// };
-
-// export default User;
+export default User;
