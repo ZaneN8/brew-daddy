@@ -23,19 +23,15 @@ const App = () => (
       <br />
       <Container>
         <Switch>
-          <ProtectedRoute exact path="/home" component={Home} />
-          <ProtectedRoute exact path="/about" component={About} />
-          <ProtectedRoute exact path="/user" component={User} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/user" component={User} />
           <ProtectedRoute
             exact
             path="/user/coffee_create"
             component={CoffeeShopForm}
           />
-          <ProtectedRoute
-            exact
-            path="/coffee_shops/:id"
-            component={CoffeeShop}
-          />
+          <Route exact path="/coffee_shops/:id" component={CoffeeShop} />
           <Route exact path="/" component={Lander} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />

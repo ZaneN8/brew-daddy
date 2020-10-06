@@ -1,9 +1,13 @@
 class Api::CoffeeShopsController < ApplicationController
-before_action :authenticate_user!
+# before_action :authenticate_user!
 before_action :set_coffee_shop, only: [:show, :update, :destroy]
 
   def index 
     render json: CoffeeShop.all
+  end
+
+  def cu_index
+    render json: @current_user.coffee_shops
   end
 
   def show

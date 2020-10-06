@@ -6,6 +6,10 @@ class Api::ReviewsController < ApplicationController
     render json: @coffee_shop.reviews
   end
 
+  def cu_reviews
+    render json: @current_user.reviews
+  end
+
   def all
     render json: Review.all
   end

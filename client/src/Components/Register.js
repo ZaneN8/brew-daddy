@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormInput } from "../customHooks/useFormInput";
 import { AuthContext } from "../providers/AuthProvider";
-import { Form, Button, Container } from "react-bootstrap";
-import { Link } from 'react-router-dom'
+import { Form, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Register = (props) => {
   const email = useFormInput("", "Email");
   const password = useFormInput("", "Password");
-  const lastName = useFormInput("","Last Name");
-  const firstName= useFormInput("", "Fist Name");
+  const lastName = useFormInput("", "Last Name");
+  const firstName = useFormInput("", "First Name");
   const passwordConfirmation = useFormInput("", "Password Confirmation");
 
   const { handleRegister } = useContext(AuthContext);
@@ -50,14 +50,10 @@ const Register = (props) => {
         <Form.Control type="password" {...passwordConfirmation} />
         <br />
         <br />
-        <button type="submit">
-          Register
-        </button>
+        <button type="submit">Register</button>
       </Form>
       <br />
-      <Link  to="/">
-        Back
-      </Link>
+      <Link to="/">Back</Link>
     </Container>
   );
 };
