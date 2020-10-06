@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom"
 
 const User = () => (
   <>
@@ -10,6 +11,7 @@ const User = () => (
   <p> First Name</p>
   <p> Last Name</p>
   <p>Email</p>
+  <Link to="/user/coffee_create">Create a CoffeeShop</Link>
 
   </>
 );

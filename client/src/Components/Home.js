@@ -26,7 +26,7 @@ const renderShops = () => {
   return shops.map((shop) => (
   <div>
     <img src={shop.image} />
-    <Link as="h1" to={`/api/coffee_shops/${shop.id}`}>{shop.name}</Link>
+    <Link as="h1" to={`/coffee_shops/${shop.id}`}>{shop.name}</Link>
   <p>{shop.description}</p>
   </div>
   ))
