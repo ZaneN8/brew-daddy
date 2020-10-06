@@ -11,6 +11,7 @@ import ProtectedRoute from './Components/ProtectedRoute';
 import Lander from './Components/Lander';
 import User from './Components/User';
 import CoffeeShop from './Components/CoffeeShop'
+import CoffeeShopForm from './Components/CoffeeShopForm'
 
 
 import './App.css';
@@ -27,6 +28,7 @@ const App = () => (
         <ProtectedRoute exact path="/home" component={Home} />
         <ProtectedRoute exact path="/about" component={About} />
         <ProtectedRoute exact path="/user" component={User} />
+        <ProtectedRoute exact path="/user/coffee_create" component={CoffeeShopForm} />
         <ProtectedRoute exact path= "/coffee_shops/:id" component={CoffeeShop} />
         <Route exact path="/" component={Lander} />
         <Route exact path="/register" component={Register} />

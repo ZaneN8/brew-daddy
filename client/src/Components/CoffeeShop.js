@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Axios from "axios"
+import Review from "./Review"
 
 const CoffeeShop = ({ match, history }) => {
   const [shops, setShops] = useState([])
@@ -40,8 +41,13 @@ const CoffeeShop = ({ match, history }) => {
     <h1>
    Coffee Shop
   </h1>
+  <p>Coffee Shop display info here</p>
   <p></p>
   <h4>Reviews will be going here </h4>
+  <br />
+  <br />
+  <Review />
+
   
   </div>
   )
