@@ -11,7 +11,7 @@ const NavBar = () => {
     if (user) {
       return (
         <>
-          <Link onClick={() => handleLogout(history)}>Logout</Link>
+          <Link  onClick={() => handleLogout(history)} to="" >Logout</Link>
         </>
       );
     } else {
@@ -27,10 +27,10 @@ const NavBar = () => {
 
   return (
     <div style={styles.navbar}>
-      <Link to="/">DashBoard</Link>
+      <Link to="/home">DashBoard</Link>
       <span style={{ marginRight: "10px" }}></span>
       <div>{correctNavBar()}</div>
-      {user && <Link to="/samplesDemo">Samples</Link>}
+      {user && <Link to="/user">User Profile</Link>}
     </div>
   );
 };
@@ -42,4 +42,8 @@ const styles = {
   },
 };
 
+
+
+
 export default NavBar;
+

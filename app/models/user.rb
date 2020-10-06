@@ -2,8 +2,8 @@
 
 class User < ActiveRecord::Base
   extend Devise::Models
-  has_many :coffee_shops
-  has_many :reviews 
+  has_many :reviews, dependent: :destroy
+  has_many :coffee_shops, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

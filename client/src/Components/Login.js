@@ -2,13 +2,14 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormInput } from "../customHooks/useFormInput";
 import { AuthContext } from "../providers/AuthProvider";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import {Link} from "react-router-dom"
 
 const Login = (props) => {
   const history = useHistory();
   const { handleLogin } = useContext(AuthContext);
   const email = useFormInput("", "Email");
-  const password = useFormInput("", "Email");
+  const password = useFormInput("", "Password");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,14 +31,14 @@ const Login = (props) => {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" {...password} />
         </Form.Group>
-        <button variant="info" type="submit">
+        <button type="submit">
           Login
         </button>
       </Form>
       <br />
-      <button variant="success" href="/">
+      <Link to="/"> 
         Back
-      </button>
+      </Link>
     </div>
   );
 };
