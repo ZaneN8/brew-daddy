@@ -12,6 +12,7 @@ import Lander from "./Components/Lander";
 import User from "./Components/User";
 import CoffeeShop from "./Components/CoffeeShop";
 import CoffeeShopForm from "./Components/CoffeeShopForm";
+import Profile from "./Components/Profile";
 
 import "./App.css";
 import { Container } from "react-bootstrap";
@@ -23,19 +24,16 @@ const App = () => (
       <br />
       <Container>
         <Switch>
-          <ProtectedRoute exact path="/home" component={Home} />
-          <ProtectedRoute exact path="/about" component={About} />
-          <ProtectedRoute exact path="/user" component={User} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/about" component={About} />
+          <ProtectedRoute exact path="/profile" component={Profile} />
+          <Route exact path="/users/:id" component={User} />
           <ProtectedRoute
             exact
             path="/user/coffee_create"
             component={CoffeeShopForm}
           />
-          <ProtectedRoute
-            exact
-            path="/coffee_shops/:id"
-            component={CoffeeShop}
-          />
+          <Route exact path="/coffee_shops/:id" component={CoffeeShop} />
           <Route exact path="/" component={Lander} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />

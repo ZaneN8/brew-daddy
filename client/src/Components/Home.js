@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 
 //dummy data for frontend
 // let cShops = [{id:1, name: "CoffeeShop1", description: "This place sucks", city: "SLC", state: 'UT', zip: "123456"},
@@ -11,7 +11,7 @@ const Home = () => {
 
   const getShops = async () => {
     try {
-      let res = await Axios.get("/api/coffee_shops");
+      let res = await axios.get("/api/coffee_shops");
       setShops(res.data);
     } catch (err) {
       console.log(err.response);
@@ -21,7 +21,7 @@ const Home = () => {
 
   const renderShops = () => {
     return shops.map((shop) => (
-      <div>
+      <div key={shop.id}>
         <img src={shop.image} />
         <Link as="h1" to={`/coffee_shops/${shop.id}`}>
           {shop.name}

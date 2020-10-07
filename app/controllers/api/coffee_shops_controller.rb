@@ -1,9 +1,19 @@
 class Api::CoffeeShopsController < ApplicationController
-before_action :authenticate_user!
-before_action :set_coffee_shop, only: [:show, :update, :destroy]
+# before_action :authenticate_user!
+before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
 
+  # For Search stuff:  https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
+  
   def index 
-    render json: CoffeeShop.all
+    coffee_shop_result = CoffeeShop.where(nil)
+    coffee_shop_result = CoffeeShop.filter_by_name(params[:name]) if params[:name].present?
+    render json: coffee_shop_result 
+    # render json: CoffeeShop.all
+    # replace here <-----
+  end
+
+  def cu_index
+    render json: @current_user.coffee_shops
   end
 
   def show
@@ -24,8 +34,6 @@ before_action :set_coffee_shop, only: [:show, :update, :destroy]
     current_user.coffee_shops << parmas[:id].to_i
     current_user.save
   end
-
-
 
 
   def destroy
@@ -59,6 +67,10 @@ before_action :set_coffee_shop, only: [:show, :update, :destroy]
         :order_online,
       )
   end
+
+
+
+
 end
 
 
