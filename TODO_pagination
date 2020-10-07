@@ -1,0 +1,17 @@
+And this is kaminari, a gem for pagination. It's pretty much the standard for pagination in rails.
+https://github.com/kaminari/kaminari
+GitHubGitHub
+kaminari/kaminari
+:zap: A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Ruby webapps - kaminari/kaminari
+2:02
+@Jon I would start with making a controller action that does a basic match for the coffeeshop title and paginates the results. We can worry about extending the filters afterward.
+
+Jon:male-technologist:  2:05 PM
+sounds good. might need to change the seeds to have keyword in the search
+
+Nick Ristagno  2:05 PM
+Our requests will not pass data in the request body, they'll be passed into the query parameters. So the request url will look something like:
+api/coffee_shops?title=roasters&page=2
+and in rails the data will come back at the top level of params instead of nested inside of params[:coffee_shop]
+2:06
+We can either write query parameters explicitly in the URL, or axios can accept them via an options object. We won't have to worry about that for a while though.

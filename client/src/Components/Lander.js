@@ -1,9 +1,10 @@
 import React from "react";
+import SearchBar from "./SearchBar";
 
 const Lander = () => (
   <>
     <div>
-      <h3>Search Bar</h3>
+      <SearchBar />
     </div>
     <div>
       <h3>We are Brew Daddy</h3>
