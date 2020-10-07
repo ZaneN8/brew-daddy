@@ -1,18 +1,17 @@
 import React from "react";
-import {Link} from "react-router-dom"
 
 const Lander = () => (
-  <div>
-    <h1 className="landing">Welcome to BrewDaddy LANDER</h1>
-    <br />
-    <br />
-    <Link to="/login" >
-      Login
-    </Link>
-    <br />
-    <br />
-    <Link to="/register">Sign Up</Link>
-  </div>
+  <>
+    <div>
+      <h3>Search Bar</h3>
+    </div>
+    <div>
+      <h3>We are Brew Daddy</h3>
+    </div>
+    <div>
+      <h3>Meet our Team</h3>
+    </div>
+  </>
 );
 
 export default Lander;

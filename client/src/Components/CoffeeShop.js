@@ -1,29 +1,27 @@
 import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import { AuthContext } from "../providers/AuthProvider";
+import Review from "./Review";
+import { Link } from "react-router-dom";
+import CoffeeShopReview from "./CoffeeShopReview";
 
 const CoffeeShop = ({ match, history }) => {
-  const auth = useContext(AuthContext);
   const [shops, setShops] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     Axios.get(`/api/coffee_shops/${match.params.id}`)
       .then((res) => {
         setShops(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
-        // console.log()
         alert("Error: could not get shop info");
       });
 
     Axios.get(`/api/coffee_shops/${match.params.id}/reviews`)
-      // Axios.get(`/api/reviews/all`)
       .then((res) => {
         setReviews(res.data);
-        console.log("Review");
-        console.log(res.data);
       })
       .catch((err) => {
         alert("ERROR: No reviews");
@@ -32,20 +30,12 @@ const CoffeeShop = ({ match, history }) => {
 
   const renderReviews = () => {
     return reviews.map((review) => (
-      <>
-        <h2>{review.title}</h2>
-        <h5>{review.body}</h5>
-        <p>Total rating:{review.rating}</p>
-        <p>Coffee rating:{review.coffee_rating}</p>
-        <p>Work friendly:{review.work_friendly}</p>
-        <p>Food:{review.food}</p>
-        <p>Noise:{review.noise_level}</p>
-      </>
+      <CoffeeShopReview key={review.id} review={review} />
     ));
   };
 
   const renderShopInfo = () => (
-    <>
+    <div>
       <h1>{shops.name}</h1>
       <img src={shops.image} />
 
@@ -53,17 +43,19 @@ const CoffeeShop = ({ match, history }) => {
       <h5>
         {shops.state}, {shops.city} {shops.zip}
       </h5>
+
       <p>
         Open:{shops.open} Delivery:{shops.delivery} PickUp: {shops.pickup}{" "}
         Online:{shops.order_online}
       </p>
-    </>
+    </div>
   );
 
   return (
     <div>
-      <p>{renderShopInfo()}</p>
-      <p>{renderReviews()}</p>
+      <div>{renderShopInfo()}</div>
+      <div>{renderReviews()}</div>
+      <Review />
       <hr />
       <button onClick={history.goBack}>BACK</button>
     </div>
