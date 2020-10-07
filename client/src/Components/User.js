@@ -7,8 +7,6 @@ const User = ({ match }) => {
   const [users, setUsers] = useState([]);
   const [shops, setShops] = useState([]);
 
-  console.log(match);
-
   const getUser = async () => {
     try {
       let res = await axios.get(`/api/users/${match.params.id}`);

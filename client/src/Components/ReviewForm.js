@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 const ReviewForm = () => {
-  const [images, setImages] = useState([]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log();
   };
 
   return (

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const UserCoffeeShops = ({ match }) => {
+  const [deleteReview, setDeleteReview] = useState([]);
   const [editReview, setEditReview] = useState([]);
   const [deleteShop, setDeleteShop] = useState([]);
   const [editShop, setEditShop] = useState([]);
@@ -18,15 +19,26 @@ const UserCoffeeShops = ({ match }) => {
   //   }
   // };
 
-  const getShops = async () => {
-    try {
-      let res = await axios.get(`/api/${match.params.id}/my_coffee_shops`);
-      setShops(res.data);
-    } catch (err) {
-      console.log(err.response);
-      alert("Error: Importing SHOPS API");
-    }
-  };
+  // const editReview = async () => {
+  //   try {
+  //     let res = await axios.put(`/api/users/${match.params.id}/reviews/${review.id}`);
+  //   } catch (err) {
+  //     console.log(err.response);
+  //     alert("Error: Editing review failed")
+  //   }
+  // };
+
+  // const deleteReview
+
+  // const getShops = async () => {
+  //   try {
+  //     let res = await axios.get(`/api/${match.params.id}/my_coffee_shops`);
+  //     setShops(res.data);
+  //   } catch (err) {
+  //     console.log(err.response);
+  //     alert("Error: Importing SHOPS API");
+  //   }
+  // };
 
   // const deleteShop = async () => {
   //   try {
@@ -72,14 +84,3 @@ export default UserCoffeeShops;
 //    .catch((error) => {
 //       alert('error in deleting Coffee Shop Review');
 // });
-
-// updateCoffeeShopReview(e)
-//   e.preventDefault();
-//   Axios
-//   .put('TODO rails_route_goes_here')
-//   .then((res) => {
-//     setCoffeeShopReviews(res.data);
-//   })
-//   .catch((error) => {
-//     alert("error in updating Coffee Shop Review");
-//   });
