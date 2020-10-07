@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Form } from "react-bootstrap";
-import { propTypes } from "react-bootstrap/esm/Image";
+
 
 
 const SearchBar = () => {
@@ -8,7 +8,7 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    propTypes.query(query)
+    
   };
 
 
