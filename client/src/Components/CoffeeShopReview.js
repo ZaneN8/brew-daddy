@@ -28,7 +28,7 @@ const CoffeeShopReview = ({ review }) => {
       <p>Food:{review.food}</p>
       <p>Noise:{review.noise_level}</p>
       <p>
-        User:<Link to="/user">{review.user_id}</Link>
+        User:<Link to={`/users/${review.user_id}`}>{review.user_id}</Link>
       </p>
     </div>
   );

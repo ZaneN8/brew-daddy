@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
-import { AuthContext } from "../providers/AuthProvider";
 import Review from "./Review";
-import { Link } from "react-router-dom";
 import CoffeeShopReview from "./CoffeeShopReview";
 
 const CoffeeShop = ({ match, history }) => {
   const [shops, setShops] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const auth = useContext(AuthContext);
 
   useEffect(() => {
     Axios.get(`/api/coffee_shops/${match.params.id}`)
