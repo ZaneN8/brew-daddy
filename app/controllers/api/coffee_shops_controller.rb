@@ -2,8 +2,14 @@ class Api::CoffeeShopsController < ApplicationController
 # before_action :authenticate_user!
 before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
 
+  # For Search stuff:  https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
+  
   def index 
-    render json: CoffeeShop.all
+    coffee_shop_result = CoffeeShop.where(nil)
+    coffee_shop_result = CoffeeShop.filter_by_name(params[:name]) if params[:name].present?
+    render json: coffee_shop_result 
+    # render json: CoffeeShop.all
+    # replace here <-----
   end
 
   def cu_index
@@ -29,15 +35,7 @@ before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
     current_user.save
   end
 
-  def search
-    coffee_shop_result = where(nil)
-    coffee_shop_result = CoffeeShop.filter_by_name(params[:name]) if params[:name].present?
-    render json: coffee_shop_result 
-
-    #Do we need to do something for this? in index? See Justin Weiss info
-    # https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
-  end
-
+  
   def destroy
     @coffee_shop.destroy
   end
