@@ -1,6 +1,5 @@
-
 import Axios from "axios";
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
 const FetchUser = (props) => {
@@ -13,7 +12,6 @@ const FetchUser = (props) => {
   }, []);
 
   const checkUser = async () => {
- 
     if (authenticated || !localStorage.getItem("access-token")) {
       setLoaded(true);
       return;
