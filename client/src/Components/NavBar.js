@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 
 // For Basic setup only please change
-const NavBar = () => {
+const NavBar = ({ match }) => {
   const history = useHistory();
   const { user, handleLogout } = useContext(AuthContext);
 
@@ -11,7 +11,9 @@ const NavBar = () => {
     if (user) {
       return (
         <>
-          <Link  onClick={() => handleLogout(history)} to="" >Logout</Link>
+          <Link onClick={() => handleLogout(history)} to="">
+            Logout
+          </Link>
         </>
       );
     } else {
@@ -30,7 +32,7 @@ const NavBar = () => {
       <Link to="/home">DashBoard</Link>
       <span style={{ marginRight: "10px" }}></span>
       <div>{correctNavBar()}</div>
-      {user && <Link to="/user">User Profile</Link>}
+      {user && <Link to="/profile">User Profile</Link>}
     </div>
   );
 };
@@ -42,8 +44,4 @@ const styles = {
   },
 };
 
-
-
-
 export default NavBar;
-

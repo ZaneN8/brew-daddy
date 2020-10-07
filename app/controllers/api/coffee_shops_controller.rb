@@ -35,7 +35,7 @@ before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
     current_user.save
   end
 
-  
+
   def destroy
     @coffee_shop.destroy
   end
