@@ -1,15 +1,33 @@
-import React, { useContext } from "react";
+import Axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../providers/AuthProvider";
 
 const User = () => {
-  const auth = useContext(AuthContext);
+  const [users, setUsers] = useState([]);
+
+  const getUser = async () => {
+    try {
+      let res = await Axios.get(`/api/users/`);
+      setUsers(res.data);
+    } catch (err) {
+      console.log(err.response);
+      alert("Error: Importing user API");
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const renderUser = () => {
+    return users.map((user) => <p key={user.id}>{user.first_name}</p>);
+  };
 
   return (
     <>
-      <h1>User Info</h1>
+      <h1>Title</h1>
       <p>Avatar</p>
-      <p>First Name</p>
+      <div>{renderUser()}</div>
       <p> Last Name </p>
       <p>Email</p>
       <Link to="/user/coffee_create">Create a CoffeeShop</Link>
