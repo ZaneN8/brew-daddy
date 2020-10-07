@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const CoffeeShopForm = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+const CoffeeShopForm = ({ match }) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   axios.post(`/api/users/${match.props.id}/coffee_shops`).then((res) => {
+  //     props.add(res.data).catch((err) => {
+  //       alert("ERROR CAN NOT ADD");
+  //     });
+  //   });
+  // };
 
   return (
     <div>
       <h1>Create a CoffeeShop</h1>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Form.Group>
           <Form.Label>Name</Form.Label>
           <Form.Control autoFocus />

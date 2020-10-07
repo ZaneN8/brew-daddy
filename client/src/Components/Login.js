@@ -3,13 +3,13 @@ import { useHistory } from "react-router-dom";
 import { useFormInput } from "../customHooks/useFormInput";
 import { AuthContext } from "../providers/AuthProvider";
 import { Form } from "react-bootstrap";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const Login = (props) => {
   const history = useHistory();
   const { handleLogin } = useContext(AuthContext);
-  const email = useFormInput("", "Email");
-  const password = useFormInput("", "Password");
+  const email = useFormInput("test2@example.com", "Email"); //TODO Remove this
+  const password = useFormInput("123456", "Password"); //TODO Remove this
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,14 +31,10 @@ const Login = (props) => {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" {...password} />
         </Form.Group>
-        <button type="submit">
-          Login
-        </button>
+        <button type="submit">Login</button>
       </Form>
       <br />
-      <Link to="/"> 
-        Back
-      </Link>
+      <Link to="/">Back</Link>
     </div>
   );
 };

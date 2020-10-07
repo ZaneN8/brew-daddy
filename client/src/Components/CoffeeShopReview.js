@@ -19,7 +19,9 @@ const CoffeeShopReview = ({ review }) => {
 
   return (
     <div key={review.id}>
-      <p>{user && user.first_name + " " + user.last_name}</p>
+      <Link to={`/users/${review.user_id}`}>
+        {user && user.first_name + " " + user.last_name}
+      </Link>
       <h2>{review.title}</h2>
       <h5>{review.body}</h5>
       <p>Total rating:{review.rating}</p>
@@ -27,9 +29,6 @@ const CoffeeShopReview = ({ review }) => {
       <p>Work friendly:{review.work_friendly}</p>
       <p>Food:{review.food}</p>
       <p>Noise:{review.noise_level}</p>
-      <p>
-        User:<Link to={`/users/${review.user_id}`}>{review.user_id}</Link>
-      </p>
     </div>
   );
 };

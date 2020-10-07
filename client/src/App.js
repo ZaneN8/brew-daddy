@@ -12,6 +12,7 @@ import Lander from "./Components/Lander";
 import User from "./Components/User";
 import CoffeeShop from "./Components/CoffeeShop";
 import CoffeeShopForm from "./Components/CoffeeShopForm";
+import Profile from "./Components/Profile";
 
 import "./App.css";
 import { Container } from "react-bootstrap";
@@ -25,7 +26,7 @@ const App = () => (
         <Switch>
           <Route exact path="/home" component={Home} />
           <Route exact path="/about" component={About} />
-          {/* <Route exact path="/user" component={User} /> */}
+          <ProtectedRoute exact path="/profile" component={Profile} />
           <Route exact path="/users/:id" component={User} />
           <ProtectedRoute
             exact

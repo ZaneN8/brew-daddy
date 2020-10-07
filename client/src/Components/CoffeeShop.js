@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import Axios from "axios";
+import axios from "axios";
 import Review from "./Review";
 import CoffeeShopReview from "./CoffeeShopReview";
 
@@ -8,7 +8,8 @@ const CoffeeShop = ({ match, history }) => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    Axios.get(`/api/coffee_shops/${match.params.id}`)
+    axios
+      .get(`/api/coffee_shops/${match.params.id}`)
       .then((res) => {
         setShops(res.data);
       })
@@ -16,7 +17,8 @@ const CoffeeShop = ({ match, history }) => {
         alert("Error: could not get shop info");
       });
 
-    Axios.get(`/api/coffee_shops/${match.params.id}/reviews`)
+    axios
+      .get(`/api/coffee_shops/${match.params.id}/reviews`)
       .then((res) => {
         setReviews(res.data);
       })

@@ -1,0 +1,21 @@
+https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
+
+
+Nick Ristagno  1:56 PM
+Info relating to search:
+https://stackoverflow.com/questions/17555205/pattern-matching-in-rails-where-column-like-foo-with-postgres/17555274
+This stackoverflow shows how to write a function that matches strings in postgresql. BUT, use ILIKE instead of LIKE because it's case insensitive. (edited) 
+Stack OverflowStack Overflow
+Pattern matching in rails ( "where column LIKE '%foo%") with Postgres
+I have a Person model that includes names, and I want to search these as simply as possible. Is there a rails/ActiveRecord method along the lines of People.like(:name => "%#{query}%"), like what
+
+
+
+
+
+1:57
+https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
+This resource explains a more extendable way of writing filters. You don't have to understand all of this or implement it exactly the same way, but it would benefit everyone to look up and understand scopes in rails, as well as modules and concerns. (edited) 
+Justin WeissJustin Weiss
+Search and filter Rails models without bloating your controller (61 kB)
+
