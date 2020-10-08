@@ -147,8 +147,6 @@ const CoffeeShopForm = ({ match }) => {
         </Form.Group>
         <button type="submit">Submit</button>
       </Form>
-      <br />
-      <Link to="/user">Back</Link>
     </div>
   );
 };

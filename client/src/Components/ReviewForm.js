@@ -1,38 +1,45 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
-const ReviewForm = () => {
-  const [title, setTitle] = useState([]);
-  const [body, setBody] = useState([]);
-  const [image, setImage] = useState([]);
-  const [rate, setRate] = useState([]);
-  const [coffeeRate, setCoffeeRate] = useState([]);
-  const [work, setWork] = useState([]);
-  const [food, setFood] = useState([]);
-  const [noise, setNoise] = useState([]);
+const ReviewForm = ({ addReview, shopId }) => {
+  const [reviewState, setReviewState] = useState({
+    title: "",
+    body: "",
+    image: "",
+    rate: 0,
+    coffeeRate: 0,
+    work: 0,
+    food: 0,
+    noise: 0,
+  });
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // this needs a updated api call
-  //   axios.post("/api/coffeeShop/reviews") /
-  //     then((res) => {
-  //       prop.add(res.data);
-  //     });
-  // };
+  const handleChange = (e) => {
+    setReviewState({ ...reviewState, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    debugger;
+    // this needs a updated api call
+    axios
+      .post(`/api/coffee_shops/${shopId}/reviews`, reviewState)
+      .then((res) => {
+        addReview.add(res.data);
+      });
+  };
 
   return (
     <div>
       <h4>Write a Review</h4>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Title</Form.Label>
           <Form.Control
             name="title"
-            value={title}
+            value={reviewState.title}
             required
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
@@ -40,16 +47,16 @@ const ReviewForm = () => {
           <Form.Control
             name="body"
             required
-            value={body}
+            value={reviewState.body}
             type="text area"
-            onChange={(e) => setBody(e.target.value)}
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
           <Form.File
             name="image"
             label="Upload Review Image"
-            onChange={(e) => setImage(e.target.value)}
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
@@ -57,9 +64,9 @@ const ReviewForm = () => {
           <Form.Control
             name="rate"
             required
-            value={rating}
+            value={reviewState.rate}
             type="number"
-            onChange={(e) => setRate(e.target.value)}
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
@@ -67,19 +74,19 @@ const ReviewForm = () => {
           <Form.Control
             name="coffeeRate"
             required
-            value={coffee_rating}
+            value={reviewState.coffeeRate}
             type="number"
-            onChange={(e) => setCoffeeRate(e.target.value)}
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
           <Form.Label>Work Friendly</Form.Label>
           <Form.Control
             name="work"
-            value={work_friendly}
+            value={reviewState.work}
             required
-            type="text"
-            onChange={(e) => setWork(e.target.value)}
+            type="number"
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
@@ -87,9 +94,9 @@ const ReviewForm = () => {
           <Form.Control
             name="food"
             required
-            value={food}
-            type="text"
-            onChange={(e) => setFood(e.target.value)}
+            value={reviewState.food}
+            type="number"
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
@@ -97,12 +104,14 @@ const ReviewForm = () => {
           <Form.Control
             name="noise"
             required
-            type="text"
-            value={noise_level}
-            onChange={(e) => setNoise(e.target.value)}
+            type="number"
+            value={reviewState.noise}
+            onChange={handleChange}
           />
         </Form.Group>
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
       </Form>
       <br />
     </div>
