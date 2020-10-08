@@ -30,12 +30,15 @@ const AuthProvider = (props) => {
 
   //TODO We somehow broke this
   const handleLogout = async (history) => {
+    console.log(user);
     try {
       // await block until done
       let res = await axios.delete("/api/auth/sign_out");
-      setUser(res.data.data);
+      debugger;
+      setUser(null);
       history.push("/login");
     } catch (err) {
+      debugger;
       console.log("Logout Failed");
     }
   };

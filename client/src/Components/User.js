@@ -5,7 +5,6 @@ import UserCoffeeShops from "./UserCoffeeShops";
 
 const User = ({ match }) => {
   const [users, setUsers] = useState([]);
-  const [shops, setShops] = useState([]);
 
   const getUser = async () => {
     try {
@@ -28,6 +27,7 @@ const User = ({ match }) => {
       <div>{users.first_name}</div>
       <p> {users.last_name} </p>
       <p>{users.email}</p>
+      <p>{reviews.body}</p>
       {/* <UserCoffeeShops /> */}
     </>
   );
