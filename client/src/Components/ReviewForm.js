@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form } from "react-bootstrap";
 import axios from "axios";
+import { AuthContext } from "../providers/AuthProvider";
 
 const ReviewForm = ({ addReview, shopId }) => {
+  const auth = useContext(AuthContext);
   const [reviewState, setReviewState] = useState({
     title: "",
     body: "",
     image: "",
     rate: 0,
-    coffeeRate: 0,
-    work: 0,
+    coffee_rating: 0,
+    work_friendly: 0,
     food: 0,
-    noise: 0,
+    noise_level: 0,
+    user_id: auth.user.id,
   });
 
   const handleChange = (e) => {
@@ -20,13 +23,10 @@ const ReviewForm = ({ addReview, shopId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    debugger;
-    // this needs a updated api call
+
     axios
       .post(`/api/coffee_shops/${shopId}/reviews`, reviewState)
-      .then((res) => {
-        addReview.add(res.data);
-      });
+      .then((res) => addReview(res.data));
   };
 
   return (
@@ -72,9 +72,9 @@ const ReviewForm = ({ addReview, shopId }) => {
         <Form.Group>
           <Form.Label>Coffee Rating</Form.Label>
           <Form.Control
-            name="coffeeRate"
+            name="coffee_rating"
             required
-            value={reviewState.coffeeRate}
+            value={reviewState.coffee_rating}
             type="number"
             onChange={handleChange}
           />
@@ -82,8 +82,8 @@ const ReviewForm = ({ addReview, shopId }) => {
         <Form.Group>
           <Form.Label>Work Friendly</Form.Label>
           <Form.Control
-            name="work"
-            value={reviewState.work}
+            name="work_friendly"
+            value={reviewState.work_friendly}
             required
             type="number"
             onChange={handleChange}
@@ -102,10 +102,10 @@ const ReviewForm = ({ addReview, shopId }) => {
         <Form.Group>
           <Form.Label>Noise Level</Form.Label>
           <Form.Control
-            name="noise"
+            name="noise_level"
             required
             type="number"
-            value={reviewState.noise}
+            value={reviewState.noise_level}
             onChange={handleChange}
           />
         </Form.Group>

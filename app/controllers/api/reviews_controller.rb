@@ -1,13 +1,14 @@
 class Api::ReviewsController < ApplicationController
-  before_action :set_coffee_shop
+  before_action :set_coffee_shop, only: [:index, :create]
   before_action :set_review, only: [:update, :destroy]
+  before_action :set_user, only: [:cu_reviews] 
 
   def index
     render json: @coffee_shop.reviews
   end
 
   def cu_reviews
-    render json: @current_user.reviews
+    render json: @user.reviews
   end
 
   def all
@@ -53,11 +54,16 @@ class Api::ReviewsController < ApplicationController
       :work_friendly,
       :food,
       :noise_level,
+      :user_id,
     )
   end
 
   def set_coffee_shop
     @coffee_shop = CoffeeShop.find(params[:coffee_shop_id])
+  end
+
+  def set_user
+    @user = User.find(params[:user_id])
   end
 end
 
