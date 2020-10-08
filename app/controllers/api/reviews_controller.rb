@@ -54,6 +54,7 @@ class Api::ReviewsController < ApplicationController
       :work_friendly,
       :food,
       :noise_level,
+      :user_id,
     )
   end
 
@@ -64,6 +65,5 @@ class Api::ReviewsController < ApplicationController
   def set_user
     @user = User.find(params[:user_id])
   end
-
 end
 

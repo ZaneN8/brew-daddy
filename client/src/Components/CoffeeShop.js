@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import Review from "./Review";
+import ReviewForm from "./ReviewForm";
 import CoffeeShopReview from "./CoffeeShopReview";
 
 const CoffeeShop = ({ match, history }) => {
   const [shops, setShops] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     axios
@@ -50,11 +51,30 @@ const CoffeeShop = ({ match, history }) => {
     </div>
   );
 
+  const addReview = (review) => {
+    debugger;
+    setReviews([...reviews, review]);
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   debugger;
+  //   // this needs a updated api call
+  //   axios.post(`/api/coffee_shops/${match.params.id}/reviews`).then((res) => {
+  //     addReview.add(res.data);
+  //   });
+  // };
+
   return (
     <div>
       <div>{renderShopInfo()}</div>
       <div>{renderReviews()}</div>
-      <Review />
+      <>
+        {showForm && <ReviewForm addReview={addReview} shopId={shops.id} />}
+        <button onClick={() => setShowForm(!showForm)}>
+          {showForm ? "Cancel Review" : "Write Review"}
+        </button>
+      </>
       <hr />
       <button onClick={history.goBack}>BACK</button>
     </div>
