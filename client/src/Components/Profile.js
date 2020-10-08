@@ -16,8 +16,7 @@ const Profile = () => {
 
   return (
     <div>
-      {/* <User /> */}
-
+      <User />
       <p>ADD COFFEE SHOP SPOT</p>
       <p>ADD Review SHOP SPOT</p>
       <br />

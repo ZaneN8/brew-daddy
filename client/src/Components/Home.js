@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Search from "./Search";
 
 //dummy data for frontend
 // let cShops = [{id:1, name: "CoffeeShop1", description: "This place sucks", city: "SLC", state: 'UT', zip: "123456"},
@@ -38,10 +39,13 @@ const Home = () => {
   return (
     <>
       <h1>Welcome to Brew Daddy HOME</h1>
+      <div>
+        <Search />
+      </div>
       <br />
       {renderShops()}
     </>
   );
 };
-
+// TODO: We will need to clear the rendershop() if search function is executed.
 export default Home;
