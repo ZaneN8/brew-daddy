@@ -9,7 +9,7 @@ const ReviewForm = ({ addReview, shopId }) => {
     title: "",
     body: "",
     image: "",
-    rate: 0,
+    rating: 0,
     coffee_rating: 0,
     work_friendly: 0,
     food: 0,
@@ -56,15 +56,16 @@ const ReviewForm = ({ addReview, shopId }) => {
           <Form.File
             name="image"
             label="Upload Review Image"
+            value={reviewState.image}
             onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
           <Form.Label>Shop Rating</Form.Label>
           <Form.Control
-            name="rate"
+            name="rating"
             required
-            value={reviewState.rate}
+            value={reviewState.rating}
             type="number"
             onChange={handleChange}
           />
@@ -119,9 +120,3 @@ const ReviewForm = ({ addReview, shopId }) => {
 };
 
 export default ReviewForm;
-
-// review.rating = rand(max)
-// review.coffee_rating = rand(max)
-// review.work_friendly = rand(max)
-// review.food = rand(max)
-// review.noise_level = rand(max)
