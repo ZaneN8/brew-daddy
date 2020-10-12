@@ -1,10 +1,10 @@
-
 img {
-  height:50px;
-  width:50px;
+  height: 50px;
+  width: 50px;
 }
+/* TODO Fix image sizing */
 
-.landing{
+.landing {
   margin-top: 10%;
   text-align: center;
 }
@@ -24,7 +24,7 @@ img {
   }
 }
 
-.userLink{
+.userLink {
   margin-left: 10%;
 }
 

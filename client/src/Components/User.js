@@ -4,30 +4,42 @@ import { Link } from "react-router-dom";
 import UserCoffeeShops from "./UserCoffeeShops";
 
 const User = ({ match }) => {
-  const [users, setUsers] = useState([]);
-  const [shops, setShops] = useState([]);
+  const [user, setUser] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   const getUser = async () => {
     try {
       let res = await axios.get(`/api/users/${match.params.id}`);
-      setUsers(res.data);
+      setUser(res.data);
     } catch (err) {
       console.log(err.response);
       alert("Error: Importing user API");
     }
   };
 
+  const getReviews = async () => {
+    debugger;
+    try {
+      let res = await axios.get(`/api/users/${match.params.id}/reviews`);
+      setReviews(res.data);
+    } catch (err) {
+      console.log(err.response);
+      alert("Error: failed to get users reviews");
+    }
+  };
+
   useEffect(() => {
     getUser();
+    getReviews();
   }, []);
 
   return (
     <>
       <h1>Title</h1>
-      <img src={users.image} />
-      <div>{users.first_name}</div>
-      <p> {users.last_name} </p>
-      <p>{users.email}</p>
+      <img src={user.image} />
+      <div>{user.first_name}</div>
+      <p> {user.last_name} </p>
+      <p>{user.email}</p>
       {/* <UserCoffeeShops /> */}
     </>
   );

@@ -1,44 +1,87 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../providers/AuthProvider";
 
 const CoffeeShopForm = ({ match }) => {
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   axios.post(`/api/users/${match.props.id}/coffee_shops`).then((res) => {
-  //     props.add(res.data).catch((err) => {
-  //       alert("ERROR CAN NOT ADD");
-  //     });
-  //   });
-  // };
+  const auth = useContext(AuthContext);
+  const [coffeeShopState, setCoffeeShopState] = useState({
+    name: "",
+    description: "",
+    image: "",
+    city: "",
+    state: "",
+    zip: 0,
+    open: false,
+    contact_info: "",
+    cost: 0,
+    delivery: false,
+    pickup: false,
+    order_online: false,
+    user_id: auth.user.id,
+  });
+
+  const handleChange = (e) => {};
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div>
       <h1>Create a CoffeeShop</h1>
-      <Form>
+      <Form inSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Name</Form.Label>
-          <Form.Control autoFocus />
+          <Form.Control
+            autoFocus
+            name="name"
+            value={coffeeShopState.name}
+            required
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" />
+          <Form.Control
+            as="textarea"
+            name="description"
+            required
+            value={coffeeShopState.description}
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group>
-          <Form.File id="exampleFormControlFile1" label="Example file input" />
+          <Form.File
+            label="Upload Coffee Shop Image"
+            name="image"
+            value={coffeeShopState.description}
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>City</Form.Label>
-          <Form.Control />
+          <Form.Control
+            name="City"
+            required
+            value={coffeeShopState.city}
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>State</Form.Label>
-          <Form.Control />
+          <Form.Control name="state" required value={coffeeShopState.state} />
         </Form.Group>
         <Form.Group>
           <Form.Label>Zip</Form.Label>
-          <Form.Control />
+          <Form.Control
+            name="zip"
+            required
+            value={coffeeShopState.zip}
+            type="number"
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
@@ -48,20 +91,26 @@ const CoffeeShopForm = ({ match }) => {
             <Form.Check
               type="radio"
               label="Yes"
-              name="openHorizontalRadios"
-              id="openHorizontalRadios1"
+              name="open"
+              //customer onchange function to make true
+              value={coffeeShopState.open}
             />
             <Form.Check
               type="radio"
               label="No"
-              name="openHorizontalRadios"
-              id="openHorizontalRadios2"
+              name="open"
+              value={coffeeShopState.open}
             />
           </Col>
         </Form.Group>
         <Form.Group>
           <Form.Label>Contact Number</Form.Label>
-          <Form.Control />
+          <Form.Control
+            name="contact"
+            required
+            type=""
+            value={coffeeShopState.contact_info}
+          />
         </Form.Group>
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
@@ -71,20 +120,20 @@ const CoffeeShopForm = ({ match }) => {
             <Form.Check
               type="radio"
               label="$"
-              name="costHorizontalRadios"
-              id="costHorizontalRadios1"
+              name="cost"
+              value={coffeeShopState.cost}
             />
             <Form.Check
               type="radio"
               label="$$"
-              name="costHorizontalRadios"
-              id="costHorizontalRadios2"
+              name="cost"
+              value={coffeeShopState.cost}
             />
             <Form.Check
               type="radio"
               label="$$$"
-              name="costHorizontalRadios"
-              id="costHorizontalRadios3"
+              name="cost"
+              value={coffeeShopState.cost}
             />
           </Col>
         </Form.Group>
@@ -96,14 +145,14 @@ const CoffeeShopForm = ({ match }) => {
             <Form.Check
               type="radio"
               label="Yes"
-              name="deliveryHorizontalRadios"
-              id="deliveryHorizontalRadios1"
+              name="delivery"
+              value={coffeeShopState.delivery}
             />
             <Form.Check
               type="radio"
               label="No"
-              name="deliveryHorizontalRadios"
-              id="deliveryHorizontalRadios2"
+              name="delivery"
+              value={coffeeShopState.delivery}
             />
           </Col>
         </Form.Group>
@@ -115,14 +164,14 @@ const CoffeeShopForm = ({ match }) => {
             <Form.Check
               type="radio"
               label="Yes"
-              name="pickUpHorizontalRadios"
-              id="pickUpHorizontalRadios1"
+              name="pickup"
+              value={coffeeShopState.pickup}
             />
             <Form.Check
               type="radio"
               label="No"
-              name="pickUpHorizontalRadios"
-              id="pickUpHorizontalRadios2"
+              name="pickup"
+              value={coffeeShopState.pickup}
             />
           </Col>
         </Form.Group>
@@ -134,21 +183,19 @@ const CoffeeShopForm = ({ match }) => {
             <Form.Check
               type="radio"
               label="Yes"
-              name="orderHorizontalRadios"
-              id="orderHorizontalRadios1"
+              name="order_online"
+              value={coffeeShopState.order_online}
             />
             <Form.Check
               type="radio"
               label="No"
-              name="orderHorizontalRadios"
-              id="orderHorizontalRadios2"
+              name="order_online"
+              value={coffeeShopState.order_online}
             />
           </Col>
         </Form.Group>
         <button type="submit">Submit</button>
       </Form>
-      <br />
-      <Link to="/user">Back</Link>
     </div>
   );
 };
