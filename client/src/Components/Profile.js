@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-// import User from "./User";
+import User from "./User";
 import { Link } from "react-router-dom";
 import CoffeeShopForm from "./CoffeeShopForm";
 import { AuthContext } from "../providers/AuthProvider";
@@ -27,6 +27,11 @@ const Profile = () => {
 
   const addCoffeeShop = (shop) => setShops([...shops, shop]);
 
+  // const renderProfileReviews = () => {
+
+  //   return (profileReviews.map())
+  // }
+
   return (
     <div>
       {/* <User /> */}
@@ -36,11 +41,11 @@ const Profile = () => {
         {user.first_name} {user.last_name}
       </div>
       <p>{user.email}</p>
-      <p>ADD COFFEE SHOP SPOT</p>
+      <p></p>
       <p>ADD Review SHOP SPOT</p>
-      {/* <p>{profileReviews}</p> */}
+      <p>{profileReviews.title}</p>
       <br />
-      {show && <CoffeeShopForm />}
+      {show && <CoffeeShopForm hide={setShow} add={addCoffeeShop} />}
       <button onClick={() => setShow(!show)}>
         {show ? "Cancel " : "Create Coffee Shop"}
       </button>

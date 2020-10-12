@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../providers/AuthProvider";
 
-const CoffeeShopForm = ({ match }) => {
+const CoffeeShopForm = ({ match, hide, add }) => {
   const auth = useContext(AuthContext);
   const [coffeeShopState, setCoffeeShopState] = useState({
     name: "",
@@ -22,16 +22,21 @@ const CoffeeShopForm = ({ match }) => {
     user_id: auth.user.id,
   });
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    setCoffeeShopState({ ...coffeeShopState, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    axios
+      .post(`/api/coffee_shops`, coffeeShopState)
+      .then((res) => add(res.data));
   };
 
   return (
     <div>
       <h1>Create a CoffeeShop</h1>
-      <Form inSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -45,9 +50,8 @@ const CoffeeShopForm = ({ match }) => {
         <Form.Group>
           <Form.Label>Description</Form.Label>
           <Form.Control
-            as="textarea"
             name="description"
-            required
+            // TODO wtf is up things works some dont and whenever you put anything in description it crashes
             value={coffeeShopState.description}
             onChange={handleChange}
           />
@@ -56,14 +60,14 @@ const CoffeeShopForm = ({ match }) => {
           <Form.File
             label="Upload Coffee Shop Image"
             name="image"
-            value={coffeeShopState.description}
+            value={coffeeShopState.image}
             onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
           <Form.Label>City</Form.Label>
           <Form.Control
-            name="City"
+            name="city"
             required
             value={coffeeShopState.city}
             onChange={handleChange}
@@ -71,7 +75,12 @@ const CoffeeShopForm = ({ match }) => {
         </Form.Group>
         <Form.Group>
           <Form.Label>State</Form.Label>
-          <Form.Control name="state" required value={coffeeShopState.state} />
+          <Form.Control
+            name="state"
+            required
+            onChange={handleChange}
+            value={coffeeShopState.state}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>Zip</Form.Label>
@@ -92,6 +101,7 @@ const CoffeeShopForm = ({ match }) => {
               type="radio"
               label="Yes"
               name="open"
+              onChange={handleChange}
               //customer onchange function to make true
               value={coffeeShopState.open}
             />
@@ -99,6 +109,7 @@ const CoffeeShopForm = ({ match }) => {
               type="radio"
               label="No"
               name="open"
+              onChange={handleChange}
               value={coffeeShopState.open}
             />
           </Col>
@@ -106,9 +117,10 @@ const CoffeeShopForm = ({ match }) => {
         <Form.Group>
           <Form.Label>Contact Number</Form.Label>
           <Form.Control
-            name="contact"
-            required
-            type=""
+            // TODO wont let you enter a number till you get 'e' then it will
+            name="contact_info"
+            type="number"
+            onChange={handleChange}
             value={coffeeShopState.contact_info}
           />
         </Form.Group>
@@ -121,18 +133,21 @@ const CoffeeShopForm = ({ match }) => {
               type="radio"
               label="$"
               name="cost"
+              onChange={handleChange}
               value={coffeeShopState.cost}
             />
             <Form.Check
               type="radio"
               label="$$"
               name="cost"
+              onChange={handleChange}
               value={coffeeShopState.cost}
             />
             <Form.Check
               type="radio"
               label="$$$"
               name="cost"
+              onChange={handleChange}
               value={coffeeShopState.cost}
             />
           </Col>
@@ -146,12 +161,14 @@ const CoffeeShopForm = ({ match }) => {
               type="radio"
               label="Yes"
               name="delivery"
+              onChange={handleChange}
               value={coffeeShopState.delivery}
             />
             <Form.Check
               type="radio"
               label="No"
               name="delivery"
+              onChange={handleChange}
               value={coffeeShopState.delivery}
             />
           </Col>
@@ -165,12 +182,14 @@ const CoffeeShopForm = ({ match }) => {
               type="radio"
               label="Yes"
               name="pickup"
+              onChange={handleChange}
               value={coffeeShopState.pickup}
             />
             <Form.Check
               type="radio"
               label="No"
               name="pickup"
+              onChange={handleChange}
               value={coffeeShopState.pickup}
             />
           </Col>
@@ -185,12 +204,14 @@ const CoffeeShopForm = ({ match }) => {
               label="Yes"
               name="order_online"
               value={coffeeShopState.order_online}
+              onChange={handleChange}
             />
             <Form.Check
               type="radio"
               label="No"
               name="order_online"
               value={coffeeShopState.order_online}
+              onChange={handleChange}
             />
           </Col>
         </Form.Group>

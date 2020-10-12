@@ -1,5 +1,5 @@
 class Api::CoffeeShopsController < ApplicationController
-# before_action :authenticate_user!
+before_action :authenticate_user!, only: [:create, :update, :destroy]
 before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
 
   # For Search stuff:  https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
@@ -30,14 +30,17 @@ before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
   end
 
   def update
-    # TODO confirm no instance '@' is needed
-    current_user.coffee_shops << parmas[:id].to_i
-    current_user.save
+    if @coffee_shop.save
+      render json: @coffee_shop
+    else
+      render json: @coffee_shop.errors, status: 422
+    end
   end
 
 
   def destroy
     @coffee_shop.destroy
+    render json: "Data deleted"
   end
 
 

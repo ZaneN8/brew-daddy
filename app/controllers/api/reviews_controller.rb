@@ -34,7 +34,7 @@ class Api::ReviewsController < ApplicationController
 
   def destroy
     review = @review.destroy
-    render json: @coffee_shop
+    render json: "Data deleted"
   end
 
   private
