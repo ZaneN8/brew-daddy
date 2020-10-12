@@ -1,13 +1,20 @@
 class Api::CoffeeShopsController < ApplicationController
 # before_action :authenticate_user!
 before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
-
   # For Search stuff:  https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
   
   def index 
+    # Search v1
+    # coffee_shop_result = CoffeeShop.where(nil)
+    # coffee_shop_result = CoffeeShop.filter_by_name(params[:name]) if params[:name].present?
+    # render json: coffee_shop_result 
+
     coffee_shop_result = CoffeeShop.where(nil)
-    coffee_shop_result = CoffeeShop.filter_by_name(params[:name]) if params[:name].present?
-    render json: coffee_shop_result 
+    filtering_params(params).each do |key, value|
+      coffee_shop_result = CoffeeShop.public_send("filter_by_#{key}", value) if value.present?
+    end
+    render json: coffee_shop_result
+
     # render json: CoffeeShop.all
     # replace here <-----
   end
@@ -47,6 +54,10 @@ before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
 
   def set_coffee_shop
     @coffee_shop = CoffeeShop.find(params[:id])
+  end
+
+  def filtering_params(params)
+    params.slice(:name, :state, :zip, :city)
   end
 
   def coffee_shop_params
