@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const CoffeeShopReview = ({ review }) => {
+const CoffeeShopReview = ({ review, shopId }) => {
   const [user, setUser] = useState(null);
+  const [reviews, setReviews] = useState([]);
 
   // get user on initial render
   useEffect(() => {
@@ -17,6 +18,17 @@ const CoffeeShopReview = ({ review }) => {
       .catch(console.log);
   }, []);
 
+  const deleteReview = (id) => {
+    console.log(shopId);
+    axios
+      .delete(`/api/coffee_shops/${shopId}/reviews/${id}`, {
+        params: { id: id },
+      })
+      .then((res) => {
+        setReviews(reviews.filter((review) => review.id !== id));
+      });
+  };
+
   return (
     <div key={review.id}>
       <Link to={`/users/${review.user_id}`}>
@@ -29,6 +41,7 @@ const CoffeeShopReview = ({ review }) => {
       <p>Work friendly:{review.work_friendly}</p>
       <p>Food:{review.food}</p>
       <p>Noise:{review.noise_level}</p>
+      <button onClick={() => deleteReview(review.id)}>Delete</button>
     </div>
   );
 };

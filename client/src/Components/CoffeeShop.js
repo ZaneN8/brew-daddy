@@ -30,7 +30,7 @@ const CoffeeShop = ({ match, history }) => {
 
   const renderReviews = () => {
     return reviews.map((review) => (
-      <CoffeeShopReview key={review.id} review={review} />
+      <CoffeeShopReview key={review.id} review={review} shopId={shops.id} />
     ));
   };
 

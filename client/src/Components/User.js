@@ -18,7 +18,6 @@ const User = ({ match }) => {
   };
 
   const getReviews = async () => {
-    debugger;
     try {
       let res = await axios.get(`/api/users/${match.params.id}/reviews`);
       setReviews(res.data);
