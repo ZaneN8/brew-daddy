@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Search from "./Search";
-
+import HomeSearch from "./HomeSearch";
 //dummy data for frontend
 // let cShops = [{id:1, name: "CoffeeShop1", description: "This place sucks", city: "SLC", state: 'UT', zip: "123456"},
 // {id:2, name: "CoffeeShop2", description: "This place Rocks", city: "South", state: 'West', zip: "765"}]
@@ -40,7 +40,7 @@ const Home = () => {
     <>
       <h1>Welcome to Brew Daddy HOME</h1>
       <div>
-        {/* <Search /> we will resume the bar later, use below for now. */}
+        <HomeSearch />
       </div>
       <Link as="h3" to={`/search`}>
         Search

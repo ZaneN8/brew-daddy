@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideBarSearch from "./SideBarSearch";
 import Search from "./Search";
 import useLocalState from "../customHooks/useLocalState";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const SearchScreen = () => {
-  const [query, setQuery] = useLocalState("coffeeShopQuery", "");
+const SearchScreen = ({ location }) => {
+  const [query, setQuery] = useLocalState("coffeeShopQuery", getName());
   const [cityQuery, setCityQuery] = useLocalState("coffeeShopCityQuery", "");
   const [stateQuery, setStateQuery] = useLocalState("coffeeShopStateQuery", "");
   const [zipQuery, setZipQuery] = useLocalState("coffeeShopZipQuery", "");
   const [coffeeShops, setCoffeeShops] = useLocalState("coffeeShops", []);
+
+  // Checks if a name parameter is passed and requests shops
+  // conditionally on the name's value.
+  useEffect(() => {
+    const name = getName();
+    const params = name ? { params: { name } } : null;
+
+    axios
+      .get(`/api/coffee_shops`, params)
+      .then((res) => setCoffeeShops(res.data))
+      .catch(console.log);
+  }, []);
+
+  function getName() {
+    const params = new URLSearchParams(location.search);
+    return params.get("name");
+  }
 
   //TODO reset these when log out, or something like that.
   // localStorage.clear() will take everything out of localStorage
@@ -29,6 +46,7 @@ const SearchScreen = () => {
       state: stateQuery,
       zip: zipQuery,
     };
+
     axios
       .get(`/api/coffee_shops`, { params }) // <--- add query params in the options hash
       .then((res) => setCoffeeShops(res.data))
