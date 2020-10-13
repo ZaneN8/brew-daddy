@@ -40,7 +40,7 @@ User.destroy_all
     5.times do |j|
         cs = CoffeeShop.create(
             name: Faker::Coffee.blend_name,
-            description: Faker::Coffee.notes,
+            description: Faker::Coffee.notes, # Faker::Restaurant.description 
             image: Faker::Avatar.image(slug: "#{user.first_name}#{j}", size: "300x300", format: "png", set: "set4"),
             city:Faker::Address.city,
             state: Faker::Address.state,

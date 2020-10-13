@@ -51,7 +51,6 @@ const CoffeeShopForm = ({ match, hide, add }) => {
           <Form.Label>Description</Form.Label>
           <Form.Control
             name="description"
-            // TODO wtf is up things works some dont and whenever you put anything in description it crashes
             value={coffeeShopState.description}
             onChange={handleChange}
           />

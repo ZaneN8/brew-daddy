@@ -1,6 +1,7 @@
 class Api::CoffeeShopsController < ApplicationController
 before_action :authenticate_user!, only: [:create, :update, :destroy]
 before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
+before_action :set_user, only: [:cu_index]
 
   # For Search stuff:  https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
   
@@ -13,7 +14,7 @@ before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
   end
 
   def cu_index
-    render json: @current_user.coffee_shops
+    render json: @user.coffee_shops
   end
 
   def show
@@ -71,7 +72,9 @@ before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
       )
   end
 
-
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
 
 end
