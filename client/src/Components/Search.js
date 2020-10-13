@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import useLocalState from "../customHooks/useLocalState";
-import SearchScreen from "./SearchScreen";
 
-const Search = ({ handleSubmit, renderCoffeeShops }) => {
+const Search = ({ handleSubmit, coffeeShops, query, setQuery }) => {
   // next we can render the coffeeshops that are returned
-  const [query, setQuery] = useLocalState("coffeeShopQuery", "");
 
   // We will need to change the handleSubmit to redirect it into search page below only.
+  const renderCoffeeShops = () =>
+    coffeeShops.map((coffee) => (
+      <p key={coffee.id}>
+        <img src={coffee.image} />
+        <Link as="h3" to={`/coffee_shops/${coffee.id}`}>
+          {coffee.name}
+        </Link>
+        {coffee.description}
+      </p>
+    ));
+
   return (
     <div>
       <Form onSubmit={handleSubmit}>

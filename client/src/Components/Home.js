@@ -40,8 +40,11 @@ const Home = () => {
     <>
       <h1>Welcome to Brew Daddy HOME</h1>
       <div>
-        <Search />
+        {/* <Search /> we will resume the bar later, use below for now. */}
       </div>
+      <Link as="h3" to={`/search`}>
+        Search
+      </Link>
       <br />
       {renderShops()}
     </>

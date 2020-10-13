@@ -4,9 +4,7 @@ import About from "./About";
 
 const Lander = () => (
   <>
-    <div>
-      <Search />
-    </div>
+    <div>{/* <Search /> */}</div>
     <div>
       <h3>We are Brew Daddy</h3>
       <About />

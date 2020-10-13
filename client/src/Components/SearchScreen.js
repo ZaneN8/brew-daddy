@@ -35,30 +35,22 @@ const SearchScreen = () => {
       .catch(console.log);
   };
 
-  const renderCoffeeShops = () =>
-    coffeeShops.map((coffee) => (
-      <p key={coffee.id}>
-        {coffee.image}
-        <Link as="h3" to={`/coffee_shops/${coffee.id}`}>
-          {coffee.name}
-        </Link>
-        {coffee.description}
-      </p>
-    ));
-
   return (
     <>
-      {/* <SideBarSearch
-        renderCoffeeShops={renderCoffeeShops}
+      <SideBarSearch
         handleSubmit={handleSubmit}
         setCityQuery={setCityQuery}
         setStateQuery={setStateQuery}
         setZipQuery={setZipQuery}
-      /> */}
+        cityQuery={cityQuery}
+        stateQuery={stateQuery}
+        zipQuery={zipQuery}
+      />
       <Search
+        coffeeShops={coffeeShops}
         handleSubmit={handleSubmit}
-        renderCoffeeShops={renderCoffeeShops}
         setQuery={setQuery}
+        query={query}
       />
     </>
   );

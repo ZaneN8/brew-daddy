@@ -1,31 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import useLocalState from "../customHooks/useLocalState";
-import SearchScreen from "./SearchScreen";
 
 const SideBarSearch = ({
-  handleSubmit,
   setCityQuery,
   setStateQuery,
   setZipQuery,
-  setCoffeeshops,
+  cityQuery,
+  stateQuery,
+  zipQuery,
 }) => {
-  // next we can render the coffeeshops that are returned
-  const renderCoffeeShops = () =>
-    coffeeShops.map((coffee) => (
-      <p key={coffee.id}>
-        <Link as="h3" to={`/coffee_shops/${coffee.id}`}>
-          {coffee.name}
-        </Link>
-      </p>
-    ));
-
-  // We will need to change the handleSubmit to redirect it into search page below only.
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Form.Group>
           <Form.Label>City</Form.Label>
           <Form.Control
@@ -46,16 +32,13 @@ const SideBarSearch = ({
           <Form.Label>Zip</Form.Label>
           <Form.Control
             autoFocus
-            placeholder="Enter to search a city here"
+            placeholder="Enter to search a zip code here"
             name="query"
             value={zipQuery}
             onChange={(e) => setZipQuery(e.target.value)}
           />
-          <button type="submit">Search</button>
         </Form.Group>
       </Form>
-      <br />
-      {renderCoffeeShops()}
     </div>
   );
 };
