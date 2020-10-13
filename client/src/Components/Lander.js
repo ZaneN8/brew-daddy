@@ -1,11 +1,11 @@
 import React from "react";
-import Search from "./Search";
+import HomeSearch from "./HomeSearch";
 import About from "./About";
 
 const Lander = () => (
   <>
     <div>
-      <Search />
+      <HomeSearch />
     </div>
     <div>
       <h3>We are Brew Daddy</h3>
