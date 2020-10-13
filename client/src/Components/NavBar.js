@@ -29,7 +29,7 @@ const NavBar = ({ match }) => {
 
   return (
     <div style={styles.navbar}>
-      <Link to="/home">DashBoard</Link>
+      <Link to="/">DashBoard</Link>
       <span style={{ marginRight: "10px" }}></span>
       <div>{correctNavBar()}</div>
       {user && <Link to="/profile">User Profile</Link>}

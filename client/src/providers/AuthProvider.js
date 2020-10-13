@@ -12,7 +12,7 @@ const AuthProvider = (props) => {
     try {
       let res = await axios.post("/api/auth", user);
       setUser(res.data.data);
-      history.push("./home");
+      history.push("./");
     } catch (err) {
       alert("Register Failed");
     }
@@ -22,7 +22,7 @@ const AuthProvider = (props) => {
     try {
       let res = await axios.post("/api/auth/sign_in", user);
       setUser(res.data.data);
-      history.push("/home");
+      history.push("/");
     } catch (err) {
       alert("error in logging in");
     }

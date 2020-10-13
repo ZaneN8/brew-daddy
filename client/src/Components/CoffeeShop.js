@@ -77,7 +77,6 @@ const CoffeeShop = ({ match, history }) => {
   };
 
   const addReview = (review) => {
-    debugger;
     setReviews([...reviews, review]);
   };
 

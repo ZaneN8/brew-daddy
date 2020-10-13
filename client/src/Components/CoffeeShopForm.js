@@ -22,7 +22,13 @@ const CoffeeShopForm = ({ match, hide, add }) => {
     user_id: auth.user.id,
   });
 
-  const handleBoo = (e) => {};
+  const handleBoo = (e) => {
+    const name = e.target.name;
+    setCoffeeShopState({
+      ...coffeeShopState,
+      [name]: !coffeeShopState[name],
+    });
+  };
 
   const handleChange = (e) => {
     setCoffeeShopState({ ...coffeeShopState, [e.target.name]: e.target.value });
@@ -103,28 +109,7 @@ const CoffeeShopForm = ({ match, hide, add }) => {
             value={coffeeShopState.contact_info}
           />
         </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label as="legend" column sm={2}>
-            Open
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Check
-              type="checkbox"
-              label="Yes"
-              name="open"
-              onChange={handleChange}
-              //customer onchange function to make true
-              value={coffeeShopState.open}
-            />
-            {/* <Form.Check
-              type="radio"
-              label="No"
-              name="open"
-              onChange={handleChange}
-              value={coffeeShopState.open}
-            /> */}
-          </Col>
-        </Form.Group>
+
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
             Cost
@@ -153,23 +138,33 @@ const CoffeeShopForm = ({ match, hide, add }) => {
             />
           </Col>
         </Form.Group>
+
+        <Form.Group as={Row}>
+          <Form.Label as="legend" column sm={2}>
+            Open
+          </Form.Label>
+          <Col sm={10}>
+            <Form.Check
+              type="checkbox"
+              label="Yes"
+              name="open"
+              onChange={handleBoo}
+              //customer onchange function to make true
+              value={coffeeShopState.open}
+            />
+          </Col>
+        </Form.Group>
+
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
             Delivery
           </Form.Label>
           <Col sm={10}>
             <Form.Check
-              type="radio"
+              type="checkbox"
               label="Yes"
               name="delivery"
-              onChange={handleChange}
-              value={coffeeShopState.delivery}
-            />
-            <Form.Check
-              type="radio"
-              label="No"
-              name="delivery"
-              onChange={handleChange}
+              onChange={handleBoo}
               value={coffeeShopState.delivery}
             />
           </Col>
@@ -180,17 +175,10 @@ const CoffeeShopForm = ({ match, hide, add }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
-              type="radio"
+              type="checkbox"
               label="Yes"
               name="pickup"
-              onChange={handleChange}
-              value={coffeeShopState.pickup}
-            />
-            <Form.Check
-              type="radio"
-              label="No"
-              name="pickup"
-              onChange={handleChange}
+              onChange={handleBoo}
               value={coffeeShopState.pickup}
             />
           </Col>
@@ -201,18 +189,11 @@ const CoffeeShopForm = ({ match, hide, add }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
-              type="radio"
+              type="checkbox"
               label="Yes"
               name="order_online"
               value={coffeeShopState.order_online}
-              onChange={handleChange}
-            />
-            <Form.Check
-              type="radio"
-              label="No"
-              name="order_online"
-              value={coffeeShopState.order_online}
-              onChange={handleChange}
+              onChange={handleBoo}
             />
           </Col>
         </Form.Group>
