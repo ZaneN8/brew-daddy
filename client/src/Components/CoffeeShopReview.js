@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const CoffeeShopReview = ({ review }) => {
+const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
   const [user, setUser] = useState(null);
 
   // get user on initial render
@@ -29,6 +29,7 @@ const CoffeeShopReview = ({ review }) => {
       <p>Work friendly:{review.work_friendly}</p>
       <p>Food:{review.food}</p>
       <p>Noise:{review.noise_level}</p>
+      <button onClick={() => deleteReview(review.id)}>Delete</button>
     </div>
   );
 };
