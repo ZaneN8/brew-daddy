@@ -3,12 +3,14 @@ import { Form } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import useLocalState from "../customHooks/useLocalState";
+import SearchScreen from "./SearchScreen";
 
 const SideBarSearch = ({
   handleSubmit,
   setCityQuery,
   setStateQuery,
   setZipQuery,
+  setCoffeeshops,
 }) => {
   // next we can render the coffeeshops that are returned
   const renderCoffeeShops = () =>

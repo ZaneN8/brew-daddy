@@ -3,9 +3,11 @@ import { Form } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import useLocalState from "../customHooks/useLocalState";
+import SearchScreen from "./SearchScreen";
 
-const Search = ({ handleSubmit, renderCoffeeShops, setQuery }) => {
+const Search = ({ handleSubmit, renderCoffeeShops }) => {
   // next we can render the coffeeshops that are returned
+  const [query, setQuery] = useLocalState("coffeeShopQuery", "");
 
   // We will need to change the handleSubmit to redirect it into search page below only.
   return (

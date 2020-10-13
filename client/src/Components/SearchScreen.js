@@ -1,4 +1,9 @@
 import React from "react";
+import SideBarSearch from "./SideBarSearch";
+import Search from "./Search";
+import useLocalState from "../customHooks/useLocalState";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const SearchScreen = () => {
   const [query, setQuery] = useLocalState("coffeeShopQuery", "");
@@ -6,6 +11,7 @@ const SearchScreen = () => {
   const [stateQuery, setStateQuery] = useLocalState("coffeeShopStateQuery", "");
   const [zipQuery, setZipQuery] = useLocalState("coffeeShopZipQuery", "");
   const [coffeeShops, setCoffeeShops] = useLocalState("coffeeShops", []);
+
   //TODO reset these when log out, or something like that.
   // localStorage.clear() will take everything out of localStorage
   // we can either call that on logout, or do localStorage.removeItem("<some-key>");
@@ -42,6 +48,13 @@ const SearchScreen = () => {
 
   return (
     <>
+      {/* <SideBarSearch
+        renderCoffeeShops={renderCoffeeShops}
+        handleSubmit={handleSubmit}
+        setCityQuery={setCityQuery}
+        setStateQuery={setStateQuery}
+        setZipQuery={setZipQuery}
+      /> */}
       <Search
         handleSubmit={handleSubmit}
         renderCoffeeShops={renderCoffeeShops}
