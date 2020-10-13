@@ -1,6 +1,8 @@
 class Api::CoffeeShopsController < ApplicationController
-# before_action :authenticate_user!
+before_action :authenticate_user!, only: [:create, :update, :destroy]
 before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
+before_action :set_user, only: [:cu_index]
+
   # For Search stuff:  https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
   
   def index 
@@ -20,7 +22,7 @@ before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
   end
 
   def cu_index
-    render json: @current_user.coffee_shops
+    render json: @user.coffee_shops
   end
 
   def show
@@ -37,14 +39,17 @@ before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
   end
 
   def update
-    # TODO confirm no instance '@' is needed
-    current_user.coffee_shops << parmas[:id].to_i
-    current_user.save
+    if @coffee_shop.save
+      render json: @coffee_shop
+    else
+      render json: @coffee_shop.errors, status: 422
+    end
   end
 
 
   def destroy
     @coffee_shop.destroy
+    render json: "Data deleted"
   end
 
 
@@ -79,7 +84,9 @@ before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
       )
   end
 
-
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
 
 end

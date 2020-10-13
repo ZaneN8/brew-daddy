@@ -38,7 +38,7 @@ const Home = () => {
 
   return (
     <>
-      <h1>Welcome to Brew Daddy HOME</h1>
+      <h1>Welcome to Brew Daddy </h1>
       <div>
         <HomeSearch />
       </div>
