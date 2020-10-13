@@ -13,14 +13,16 @@ const CoffeeShopForm = ({ match, hide, add }) => {
     city: "",
     state: "",
     zip: 0,
-    open: false,
     contact_info: "",
     cost: 0,
+    open: false,
     delivery: false,
     pickup: false,
     order_online: false,
     user_id: auth.user.id,
   });
+
+  const handleBoo = (e) => {};
 
   const handleChange = (e) => {
     setCoffeeShopState({ ...coffeeShopState, [e.target.name]: e.target.value });
@@ -91,28 +93,6 @@ const CoffeeShopForm = ({ match, hide, add }) => {
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label as="legend" column sm={2}>
-            Open
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Check
-              type="radio"
-              label="Yes"
-              name="open"
-              onChange={handleChange}
-              //customer onchange function to make true
-              value={coffeeShopState.open}
-            />
-            <Form.Check
-              type="radio"
-              label="No"
-              name="open"
-              onChange={handleChange}
-              value={coffeeShopState.open}
-            />
-          </Col>
-        </Form.Group>
         <Form.Group>
           <Form.Label>Contact Number</Form.Label>
           <Form.Control
@@ -122,6 +102,28 @@ const CoffeeShopForm = ({ match, hide, add }) => {
             onChange={handleChange}
             value={coffeeShopState.contact_info}
           />
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label as="legend" column sm={2}>
+            Open
+          </Form.Label>
+          <Col sm={10}>
+            <Form.Check
+              type="checkbox"
+              label="Yes"
+              name="open"
+              onChange={handleChange}
+              //customer onchange function to make true
+              value={coffeeShopState.open}
+            />
+            {/* <Form.Check
+              type="radio"
+              label="No"
+              name="open"
+              onChange={handleChange}
+              value={coffeeShopState.open}
+            /> */}
+          </Col>
         </Form.Group>
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>

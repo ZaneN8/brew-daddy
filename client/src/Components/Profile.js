@@ -52,12 +52,10 @@ const Profile = () => {
     {
       return profileCoffeeShops.map((coffeeShop) => (
         <div className="coffeeShopRender" key={coffeeShop.id}>
-          <p>{coffeeShop.image}</p>
+          <img src={coffeeShop.image} />
           <p>{coffeeShop.name}</p>
           <p>
-            {coffeeShop.state}
-            {coffeeShop.city}
-            {coffeeShop.zip}
+            {coffeeShop.state}, {coffeeShop.city}, {coffeeShop.zip}
           </p>
         </div>
       ));
@@ -90,12 +88,11 @@ const Profile = () => {
         <p>About me info HERE</p>
         <h1>Profiles Reviews</h1>
         <div>{renderProfileReviews()}</div>
+        <hr />
         <h1>Profile Coffee Shops </h1>
         <div>{renderProfileCoffeeShop()}</div>
       </div>
-      <p>ADD Review SHOP SPOT</p>
-      <p>{profileReviews.title}</p>
-      <br />
+      <hr />
       <div className="CoffeeShop Right">
         {show && <CoffeeShopForm hide={setShow} add={addCoffeeShop} />}
         <button onClick={() => setShow(!show)}>
