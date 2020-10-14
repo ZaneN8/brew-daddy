@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  # before_action :authenticate_user!, only: [:update, :destroy]
+  before_action :authenticate_user!, only: [:update, :destroy]
 
 
   def index 
@@ -12,10 +12,10 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    if update.user(user_params)
-      render :json @user
+    if @current_user.update(user_params)
+      render json: @current_user
     else
-      render :json @user.errors, status: 422
+      render json: @current_user.errors, status: 422
     end
   end
 
@@ -24,7 +24,7 @@ class Api::UsersController < ApplicationController
     end
 
     private
-    
+
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :image)
     end

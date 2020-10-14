@@ -41,6 +41,15 @@ const AuthProvider = (props) => {
     }
   };
 
+  const handleUpdate = async (user) => {
+    try {
+      let res = await axios.put(`/api/users/${user.id}`, user)
+      setUser(res.data)
+    } catch (err) {
+      console.log("Edit failed")
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -50,6 +59,7 @@ const AuthProvider = (props) => {
         handleRegister,
         handleLogout,
         handleLogin,
+        handleUpdate
       }}
     >
       {props.children}

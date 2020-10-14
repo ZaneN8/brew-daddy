@@ -11,8 +11,8 @@ const Profile = () => {
   const [profileReviews, setProfileReviews] = useState([]);
   const [profileCoffeeShops, setProfileCoffeeShops] = useState([]);
   const [show, setShow] = useState(false);
-  const { user } = useContext(AuthContext);
-  const [edit, setEdit]= useState(false)
+  const { user, setUser } = useContext(AuthContext);
+  const [showEdit, setShowEdit]= useState(false)
 
   const getProfileReviews = async () => {
     try {
@@ -34,6 +34,11 @@ const Profile = () => {
   };
 
   const addCoffeeShop = (shop) => setShops([...shops, shop]);
+
+
+
+
+
 
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
@@ -70,11 +75,7 @@ const Profile = () => {
 
 
 
-  const editRow = (id) => {
-    setEdit(true)
-    // setUser({id:user.id,
-    //    first_name:user.first_name,last_name: user.last_name,email:user.email})
-  }
+  
 
   return (
     <div>
@@ -84,22 +85,13 @@ const Profile = () => {
         <img src={user.image} />
         <div>
           {user.first_name} {user.last_name}
+          <p>{user.email}</p>
         </div>
-        <p>{user.email}</p>
-
-        {edit && <EditProfileForm  editProp={user} editRow={editRow()}/>}
-        <button onClick={()=> editRow(user.id)}> 
-        {show ? "Cancel" : "Edit"}
+    
+        {showEdit && <EditProfileForm/>}
+        <button onClick={() => setShowEdit(!showEdit)}>
+          {show ? "Cancel " : "Edit Profile"}
         </button>
-
-
-
-        {/* <button onClick={editProfile(user.id)}>Edit</button> */}
-        {/* <button>Edit Your Account </button>
-      <br />
-      <br />
-      <button> Delete your Account </button> */}
-      </div>
       <div className="About Me">
         <h1>About Me</h1>
         <p>About me info HERE</p>
@@ -119,6 +111,7 @@ const Profile = () => {
       <br />
       <br />
     </div>
+  </div>
   );
 };
 
