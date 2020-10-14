@@ -1,4 +1,5 @@
 class Api::ReviewsController < ApplicationController
+  # before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :set_coffee_shop, only: [:index, :new, :create, :destroy]
   before_action :set_review, only: [:update, :edit, :destroy]
   before_action :set_user, only: [:cu_reviews] 
