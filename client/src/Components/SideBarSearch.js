@@ -12,51 +12,49 @@ const SideBarSearch = ({
 }) => {
   return (
     <div>
-      <StyledSmallForm>
-        <Form>
-          <Form.Group>
-            <Form.Control
-              size="sm"
-              className="form"
-              autoFocus
-              placeholder="City"
-              name="query"
-              value={cityQuery}
-              onChange={(e) => setCityQuery(e.target.value)}
-            />
-
-            <Form.Control
-              size="sm"
-              className="form"
-              autoFocus
-              placeholder="State"
-              name="query"
-              value={stateQuery}
-              onChange={(e) => setStateQuery(e.target.value)}
-            />
-
-            <Form.Control
-              size="sm"
-              className="form"
-              autoFocus
-              placeholder="Zip Code"
-              name="query"
-              value={zipQuery}
-              onChange={(e) => setZipQuery(e.target.value)}
-            />
-          </Form.Group>
-        </Form>
-      </StyledSmallForm>
+      <Form>
+        <StyledGroup>
+          <Input
+            size="sm"
+            autoFocus
+            placeholder="City"
+            name="query"
+            value={cityQuery}
+            onChange={(e) => setCityQuery(e.target.value)}
+          />
+          <Input
+            size="sm"
+            autoFocus
+            placeholder="State"
+            name="query"
+            value={stateQuery}
+            onChange={(e) => setStateQuery(e.target.value)}
+          />
+          <Input
+            size="sm"
+            autoFocus
+            placeholder="Zip Code"
+            name="query"
+            value={zipQuery}
+            onChange={(e) => setZipQuery(e.target.value)}
+          />
+        </StyledGroup>
+      </Form>
     </div>
   );
 };
 
-const StyledSmallForm = styled.div`
-  .form {
-    border-radius: 30px;
-    border: 1px solid;
-    color: black;
-  }
+const StyledGroup = styled(Form.Group)`
+  display: flex;
+  background: #e5e5e5;
+`;
+
+const Input = styled(Form.Control)`
+  border-radius: 30px;
+  border: 1px solid;
+  color: black;
+  margin-right: 1rem;
+  max-width: 12.5rem;
 `;
 
 export default SideBarSearch;

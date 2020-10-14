@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Search = ({ handleSubmit, coffeeShops, query, setQuery }) => {
+const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
   // next we can render the coffeeshops that are returned
 
   // We will need to change the handleSubmit to redirect it into search page below only.
@@ -34,6 +34,7 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery }) => {
       </Form>
       <br />
       {renderCoffeeShops()}
+      <button onClick={nextPage}>load more</button>
     </div>
   );
 };

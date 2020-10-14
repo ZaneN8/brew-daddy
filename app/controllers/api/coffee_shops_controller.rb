@@ -16,9 +16,6 @@ before_action :set_user, only: [:cu_index]
       coffee_shop_result = CoffeeShop.public_send("filter_by_#{key}", value) if value.present?
     end
     render json: coffee_shop_result
-
-    # render json: CoffeeShop.all
-    # replace here <-----
   end
 
   def cu_index
@@ -62,7 +59,7 @@ before_action :set_user, only: [:cu_index]
   end
 
   def filtering_params(params)
-    params.slice(:name, :state, :zip, :city)
+    params.permit(:name, :state, :zip, :city, :page)
   end
 
   def coffee_shop_params
