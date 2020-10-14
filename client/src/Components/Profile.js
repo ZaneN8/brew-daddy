@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import CoffeeShopForm from "./CoffeeShopForm";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
+import EditProfileForm from "./EditProfileForm";
 
 const Profile = () => {
   const [shops, setShops] = useState([]);
@@ -18,7 +19,6 @@ const Profile = () => {
       let res = await axios.get(`/api/users/${user.id}/reviews`);
       setProfileReviews(res.data);
     } catch (err) {
-      debugger;
       alert("Error: failed to get this profiles reviews");
     }
   };
@@ -70,8 +70,10 @@ const Profile = () => {
 
 
 
-  const editProfile = (id) => {
-    
+  const editRow = (id) => {
+    setEdit(true)
+    // setUser({id:user.id,
+    //    first_name:user.first_name,last_name: user.last_name,email:user.email})
   }
 
   return (
@@ -84,7 +86,15 @@ const Profile = () => {
           {user.first_name} {user.last_name}
         </div>
         <p>{user.email}</p>
-        <button onClick={editProfile(user.id)}>Edit</button>
+
+        {edit && <EditProfileForm  editProp={user} editRow={editRow()}/>}
+        <button onClick={()=> editRow(user.id)}> 
+        {show ? "Cancel" : "Edit"}
+        </button>
+
+
+
+        {/* <button onClick={editProfile(user.id)}>Edit</button> */}
         {/* <button>Edit Your Account </button>
       <br />
       <br />
