@@ -11,6 +11,7 @@ const Profile = () => {
   const [profileCoffeeShops, setProfileCoffeeShops] = useState([]);
   const [show, setShow] = useState(false);
   const { user } = useContext(AuthContext);
+  const [edit, setEdit]= useState(false)
 
   const getProfileReviews = async () => {
     try {
@@ -67,6 +68,12 @@ const Profile = () => {
     getProfileCoffeeShops();
   }, []);
 
+
+
+  const editProfile = (id) => {
+    
+  }
+
   return (
     <div>
       <div className="userinfo">
@@ -77,7 +84,7 @@ const Profile = () => {
           {user.first_name} {user.last_name}
         </div>
         <p>{user.email}</p>
-        <p></p>
+        <button onClick={editProfile(user.id)}>Edit</button>
         {/* <button>Edit Your Account </button>
       <br />
       <br />

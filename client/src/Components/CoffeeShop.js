@@ -44,6 +44,10 @@ const CoffeeShop = ({ match, history }) => {
       .catch(console.log);
   };
 
+
+
+ 
+
   const renderShopInfo = () => (
     <div>
       <h1>{shop.name}</h1>
