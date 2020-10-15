@@ -38,6 +38,7 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
     order_online: false,
     user_id: auth.user.id,
   });
+  
 
   const handleBoo = (e) => {
     const name = e.target.name;
