@@ -49,6 +49,11 @@ before_action :set_user, only: [:cu_index]
     render json: "Data deleted"
   end
 
+  def coffee_ratings
+    render json: CoffeeShop.coffee_ratings
+  end
+  
+
 
 
 
