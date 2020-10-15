@@ -63,12 +63,10 @@ const User = ({ match }) => {
     {
       return coffeeShops.map((coffeeShop) => (
         <div className="coffeeShopRender" key={coffeeShop.id}>
-          <p>{coffeeShop.image}</p>
+          <img src={coffeeShop.image} />
           <p>{coffeeShop.name}</p>
           <p>
-            {coffeeShop.state}
-            {coffeeShop.city}
-            {coffeeShop.zip}
+            {coffeeShop.state},{coffeeShop.city},{coffeeShop.zip}
           </p>
         </div>
       ));
@@ -84,6 +82,7 @@ const User = ({ match }) => {
       <p>{user.email}</p>
       <h1>USERS REVIEWS </h1>
       <div> {renderUserReview()}</div>
+      <hr />
       <h1> USERS COFFEE SHOPS </h1>
       <div>{renderUserCoffeeShop()}</div>
     </>
