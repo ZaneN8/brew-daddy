@@ -37,7 +37,7 @@ User.destroy_all
 
     puts "Seeding Coffee for User #{i}"
 
-    5.times do |j|
+    25.times do |j|
         cs = CoffeeShop.create(
             name: Faker::Coffee.blend_name,
             description: Faker::Coffee.notes, # Faker::Restaurant.description 
@@ -60,7 +60,7 @@ User.destroy_all
     
 end
 
-100.times do |r|
+200.times do |r|
     rv = Review.create(
         title: Faker::Quote.robin,
         body: Faker::Restaurant.review,
