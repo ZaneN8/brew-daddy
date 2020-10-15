@@ -4,38 +4,90 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../providers/AuthProvider";
 
-const CoffeeShopForm = ({ match, hide, add }) => {
+const CoffeeShopForm = ({ match, add, shopProp }) => {
   const auth = useContext(AuthContext);
-  const [coffeeShopState, setCoffeeShopState] = useState({
+  const [coffeeShopState, setCoffeeShopState] = useState(
+    shopProp ?
+    {
+      name: shopProp.name,
+      description: shopProp.description,
+      image: "",
+      city: shopProp.city,
+      state: shopProp.state,
+      zip: shopProp.zip,
+      contact_info: shopProp.contact_info,
+      cost: shopProp.cost,
+      open: shopProp.open,
+      delivery: shopProp.delivery,
+      pickup: shopProp.pickup,
+      order_online: shopProp.order_online,
+    }
+    :
+    {
     name: "",
     description: "",
     image: "",
     city: "",
     state: "",
     zip: 0,
-    open: false,
     contact_info: "",
     cost: 0,
+    open: false,
     delivery: false,
     pickup: false,
     order_online: false,
     user_id: auth.user.id,
   });
+  
+
+  const handleBoo = (e) => {
+    const name = e.target.name;
+    setCoffeeShopState({
+      ...coffeeShopState,
+      [name]: !coffeeShopState[name],
+    });
+  }
 
   const handleChange = (e) => {
     setCoffeeShopState({ ...coffeeShopState, [e.target.name]: e.target.value });
   };
 
+  const editCoffeeShop = async() => {
+    debugger
+    try {
+      let res = await axios.put(`/api/coffee_shops/${shopProp.id}`, coffeeShopState)
+      setCoffeeShopState(res.data)
+    }
+    catch (err) {
+      alert("ERROR: CoffeeShopForm, updating shop")
+    }
+  }
+
+  const addCoffeeShop = () => {
+    // try {
+    //   let res = await axios.post(`/coffee_shops`, coffeeShopState)
+    // setCoffeeShopState(res.data)
+    // }catch (err) {
+    //   alert("Error: CoffeeShopForm, adding shop")
+    // }
+    axios
+    .post(`/api/coffee_shops`, coffeeShopState)
+    .then((res) => add(res.data));
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`/api/coffee_shops`, coffeeShopState)
-      .then((res) => add(res.data));
+    if(shopProp){
+      editCoffeeShop()
+    }else{
+    addCoffeeShop();
+    }
+      //TODO Hide toggle form
   };
 
   return (
     <div>
-      <h1>Create a CoffeeShop</h1>
+      <h1>{shopProp ? "Edit Shop" : "Create a CoffeeShop"}</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Name</Form.Label>
@@ -91,28 +143,6 @@ const CoffeeShopForm = ({ match, hide, add }) => {
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label as="legend" column sm={2}>
-            Open
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Check
-              type="radio"
-              label="Yes"
-              name="open"
-              onChange={handleChange}
-              //customer onchange function to make true
-              value={coffeeShopState.open}
-            />
-            <Form.Check
-              type="radio"
-              label="No"
-              name="open"
-              onChange={handleChange}
-              value={coffeeShopState.open}
-            />
-          </Col>
-        </Form.Group>
         <Form.Group>
           <Form.Label>Contact Number</Form.Label>
           <Form.Control
@@ -123,6 +153,7 @@ const CoffeeShopForm = ({ match, hide, add }) => {
             value={coffeeShopState.contact_info}
           />
         </Form.Group>
+
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
             Cost
@@ -151,23 +182,33 @@ const CoffeeShopForm = ({ match, hide, add }) => {
             />
           </Col>
         </Form.Group>
+
+        <Form.Group as={Row}>
+          <Form.Label as="legend" column sm={2}>
+            Open
+          </Form.Label>
+          <Col sm={10}>
+            <Form.Check
+              type="checkbox"
+              label="Yes"
+              name="open"
+              onChange={handleBoo}
+              //customer onchange function to make true
+              value={coffeeShopState.open}
+            />
+          </Col>
+        </Form.Group>
+
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
             Delivery
           </Form.Label>
           <Col sm={10}>
             <Form.Check
-              type="radio"
+              type="checkbox"
               label="Yes"
               name="delivery"
-              onChange={handleChange}
-              value={coffeeShopState.delivery}
-            />
-            <Form.Check
-              type="radio"
-              label="No"
-              name="delivery"
-              onChange={handleChange}
+              onChange={handleBoo}
               value={coffeeShopState.delivery}
             />
           </Col>
@@ -178,17 +219,10 @@ const CoffeeShopForm = ({ match, hide, add }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
-              type="radio"
+              type="checkbox"
               label="Yes"
               name="pickup"
-              onChange={handleChange}
-              value={coffeeShopState.pickup}
-            />
-            <Form.Check
-              type="radio"
-              label="No"
-              name="pickup"
-              onChange={handleChange}
+              onChange={handleBoo}
               value={coffeeShopState.pickup}
             />
           </Col>
@@ -199,18 +233,11 @@ const CoffeeShopForm = ({ match, hide, add }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
-              type="radio"
+              type="checkbox"
               label="Yes"
               name="order_online"
               value={coffeeShopState.order_online}
-              onChange={handleChange}
-            />
-            <Form.Check
-              type="radio"
-              label="No"
-              name="order_online"
-              value={coffeeShopState.order_online}
-              onChange={handleChange}
+              onChange={handleBoo}
             />
           </Col>
         </Form.Group>
