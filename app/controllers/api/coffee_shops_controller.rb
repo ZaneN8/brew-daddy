@@ -46,13 +46,10 @@ before_action :set_user, only: [:cu_index]
     end
   end
 
-
   def destroy
     @coffee_shop.destroy
     render json: "Data deleted"
   end
-
-
 
 
   private
@@ -88,16 +85,4 @@ before_action :set_user, only: [:cu_index]
     @user = User.find(params[:user_id])
   end
 
-
 end
-
-
-
-
-
-
-
-
-
-
-
