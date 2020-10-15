@@ -7,7 +7,7 @@ import CoffeeShopForm from "./CoffeeShopForm";
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
   const [reviews, setReviews] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  const [showReviewForm, setShowReviewForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
 
   useEffect(() => {
@@ -108,9 +108,9 @@ const CoffeeShop = ({ match, history }) => {
         <div>{renderShopInfo()}</div>
         <div>{renderReviews()}</div>
         <>
-          {showForm && <ReviewForm addReview={addReview} shopId={shop.id} />}
-          <button onClick={() => setShowForm(!showForm)}>
-            {showForm ? "Cancel Review" : "Write Review"}
+          {showReviewForm && <ReviewForm add={addReview} shopId={shop.id} />}
+          <button onClick={() => setShowReviewForm(!showReviewForm)}>
+            {showReviewForm ? "Cancel Review" : "Write Review"}
           </button>
         </>
         <hr />

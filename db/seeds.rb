@@ -20,8 +20,8 @@ puts "Seeding Users"
 #### UNCOMMIT THIS IF YOU DO NOT WANT USERS DATA TO BE ERASED ###
 puts "Cleaning up Users and Coffee Shops Data"
 
-CoffeeShop.destroy_all
-User.destroy_all
+# CoffeeShop.destroy_all
+# User.destroy_all
 
 5.times do |i|    
     user = User.new

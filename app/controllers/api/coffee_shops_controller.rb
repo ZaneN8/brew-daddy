@@ -28,11 +28,23 @@ before_action :set_user, only: [:cu_index]
 
   def create
     coffee_shop = @current_user.coffee_shops.new(coffee_shop_params)
-      if coffee_shop.save
-        render json: coffee_shop
-      else
-        render json: coffee_shop.errors, status: 422
+    file = params[:file]
+
+    if file
+      begin
+        cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true, resource_type: :auto)
+        coffee_shop[:image] = cloud_image["secure_url"]
+      rescue => e
+        render json: { errors: e }, status: 422
+        return
       end
+    end
+
+    if coffee_shop.save
+      render json: coffee_shop
+    else
+      render json: coffee_shop.errors, status: 422
+    end
   end
 
   def update
@@ -60,22 +72,20 @@ before_action :set_user, only: [:cu_index]
   end
 
   def coffee_shop_params
-    params
-      .require(:coffee_shop)
-      .permit(
-        :name, 
-        :description, 
-        :image, 
-        :city, 
-        :state, 
-        :zip, 
-        :open, 
-        :contact_info, 
-        :cost, 
-        :delivery, 
-        :pickup,
-        :order_online,
-      )
+    params.permit(
+      :name,
+      :description,
+      :image,
+      :city,
+      :state,
+      :zip,
+      :open,
+      :contact_info,
+      :cost,
+      :delivery,
+      :pickup,
+      :order_online,
+    )
   end
 
   def set_user
