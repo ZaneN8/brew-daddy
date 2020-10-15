@@ -2,11 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import ReviewForm from "./ReviewForm";
 import CoffeeShopReview from "./CoffeeShopReview";
+import CoffeeShopForm from "./CoffeeShopForm";
 
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   useEffect(() => {
     axios
@@ -44,9 +46,15 @@ const CoffeeShop = ({ match, history }) => {
       .catch(console.log);
   };
 
+ 
+
   const renderShopInfo = () => (
     <div>
-      <h1>{shop.name}</h1>
+      <h1>{shop.name}
+          <button onClick={() => setShowEditForm(!showEditForm)}>
+            {showEditForm ? "Cancel" : "Update Coffee Shop"}
+          </button>
+        </h1>
       <img src={shop.image} />
 
       <h5>Call us at:{shop.contact_info}</h5>
@@ -58,6 +66,10 @@ const CoffeeShop = ({ match, history }) => {
         Open:{shop.open} Delivery:{shop.delivery} PickUp: {shop.pickup} Online:
         {shop.order_online}
       </p>
+        <>
+          {showEditForm && <CoffeeShopForm shopProp={shop} />}
+        </>
+      <br />
       <button onClick={() => deleteCoffeeShop(shop.id)}>
         {" "}
         Delete Coffee Shop
@@ -77,7 +89,6 @@ const CoffeeShop = ({ match, history }) => {
   };
 
   const addReview = (review) => {
-    debugger;
     setReviews([...reviews, review]);
   };
 

@@ -4,20 +4,21 @@ import { Link } from "react-router-dom";
 import CoffeeShopForm from "./CoffeeShopForm";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
+import EditProfileForm from "./EditProfileForm";
 
 const Profile = () => {
   const [shops, setShops] = useState([]);
   const [profileReviews, setProfileReviews] = useState([]);
   const [profileCoffeeShops, setProfileCoffeeShops] = useState([]);
   const [show, setShow] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  const [showEdit, setShowEdit]= useState(false)
 
   const getProfileReviews = async () => {
     try {
       let res = await axios.get(`/api/users/${user.id}/reviews`);
       setProfileReviews(res.data);
     } catch (err) {
-      debugger;
       alert("Error: failed to get this profiles reviews");
     }
   };
@@ -33,6 +34,11 @@ const Profile = () => {
   };
 
   const addCoffeeShop = (shop) => setShops([...shops, shop]);
+
+
+
+
+
 
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
@@ -52,12 +58,10 @@ const Profile = () => {
     {
       return profileCoffeeShops.map((coffeeShop) => (
         <div className="coffeeShopRender" key={coffeeShop.id}>
-          <p>{coffeeShop.image}</p>
+          <img src={coffeeShop.image} />
           <p>{coffeeShop.name}</p>
           <p>
-            {coffeeShop.state}
-            {coffeeShop.city}
-            {coffeeShop.zip}
+            {coffeeShop.state}, {coffeeShop.city}, {coffeeShop.zip}
           </p>
         </div>
       ));
@@ -69,6 +73,10 @@ const Profile = () => {
     getProfileCoffeeShops();
   }, []);
 
+
+
+  
+
   return (
     <div>
       <div className="userinfo">
@@ -77,25 +85,23 @@ const Profile = () => {
         <img src={user.image} />
         <div>
           {user.first_name} {user.last_name}
+          <p>{user.email}</p>
         </div>
-        <p>{user.email}</p>
-        <p></p>
-        {/* <button>Edit Your Account </button>
-      <br />
-      <br />
-      <button> Delete your Account </button> */}
-      </div>
+    
+        {showEdit && <EditProfileForm/>}
+        <button onClick={() => setShowEdit(!showEdit)}>
+          {show ? "Cancel " : "Edit Profile"}
+        </button>
       <div className="About Me">
         <h1>About Me</h1>
         <p>About me info HERE</p>
         <h1>Profiles Reviews</h1>
         <div>{renderProfileReviews()}</div>
+        <hr />
         <h1>Profile Coffee Shops </h1>
         <div>{renderProfileCoffeeShop()}</div>
       </div>
-      <p>ADD Review SHOP SPOT</p>
-      <p>{profileReviews.title}</p>
-      <br />
+      <hr />
       <div className="CoffeeShop Right">
         {show && <CoffeeShopForm hide={setShow} add={addCoffeeShop} />}
         <button onClick={() => setShow(!show)}>
@@ -105,6 +111,7 @@ const Profile = () => {
       <br />
       <br />
     </div>
+  </div>
   );
 };
 

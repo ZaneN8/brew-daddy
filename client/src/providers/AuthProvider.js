@@ -12,7 +12,7 @@ const AuthProvider = (props) => {
     try {
       let res = await axios.post("/api/auth", user);
       setUser(res.data.data);
-      history.push("./home");
+      history.push("./");
     } catch (err) {
       alert("Register Failed");
     }
@@ -22,7 +22,7 @@ const AuthProvider = (props) => {
     try {
       let res = await axios.post("/api/auth/sign_in", user);
       setUser(res.data.data);
-      history.push("/home");
+      history.push("/");
     } catch (err) {
       alert("error in logging in");
     }
@@ -41,6 +41,15 @@ const AuthProvider = (props) => {
     }
   };
 
+  const handleUpdate = async (user) => {
+    try {
+      let res = await axios.put(`/api/users/${user.id}`, user)
+      setUser(res.data)
+    } catch (err) {
+      console.log("Edit failed")
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -50,6 +59,7 @@ const AuthProvider = (props) => {
         handleRegister,
         handleLogout,
         handleLogin,
+        handleUpdate
       }}
     >
       {props.children}

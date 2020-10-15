@@ -36,7 +36,7 @@ before_action :set_user, only: [:cu_index]
   end
 
   def update
-    if @coffee_shop.save
+    if @coffee_shop.update(coffee_shop_params)
       render json: @coffee_shop
     else
       render json: @coffee_shop.errors, status: 422
