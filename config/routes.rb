@@ -10,6 +10,14 @@ Rails.application.routes.draw do
       resources :reviews
     end
 
+    resources :coffee_shops do
+        resources :questions
+    end
+    
+    resources :questions do
+        resources :answers
+    end 
+
     #TODO We edited this
     resources :users do
       resources :reviews
