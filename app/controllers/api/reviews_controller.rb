@@ -1,6 +1,7 @@
 class Api::ReviewsController < ApplicationController
-  before_action :set_coffee_shop, only: [:index, :create]
-  before_action :set_review, only: [:update, :destroy]
+  # before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :set_coffee_shop, only: [:index, :new, :create, :destroy]
+  before_action :set_review, only: [:update, :edit, :destroy]
   before_action :set_user, only: [:cu_reviews] 
 
   def index
@@ -25,7 +26,7 @@ class Api::ReviewsController < ApplicationController
   end
 
   def update
-    if (@review.update(review_parmas))
+    if @review.update(review_parmas)
       render json: @review
     else
       render json: @review.errors, status: 422
@@ -34,13 +35,14 @@ class Api::ReviewsController < ApplicationController
 
   def destroy
     review = @review.destroy
-    render json: review
+    render json: "Data deleted"
   end
 
   private
 
   def set_review
-    @reviews = @coffee_shop.reviews.find(params[:id])
+    
+    @review = @coffee_shop.reviews.find(params[:id])
   end
 
   def review_parmas

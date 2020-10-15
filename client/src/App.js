@@ -13,7 +13,7 @@ import User from "./Components/User";
 import CoffeeShop from "./Components/CoffeeShop";
 import CoffeeShopForm from "./Components/CoffeeShopForm";
 import Profile from "./Components/Profile";
-
+import SearchScreen from "./Components/SearchScreen";
 import "./App.css";
 import { Container } from "react-bootstrap";
 
@@ -22,24 +22,22 @@ const App = () => (
     <NavBar />
     <FetchUser>
       <br />
-      <Container>
-        <Switch>
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/about" component={About} />
-          <ProtectedRoute exact path="/profile" component={Profile} />
-          <Route exact path="/users/:id" component={User} />
-          <ProtectedRoute
-            exact
-            path="/user/coffee_create"
-            component={CoffeeShopForm}
-          />
-          <Route exact path="/coffee_shops/:id" component={CoffeeShop} />
-          <Route exact path="/" component={Lander} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route component={NoMatch} />
-        </Switch>
-      </Container>
+      <Switch>
+        <Route exact path="/" component={Lander} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/search" component={SearchScreen} />
+        <Route exact path="/about" component={About} />
+        <ProtectedRoute exact path="/profile" component={Profile} />
+        <Route exact path="/users/:id" component={User} />
+        <ProtectedRoute
+          exact
+          path="/user/coffee_create"
+          component={CoffeeShopForm}
+        />
+        <Route exact path="/coffee_shops/:id" component={CoffeeShop} />
+        <Route component={NoMatch} />
+      </Switch>
     </FetchUser>
   </Fragment>
 );

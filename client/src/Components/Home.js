@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Search from "./Search";
-
+import HomeSearch from "./HomeSearch";
 //dummy data for frontend
 // let cShops = [{id:1, name: "CoffeeShop1", description: "This place sucks", city: "SLC", state: 'UT', zip: "123456"},
 // {id:2, name: "CoffeeShop2", description: "This place Rocks", city: "South", state: 'West', zip: "765"}]
@@ -38,10 +38,13 @@ const Home = () => {
 
   return (
     <>
-      <h1>Welcome to Brew Daddy HOME</h1>
+      <h1>Welcome to Brew Daddy </h1>
       <div>
-        <Search />
+        <HomeSearch />
       </div>
+      <Link as="h3" to={`/search`}>
+        Search
+      </Link>
       <br />
       {renderShops()}
     </>

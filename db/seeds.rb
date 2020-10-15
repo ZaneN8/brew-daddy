@@ -24,81 +24,62 @@ CoffeeShop.destroy_all
 User.destroy_all
 
 5.times do |i|    
- user = User.new
- user.id = i
- user.email = "test#{i}@example.com"
- user.password = '123456'
- user.password_confirmation = '123456'
- user.first_name = Faker::Name.first_name
- user.last_name = Faker::Name.last_name
- user.image = Faker::Avatar.image(slug: "#{user.first_name}#{i}", size: "300x300", format: "png", set: "set1")
- user.save!
- puts user.email + " created"
+    user = User.new
+    user.id = i
+    user.email = "test#{i}@example.com"
+    user.password = '123456'
+    user.password_confirmation = '123456'
+    user.first_name = Faker::Name.first_name
+    user.last_name = Faker::Name.last_name
+    user.image = Faker::Avatar.image(slug: "#{user.first_name}#{i}", size: "300x300", format: "png", set: "set1")
+    user.save!
+    puts user.email + " created"
 
- puts "Seeding Coffee for User #{i}"
+    puts "Seeding Coffee for User #{i}"
 
- 3.times do |j|
-    cs = CoffeeShop.new
-    cs.id = j + (i * 3)
-    cs.name = Faker::Coffee.blend_name
-    cs.description = Faker::Coffee.notes
-    cs.image = Faker::Avatar.image(slug: "#{user.first_name}#{j}", size: "300x300", format: "png", set: "set4")
-    cs.city = Faker::Address.city
-    cs.state = Faker::Address.state
-    cs.zip = Faker::Address.zip
-    cs.open = true
-    cs.contact_info = Faker::PhoneNumber.phone_number
-    cs.cost = 3
-    cs.delivery = true
-    cs.pickup = true
-    cs.order_online = true
-    cs.user_id = i
-    cs.save!
+    25.times do |j|
+        cs = CoffeeShop.create(
+            name: Faker::Coffee.blend_name,
+            description: Faker::Coffee.notes, # Faker::Restaurant.description 
+            image: Faker::Avatar.image(slug: "#{user.first_name}#{j}", size: "300x300", format: "png", set: "set4"),
+            city:Faker::Address.city,
+            state: Faker::Address.state,
+            zip: Faker::Address.zip,
+            contact_info: Faker::PhoneNumber.phone_number,
+            cost: 3,
+            open: true,
+            delivery: true,
+            pickup: true,
+            order_online: true,
+            user_id: i,
+        )
+
+
     end
-puts "----------------------------"    
+    puts "----------------------------"    
+    
+end
 
+200.times do |r|
+    rv = Review.create(
+        title: Faker::Quote.robin,
+        body: Faker::Restaurant.review,
+        rating: rand(1..5),
+        coffee_rating: rand(1..5),
+        work_friendly: rand(1..5),
+        food: rand(1..5),
+        noise_level: rand(1..5),
+        coffee_shop_id: CoffeeShop.order(Arel.sql('RANDOM()')).first.id,
+        user_id: User.order(Arel.sql('RANDOM()')).first.id,
+    )
 end
 
 puts "Seeding Coffee Shops"
-# create_table "coffee_shops", force: :cascade do |t|
-#     t.string "name"
-#     t.text "description"
-#     t.string "image"
-#     t.string "city"
-#     t.string "state"
-#     t.string "zip"
-#     t.boolean "open"
-#     t.string "contact_info"
-#     t.integer "cost"
-#     t.boolean "delivery"
-#     t.boolean "pickup"
-#     t.boolean "order_online"
-#     t.bigint "user_id", null: false
-#     t.datetime "created_at", precision: 6, null: false
-#     t.datetime "updated_at", precision: 6, null: false
-#     t.index ["user_id"], name: "index_coffee_shops_on_user_id"
-#   end
-
 puts 
 
 
 puts "Seeding Reviews..."
 
-20.times do |r|
-    max = 5
-    review = Review.new
-    review.title = Faker::Quote.robin
-    review.body = Faker::Restaurant.review 
-    review.rating = rand(max)
-    review.coffee_rating = rand(max)
-    review.work_friendly = rand(max)
-    review.food = rand(max)
-    review.noise_level = rand(max)
-    review.coffee_shop_id = rand(CoffeeShop.count)
-    review.user_id = rand(User.count)
-    review.save!
-
-end
 
 puts "#{Review.count} Reviews has been seeded randomly."
 puts "----------------------------"    
@@ -107,7 +88,7 @@ puts "----------------------------"
 #     t.string "title"
 #     t.text "body"
 #     t.float "rating"
-#     t.float "coffee_rating"
+#     t.float "coffee_rating"   
 #     t.float "work_friendly"
 #     t.float "food"
 #     t.float "noise_level"
