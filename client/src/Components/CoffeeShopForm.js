@@ -62,7 +62,12 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
 
   const editCoffeeShop = async() => {
     try {
-      let res = await axios.put(`/api/coffee_shops/${shopProp.id}`, coffeeShopState)
+      const formData = new FormData();
+      formData.append('file', fileState.file);
+      Object.keys(coffeeShopState).forEach((key) => {
+        formData.append(key, coffeeShopState[key]);
+      });
+      let res = await axios.put(`/api/coffee_shops/${shopProp.id}`, formData)
       setCoffeeShopState(res.data)
     }
     catch (err) {
@@ -119,13 +124,13 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
           />
         </Form.Group>
         <Form.Group>
-          {shopProp ? "" :<Form.File
+          <Form.File
             label="Upload Coffee Shop Image"
             name="image"
             type="file"
             // value={""}
             onChange={handleImageUpload}
-          />}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>City</Form.Label>

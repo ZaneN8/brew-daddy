@@ -48,10 +48,25 @@ before_action :set_user, only: [:cu_index]
   end
 
   def update
+
+    file = params[:file]
+
+    if file
+      begin
+        cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true, resource_type: :auto)
+        @coffee_shop[:image] = cloud_image["secure_url"]
+      rescue => e
+        render json: { errors: e }, status: 422
+        return
+      end
+    end
+
     if @coffee_shop.update(coffee_shop_params)
       render json: @coffee_shop
+
     else
       render json: @coffee_shop.errors, status: 422
+
     end
   end
 
