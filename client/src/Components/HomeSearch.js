@@ -3,6 +3,8 @@ import useLocalState from "../customHooks/useLocalState";
 import Search from "./Search";
 import { Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+
 // Need to use Link?
 
 // We will need to change the handleSubmit to redirect it into search page below only.
@@ -21,20 +23,34 @@ const HomeSearch = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group>
-        <Form.Label>Search</Form.Label>
-        <Form.Control
-          autoFocus
-          placeholder="Enter to search here"
-          name="query"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button type="submit">Search</button>
-      </Form.Group>
-    </Form>
+    <StyledLargeForm>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label>Search</Form.Label>
+          <Form.Control
+            className="form"
+            autoFocus
+            placeholder="Enter to search here"
+            name="query"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          {/* The Wireframe doesnt have the search button, so commenting this out.  */}
+          {/* <button type="submit" className="form">
+            Search
+          </button> */}
+        </Form.Group>
+      </Form>
+    </StyledLargeForm>
   );
 };
+
+const StyledLargeForm = styled.div`
+  .form {
+    border-radius: 30px;
+    border: 1px solid;
+    color: black;
+  }
+`;
 
 export default HomeSearch;
