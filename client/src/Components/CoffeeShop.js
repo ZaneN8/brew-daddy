@@ -46,15 +46,14 @@ const CoffeeShop = ({ match, history }) => {
       .catch(console.log);
   };
 
- 
-
   const renderShopInfo = () => (
     <div>
-      <h1>{shop.name}
-          <button onClick={() => setShowEditForm(!showEditForm)}>
-            {showEditForm ? "Cancel" : "Update Coffee Shop"}
-          </button>
-        </h1>
+      <h1>
+        {shop.name}
+        <button onClick={() => setShowEditForm(!showEditForm)}>
+          {showEditForm ? "Cancel" : "Update Coffee Shop"}
+        </button>
+      </h1>
       <img src={shop.image} />
 
       <h5>Call us at:{shop.contact_info}</h5>
@@ -66,9 +65,7 @@ const CoffeeShop = ({ match, history }) => {
         Open:{shop.open} Delivery:{shop.delivery} PickUp: {shop.pickup} Online:
         {shop.order_online}
       </p>
-        <>
-          {showEditForm && <CoffeeShopForm shopProp={shop} />}
-        </>
+      <>{showEditForm && <CoffeeShopForm shopProp={shop} />}</>
       <br />
       <button onClick={() => deleteCoffeeShop(shop.id)}>
         {" "}

@@ -1,4 +1,5 @@
 class Api::QuestionsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :set_coffee_shop, only: [:index, :create, :destroy]
   def index 
     render json: @coffee_shop.questions
@@ -26,6 +27,8 @@ class Api::QuestionsController < ApplicationController
   end
 
   private
+
+
 
   def question_params
     params

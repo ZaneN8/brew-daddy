@@ -16,7 +16,7 @@ Rails.application.routes.draw do
         resources :questions
     end
     
-    resources :questions do
+    resources :questions, only: [] do
         resources :answers
     end 
 
