@@ -3,6 +3,7 @@ import axios from "axios";
 import ReviewForm from "./ReviewForm";
 import CoffeeShopReview from "./CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
+import styled from "styled-components";
 
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
@@ -49,7 +50,7 @@ const CoffeeShop = ({ match, history }) => {
  
 
   const renderShopInfo = () => (
-    <div>
+      <StyledCard1>
       <h1>{shop.name}
           <button onClick={() => setShowEditForm(!showEditForm)}>
             {showEditForm ? "Cancel" : "Update Coffee Shop"}
@@ -74,7 +75,7 @@ const CoffeeShop = ({ match, history }) => {
         {" "}
         Delete Coffee Shop
       </button>
-    </div>
+      </StyledCard1>
   );
 
   const renderReviews = () => {
@@ -118,6 +119,12 @@ const CoffeeShop = ({ match, history }) => {
       </div>
     );
 };
+
+const StyledCard1 = styled.div`
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+transition: 0.3s;
+border-radius: 5px; 
+`
 
 export default CoffeeShop;
 

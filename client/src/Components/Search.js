@@ -9,6 +9,7 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
   // We will need to change the handleSubmit to redirect it into search page below only.
   const renderCoffeeShops = () =>
     coffeeShops.map((coffee) => (
+      <StyledResultCard>
       <p key={coffee.id}>
         <img src={coffee.image} />
         <Link as="h1" to={`/coffee_shops/${coffee.id}`}>
@@ -19,10 +20,11 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
         <b> Phone Number: </b> {coffee.contact_info} <br />
         {coffee.description}
       </p>
+      </StyledResultCard>
     ));
 
   return (
-    <div>
+    <StyledPage>
       <Form onSubmit={handleSubmit}>
         <StyledGroup>
           <Input
@@ -38,23 +40,37 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
       <br />
       {renderCoffeeShops()}
       <StyledButton onClick={nextPage}>load more</StyledButton>
-    </div>
+    </StyledPage>
   );
 };
 
+const StyledPage = styled.div`
+padding: 1em 4em 1em;
+`
+
+const StyledResultCard = styled.div`
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+transition: 0.3s;
+border: 1px solid;
+border-radius: 30px;
+padding: 1em; 
+`
+
 const StyledGroup = styled(Form.Group)`
-  width: 100%;
+  width: 90%;
   display: flex;
+  margin: auto;
+  padding: 10px;
+  
 `;
 
 const Input = styled(Form.Control)`
   border-radius: 30px;
-  border: 1px solid;
-  box-shadow: 0px 4px 10px 2px;
+  box-shadow: 0px 2px 6px;
   color: black;
   &:hover {
     background: #e5e5e5;
-    box-shadow: 10px;
+    box-shadow: 0px 2px 6px;
   }
 `;
 
@@ -64,11 +80,8 @@ const StyledButton = styled.button`
   border-radius: 30px;
   border: none;
   width: 100px;
-  hieght: 50px;
-  margin: 1em;
-  padding: 0.25em 1em;
+  height: 38px;
 `;
 
-const StyledCard = styled.div``;
 
 export default Search;
