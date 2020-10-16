@@ -47,6 +47,8 @@ const CoffeeShop = ({ match, history }) => {
       .catch(console.log);
   };
 
+
+
   const renderShopInfo = () => (
       <StyledCard1>
       <h1>{shop.name}

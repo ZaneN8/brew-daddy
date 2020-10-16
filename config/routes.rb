@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get "/users/:user_id/reviews", to: "reviews#cu_reviews"
     get "/coffee_shops/:coffee_shop_id/ratings", to: "coffee_shops#ratings"
     get "/coffee_shops/ratings", to: "coffee_shops#all_ratings"
+    get "/coffee_shops/:id/average_stats", to: "coffee_shops#average_stats"
+
     resources :coffee_shops do
       resources :reviews
     end
