@@ -41,7 +41,6 @@ class Api::ReviewsController < ApplicationController
   private
 
   def set_review
-    
     @review = @coffee_shop.reviews.find(params[:id])
   end
 

@@ -25,7 +25,6 @@ Rails.application.routes.draw do
         resources :answers
     end 
 
-    #TODO We edited this
     resources :users do
       resources :reviews
       resources :coffee_shops

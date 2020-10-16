@@ -29,8 +29,6 @@ const ReviewForm = ({ add, shopId, review }) => {
   }
   );
 
-  const [fileState, setFileState] = useState({ url: null, blob: null, file: null });
-
   const handleChange = (e) => {
     setReviewState({ ...reviewState, [e.target.name]: e.target.value });
   };
@@ -54,21 +52,6 @@ const ReviewForm = ({ add, shopId, review }) => {
     }
   }
 
-  //TODO need to fix this to go to a new controller
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0]
-    const blob = new Blob([file], { type: 'image/png' });
-    const url = URL.createObjectURL(blob);
-    setFileState({ file, blob, url });
-  }
-
-  // const addReviewImage = (e) => {
-  //   const formData = new FormData();
-  //     formData.append('file', fileState.file);
-  //     Object.keys(reviewState).forEach((key) => {
-  //       formData.append(key, reviewState[key]);
-  //     });
-  // }
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -102,14 +85,6 @@ const ReviewForm = ({ add, shopId, review }) => {
             onChange={handleChange}
           />
         </Form.Group>
-        {review ? "" : <Form.Group>
-          <Form.File
-            name="image"
-            label="Upload Review Image"
-            value={reviewState.image}
-            onChange={handleImageUpload}
-          />
-        </Form.Group>}
         <Form.Group>
           <Form.Label>Shop Rating</Form.Label>
           <Form.Control

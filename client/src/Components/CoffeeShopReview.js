@@ -33,6 +33,8 @@ const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
       <p>Food:{review.food}</p>
       <p>Noise:{review.noise_level}</p>
       
+    <button>Add review Picture </button>
+
       {showEditForm && <ReviewForm  shopId={shopId} review={review}/>}
           <button onClick={() => setShowEditForm(!showEditForm)}>
             {showEditForm ? "Cancel Edit" : "Edit Review"}

@@ -3,7 +3,7 @@ import axios from "axios";
 import ReviewForm from "./ReviewForm";
 import CoffeeShopReview from "./CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
-import QA from "./QA"
+import CoffeeShopQuestions from "./CoffeeShopQuestions";
 
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
@@ -12,9 +12,7 @@ const CoffeeShop = ({ match, history }) => {
   const [showEditForm, setShowEditForm] = useState(false);
 
 
-
   useEffect(() => {
-    debugger
     axios
       .get(`/api/coffee_shops/${match.params.id}`)
       .then((res) => setShop(res.data))
@@ -33,7 +31,6 @@ const CoffeeShop = ({ match, history }) => {
   }, []);
 
   const deleteCoffeeShop = (id) => {
-    debugger;
     axios
       .delete(`/api/coffee_shops/${id}`, { params: { id: id } })
       .then((res) => {
@@ -67,7 +64,7 @@ const CoffeeShop = ({ match, history }) => {
       </h5>
 
       <p>
-        Open:{shop.open} Delivery        {shop.order_online}
+        Open:{shop.open} Delivery:{shop.delivery} Order Online:{shop.order_online} Pick Up:{shop.pick_up}
       </p>
         <>
           {showEditForm && <CoffeeShopForm shopProp={shop} />}
@@ -109,7 +106,7 @@ const CoffeeShop = ({ match, history }) => {
     return (
       <div>
         <div>{renderShopInfo()}</div>
-        {/* <QA shopId={shop.id}/> */}
+        <CoffeeShopQuestions questionsShopId={shop.id}/>
         <div>{renderReviews()}</div>
         <>
           {showReviewForm && <ReviewForm hide={setShowReviewForm} add={addReview} shopId={shop.id} />}
