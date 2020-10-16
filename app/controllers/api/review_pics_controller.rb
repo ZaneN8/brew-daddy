@@ -41,8 +41,9 @@ class Api::ReviewPicsController < ApplicationController
   def set_review
     @review = Review.find(params[:review_id])
   end
+  
 
   def set_review_pic
-    @review_pic = @review.review_pics.find(params[:review_pic_id])
+    @review_pic = @review.review_pics.find(params[:id])
   end
 end

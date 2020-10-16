@@ -13,6 +13,10 @@ Rails.application.routes.draw do
       resources :questions
     end
 
+    resources :reviews do
+      resources :review_pics
+    end
+
     resources :questions do
       resources :answers
     end

@@ -1,3 +1,3 @@
 class ReviewPic < ApplicationRecord
-  belongs_to :review, dependent: :destroy
+  belongs_to :review
 end

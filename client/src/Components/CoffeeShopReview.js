@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReviewForm from "./ReviewForm"
+import ReviewImageUpload from "./ReviewImageUpload"
 
 const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
   const [user, setUser] = useState(null);
@@ -33,7 +34,9 @@ const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
       <p>Food:{review.food}</p>
       <p>Noise:{review.noise_level}</p>
       
-    <button>Add review Picture </button>
+      <p>IMAGE GOES HERE</p>
+
+    <ReviewImageUpload reviewProp={review}/>
 
       {showEditForm && <ReviewForm  shopId={shopId} review={review}/>}
           <button onClick={() => setShowEditForm(!showEditForm)}>
