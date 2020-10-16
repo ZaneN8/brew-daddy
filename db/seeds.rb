@@ -11,7 +11,7 @@ puts "Seeding your Mom"
         last_name: Faker::Name.last_name,
         email: "test#{i}@example.com",
         password: "123456",
-        image: Faker::Avatar.image(slug: "#{user.first_name}#{i}", size: "300x300", format: "png", set: "set1")
+        image: Faker::Avatar.image(slug: "test_picture", size: "300x300", format: "png", set: "set1")
     )
 
     puts user.email + " created"
@@ -23,7 +23,7 @@ puts "Seeding your Mom"
         cs = CoffeeShop.create(
             name: Faker::Coffee.blend_name,
             description: Faker::Restaurant.description, # Faker::Coffee.notes
-            image: Faker::Avatar.image(slug: "#{user.first_name}#{j}", size: "300x300", format: "png", set: "set4"),
+            image: Faker::Avatar.image(slug: "faker Coffee Shop", size: "300x300", format: "png", set: "set4"),
             address: Faker::Address.street_address,
             city:Faker::Address.city,
             state: Faker::Address.state,
@@ -41,14 +41,16 @@ puts "Seeding your Mom"
             question = Question.create(
                 body: Faker::TvShows::RickAndMorty.quote,
             )
+            
+            3.times do |a|
+                answer = Answer.create(
+                    body:Faker::TvShows::SouthPark.quote,
+                    question_id: question.id,
+                )
+            end
         end
         
-        3.times do |a|
-            answer = Answer.create(
-                body:Faker::TvShows::SouthPark.quote,
-                question_id: question.id,
-            )
-        end
+
     end
 end
 puts "Wait your turn, were still seeding in here"    
