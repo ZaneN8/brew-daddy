@@ -2,9 +2,33 @@ import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
   // next we can render the coffeeshops that are returned
+
+// Get rating for each coffee shop
+const GetRating = (id) => {
+  const [ratingsData, setRatingsData] = useState([]);
+  useEffect(() => {
+    axios.get(`/api/coffee_shops/${id.id}/ratings`)
+    .then((res) => {
+      setRatingsData(res.data)
+      //Need to normalize Rating data and do calcuate
+    })
+    .catch((err) => {
+      console.log("ERROR Setting Rating Data");
+    })
+  
+},[]);
+return (
+  <div>
+  {ratingsData.rating} Reviews
+  </div>)
+}
+
+
+
 
   // We will need to change the handleSubmit to redirect it into search page below only.
   const renderCoffeeShops = () =>
@@ -18,11 +42,11 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
         <br />
         <b> Location: </b> {coffee.city}, {coffee.state} <br />
         <b> Phone Number: </b> {coffee.contact_info} <br />
+        <GetRating id={coffee.id}/>
         {coffee.description}
       </p>
       </StyledResultCard>
     ));
-
   return (
     <StyledPage>
       <Form onSubmit={handleSubmit}>
