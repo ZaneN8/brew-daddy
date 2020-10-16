@@ -106,7 +106,7 @@ const CoffeeShop = ({ match, history }) => {
     return (
       <div>
         <div>{renderShopInfo()}</div>
-        <QA />
+        <QA shopId={shop.id}/>
         <div>{renderReviews()}</div>
         <>
           {showReviewForm && <ReviewForm hide={setShowReviewForm} add={addReview} shopId={shop.id} />}
@@ -121,21 +121,3 @@ const CoffeeShop = ({ match, history }) => {
 };
 
 export default CoffeeShop;
-
-// useEffect(() => {
-//   Axios.get(`/api/departments/${match.params.id}`)
-//     .then((res) => {
-//       setDepartment(res.data);
-//     })
-//     .catch((err) => {
-//       alert("Error: No departments loaded");
-//     });
-
-//   Axios.get(`/api/departments/${match.params.id}/items`)
-//     .then((res) => {
-//       setItem(res.data);
-//     })
-//     .catch((err) => {
-//       alert("Error: Could not retrieve items");
-//     });
-// }, []);

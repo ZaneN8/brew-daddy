@@ -1,6 +1,6 @@
 class Api::CoffeeShopsController < ApplicationController
 before_action :authenticate_user!, only: [:create, :update, :destroy]
-before_action :set_coffee_shop, only: [:show, :update, :destroy, :search]
+before_action :set_coffee_shop, only: [:show, :update, :destroy, :search, :coffee_ratings]
 before_action :set_user, only: [:cu_index]
 
   # For Search stuff:  https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
@@ -74,6 +74,15 @@ before_action :set_user, only: [:cu_index]
     @coffee_shop.destroy
     render json: "Data deleted"
   end
+
+  def all_ratings
+    render json: CoffeeShop.ratings_all
+  end
+
+  def ratings
+    render json: CoffeeShop.ratings(params[:coffee_shop_id])
+  end
+
 
 
   private

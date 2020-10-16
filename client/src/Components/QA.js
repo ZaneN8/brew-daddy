@@ -4,58 +4,54 @@ import {Form} from "react-bootstrap"
 const QA = ({shopId}) => {
 
   const question, setQuestion = useState([])
-  const answer, answerQuestion = useState([])
+  const answer, setAnswer = useState([])
 
-  const questionAPI = () => {
+  const getQuestions = async () => {
     try {
-
-    } catch (err) => {
-      
+      let res = await axios.get(`/api/???`);
+      setQuestion(res.data);
+    } catch (err) {
+      alert("Error: QA get question failed");
     }
-  }
+  };
 
+  const getAnswers = async () => {
+    try {
+      let res = await axios.get(`/api/???`);
+      setAnswer(res.data);
+    } catch (err) {
+      alert("Error: QA, get answer failed");
+    }
+  };
 
-  const questionForm = () => {
+  const addQuestion = async () => {
+    try {
+      let res = await axios.put(`/api/???`);
+      setQuestion(res.data);
+    } catch (err) {
+      alert("Error: QA, add question failed");
+    }
+  };
 
-    return(
-      <>
-      <Form.Group>
-      <Form.Label> Question</Form.Label>
-      <Form.Control 
-      type="text"
-      name="Question"
-      value={userState.first_name}
-      onChange = {handleChange}
-      />
-
-    </>
-    
-
-    )
-  }
-
-  const answerForm = ()=> {
-    
-    return(
-      <>
-      </>
-
-    )
-
-  }
-
-  
+  const addAnswer = async () => {
+    try {
+      let res = await axios.put(`/api/???`);
+      setQuestion(res.data);
+    } catch (err) {
+      alert("Error: QA, add answer failed");
+    }
+  };
 
 
 
   return(
     <>
   <h1> QA</h1>
-  <Form>
-    {questionForm ()}
-    {answerForm ()}
+    <p>Render Questions</p>
+    <p>Render Answers</p>
 
-  </Form>
+    <button>Add Question</button>
+    <button>Add Answer</button>
   </>
   )
 };
