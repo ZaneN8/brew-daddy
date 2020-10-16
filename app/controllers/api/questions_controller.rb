@@ -7,9 +7,9 @@ class Api::QuestionsController < ApplicationController
   def index 
     # render json: @coffee_shop.questions
 
-    question_result = Question.where(nil)
+    question_result = @coffee_shop.questions
     filtering_params(params).each do |key, value|
-      question_result = Question.public_send("filter_by_#{key}", value) if value.present?
+      question_result = question_result.public_send("filter_by_#{key}", value) if value.present?
     end
     render json: question_result
   end

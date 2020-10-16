@@ -1,7 +1,7 @@
 
 require "faker"
 
-puts "Seeding your Mom"
+puts "Let the Seeding begin"
 
 
 5.times do |i|
@@ -11,19 +11,18 @@ puts "Seeding your Mom"
         last_name: Faker::Name.last_name,
         email: "test#{i}@example.com",
         password: "123456",
-        image: Faker::Avatar.image(slug: "test_picture", size: "300x300", format: "png", set: "set1")
+        image: Faker::Avatar.image(slug: "user #{i}", size: "300x300", format: "png", set: "set1")
     )
 
     puts user.email + " created"
 
-    puts " User #{i} and I are now seeeding your Mom"
-    puts " 8======D"
+    puts "Seeding..."
 
     10.times do |j|
         cs = CoffeeShop.create(
             name: Faker::Coffee.blend_name,
             description: Faker::Restaurant.description, # Faker::Coffee.notes
-            image: Faker::Avatar.image(slug: "faker Coffee Shop", size: "300x300", format: "png", set: "set4"),
+            image: Faker::Avatar.image(slug: "Coffee Shop #{j}", size: "300x300", format: "png", set: "set4"),
             address: Faker::Address.street_address,
             city:Faker::Address.city,
             state: Faker::Address.state,
@@ -36,26 +35,27 @@ puts "Seeding your Mom"
             order_online: true,
             user_id: user.id,
         )
-
-        2.times do |q|
+        
+        3.times do |q|
             question = Question.create(
                 body: Faker::TvShows::RickAndMorty.quote,
-            )
-            
-            3.times do |a|
-                answer = Answer.create(
-                    body:Faker::TvShows::SouthPark.quote,
-                    question_id: question.id,
+                coffee_shop_id: cs.id,
                 )
-            end
+                
+                3.times do |a|
+                    answer = Answer.create(
+                        body:Faker::TvShows::SouthPark.quote,
+                        question_id: question.id,
+                        )
+                end  
+                    
         end
-        
-
     end
 end
-puts "Wait your turn, were still seeding in here"    
 
-80.times do |r|
+puts "wait were almost done"
+
+100.times do |r|
     rv = Review.create(
         title: Faker::Quote.robin,
         body: Faker::Restaurant.review,
@@ -69,7 +69,4 @@ puts "Wait your turn, were still seeding in here"
     )
 end
 
-
-
-
-puts "Seeds Successful, your about to have a little brother"
+puts "Seeds Successful"
