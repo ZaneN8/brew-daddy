@@ -12,10 +12,9 @@ const SideBarSearch = ({
 }) => {
   return (
     <div>
-      <Form>
+      <StyledForm>
         <StyledGroup>
           <Input
-            size="sm"
             autoFocus
             placeholder="City"
             name="query"
@@ -23,7 +22,6 @@ const SideBarSearch = ({
             onChange={(e) => setCityQuery(e.target.value)}
           />
           <Input
-            size="sm"
             autoFocus
             placeholder="State"
             name="query"
@@ -31,7 +29,6 @@ const SideBarSearch = ({
             onChange={(e) => setStateQuery(e.target.value)}
           />
           <Input
-            size="sm"
             autoFocus
             placeholder="Zip Code"
             name="query"
@@ -39,23 +36,32 @@ const SideBarSearch = ({
             onChange={(e) => setZipQuery(e.target.value)}
           />
         </StyledGroup>
-      </Form>
+      </StyledForm>
     </div>
   );
 };
 
+const StyledForm = styled(Form)`
+margin: auto;
+display: flex;
+background: #d9d9d9;
+padding: 10px;
+`
+
 const StyledGroup = styled(Form.Group)`
   display: flex;
-  box-shadow: 5px 2px 2px;
-  backgroud: #ffffff;
+  margin: auto;
+  backgroud-color: #cccccc;
 `;
 
 const Input = styled(Form.Control)`
   border-radius: 30px;
-  border: 1px solid;
+  font-size: 10px;
+  border: 0px solid;
   color: black;
   margin-right: 1rem;
   max-width: 12.5rem;
+  background: #e5e5e5;
   &:hover {
     background: #e5e5e5;
     box-shadow: 10px;
