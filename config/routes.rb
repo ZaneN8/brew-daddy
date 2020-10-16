@@ -8,6 +8,11 @@ Rails.application.routes.draw do
     get "/users/:user_id/reviews", to: "reviews#cu_reviews"
     resources :coffee_shops do
       resources :reviews
+      resources :questions
+    end
+
+    resources :questions do
+      resources :answers
     end
 
     #TODO We edited this

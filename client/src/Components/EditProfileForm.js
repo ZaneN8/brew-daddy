@@ -9,7 +9,7 @@ const EditProfileForm = () => {
 
  const handleSubmit = (e) =>{
   e.preventDefault()
-  //handleupdate is in Auth Provider
+  //handleUpdate is in Auth Provider
   handleUpdate(userState)
  }
 

@@ -29,6 +29,8 @@ const ReviewForm = ({ add, shopId, review }) => {
   }
   );
 
+  const [fileState, setFileState] = useState({ url: null, blob: null, file: null });
+
   const handleChange = (e) => {
     setReviewState({ ...reviewState, [e.target.name]: e.target.value });
   };
@@ -39,12 +41,10 @@ const ReviewForm = ({ add, shopId, review }) => {
       setReviewState(res.data)
     } catch(err) {
       alert("ERROR: ReviewForm, add review failed")
-      debugger
     }
   }
 
   const editReview = async() => {
-    debugger
     try {
       let res = await axios.put(`/api/coffee_shops/${shopId}/reviews/${review.id}`, reviewState)
       setReviewState(res.data)
@@ -54,13 +54,28 @@ const ReviewForm = ({ add, shopId, review }) => {
     }
   }
 
+  //TODO need to fix this to go to a new controller
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    const blob = new Blob([file], { type: 'image/png' });
+    const url = URL.createObjectURL(blob);
+    setFileState({ file, blob, url });
+  }
 
-  const handleSubmit = (e) => {
+  // const addReviewImage = (e) => {
+  //   const formData = new FormData();
+  //     formData.append('file', fileState.file);
+  //     Object.keys(reviewState).forEach((key) => {
+  //       formData.append(key, reviewState[key]);
+  //     });
+  // }
+
+  const handleSubmit = (e) =>{
     e.preventDefault();
-    if(review){
+     if(review){
       editReview()
-    }else{
-    addReview();
+     }else{
+      addReview();
     }
   };
 
@@ -92,7 +107,7 @@ const ReviewForm = ({ add, shopId, review }) => {
             name="image"
             label="Upload Review Image"
             value={reviewState.image}
-            onChange={handleChange}
+            onChange={handleImageUpload}
           />
         </Form.Group>}
         <Form.Group>

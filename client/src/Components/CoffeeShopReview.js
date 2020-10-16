@@ -26,6 +26,7 @@ const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
       </Link>
       <h2>{review.title}</h2>
       <h5>{review.body}</h5>
+      <p>{review.image}</p>
       <p>Total rating:{review.rating}</p>
       <p>Coffee rating:{review.coffee_rating}</p>
       <p>Work friendly:{review.work_friendly}</p>

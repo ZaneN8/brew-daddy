@@ -95,10 +95,10 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
     e.preventDefault();
     if(shopProp){
       editCoffeeShop()
+      // hide()
     }else{
       addCoffeeShop();
-    }
-      //TODO Hide toggle form
+    };
   };
 
   return (

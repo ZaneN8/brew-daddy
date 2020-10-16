@@ -3,6 +3,7 @@ import axios from "axios";
 import ReviewForm from "./ReviewForm";
 import CoffeeShopReview from "./CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
+import QA from "./QA"
 
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
@@ -63,8 +64,7 @@ const CoffeeShop = ({ match, history }) => {
       </h5>
 
       <p>
-        Open:{shop.open} Delivery:{shop.delivery} PickUp: {shop.pickup} Online:
-        {shop.order_online}
+        Open:{shop.open} Delivery        {shop.order_online}
       </p>
         <>
           {showEditForm && <CoffeeShopForm shopProp={shop} />}
@@ -106,9 +106,10 @@ const CoffeeShop = ({ match, history }) => {
     return (
       <div>
         <div>{renderShopInfo()}</div>
+        <QA />
         <div>{renderReviews()}</div>
         <>
-          {showReviewForm && <ReviewForm add={addReview} shopId={shop.id} />}
+          {showReviewForm && <ReviewForm hide={setShowReviewForm} add={addReview} shopId={shop.id} />}
           <button onClick={() => setShowReviewForm(!showReviewForm)}>
             {showReviewForm ? "Cancel Review" : "Write Review"}
           </button>

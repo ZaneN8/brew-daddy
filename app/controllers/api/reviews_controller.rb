@@ -18,6 +18,18 @@ class Api::ReviewsController < ApplicationController
 
   def create
     review = @coffee_shop.reviews.new(review_parmas)
+    file = params[:file]
+
+      if file
+        begin
+          cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true, resource_type: :auto)
+          review[:image] = cloud_image["secure_url"]
+        rescue => e
+          render json: { errors: e }, status: 422
+          return
+        end
+      end
+
     if (review.save)
       render json: review
     else
@@ -25,15 +37,20 @@ class Api::ReviewsController < ApplicationController
     end
   end
 
-  # def update
-  #   if @coffee_shop.update(coffee_shop_params)
-  #     render json: @coffee_shop
-  #   else
-  #     render json: @coffee_shop.errors, status: 422
-  #   end
-  # end
-
   def update
+
+    file = params[:file]
+
+    if file
+      begin
+        cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true, resource_type: :auto)
+        @coffee_shop[:image] = cloud_image["secure_url"]
+      rescue => e
+        render json: { errors: e }, status: 422
+        return
+      end
+    end
+
     if @review.update(review_parmas)
       render json: @review
     else
@@ -55,7 +72,6 @@ class Api::ReviewsController < ApplicationController
 
   def review_parmas
     params
-    .require(:review)
     .permit(
       :title,
       :body,
