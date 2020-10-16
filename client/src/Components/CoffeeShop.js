@@ -11,7 +11,10 @@ const CoffeeShop = ({ match, history }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
 
+
+
   useEffect(() => {
+    debugger
     axios
       .get(`/api/coffee_shops/${match.params.id}`)
       .then((res) => setShop(res.data))
@@ -106,7 +109,7 @@ const CoffeeShop = ({ match, history }) => {
     return (
       <div>
         <div>{renderShopInfo()}</div>
-        <QA shopId={shop.id}/>
+        {/* <QA shopId={shop.id}/> */}
         <div>{renderReviews()}</div>
         <>
           {showReviewForm && <ReviewForm hide={setShowReviewForm} add={addReview} shopId={shop.id} />}
