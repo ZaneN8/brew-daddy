@@ -1,11 +1,8 @@
 class Api::QuestionsController < ApplicationController
-  before_action :set_coffee_shop, only: [:index, :new, :create, :destroy]
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :set_coffee_shop, only: [:index, :create, :destroy]
   def index 
-    @questions = Question.all
-  end
-
-  def new
-    @question = Question.new
+    render json: @coffee_shop.questions
   end
 
   def create
@@ -30,6 +27,14 @@ class Api::QuestionsController < ApplicationController
   end
 
   private
+
+
+
+  def question_params
+    params
+    .require(:question)
+    .permit(:body, :coffee_shop_id)
+  end
 
   def set_coffee_shop
     @coffee_shop = CoffeeShop.find(params[:coffee_shop_id])

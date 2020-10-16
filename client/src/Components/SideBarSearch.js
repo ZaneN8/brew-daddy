@@ -46,7 +46,8 @@ const SideBarSearch = ({
 
 const StyledGroup = styled(Form.Group)`
   display: flex;
-  background: #e5e5e5;
+  box-shadow: 5px 2px 2px;
+  backgroud: #ffffff;
 `;
 
 const Input = styled(Form.Control)`
@@ -55,6 +56,10 @@ const Input = styled(Form.Control)`
   color: black;
   margin-right: 1rem;
   max-width: 12.5rem;
+  &:hover {
+    background: #e5e5e5;
+    box-shadow: 10px;
+  }
 `;
 
 export default SideBarSearch;

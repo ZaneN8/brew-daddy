@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
   // next we can render the coffeeshops that are returned
@@ -10,9 +11,12 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
     coffeeShops.map((coffee) => (
       <p key={coffee.id}>
         <img src={coffee.image} />
-        <Link as="h3" to={`/coffee_shops/${coffee.id}`}>
-          {coffee.name}
+        <Link as="h1" to={`/coffee_shops/${coffee.id}`}>
+          <h3>{coffee.name}</h3>
         </Link>
+        <br />
+        <b> Location: </b> {coffee.city}, {coffee.state} <br />
+        <b> Phone Number: </b> {coffee.contact_info} <br />
         {coffee.description}
       </p>
     ));
@@ -20,23 +24,51 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Label>Search</Form.Label>
-          <Form.Control
+        <StyledGroup>
+          <Input
             autoFocus
             placeholder="Enter to search here"
             name="query"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button type="submit">Search</button>
-        </Form.Group>
+          <StyledButton type="submit">Search</StyledButton>
+        </StyledGroup>
       </Form>
       <br />
       {renderCoffeeShops()}
-      <button onClick={nextPage}>load more</button>
+      <StyledButton onClick={nextPage}>load more</StyledButton>
     </div>
   );
 };
+
+const StyledGroup = styled(Form.Group)`
+  width: 100%;
+  display: flex;
+`;
+
+const Input = styled(Form.Control)`
+  border-radius: 30px;
+  border: 1px solid;
+  box-shadow: 0px 4px 10px 2px;
+  color: black;
+  &:hover {
+    background: #e5e5e5;
+    box-shadow: 10px;
+  }
+`;
+
+const StyledButton = styled.button`
+  background-color: #4d4d4d;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  width: 100px;
+  hieght: 50px;
+  margin: 1em;
+  padding: 0.25em 1em;
+`;
+
+const StyledCard = styled.div``;
 
 export default Search;

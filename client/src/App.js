@@ -21,7 +21,6 @@ const App = () => (
   <Fragment>
     <NavBar />
     <FetchUser>
-      <br />
       <Switch>
         <Route exact path="/" component={Lander} />
         <Route exact path="/register" component={Register} />
