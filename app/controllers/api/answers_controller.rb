@@ -1,4 +1,5 @@
 class Api::AnswersController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :set_question, only: [:index, :create, update, destroy]
 
   def index
@@ -28,6 +29,8 @@ class Api::AnswersController < ApplicationController
   end
 
   private
+
+
 
   def set_question
     @question = Question.find(params[:question_id])

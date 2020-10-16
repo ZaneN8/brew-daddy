@@ -47,8 +47,6 @@ const CoffeeShop = ({ match, history }) => {
       .catch(console.log);
   };
 
- 
-
   const renderShopInfo = () => (
       <StyledCard1>
       <h1>{shop.name}
@@ -67,9 +65,7 @@ const CoffeeShop = ({ match, history }) => {
         Open:{shop.open} Delivery:{shop.delivery} PickUp: {shop.pickup} Online:
         {shop.order_online}
       </p>
-        <>
-          {showEditForm && <CoffeeShopForm shopProp={shop} />}
-        </>
+      <>{showEditForm && <CoffeeShopForm shopProp={shop} />}</>
       <br />
       <button onClick={() => deleteCoffeeShop(shop.id)}>
         {" "}
