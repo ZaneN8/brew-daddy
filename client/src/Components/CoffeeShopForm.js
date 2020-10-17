@@ -11,7 +11,7 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
     description: "",
     city: "",
     state: "",
-    image:"",
+    image: "",
     zip: "",
     contact_info: "",
     cost: 0,
@@ -22,24 +22,29 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
     user_id: auth.user.id,
   };
 
-  const [coffeeShopState, setCoffeeShopState] = useState(!shopProp 
-    ? shopDefault 
-    : {
-        name: shopProp.name,
-        description: shopProp.description,
-        city: shopProp.city,
-        state: shopProp.state,
-        zip: shopProp.zip,
-        contact_info: shopProp.contact_info,
-        cost: shopProp.cost,
-        open: shopProp.open,
-        delivery: shopProp.delivery,
-        pickup: shopProp.pickup,
-        order_online: shopProp.order_online,
-      }
+  const [coffeeShopState, setCoffeeShopState] = useState(
+    !shopProp
+      ? shopDefault
+      : {
+          name: shopProp.name,
+          description: shopProp.description,
+          city: shopProp.city,
+          state: shopProp.state,
+          zip: shopProp.zip,
+          contact_info: shopProp.contact_info,
+          cost: shopProp.cost,
+          open: shopProp.open,
+          delivery: shopProp.delivery,
+          pickup: shopProp.pickup,
+          order_online: shopProp.order_online,
+        }
   );
 
-  const [fileState, setFileState] = useState({ url: null, blob: null, file: null });
+  const [fileState, setFileState] = useState({
+    url: null,
+    blob: null,
+    file: null,
+  });
 
   const handleBoo = (e) => {
     const name = e.target.name;
@@ -47,58 +52,57 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
       ...coffeeShopState,
       [name]: !coffeeShopState[name],
     });
-  }
+  };
 
   const handleImageUpload = (e) => {
-    const file = e.target.files[0]
-    const blob = new Blob([file], { type: 'image/png' });
+    const file = e.target.files[0];
+    const blob = new Blob([file], { type: "image/png" });
     const url = URL.createObjectURL(blob);
     setFileState({ file, blob, url });
-  }
+  };
 
   const handleChange = (e) => {
     setCoffeeShopState({ ...coffeeShopState, [e.target.name]: e.target.value });
   };
 
-  const editCoffeeShop = async() => {
+  const editCoffeeShop = async () => {
     try {
       const formData = new FormData();
-      formData.append('file', fileState.file);
+      formData.append("file", fileState.file);
       Object.keys(coffeeShopState).forEach((key) => {
         formData.append(key, coffeeShopState[key]);
       });
-      let res = await axios.put(`/api/coffee_shops/${shopProp.id}`, formData)
-      setCoffeeShopState(res.data)
-    }
-    catch (err) {
-      alert("ERROR: CoffeeShopForm, updating shop")
-    }
-  }
-
-  const addCoffeeShop = async() => {
-    try {
-      const formData = new FormData();
-      formData.append('file', fileState.file);
-      Object.keys(coffeeShopState).forEach((key) => {
-        formData.append(key, coffeeShopState[key]);
-      });
-
-      let res = await axios.post(`/api/coffee_shops`, formData)
+      let res = await axios.put(`/api/coffee_shops/${shopProp.id}`, formData);
       setCoffeeShopState(res.data);
-    }catch (err) {
-      console.log(err)
-      alert("Error: CoffeeShopForm, adding shop")
+    } catch (err) {
+      alert("ERROR: CoffeeShopForm, updating shop");
     }
-  }
+  };
+
+  const addCoffeeShop = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", fileState.file);
+      Object.keys(coffeeShopState).forEach((key) => {
+        formData.append(key, coffeeShopState[key]);
+      });
+
+      let res = await axios.post(`/api/coffee_shops`, formData);
+      setCoffeeShopState(res.data);
+    } catch (err) {
+      console.log(err);
+      alert("Error: CoffeeShopForm, adding shop");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(shopProp){
-      editCoffeeShop()
+    if (shopProp) {
+      editCoffeeShop();
       // hide()
-    }else{
+    } else {
       addCoffeeShop();
-    };
+    }
   };
 
   return (

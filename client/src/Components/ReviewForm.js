@@ -6,58 +6,62 @@ import { AuthContext } from "../providers/AuthProvider";
 const ReviewForm = ({ add, shopId, review }) => {
   const auth = useContext(AuthContext);
   const [reviewState, setReviewState] = useState(
-    review ? {
-      title: review.title,
-      body: review.body,
-      rating: review.rating,
-      coffee_rating: review.coffee_rating,
-      work_friendly: review.work_friendly,
-      food: review.food,
-      noise_level: review.noise_level
-    }
-    :
-    {
-    title: "",
-    body: "",
-    image: "",
-    rating: 0,
-    coffee_rating: 0,
-    work_friendly: 0,
-    food: 0,
-    noise_level: 0,
-    user_id: auth.user.id,
-  }
+    review
+      ? {
+          title: review.title,
+          body: review.body,
+          rating: review.rating,
+          coffee_rating: review.coffee_rating,
+          work_friendly: review.work_friendly,
+          food: review.food,
+          noise_level: review.noise_level,
+        }
+      : {
+          title: "",
+          body: "",
+          image: "",
+          rating: 0,
+          coffee_rating: 0,
+          work_friendly: 0,
+          food: 0,
+          noise_level: 0,
+          user_id: auth.user.id,
+        }
   );
 
   const handleChange = (e) => {
     setReviewState({ ...reviewState, [e.target.name]: e.target.value });
   };
 
-  const addReview = async() => {
-    try{
-      let res = await axios.post(`/api/coffee_shops/${shopId}/reviews`, reviewState)
-      setReviewState(res.data)
-    } catch(err) {
-      alert("ERROR: ReviewForm, add review failed")
-    }
-  }
-
-  const editReview = async() => {
+  const addReview = async () => {
     try {
-      let res = await axios.put(`/api/coffee_shops/${shopId}/reviews/${review.id}`, reviewState)
-      setReviewState(res.data)
+      let res = await axios.post(
+        `/api/coffee_shops/${shopId}/reviews`,
+        reviewState
+      );
+      setReviewState(res.data);
+    } catch (err) {
+      alert("ERROR: ReviewForm, add review failed");
     }
-    catch (err) {
-      alert("ERROR: ReviewForm, updating review issue")
+  };
+
+  const editReview = async () => {
+    try {
+      let res = await axios.put(
+        `/api/coffee_shops/${shopId}/reviews/${review.id}`,
+        reviewState
+      );
+      setReviewState(res.data);
+    } catch (err) {
+      alert("ERROR: ReviewForm, updating review issue");
     }
-  }
+  };
 
-
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-     if(review){
-      editReview()
-     }else{
+    if (review) {
+      editReview();
+    } else {
       addReview();
     }
   };

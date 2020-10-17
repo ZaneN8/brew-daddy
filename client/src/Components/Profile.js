@@ -12,7 +12,7 @@ const Profile = () => {
   const [profileCoffeeShops, setProfileCoffeeShops] = useState([]);
   const [show, setShow] = useState(false);
   const { user, setUser } = useContext(AuthContext);
-  const [showEdit, setShowEdit]= useState(false)
+  const [showEdit, setShowEdit] = useState(false);
 
   const getProfileReviews = async () => {
     try {
@@ -34,11 +34,6 @@ const Profile = () => {
   };
 
   const addCoffeeShop = (shop) => setShops([...shops, shop]);
-
-
-
-
-
 
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
@@ -73,10 +68,6 @@ const Profile = () => {
     getProfileCoffeeShops();
   }, []);
 
-
-
-  
-
   return (
     <div>
       <div className="userinfo">
@@ -87,31 +78,31 @@ const Profile = () => {
           {user.first_name} {user.last_name}
           <p>{user.email}</p>
         </div>
-    
+
         {showEdit && <EditProfileForm />}
         <button onClick={() => setShowEdit(!showEdit)}>
           {show ? "Cancel " : "Edit Profile"}
         </button>
-      <div className="About Me">
-        <h1>About Me</h1>
-        <p>About me info HERE</p>
-        <h1>Profiles Reviews</h1>
-        <div>{renderProfileReviews()}</div>
+        <div className="About Me">
+          <h1>About Me</h1>
+          <p>About me info HERE</p>
+          <h1>Profiles Reviews</h1>
+          <div>{renderProfileReviews()}</div>
+          <hr />
+          <h1>Profile Coffee Shops </h1>
+          <div>{renderProfileCoffeeShop()}</div>
+        </div>
         <hr />
-        <h1>Profile Coffee Shops </h1>
-        <div>{renderProfileCoffeeShop()}</div>
+        <div className="CoffeeShop Right">
+          {show && <CoffeeShopForm hide={setShow} add={addCoffeeShop} />}
+          <button onClick={() => setShow(!show)}>
+            {show ? "Cancel " : "Create Coffee Shop"}
+          </button>
+        </div>
+        <br />
+        <br />
       </div>
-      <hr />
-      <div className="CoffeeShop Right">
-        {show && <CoffeeShopForm hide={setShow} add={addCoffeeShop} />}
-        <button onClick={() => setShow(!show)}>
-          {show ? "Cancel " : "Create Coffee Shop"}
-        </button>
-      </div>
-      <br />
-      <br />
     </div>
-  </div>
   );
 };
 

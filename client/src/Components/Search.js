@@ -10,16 +10,16 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
   const renderCoffeeShops = () =>
     coffeeShops.map((coffee) => (
       <StyledResultCard>
-      <p key={coffee.id}>
-        <img src={coffee.image} />
-        <Link as="h1" to={`/coffee_shops/${coffee.id}`}>
-          <h3>{coffee.name}</h3>
-        </Link>
-        <br />
-        <b> Location: </b> {coffee.city}, {coffee.state} <br />
-        <b> Phone Number: </b> {coffee.contact_info} <br />
-        {coffee.description}
-      </p>
+        <p key={coffee.id}>
+          <img src={coffee.image} />
+          <Link as="h1" to={`/coffee_shops/${coffee.id}`}>
+            <h3>{coffee.name}</h3>
+          </Link>
+          <br />
+          <b> Location: </b> {coffee.city}, {coffee.state} <br />
+          <b> Phone Number: </b> {coffee.contact_info} <br />
+          {coffee.description}
+        </p>
       </StyledResultCard>
     ));
 
@@ -45,23 +45,22 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
 };
 
 const StyledPage = styled.div`
-padding: 1em 4em 1em;
-`
+  padding: 1em 4em 1em;
+`;
 
 const StyledResultCard = styled.div`
-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-transition: 0.3s;
-border: 1px solid;
-border-radius: 30px;
-padding: 1em; 
-`
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border: 1px solid;
+  border-radius: 30px;
+  padding: 1em;
+`;
 
 const StyledGroup = styled(Form.Group)`
   width: 90%;
   display: flex;
   margin: auto;
   padding: 10px;
-  
 `;
 
 const Input = styled(Form.Control)`
@@ -82,6 +81,5 @@ const StyledButton = styled.button`
   width: 100px;
   height: 38px;
 `;
-
 
 export default Search;

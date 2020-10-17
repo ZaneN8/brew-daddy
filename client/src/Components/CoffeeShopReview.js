@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import ReviewForm from "./ReviewForm"
-import ReviewImageUpload from "./ReviewImageUpload"
+import ReviewForm from "./ReviewForm";
+import ReviewImageUpload from "./ReviewImageUpload";
 
 const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
   const [user, setUser] = useState(null);
-  const [showEditForm,setShowEditForm] = useState(false)
+  const [showEditForm, setShowEditForm] = useState(false);
 
   // get user on initial render
   useEffect(() => {
@@ -33,15 +33,15 @@ const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
       <p>Work friendly:{review.work_friendly}</p>
       <p>Food:{review.food}</p>
       <p>Noise:{review.noise_level}</p>
-      
+
       <p>IMAGE GOES HERE</p>
 
-    <ReviewImageUpload reviewProp={review}/>
+      <ReviewImageUpload reviewProp={review} />
 
-      {showEditForm && <ReviewForm  shopId={shopId} review={review}/>}
-          <button onClick={() => setShowEditForm(!showEditForm)}>
-            {showEditForm ? "Cancel Edit" : "Edit Review"}
-            </button>
+      {showEditForm && <ReviewForm shopId={shopId} review={review} />}
+      <button onClick={() => setShowEditForm(!showEditForm)}>
+        {showEditForm ? "Cancel Edit" : "Edit Review"}
+      </button>
 
       <button onClick={() => deleteReview(review.id)}>Delete</button>
     </div>

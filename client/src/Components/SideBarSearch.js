@@ -42,11 +42,11 @@ const SideBarSearch = ({
 };
 
 const StyledForm = styled(Form)`
-margin: auto;
-display: flex;
-background: #d9d9d9;
-padding: 10px;
-`
+  margin: auto;
+  display: flex;
+  background: #d9d9d9;
+  padding: 10px;
+`;
 
 const StyledGroup = styled(Form.Group)`
   display: flex;

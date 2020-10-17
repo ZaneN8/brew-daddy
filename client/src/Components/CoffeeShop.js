@@ -11,7 +11,6 @@ const CoffeeShop = ({ match, history }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
 
-
   useEffect(() => {
     axios
       .get(`/api/coffee_shops/${match.params.id}`)
@@ -47,15 +46,14 @@ const CoffeeShop = ({ match, history }) => {
       .catch(console.log);
   };
 
- 
-
   const renderShopInfo = () => (
     <div>
-      <h1>{shop.name}
-          <button onClick={() => setShowEditForm(!showEditForm)}>
-            {showEditForm ? "Cancel" : "Update Coffee Shop"}
-          </button>
-        </h1>
+      <h1>
+        {shop.name}
+        <button onClick={() => setShowEditForm(!showEditForm)}>
+          {showEditForm ? "Cancel" : "Update Coffee Shop"}
+        </button>
+      </h1>
       <img src={shop.image} />
 
       <h5>Call us at:{shop.contact_info}</h5>
@@ -64,11 +62,10 @@ const CoffeeShop = ({ match, history }) => {
       </h5>
 
       <p>
-        Open:{shop.open} Delivery:{shop.delivery} Order Online:{shop.order_online} Pick Up:{shop.pick_up}
+        Open:{shop.open} Delivery:{shop.delivery} Order Online:
+        {shop.order_online} Pick Up:{shop.pick_up}
       </p>
-        <>
-          {showEditForm && <CoffeeShopForm shopProp={shop} />}
-        </>
+      <>{showEditForm && <CoffeeShopForm shopProp={shop} />}</>
       <br />
       <button onClick={() => deleteCoffeeShop(shop.id)}>
         {" "}
@@ -106,10 +103,16 @@ const CoffeeShop = ({ match, history }) => {
     return (
       <div>
         <div>{renderShopInfo()}</div>
-        <CoffeeShopQuestions questionsShopId={shop.id}/>
+        <CoffeeShopQuestions questionsShopId={shop.id} />
         <div>{renderReviews()}</div>
         <>
-          {showReviewForm && <ReviewForm hide={setShowReviewForm} add={addReview} shopId={shop.id} />}
+          {showReviewForm && (
+            <ReviewForm
+              hide={setShowReviewForm}
+              add={addReview}
+              shopId={shop.id}
+            />
+          )}
           <button onClick={() => setShowReviewForm(!showReviewForm)}>
             {showReviewForm ? "Cancel Review" : "Write Review"}
           </button>
