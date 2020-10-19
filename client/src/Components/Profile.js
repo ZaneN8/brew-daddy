@@ -74,6 +74,7 @@ const Profile = () => {
   };
 
   const editUserProfile = async () => {
+    debugger;
     try {
       const formData = new FormData();
       formData.append("file", fileState.file);

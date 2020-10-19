@@ -43,9 +43,9 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
       <div key={question.id}>
         <h2>Question:{question.body}</h2>
 
-        <Answers />
+        <Answers questionProp={question.id} />
         <button>Show more Pagination</button>
-        {showCAnswers && <AnswerForm />}
+        {showCAnswers && <AnswerForm question={question.id} />}
         <button onClick={() => setShowCAnswers(!showCAnswers)}>
           {showCAnswers ? "Cancel Answer" : "Add Answer"}
         </button>
