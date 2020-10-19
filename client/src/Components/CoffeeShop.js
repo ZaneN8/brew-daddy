@@ -3,12 +3,12 @@ import axios from "axios";
 import ReviewForm from "./ReviewForm";
 import CoffeeShopReview from "./CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
-import styled from "styled-components";
+import CoffeeShopQuestions from "./CoffeeShopQuestions";
 
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
   const [reviews, setReviews] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  const [showReviewForm, setShowReviewForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [ratingsData, setRatingsData] = useState({});
 
@@ -35,12 +35,11 @@ const CoffeeShop = ({ match, history }) => {
       .get(`/api/coffee_shops/${match.params.id}/average_stats`)
       .then((res) => setRatingsData(res.data))
       .catch((err) => {
-      console.log("ERROR Setting Rating Data");
-    })
+        console.log("ERROR Setting Rating Data");
+      });
   }, []);
 
   const deleteCoffeeShop = (id) => {
-    debugger;
     axios
       .delete(`/api/coffee_shops/${id}`, { params: { id: id } })
       .then((res) => {
@@ -58,25 +57,26 @@ const CoffeeShop = ({ match, history }) => {
   };
 
   const renderAllRating = () => {
-  return (
-    <div>
-    <b>Overall Rating: {ratingsData.total_rating} </b><br />
-    Food Quality: {ratingsData.total_food} <br />
-    Coffee Quality: {ratingsData.total_coffee} <br />
-    Noise Level: {ratingsData.total_noise_level} <br />
-    Work Friendly: {ratingsData.total_work_friendly} <br />
-    
-    </div>)
-  }
-
+    return (
+      <div>
+        <b>Overall Rating: {ratingsData.total_rating} </b>
+        <br />
+        Food Quality: {ratingsData.total_food} <br />
+        Coffee Quality: {ratingsData.total_coffee} <br />
+        Noise Level: {ratingsData.total_noise_level} <br />
+        Work Friendly: {ratingsData.total_work_friendly} <br />
+      </div>
+    );
+  };
 
   const renderShopInfo = () => (
-      <StyledCard1>
-      <h1>{shop.name}
-          <button onClick={() => setShowEditForm(!showEditForm)}>
-            {showEditForm ? "Cancel" : "Update Coffee Shop"}
-          </button>
-        </h1>
+    <div>
+      <h1>
+        {shop.name}
+        <button onClick={() => setShowEditForm(!showEditForm)}>
+          {showEditForm ? "Cancel" : "Update Coffee Shop"}
+        </button>
+      </h1>
       <img src={shop.image} />
 
       <h5>Call us at:{shop.contact_info}</h5>
@@ -85,8 +85,8 @@ const CoffeeShop = ({ match, history }) => {
       </h5>
 
       <p>
-        Open:{shop.open} Delivery:{shop.delivery} PickUp: {shop.pickup} Online:
-        {shop.order_online}
+        Open:{shop.open} Delivery:{shop.delivery} Order Online:
+        {shop.order_online} Pick Up:{shop.pick_up}
       </p>
       <>{showEditForm && <CoffeeShopForm shopProp={shop} />}</>
       <br />
@@ -94,7 +94,7 @@ const CoffeeShop = ({ match, history }) => {
         {" "}
         Delete Coffee Shop
       </button>
-      </StyledCard1>
+    </div>
   );
 
   const renderReviews = () => {
@@ -126,12 +126,20 @@ const CoffeeShop = ({ match, history }) => {
     return (
       <div>
         <div>{renderShopInfo()}</div>
-        <div>{renderAllRating()}</div><hr />
+        <CoffeeShopQuestions questionsShopId={shop.id} />
+        <div>{renderAllRating()}</div>
+        <hr />
         <div>{renderReviews()}</div>
         <>
-          {showForm && <ReviewForm addReview={addReview} shopId={shop.id} />}
-          <button onClick={() => setShowForm(!showForm)}>
-            {showForm ? "Cancel Review" : "Write Review"}
+          {showReviewForm && (
+            <ReviewForm
+              hide={setShowReviewForm}
+              add={addReview}
+              shopId={shop.id}
+            />
+          )}
+          <button onClick={() => setShowReviewForm(!showReviewForm)}>
+            {showReviewForm ? "Cancel Review" : "Write Review"}
           </button>
         </>
         <hr />
@@ -140,28 +148,4 @@ const CoffeeShop = ({ match, history }) => {
     );
 };
 
-const StyledCard1 = styled.div`
-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-transition: 0.3s;
-border-radius: 5px; 
-`
-
 export default CoffeeShop;
-
-// useEffect(() => {
-//   Axios.get(`/api/departments/${match.params.id}`)
-//     .then((res) => {
-//       setDepartment(res.data);
-//     })
-//     .catch((err) => {
-//       alert("Error: No departments loaded");
-//     });
-
-//   Axios.get(`/api/departments/${match.params.id}/items`)
-//     .then((res) => {
-//       setItem(res.data);
-//     })
-//     .catch((err) => {
-//       alert("Error: Could not retrieve items");
-//     });
-// }, []);
