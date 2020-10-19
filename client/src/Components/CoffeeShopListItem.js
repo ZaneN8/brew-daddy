@@ -26,7 +26,8 @@ const CoffeeShopListItem = ({ coffee }) => {
         {coffee.name}
       </Link>
       <br />
-      <b> Location: </b> {coffee.city}, {coffee.state} <br />
+      <b> Address: </b> {coffee.address} <br />
+      {coffee.city}, {coffee.state} <br /><br />
       <b> Phone Number: </b> {coffee.contact_info} <br />
       Rating: {ratingsData.total_rating} <br />
       {coffee.description}
