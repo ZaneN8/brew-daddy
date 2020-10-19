@@ -24,7 +24,6 @@ const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
   const getReviewImages = async () => {
     try {
       let res = await axios.get(`/api/reviews/${review.id}/review_pics`);
-      console.log(res);
       setReviewPics(res.data);
     } catch (err) {
       alert("Error: CoffeeShopReview, failed to get review pics");

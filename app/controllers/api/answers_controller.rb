@@ -1,6 +1,7 @@
 class Api::AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :set_question, only: [:index, :create, :update, :destroy]
+  before_action :set_answer, only: [:update, :destroy]
 
   def index
     render json: @question.answers
@@ -11,7 +12,7 @@ class Api::AnswersController < ApplicationController
       if (answer.save)
         render json: answer
       else 
-        render json: answer.error, status 422
+        render json: answer.error, status: 422
     end
   end
 
@@ -34,6 +35,10 @@ class Api::AnswersController < ApplicationController
 
   def set_question
     @question = Question.find(params[:question_id])
+  end
+
+  def set_answer
+    @answer = @question.answers.find(params[:id])
   end
 
   def answer_params
