@@ -81,7 +81,7 @@ const Profile = () => {
         formData.append(key, userState[key]);
       });
       let res = await axios.put(`/api/user/${user.id}`, formData);
-      setUserState(res.data); // ??
+      setUserState(res.data);
     } catch (err) {
       alert("ERROR: Profile, updating user Image");
     }
@@ -90,7 +90,6 @@ const Profile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     editUserProfile();
-    handleUpdate(userState);
     handleClose();
   };
 

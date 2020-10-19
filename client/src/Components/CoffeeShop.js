@@ -10,6 +10,7 @@ const CoffeeShop = ({ match, history }) => {
   const [reviews, setReviews] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [ratingsData, setRatingsData] = useState({});
 
   useEffect(() => {
     axios
@@ -29,6 +30,15 @@ const CoffeeShop = ({ match, history }) => {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`/api/coffee_shops/${match.params.id}/average_stats`)
+      .then((res) => setRatingsData(res.data))
+      .catch((err) => {
+        console.log("ERROR Setting Rating Data");
+      });
+  }, []);
+
   const deleteCoffeeShop = (id) => {
     axios
       .delete(`/api/coffee_shops/${id}`, { params: { id: id } })
@@ -44,6 +54,19 @@ const CoffeeShop = ({ match, history }) => {
         setReviews(reviews.filter((review) => review.id !== id));
       })
       .catch(console.log);
+  };
+
+  const renderAllRating = () => {
+    return (
+      <div>
+        <b>Overall Rating: {ratingsData.total_rating} </b>
+        <br />
+        Food Quality: {ratingsData.total_food} <br />
+        Coffee Quality: {ratingsData.total_coffee} <br />
+        Noise Level: {ratingsData.total_noise_level} <br />
+        Work Friendly: {ratingsData.total_work_friendly} <br />
+      </div>
+    );
   };
 
   const renderShopInfo = () => (
@@ -104,6 +127,8 @@ const CoffeeShop = ({ match, history }) => {
       <div>
         <div>{renderShopInfo()}</div>
         <CoffeeShopQuestions questionsShopId={shop.id} />
+        <div>{renderAllRating()}</div>
+        <hr />
         <div>{renderReviews()}</div>
         <>
           {showReviewForm && (
