@@ -50,5 +50,4 @@ STRING_AGG(CAST(food AS VARCHAR),','ORDER by food DESC) AS food_ratings, COUNT(*
   scope :filter_by_city, -> (city) { where("city ilike ?", "%" + city + "%")}
   scope :filter_by_zip, -> (zip) {where zip: zip} 
   scope :filter_by_state, -> (state) { where("state ilike ?", "%" + state + "%")}
-
 end

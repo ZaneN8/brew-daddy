@@ -13,7 +13,7 @@ before_action :set_user, only: [:cu_index]
 
     coffee_shop_result = CoffeeShop.where(nil)
     filtering_params(params).each do |key, value|
-      coffee_shop_result = CoffeeShop.public_send("filter_by_#{key}", value) if value.present?
+      coffee_shop_result = coffee_shop_result.public_send("filter_by_#{key}", value) if value.present?
     end
     render json: coffee_shop_result
   end
