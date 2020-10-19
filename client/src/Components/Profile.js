@@ -5,14 +5,24 @@ import CoffeeShopForm from "./CoffeeShopForm";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
 import EditProfileForm from "./EditProfileForm";
+import { Modal, Form } from "react-bootstrap";
 
 const Profile = () => {
   const [shops, setShops] = useState([]);
   const [profileReviews, setProfileReviews] = useState([]);
   const [profileCoffeeShops, setProfileCoffeeShops] = useState([]);
   const [show, setShow] = useState(false);
-  const { user, setUser } = useContext(AuthContext);
+  const { user, handleUpdate } = useContext(AuthContext);
+  const [userState, setUserState] = useState(user);
   const [showEdit, setShowEdit] = useState(false);
+  const [changePic, setChangePic] = useState(false);
+  const handleClose = () => setChangePic(false);
+  const handleShow = () => setChangePic(true);
+  const [fileState, setFileState] = useState({
+    url: null,
+    blob: null,
+    file: null,
+  });
 
   const getProfileReviews = async () => {
     try {
@@ -63,6 +73,34 @@ const Profile = () => {
     }
   };
 
+  const editUserProfile = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", fileState.file);
+      Object.keys(userState).forEach((key) => {
+        formData.append(key, userState[key]);
+      });
+      let res = await axios.put(`/api/user/${user.id}`, formData);
+      setUserState(res.data); // ??
+    } catch (err) {
+      alert("ERROR: Profile, updating user Image");
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    editUserProfile();
+    handleUpdate(userState);
+    handleClose();
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    const blob = new Blob([file], { type: "image/png" });
+    const url = URL.createObjectURL(blob);
+    setFileState({ file, blob, url });
+  };
+
   useEffect(() => {
     getProfileReviews();
     getProfileCoffeeShops();
@@ -73,7 +111,26 @@ const Profile = () => {
       <div className="userinfo">
         {/* <User /> */}
         <h1>PROFILE PAGE</h1>
-        <img src={user.image} />
+        <div>
+          <img onClick={handleShow} src={user.image} />
+          <Modal show={changePic} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Edit User Pic</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form.File
+                label="Upload New Image for User"
+                name="image"
+                type="file"
+                onChange={handleImageUpload}
+              />
+            </Modal.Body>
+            <Modal.Footer>
+              <button onClick={handleClose}>Close</button>
+              <button onClick={handleSubmit}>Change Picture</button>
+            </Modal.Footer>
+          </Modal>
+        </div>
         <div>
           {user.first_name} {user.last_name}
           <p>{user.email}</p>
