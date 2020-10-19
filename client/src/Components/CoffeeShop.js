@@ -3,12 +3,14 @@ import axios from "axios";
 import ReviewForm from "./ReviewForm";
 import CoffeeShopReview from "./CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
+import styled from "styled-components";
 
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [ratingsData, setRatingsData] = useState({});
 
   useEffect(() => {
     axios
@@ -26,6 +28,15 @@ const CoffeeShop = ({ match, history }) => {
       .catch((err) => {
         alert("ERROR: No reviews");
       });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`/api/coffee_shops/${match.params.id}/average_stats`)
+      .then((res) => setRatingsData(res.data))
+      .catch((err) => {
+      console.log("ERROR Setting Rating Data");
+    })
   }, []);
 
   const deleteCoffeeShop = (id) => {
@@ -46,10 +57,21 @@ const CoffeeShop = ({ match, history }) => {
       .catch(console.log);
   };
 
- 
+  const renderAllRating = () => {
+  return (
+    <div>
+    <b>Overall Rating: {ratingsData.total_rating} </b><br />
+    Food Quality: {ratingsData.total_food} <br />
+    Coffee Quality: {ratingsData.total_coffee} <br />
+    Noise Level: {ratingsData.total_noise_level} <br />
+    Work Friendly: {ratingsData.total_work_friendly} <br />
+    
+    </div>)
+  }
+
 
   const renderShopInfo = () => (
-    <div>
+      <StyledCard1>
       <h1>{shop.name}
           <button onClick={() => setShowEditForm(!showEditForm)}>
             {showEditForm ? "Cancel" : "Update Coffee Shop"}
@@ -66,15 +88,13 @@ const CoffeeShop = ({ match, history }) => {
         Open:{shop.open} Delivery:{shop.delivery} PickUp: {shop.pickup} Online:
         {shop.order_online}
       </p>
-        <>
-          {showEditForm && <CoffeeShopForm shopProp={shop} />}
-        </>
+      <>{showEditForm && <CoffeeShopForm shopProp={shop} />}</>
       <br />
       <button onClick={() => deleteCoffeeShop(shop.id)}>
         {" "}
         Delete Coffee Shop
       </button>
-    </div>
+      </StyledCard1>
   );
 
   const renderReviews = () => {
@@ -106,6 +126,7 @@ const CoffeeShop = ({ match, history }) => {
     return (
       <div>
         <div>{renderShopInfo()}</div>
+        <div>{renderAllRating()}</div><hr />
         <div>{renderReviews()}</div>
         <>
           {showForm && <ReviewForm addReview={addReview} shopId={shop.id} />}
@@ -118,6 +139,12 @@ const CoffeeShop = ({ match, history }) => {
       </div>
     );
 };
+
+const StyledCard1 = styled.div`
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+transition: 0.3s;
+border-radius: 5px; 
+`
 
 export default CoffeeShop;
 
