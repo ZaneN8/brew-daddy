@@ -2,27 +2,52 @@ import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
   // next we can render the coffeeshops that are returned
 
+// Get rating for each coffee shop
+const GetRating = (coffee) => {
+  const [ratingsData, setRatingsData] = useState({});
+  useEffect(() => {
+    axios.get(`/api/coffee_shops/${coffee.id}/average_stats`)
+    .then((res) => {
+      setRatingsData(res.data)
+      console.log(ratingsData)
+      //Need to normalize Rating data and do calcuate
+    })
+    .catch((err) => {
+      console.log("ERROR Setting Rating Data");
+    })
+  
+},[]);
+return (
+  <div>
+  Rating: {ratingsData.total_rating}
+  </div>)
+}
+
+
+
+
   // We will need to change the handleSubmit to redirect it into search page below only.
   const renderCoffeeShops = () =>
     coffeeShops.map((coffee) => (
-      <StyledResultCard>
+      <StyledResultCard key={coffee.id}>
       <p key={coffee.id}>
         <img src={coffee.image} />
         <Link as="h1" to={`/coffee_shops/${coffee.id}`}>
-          <h3>{coffee.name}</h3>
+          {coffee.name}
         </Link>
         <br />
         <b> Location: </b> {coffee.city}, {coffee.state} <br />
         <b> Phone Number: </b> {coffee.contact_info} <br />
+        <GetRating id={coffee.id}/> 
         {coffee.description}
       </p>
       </StyledResultCard>
     ));
-
   return (
     <StyledPage>
       <Form onSubmit={handleSubmit}>
