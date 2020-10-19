@@ -4,13 +4,14 @@ import ReviewForm from "./ReviewForm";
 import CoffeeShopReview from "./CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
 import styled from "styled-components";
+import CoffeeShopRating from "./CoffeeShopRating"
 
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [ratingsData, setRatingsData] = useState({});
+  
 
   useEffect(() => {
     axios
@@ -30,14 +31,14 @@ const CoffeeShop = ({ match, history }) => {
       });
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(`/api/coffee_shops/${match.params.id}/average_stats`)
-      .then((res) => setRatingsData(res.data))
-      .catch((err) => {
-      console.log("ERROR Setting Rating Data");
-    })
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`/api/coffee_shops/${match.params.id}/average_stats`)
+  //     .then((res) => setRatingsData(res.data))
+  //     .catch((err) => {
+  //     console.log("ERROR Setting Rating Data");
+  //   })
+  // }, []);
 
   const deleteCoffeeShop = (id) => {
     debugger;
@@ -57,17 +58,17 @@ const CoffeeShop = ({ match, history }) => {
       .catch(console.log);
   };
 
-  const renderAllRating = () => {
-  return (
-    <div>
-    <b>Overall Rating: {ratingsData.total_rating} </b><br />
-    Food Quality: {ratingsData.total_food} <br />
-    Coffee Quality: {ratingsData.total_coffee} <br />
-    Noise Level: {ratingsData.total_noise_level} <br />
-    Work Friendly: {ratingsData.total_work_friendly} <br />
+  // const renderAllRating = () => {
+  // return (
+  //   <div>
+  //   <b>Overall Rating: {ratingsData.total_rating} </b><br />
+  //   Food Quality: {ratingsData.total_food} <br />
+  //   Coffee Quality: {ratingsData.total_coffee} <br />
+  //   Noise Level: {ratingsData.total_noise_level} <br />
+  //   Work Friendly: {ratingsData.total_work_friendly} <br />
     
-    </div>)
-  }
+  //   </div>)
+  // }
 
 
   const renderShopInfo = () => (
@@ -126,7 +127,10 @@ const CoffeeShop = ({ match, history }) => {
     return (
       <div>
         <div>{renderShopInfo()}</div>
-        <div>{renderAllRating()}</div><hr />
+        {/* <div>{renderAllRating()}</div><hr /> */}
+        <CoffeeShopRating 
+        match={match} 
+        />
         <div>{renderReviews()}</div>
         <>
           {showForm && <ReviewForm addReview={addReview} shopId={shop.id} />}
