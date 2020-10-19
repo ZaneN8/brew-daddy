@@ -7,6 +7,7 @@ import ReviewImageUpload from "./ReviewImageUpload";
 const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
   const [user, setUser] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [reviewPics, setReviewPics] = useState([]);
 
   // get user on initial render
   useEffect(() => {
@@ -18,6 +19,24 @@ const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
       .get(`/api/users/${review.user_id}`)
       .then((res) => setUser(res.data))
       .catch(console.log);
+  }, []);
+
+  const getReviewImages = async () => {
+    try {
+      let res = await axios.get(`/api/reviews/${review.id}/review_pics`);
+      console.log(res);
+      setReviewPics(res.data);
+    } catch (err) {
+      alert("Error: CoffeeShopReview, failed to get review pics");
+    }
+  };
+
+  const renderReviewImages = () => {
+    return reviewPics.map((revPic) => <img src={revPic.image} />);
+  };
+
+  useEffect(() => {
+    getReviewImages();
   }, []);
 
   return (
@@ -34,7 +53,7 @@ const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
       <p>Food:{review.food}</p>
       <p>Noise:{review.noise_level}</p>
 
-      <p>IMAGE GOES HERE</p>
+      <p>{renderReviewImages()}</p>
 
       <ReviewImageUpload reviewProp={review} />
 

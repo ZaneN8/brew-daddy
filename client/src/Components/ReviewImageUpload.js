@@ -25,7 +25,6 @@ const ReviewImageUpload = ({ reviewProp }) => {
   };
 
   const addPictures = async () => {
-    debugger;
     try {
       const formData = new FormData();
       formData.append("file", fileState.file);

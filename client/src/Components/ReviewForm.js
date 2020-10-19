@@ -19,7 +19,6 @@ const ReviewForm = ({ add, shopId, review }) => {
       : {
           title: "",
           body: "",
-          image: "",
           rating: 0,
           coffee_rating: 0,
           work_friendly: 0,

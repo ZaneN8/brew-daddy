@@ -7,7 +7,7 @@ class Api::ReviewPicsController < ApplicationController
   end
 
   def index
-
+    render json: @review.review_pics
   end
 
   def create
