@@ -10,8 +10,18 @@ Rails.application.routes.draw do
     get "/coffee_shops/ratings", to: "coffee_shops#all_ratings"
     get "/coffee_shops/:id/average_stats", to: "coffee_shops#average_stats"
 
+
     resources :coffee_shops do
       resources :reviews
+      resources :questions
+    end
+
+    resources :reviews do
+      resources :review_pics
+    end
+
+    resources :questions do
+      resources :answers
     end
 
     resources :coffee_shops do
@@ -22,7 +32,6 @@ Rails.application.routes.draw do
         resources :answers
     end 
 
-    #TODO We edited this
     resources :users do
       resources :reviews
       resources :coffee_shops

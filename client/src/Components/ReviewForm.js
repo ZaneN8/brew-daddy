@@ -3,35 +3,71 @@ import { Form } from "react-bootstrap";
 import axios from "axios";
 import { AuthContext } from "../providers/AuthProvider";
 
-const ReviewForm = ({ addReview, shopId }) => {
+const ReviewForm = ({ add, shopId, review }) => {
   const auth = useContext(AuthContext);
-  const [reviewState, setReviewState] = useState({
-    title: "",
-    body: "",
-    image: "",
-    rating: 0,
-    coffee_rating: 0,
-    work_friendly: 0,
-    food: 0,
-    noise_level: 0,
-    user_id: auth.user.id,
-  });
+  const [reviewState, setReviewState] = useState(
+    review
+      ? {
+          title: review.title,
+          body: review.body,
+          rating: review.rating,
+          coffee_rating: review.coffee_rating,
+          work_friendly: review.work_friendly,
+          food: review.food,
+          noise_level: review.noise_level,
+        }
+      : {
+          title: "",
+          body: "",
+          rating: 0,
+          coffee_rating: 0,
+          work_friendly: 0,
+          food: 0,
+          noise_level: 0,
+          user_id: auth.user.id,
+        }
+  );
 
   const handleChange = (e) => {
     setReviewState({ ...reviewState, [e.target.name]: e.target.value });
   };
 
+  const addReview = async () => {
+    try {
+      let res = await axios.post(
+        `/api/coffee_shops/${shopId}/reviews`,
+        reviewState
+      );
+      setReviewState(res.data);
+    } catch (err) {
+      alert("ERROR: ReviewForm, add review failed");
+    }
+  };
+
+  const editReview = async () => {
+    try {
+      let res = await axios.put(
+        `/api/coffee_shops/${shopId}/reviews/${review.id}`,
+        reviewState
+      );
+      setReviewState(res.data);
+    } catch (err) {
+      alert("ERROR: ReviewForm, updating review issue");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    axios
-      .post(`/api/coffee_shops/${shopId}/reviews`, reviewState)
-      .then((res) => addReview(res.data));
+    if (review) {
+      editReview();
+    } else {
+      addReview();
+    }
   };
 
   return (
     <div>
-      <h4>Write a Review</h4>
+      <h4>{review ? "Edit Review" : "Create a Review"}</h4>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Title</Form.Label>
@@ -49,14 +85,6 @@ const ReviewForm = ({ addReview, shopId }) => {
             required
             value={reviewState.body}
             type="text area"
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.File
-            name="image"
-            label="Upload Review Image"
-            value={reviewState.image}
             onChange={handleChange}
           />
         </Form.Group>
