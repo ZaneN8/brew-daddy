@@ -68,7 +68,9 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
   const editCoffeeShop = async () => {
     try {
       const formData = new FormData();
-      formData.append("file", fileState.file);
+      if (fileState.file) {
+        formData.append("file", fileState.file);
+      }
       Object.keys(coffeeShopState).forEach((key) => {
         formData.append(key, coffeeShopState[key]);
       });
@@ -82,7 +84,9 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
   const addCoffeeShop = async () => {
     try {
       const formData = new FormData();
-      formData.append("file", fileState.file);
+      if (fileState.file) {
+        formData.append("file", fileState.file);
+      }
       Object.keys(coffeeShopState).forEach((key) => {
         formData.append(key, coffeeShopState[key]);
       });
