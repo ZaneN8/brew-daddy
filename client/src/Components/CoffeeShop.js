@@ -4,7 +4,7 @@ import ReviewForm from "./ReviewForm";
 import CoffeeShopReview from "./CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
 import styled from "styled-components";
-import CoffeeShopRating from "./CoffeeShopRating"
+import CoffeeShopRating from "./CoffeeShopRating";
 import CoffeeShopQuestions from "./CoffeeShopQuestions";
 
 const CoffeeShop = ({ match, history }) => {
@@ -12,7 +12,8 @@ const CoffeeShop = ({ match, history }) => {
   const [reviews, setReviews] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  
+  const [page, setPage] = useState(1);
+  const [noMoreReviews, setNoMoreReviews] = useState(false);
 
   useEffect(() => {
     axios
@@ -24,22 +25,40 @@ const CoffeeShop = ({ match, history }) => {
   }, []);
 
   useEffect(() => {
+    const params = { params: { page } };
+
     axios
-      .get(`/api/coffee_shops/${match.params.id}/reviews`)
-      .then((res) => setReviews(res.data))
+      .get(`/api/coffee_shops/${match.params.id}/reviews`, params)
+      .then((res) => {
+        // if reviews are less than 4, set noMoreReview to true
+        setReviews(res.data);
+      })
       .catch((err) => {
         alert("ERROR: No reviews");
       });
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`/api/coffee_shops/${match.params.id}/average_stats`)
-  //     .then((res) => setRatingsData(res.data))
-  //     .catch((err) => {
-  //     console.log("ERROR Setting Rating Data");
-  //   })
-  // }, []);
+  const nextPage = () => {
+    const params = {
+      params: {
+        page: page + 1,
+      },
+    };
+
+    axios
+      .get(`/api/coffee_shops/${match.params.id}/reviews`, params)
+      .then((res) => {
+        // If there are no more review, hide the button. See line 154 to hide button
+        if (res.data.length === 0) {
+          setNoMoreReviews(true);
+        }
+        setReviews(reviews.concat(res.data));
+        setPage(page + 1);
+      })
+      .catch((err) => {
+        alert("ERROR: No reviews");
+      });
+  };
 
   const deleteCoffeeShop = (id) => {
     axios
@@ -66,10 +85,9 @@ const CoffeeShop = ({ match, history }) => {
   //   Coffee Quality: {ratingsData.total_coffee} <br />
   //   Noise Level: {ratingsData.total_noise_level} <br />
   //   Work Friendly: {ratingsData.total_work_friendly} <br />
-    
+
   //   </div>)
   // }
-
 
   const renderShopInfo = () => (
     <div>
@@ -129,13 +147,16 @@ const CoffeeShop = ({ match, history }) => {
       <div>
         <div>{renderShopInfo()}</div>
         {/* <div>{renderAllRating()}</div><hr /> */}
-        <CoffeeShopRating 
-        match={match} 
-        />
+        <CoffeeShopRating match={match} />
         <CoffeeShopQuestions questionsShopId={shop.id} />
-      
+
         <hr />
         <div>{renderReviews()}</div>
+        {!noMoreReviews ? (
+          <button onClick={nextPage}>load more reviews</button>
+        ) : (
+          <p>No More Reviews</p>
+        )}
         <>
           {showReviewForm && (
             <ReviewForm
@@ -149,6 +170,7 @@ const CoffeeShop = ({ match, history }) => {
           </button>
         </>
         <hr />
+
         <button onClick={history.goBack}>BACK</button>
       </div>
     );
