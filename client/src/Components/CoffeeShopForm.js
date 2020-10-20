@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../providers/AuthProvider";
 
-const CoffeeShopForm = ({ match, add, shopProp }) => {
+const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
   const auth = useContext(AuthContext);
   const shopDefault = {
     name: "",
@@ -103,6 +103,7 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
     } else {
       addCoffeeShop();
     }
+    hide();
   };
 
   return (

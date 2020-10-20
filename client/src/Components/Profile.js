@@ -120,7 +120,7 @@ const Profile = () => {
           <p>{user.email}</p>
         </div>
 
-        {showEdit && <EditProfileForm />}
+        {showEdit && <EditProfileForm hide={setShowEdit} />}
         <button onClick={() => setShowEdit(!showEdit)}>
           {show ? "Cancel " : "Edit Profile"}
         </button>

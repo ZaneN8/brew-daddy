@@ -115,6 +115,7 @@ before_action :set_user, only: [:cu_index]
       :delivery,
       :pickup,
       :order_online,
+      :user_id
     )
   end
 

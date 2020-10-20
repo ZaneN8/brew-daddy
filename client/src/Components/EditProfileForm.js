@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../providers/AuthProvider";
 
-const EditProfileForm = () => {
+const EditProfileForm = ({ hide }) => {
   const { user, handleUpdate } = useContext(AuthContext);
   const [userState, setUserState] = useState(user);
 
@@ -11,6 +11,7 @@ const EditProfileForm = () => {
     e.preventDefault();
     //handleUpdate is in Auth Provider
     handleUpdate(userState);
+    hide();
   };
 
   const handleChange = (e) => {
@@ -50,7 +51,7 @@ const EditProfileForm = () => {
           onChange={handleChange}
         />
       </Form.Group>
-      <Button onClick={handleSubmit}>Submit</Button>
+      <button onClick={handleSubmit}>Submit</button>
     </Form>
   );
 };
