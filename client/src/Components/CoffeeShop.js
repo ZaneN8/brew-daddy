@@ -31,6 +31,9 @@ const CoffeeShop = ({ match, history }) => {
       .get(`/api/coffee_shops/${match.params.id}/reviews`, params)
       .then((res) => {
         // if reviews are less than 4, set noMoreReview to true
+        if (res.data.length < 4) {
+          setNoMoreReviews(true);
+        }
         setReviews(res.data);
       })
       .catch((err) => {

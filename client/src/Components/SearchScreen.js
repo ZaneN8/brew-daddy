@@ -13,6 +13,7 @@ const SearchScreen = ({ location }) => {
   const [zipQuery, setZipQuery] = useLocalState("coffeeShopZipQuery", "");
   const [coffeeShops, setCoffeeShops] = useLocalState("coffeeShops", []);
 
+  // PARENTS
   // Checks if a name parameter is passed and requests shops
   // conditionally on the name's value. It also will pass the page number for
   // Pagination function to work.
