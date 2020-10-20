@@ -5,7 +5,13 @@ class Api::ReviewsController < ApplicationController
   before_action :set_user, only: [:cu_reviews] 
 
   def index
-    render json: @coffee_shop.reviews
+    # render json: @coffee_shop.reviews
+
+    reviews_result = @coffee_shop.reviews
+    filtering_params.each do |key, value|
+      reviews_result = reviews_result.public_send("filter_by_#{key}", value) if value.present?
+    end
+    render json: reviews_result
   end
 
   def cu_reviews
@@ -17,7 +23,7 @@ class Api::ReviewsController < ApplicationController
   end
 
   def create
-    review = @coffee_shop.reviews.new(review_parmas)
+    review = @coffee_shop.reviews.new(review_params)
     if (review.save)
       render json: review
     else
@@ -26,7 +32,7 @@ class Api::ReviewsController < ApplicationController
   end
 
   def update
-    if @review.update(review_parmas)
+    if @review.update(review_params)
       render json: @review
     else
       render json: @review.errors, status: 422
@@ -44,7 +50,11 @@ class Api::ReviewsController < ApplicationController
     @review = @coffee_shop.reviews.find(params[:id])
   end
 
-  def review_parmas
+  def filtering_params
+    params.permit(:page)
+  end
+
+  def review_params
     params
     .permit(
       :title,

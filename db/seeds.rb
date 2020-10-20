@@ -55,7 +55,7 @@ end
 
 puts "wait were almost done"
 
-100.times do |r|
+300.times do |r|
     rv = Review.create(
         title: Faker::Quote.robin,
         body: Faker::Restaurant.review,
