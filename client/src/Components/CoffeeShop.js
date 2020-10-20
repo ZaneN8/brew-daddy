@@ -4,7 +4,7 @@ import ReviewForm from "./ReviewForm";
 import CoffeeShopReview from "./CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
 import styled from "styled-components";
-import CoffeeShopRating from "./CoffeeShopRating"
+import CoffeeShopRating from "./CoffeeShopRating";
 import CoffeeShopQuestions from "./CoffeeShopQuestions";
 
 const CoffeeShop = ({ match, history }) => {
@@ -12,7 +12,6 @@ const CoffeeShop = ({ match, history }) => {
   const [reviews, setReviews] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  
 
   useEffect(() => {
     axios
@@ -66,10 +65,9 @@ const CoffeeShop = ({ match, history }) => {
   //   Coffee Quality: {ratingsData.total_coffee} <br />
   //   Noise Level: {ratingsData.total_noise_level} <br />
   //   Work Friendly: {ratingsData.total_work_friendly} <br />
-    
+
   //   </div>)
   // }
-
 
   const renderShopInfo = () => (
     <div>
@@ -129,11 +127,9 @@ const CoffeeShop = ({ match, history }) => {
       <div>
         <div>{renderShopInfo()}</div>
         {/* <div>{renderAllRating()}</div><hr /> */}
-        <CoffeeShopRating 
-        match={match} 
-        />
+        <CoffeeShopRating match={match} />
         <CoffeeShopQuestions questionsShopId={shop.id} />
-      
+
         <hr />
         <div>{renderReviews()}</div>
         <>

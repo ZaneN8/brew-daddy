@@ -13,7 +13,6 @@ const Profile = () => {
   const [profileCoffeeShops, setProfileCoffeeShops] = useState([]);
   const [show, setShow] = useState(false);
   const { user, handleUpdate, handleImageUpdate } = useContext(AuthContext);
-  const [userState, setUserState] = useState(user);
   const [showEdit, setShowEdit] = useState(false);
   const [changePic, setChangePic] = useState(false);
   const handleClose = () => setChangePic(false);

@@ -17,7 +17,7 @@ class Api::AnswersController < ApplicationController
   end
 
   def update
-    if @answer.update(answer_parmas)
+    if @answer.update(answer_params)
       render json: @answer
     else
       render json: @answer.errors, status: 422
@@ -40,7 +40,7 @@ class Api::AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :question_id)
+    params.permit(:body, :question_id)
   end
 
 end

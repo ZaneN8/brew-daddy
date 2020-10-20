@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
 
 const QuestionForm = ({ questionsShopId, questionProp }) => {
   const [question, setQuestion] = useState(
-    questionProp ? { body: question.body } : { body: "" }
+    questionProp ? { body: questionProp.body } : { body: "" }
   );
 
   const addQuestion = async () => {
@@ -22,14 +22,12 @@ const QuestionForm = ({ questionsShopId, questionProp }) => {
 
   const editQuestion = async () => {
     try {
-      debugger;
       let res = await axios.put(
-        `/api/coffee_shops/${questionsShopId}/questions/${questionProp}`,
+        `/api/coffee_shops/${questionsShopId}/questions/${questionProp.id}`,
         question
       );
       setQuestion(res.data);
     } catch (err) {
-      debugger;
       alert("Error: QuestionForm, edit question failed");
     }
   };
