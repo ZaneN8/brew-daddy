@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReviewForm from "../review/ReviewForm";
 import CoffeeShopReview from "../review/CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
-import styled from "styled-components";
 import CoffeeShopRating from "./CoffeeShopRating";
 import CoffeeShopQuestions from "../QA/CoffeeShopQuestions";
 
@@ -148,7 +147,7 @@ const CoffeeShop = ({ match, history }) => {
   if (!shop) return null;
   else
     return (
-      <div>
+      <>
         <div>{renderShopInfo()}</div>
         {/* <div>{renderAllRating()}</div><hr /> */}
         <CoffeeShopRating match={match} />
@@ -176,7 +175,7 @@ const CoffeeShop = ({ match, history }) => {
         <hr />
 
         <button onClick={history.goBack}>BACK</button>
-      </div>
+      </>
     );
 };
 
