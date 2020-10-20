@@ -31,7 +31,9 @@ const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
   };
 
   const renderReviewImages = () => {
-    return reviewPics.map((revPic) => <img src={revPic.image} />);
+    return reviewPics.map((revPic) => (
+      <img key={revPic.id} src={revPic.image} />
+    ));
   };
 
   useEffect(() => {

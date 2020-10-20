@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../providers/AuthProvider";
 
-const CoffeeShopForm = ({ match, add, shopProp }) => {
+const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
   const auth = useContext(AuthContext);
   const shopDefault = {
     name: "",
@@ -68,7 +68,9 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
   const editCoffeeShop = async () => {
     try {
       const formData = new FormData();
-      formData.append("file", fileState.file);
+      if (fileState.file) {
+        formData.append("file", fileState.file);
+      }
       Object.keys(coffeeShopState).forEach((key) => {
         formData.append(key, coffeeShopState[key]);
       });
@@ -82,7 +84,9 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
   const addCoffeeShop = async () => {
     try {
       const formData = new FormData();
-      formData.append("file", fileState.file);
+      if (fileState.file) {
+        formData.append("file", fileState.file);
+      }
       Object.keys(coffeeShopState).forEach((key) => {
         formData.append(key, coffeeShopState[key]);
       });
@@ -103,6 +107,7 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
     } else {
       addCoffeeShop();
     }
+    hide();
   };
 
   return (

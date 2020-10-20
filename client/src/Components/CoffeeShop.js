@@ -108,7 +108,11 @@ const CoffeeShop = ({ match, history }) => {
         Open:{shop.open} Delivery:{shop.delivery} Order Online:
         {shop.order_online} Pick Up:{shop.pick_up}
       </p>
-      <>{showEditForm && <CoffeeShopForm shopProp={shop} />}</>
+      <>
+        {showEditForm && (
+          <CoffeeShopForm shopProp={shop} hide={setShowEditForm} />
+        )}
+      </>
       <br />
       <button onClick={() => deleteCoffeeShop(shop.id)}>
         {" "}
