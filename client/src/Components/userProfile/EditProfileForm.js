@@ -1,7 +1,6 @@
-import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
-import { Button, Form } from "react-bootstrap";
-import { AuthContext } from "../providers/AuthProvider";
+import React, { useState, useContext } from "react";
+import { Form } from "react-bootstrap";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const EditProfileForm = ({ hide }) => {
   const { user, handleUpdate } = useContext(AuthContext);

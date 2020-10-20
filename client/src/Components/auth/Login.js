@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { useFormInput } from "../customHooks/useFormInput";
-import { AuthContext } from "../providers/AuthProvider";
+import { useFormInput } from "../../customHooks/useFormInput";
+import { AuthContext } from "../../providers/AuthProvider";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -13,10 +13,7 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email.value);
-    console.log(password.value);
 
-    //api call here pass {email, password}
     handleLogin({ email: email.value, password: password.value }, history);
   };
   return (
