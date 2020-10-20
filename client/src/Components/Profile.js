@@ -12,7 +12,7 @@ const Profile = () => {
   const [profileReviews, setProfileReviews] = useState([]);
   const [profileCoffeeShops, setProfileCoffeeShops] = useState([]);
   const [show, setShow] = useState(false);
-  const { user, handleUpdate } = useContext(AuthContext);
+  const { user, handleUpdate, handleImageUpdate } = useContext(AuthContext);
   const [userState, setUserState] = useState(user);
   const [showEdit, setShowEdit] = useState(false);
   const [changePic, setChangePic] = useState(false);
@@ -73,24 +73,9 @@ const Profile = () => {
     }
   };
 
-  const editUserProfile = async () => {
-    debugger;
-    try {
-      const formData = new FormData();
-      formData.append("file", fileState.file);
-      Object.keys(userState).forEach((key) => {
-        formData.append(key, userState[key]);
-      });
-      let res = await axios.put(`/api/user/${user.id}`, formData);
-      setUserState(res.data);
-    } catch (err) {
-      alert("ERROR: Profile, updating user Image");
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    editUserProfile();
+    handleImageUpdate(fileState);
     handleClose();
   };
 
