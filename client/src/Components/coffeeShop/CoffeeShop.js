@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import ReviewForm from "./ReviewForm";
-import CoffeeShopReview from "./CoffeeShopReview";
+import ReviewForm from "../review/ReviewForm";
+import CoffeeShopReview from "../review/CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
 import styled from "styled-components";
 import CoffeeShopRating from "./CoffeeShopRating";
-import CoffeeShopQuestions from "./CoffeeShopQuestions";
+import CoffeeShopQuestions from "../QA/CoffeeShopQuestions";
 
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
