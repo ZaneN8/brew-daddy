@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Answers from "./Answers";
 import QuestionForm from "./QuestionForm";
-import AnswerForm from "./AnswerForm";
+import Question from "./Question";
 
 const CoffeeShopQuestions = ({ questionsShopId }) => {
   const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState([]);
   const [showCQuestions, setShowCQuestions] = useState(false);
-  const [showCAnswers, setShowCAnswers] = useState(false);
-  const [showEditQuestion, setShowEditQuestion] = useState(false);
 
   const getQuestions = async () => {
     try {
@@ -40,37 +36,14 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
 
   const renderQuestion = () => {
     return questions.map((question) => (
-      <div key={question.id}>
-        <h2>Question:{question.body}</h2>
-
-        <Answers questionProp={question.id} />
-        <button>Show more Pagination</button>
-        {showCAnswers && <AnswerForm question={question.id} />}
-        <button onClick={() => setShowCAnswers(!showCAnswers)}>
-          {showCAnswers ? "Cancel Answer" : "Add Answer"}
-        </button>
-
-        {showEditQuestion && <QuestionForm />}
-        <button onClick={() => setShowEditQuestion(!showEditQuestion)}>
-          {showEditQuestion ? "Cancel Edit" : "Edit Question"}
-        </button>
-        <button onClick={() => deleteQuestion(question.id)}>
-          {" "}
-          Delete Question
-        </button>
-      </div>
+      <Question question={question} deleteQuestion={deleteQuestion} />
     ));
   };
 
   return (
     <div>
       <br />
-      {showCQuestions && (
-        <QuestionForm
-          questionProp={questions.id}
-          questionsShopId={questionsShopId}
-        />
-      )}
+      {showCQuestions && <QuestionForm questionsShopId={questionsShopId} />}
       <button onClick={() => setShowCQuestions(!showCQuestions)}>
         {showCQuestions ? "Cancel Question" : "Add Question"}
       </button>
