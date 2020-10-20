@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import User from "./User";
 import { Link } from "react-router-dom";
-import CoffeeShopForm from "./CoffeeShopForm";
-import { AuthContext } from "../providers/AuthProvider";
+import CoffeeShopForm from "../coffeeShop/CoffeeShopForm";
+import { AuthContext } from "../../providers/AuthProvider";
 import axios from "axios";
 import EditProfileForm from "./EditProfileForm";
 import { Modal, Form } from "react-bootstrap";

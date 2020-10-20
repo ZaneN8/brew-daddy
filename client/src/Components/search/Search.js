@@ -9,7 +9,7 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
   // We will need to change the handleSubmit to redirect it into search page below only.
   const renderCoffeeShops = () =>
     coffeeShops.map((coffee) => (
-      <CoffeeShopListItem key={coffee.id} coffee={coffee}/>
+      <CoffeeShopListItem key={coffee.id} coffee={coffee} />
     ));
 
   return (
@@ -35,14 +35,14 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
 
 const StyledPage = styled.div`
   padding: 1em 4em 1em;
-`
+`;
 const StyledResultCard = styled.div`
-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-transition: 0.3s;
-border: 1px solid;
-border-radius: 30px;
-padding: 1em; 
-`
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border: 1px solid;
+  border-radius: 30px;
+  padding: 1em;
+`;
 
 const StyledGroup = styled(Form.Group)`
   width: 90%;

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Form } from "react-bootstrap";
 import axios from "axios";
-import { AuthContext } from "../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const ReviewForm = ({ add, shopId, review }) => {
   const auth = useContext(AuthContext);

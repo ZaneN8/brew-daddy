@@ -36,7 +36,11 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
 
   const renderQuestion = () => {
     return questions.map((question) => (
-      <Question question={question} deleteQuestion={deleteQuestion} />
+      <Question
+        key={question.id}
+        question={question}
+        deleteQuestion={deleteQuestion}
+      />
     ));
   };
 

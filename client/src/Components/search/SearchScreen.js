@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideBarSearch from "./SideBarSearch";
 import Search from "./Search";
-import useLocalState from "../customHooks/useLocalState";
+import useLocalState from "../../customHooks/useLocalState";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
