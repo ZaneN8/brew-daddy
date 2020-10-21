@@ -1,5 +1,6 @@
 class Api::UsersController < ApplicationController
   before_action :authenticate_user!, only: [:update, :destroy, :image_update]
+  before_action :set_user, only: [:stats]
 
 
   def index 
@@ -40,14 +41,25 @@ class Api::UsersController < ApplicationController
 
   end
 
+  def ratings
+    render json: User.ratings(params[:user_id])
+  end
+
+  def stats
+    render json: @user.stats
+  end
+
   def destroy
     user.find(params[:id]).destroy
   end
 
-    private
+  private
 
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :image)
-    end
-
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :image)
+  end
+    
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 end
