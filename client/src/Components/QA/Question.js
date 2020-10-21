@@ -8,15 +8,17 @@ const Question = ({ question, deleteQuestion }) => {
   const [showCAnswers, setShowCAnswers] = useState(false);
   const [showEditQuestion, setShowEditQuestion] = useState(false);
   const [answers, setAnswers] = useState([]);
+  const [page, setPage] = useState(1);
+  const [noMoreAnswers, setNoMoreAnswers] = useState(false);
 
-  const getAnswers = async () => {
-    try {
-      let res = await axios.get(`/api/questions/${question.id}/answers`);
-      setAnswers(res.data);
-    } catch (err) {
-      alert("Error: in answers.js get answers failed");
-    }
-  };
+  // const getAnswers = async () => {
+  //   try {
+  //     let res = await axios.get(`/api/questions/${question.id}/answers`);
+  //     setAnswers(res.data);
+  //   } catch (err) {
+  //     alert("Error: in answers.js get answers failed");
+  //   }
+  // };
 
   const deleteAnswer = async (id) => {
     try {
@@ -36,13 +38,51 @@ const Question = ({ question, deleteQuestion }) => {
   };
 
   useEffect(() => {
-    getAnswers();
+    const params = { params: { page } };
+
+    axios
+      .get(`/api/questions/${question.id}/answers`, params)
+      .then((res) => {
+        if (res.data.length === 0) {
+          setNoMoreAnswers(true);
+        }
+        setAnswers(res.data);
+      })
+      .catch((err) => {
+        alert("ERROR: No answers");
+      });
+    // getAnswers();
   }, []);
+
+  const nextPage = () => {
+    const params = {
+      params: {
+        page: page + 1,
+      },
+    };
+    axios
+      .get(`/api/questions/${question.id}/answers`, params)
+      .then((res) => {
+        if (res.data.length === 0) {
+          setNoMoreAnswers(true);
+        }
+        setAnswers(answers.concat(res.data));
+        setPage(page + 1);
+      })
+      .catch((err) => {
+        alert("ERROR: No answers");
+      });
+  };
 
   return (
     <div key={question.id}>
       <h2>Question:{question.body}</h2>
       {renderAnswers()}
+      {!noMoreAnswers ? (
+        <button onClick={nextPage}>Show Answers</button>
+      ) : (
+        <p>No More Answers</p>
+      )}
       <button>Show more Pagination</button>
       {showCAnswers && <AnswerForm question={question} />}
       <button onClick={() => setShowCAnswers(!showCAnswers)}>

@@ -159,7 +159,7 @@ const CoffeeShop = ({ match, history }) => {
         <hr />
         <div>{renderReviews()}</div>
         {!noMoreReviews ? (
-          <button onClick={nextPage}>load more reviews</button>
+          <button onClick={nextPage}>More reviews</button>
         ) : (
           <p>No More Reviews</p>
         )}
