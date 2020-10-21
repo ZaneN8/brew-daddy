@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import UserRating from "./UserRating";
 
 const User = ({ match }) => {
   const [user, setUser] = useState([]);
@@ -83,6 +84,8 @@ const User = ({ match }) => {
         <div>{user.first_name}</div>
         <p> {user.last_name} </p>
         <p>{user.email}</p>
+
+        <UserRating userId={match.params.id} />
       </Box>
       <BigBox>
         <h1>USERS REVIEWS </h1>

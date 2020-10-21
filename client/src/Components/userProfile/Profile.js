@@ -6,6 +6,7 @@ import axios from "axios";
 import EditProfileForm from "./EditProfileForm";
 import { Modal, Form } from "react-bootstrap";
 import styled from "styled-components";
+import UserRating from "./UserRating";
 
 const Profile = () => {
   const [shops, setShops] = useState([]);
@@ -124,6 +125,8 @@ const Profile = () => {
           </button>
           {showEdit && <EditProfileForm hide={setShowEdit} />}
         </div>
+
+        {user && <UserRating userId={user.id} />}
       </Box>
 
       <BigBox>
