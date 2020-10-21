@@ -26,7 +26,12 @@ const CoffeeShopRating = ({ match }) => {
     );
   };
 
-  return <>{renderAllRating}</>;
+  return (
+    <>
+      Rating:
+      {renderAllRating()}
+    </>
+  );
 };
 
 export default CoffeeShopRating;
