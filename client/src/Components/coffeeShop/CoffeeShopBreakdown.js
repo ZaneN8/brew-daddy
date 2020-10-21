@@ -20,8 +20,8 @@ const renderBreakdown = () => {
     // console.log(breakdownRating)
     return breakdownRating.map((rating) => (
         <div>
-            {rating.rating} Stars, Total Reviews: 
-            {rating.review_count}
+            {rating.rating} Stars, {rating.review_count} Reviews 
+            
         </div>
     )
     )
