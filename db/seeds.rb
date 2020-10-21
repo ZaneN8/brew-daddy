@@ -9,7 +9,7 @@ puts "Let the Seeding begin"
     user = User.create(
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
-        about_me: Faker::Hipster.paragraph
+        about_me: Faker::Hipster.paragraph,
         email: "test#{i}@example.com",
         password: "123456",
         image: Faker::Avatar.image(slug: "user #{i}", size: "300x300", format: "png", set: "set1")

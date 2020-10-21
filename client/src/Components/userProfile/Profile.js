@@ -130,7 +130,8 @@ const Profile = () => {
       </Box>
 
       <BigBox>
-        <p>About me info HERE</p>
+        <h4>About Me</h4>
+        <p>{user.about_me}</p>
         <h1>Profiles Reviews</h1>
         <div>{renderProfileReviews()}</div>
         <hr />

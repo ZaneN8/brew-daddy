@@ -88,7 +88,8 @@ const User = ({ match }) => {
         <UserRating userId={match.params.id} />
       </Box>
       <BigBox>
-        <h1>USERS REVIEWS </h1>
+        <h4>About Me</h4>
+        <p>{user.about_me}</p>
         <div> {renderUserReview()}</div>
         <hr />
       </BigBox>
