@@ -17,6 +17,7 @@ const Profile = () => {
   const [changePic, setChangePic] = useState(false);
   const handleClose = () => setChangePic(false);
   const handleShow = () => setChangePic(true);
+  const [page, setPage] = useState(1);
   const [fileState, setFileState] = useState({
     url: null,
     blob: null,
@@ -25,11 +26,29 @@ const Profile = () => {
 
   const getProfileReviews = async () => {
     try {
-      let res = await axios.get(`/api/users/${user.id}/reviews`);
+      const params = { params: { page } };
+      let res = await axios.get(`/api/users/${user.id}/reviews`, params);
       setProfileReviews(res.data);
     } catch (err) {
       alert("Error: failed to get this profiles reviews");
     }
+  };
+
+  const moreUserReviews = () => {
+    const params = {
+      params: {
+        page: page + 1,
+      },
+    };
+    axios
+      .get(`/api/users/${user.id}/reviews`, params)
+      .then((res) => {
+        setProfileReviews(profileReviews.concat(res.data));
+        setPage(page + 1);
+      })
+      .catch((err) => {
+        alert("ERROR: Could not load more reviews");
+      });
   };
 
   const getProfileCoffeeShops = async () => {
@@ -129,6 +148,7 @@ const Profile = () => {
           <p>About me info HERE</p>
           <h1>Profiles Reviews</h1>
           <div>{renderProfileReviews()}</div>
+          <button onClick={moreUserReviews}>See more reviews</button>
           <hr />
           <h1>Profile Coffee Shops </h1>
           <div>{renderProfileCoffeeShop()}</div>
