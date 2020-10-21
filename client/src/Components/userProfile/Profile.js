@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import User from "./User";
 import { Link } from "react-router-dom";
 import CoffeeShopForm from "../coffeeShop/CoffeeShopForm";
 import { AuthContext } from "../../providers/AuthProvider";
 import axios from "axios";
 import EditProfileForm from "./EditProfileForm";
 import { Modal, Form } from "react-bootstrap";
+import styled from "styled-components";
 
 const Profile = () => {
   const [shops, setShops] = useState([]);
@@ -47,7 +47,7 @@ const Profile = () => {
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
       <div className="profileReviewRender" key={review.id}>
-        <h2>{review.title}</h2>
+        <h4>{review.title}</h4>
         <h5>{review.body}</h5>
         <p>Total rating:{review.rating}</p>
         <p>Coffee rating:{review.coffee_rating}</p>
@@ -63,7 +63,7 @@ const Profile = () => {
       return profileCoffeeShops.map((coffeeShop) => (
         <div className="coffeeShopRender" key={coffeeShop.id}>
           <img src={coffeeShop.image} />
-          <p>{coffeeShop.name}</p>
+          <h5>{coffeeShop.name}</h5>
           <p>
             {coffeeShop.state}, {coffeeShop.city}, {coffeeShop.zip}
           </p>
@@ -91,60 +91,119 @@ const Profile = () => {
   }, []);
 
   return (
-    <div>
-      <div className="userinfo">
-        {/* <User /> */}
-        <h1>PROFILE PAGE</h1>
-        <div>
-          <img onClick={handleShow} src={user.image} />
-          <Modal show={changePic} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Edit User Pic</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form.File
-                label="Upload New Image for User"
-                name="image"
-                type="file"
-                onChange={handleImageUpload}
-              />
-            </Modal.Body>
-            <Modal.Footer>
-              <button onClick={handleClose}>Close</button>
-              <button onClick={handleSubmit}>Change Picture</button>
-            </Modal.Footer>
-          </Modal>
-        </div>
-        <div>
-          {user.first_name} {user.last_name}
-          <p>{user.email}</p>
-        </div>
+    <StyledLayout>
+      <Box>
+        <div className="userinfo">
+          <div>
+            <StyledImage onClick={handleShow} src={user.image} />
+            <Modal show={changePic} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Edit User Pic</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form.File
+                  label="Upload New Image for User"
+                  name="image"
+                  type="file"
+                  onChange={handleImageUpload}
+                />
+              </Modal.Body>
+              <Modal.Footer>
+                <button onClick={handleClose}>Close</button>
+                <button onClick={handleSubmit}>Change Picture</button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+          <div>
+            {user.first_name} {user.last_name}
+            <p>{user.email}</p>
+          </div>
 
-        {showEdit && <EditProfileForm hide={setShowEdit} />}
-        <button onClick={() => setShowEdit(!showEdit)}>
-          {show ? "Cancel " : "Edit Profile"}
-        </button>
-        <div className="About Me">
-          <h1>About Me</h1>
-          <p>About me info HERE</p>
-          <h1>Profiles Reviews</h1>
-          <div>{renderProfileReviews()}</div>
-          <hr />
-          <h1>Profile Coffee Shops </h1>
-          <div>{renderProfileCoffeeShop()}</div>
+          <button onClick={() => setShowEdit(!showEdit)}>
+            {show ? "Cancel " : <span>&#128295;</span>}
+          </button>
+          {showEdit && <EditProfileForm hide={setShowEdit} />}
         </div>
+      </Box>
+
+      <BigBox>
+        <p>About me info HERE</p>
+        <h1>Profiles Reviews</h1>
+        <div>{renderProfileReviews()}</div>
+        <hr />
+      </BigBox>
+      <Box>
+        <h3>{user.name} Coffee Shops </h3>
+        <div>{renderProfileCoffeeShop()}</div>
+
         <hr />
         <div className="CoffeeShop Right">
+          <PlusButton onClick={() => setShow(!show)}>
+            {show ? <span>&#8854;</span> : <span>&#8853;</span>}
+          </PlusButton>
           {show && <CoffeeShopForm hide={setShow} add={addCoffeeShop} />}
-          <button onClick={() => setShow(!show)}>
-            {show ? "Cancel " : "Create Coffee Shop"}
-          </button>
         </div>
-        <br />
-        <br />
-      </div>
-    </div>
+      </Box>
+      <br />
+      <br />
+    </StyledLayout>
   );
 };
+
+const StyledPage = styled.div`
+  padding: 1em 4em 1em;
+`;
+
+const StyledLayout = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+`;
+
+const Box = styled.div`
+  display: flex;
+  width: 175px;
+  min-height: 300px;
+  flex-direction: column;
+  padding: 5%;
+  height: 100%;
+`;
+
+const BigBox = styled.div`
+  display: flex;
+  width: 600px;
+  min-height: 300px;
+  flex-direction: column;
+  padding: 5%;
+  height: 100%;
+`;
+
+const StyledImage = styled.img`
+  border-radius: 50%;
+`;
+
+const StyledButton = styled.button`
+  display: inline-block;
+  padding: 0.3em;
+  border-radius: 2em;
+  background-color: #4e9af1;
+`;
+
+const PlusButton = styled.button`
+  display: incline-block;
+  // padding: 0.1em 0.2em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid green;
+  border-radius: 1em;
+  background-color: green;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  transition: all 0.2s;
+  &:hover {
+     border-color: black;
+  }
+`;
 
 export default Profile;
