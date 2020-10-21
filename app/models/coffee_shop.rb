@@ -45,10 +45,9 @@ STRING_AGG(CAST(food AS VARCHAR),','ORDER by food DESC) AS food_ratings, COUNT(*
 
 
   # This will filter and "search" based on query passed from the search bar. 
-  scope :filter_by_page, -> (page_param) { page(page_param).per(15) }
+  scope :filter_by_page, -> (page_param) { page(page_param).per(4) }
   scope :filter_by_name, -> (name) { where("name ilike ?", "%" + name + "%")}
   scope :filter_by_city, -> (city) { where("city ilike ?", "%" + city + "%")}
   scope :filter_by_zip, -> (zip) {where zip: zip} 
   scope :filter_by_state, -> (state) { where("state ilike ?", "%" + state + "%")}
-
 end

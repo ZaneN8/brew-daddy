@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import styled from "styled-components";
 
+
 const SideBarSearch = ({
   setCityQuery,
   setStateQuery,
@@ -9,10 +10,11 @@ const SideBarSearch = ({
   cityQuery,
   stateQuery,
   zipQuery,
+  handleSubmit,
 }) => {
   return (
     <div>
-      <StyledForm>
+      <StyledForm onSubmit={handleSubmit}>
         <StyledGroup>
           <Input
             autoFocus
@@ -35,6 +37,7 @@ const SideBarSearch = ({
             value={zipQuery}
             onChange={(e) => setZipQuery(e.target.value)}
           />
+          <InvisibleButton type="submit" />
         </StyledGroup>
       </StyledForm>
     </div>
@@ -42,11 +45,11 @@ const SideBarSearch = ({
 };
 
 const StyledForm = styled(Form)`
-margin: auto;
-display: flex;
-background: #d9d9d9;
-padding: 10px;
-`
+  margin: auto;
+  display: flex;
+  background: #d9d9d9;
+  padding: 10px;
+`;
 
 const StyledGroup = styled(Form.Group)`
   display: flex;
@@ -67,5 +70,9 @@ const Input = styled(Form.Control)`
     box-shadow: 10px;
   }
 `;
+
+const InvisibleButton = styled.button`
+  display: none;
+`
 
 export default SideBarSearch;

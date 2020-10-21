@@ -1,21 +1,19 @@
 import React, { Fragment } from "react";
 import { Route, Switch } from "react-router-dom";
-import Home from "./Components/Home";
-import About from "./Components/About";
-import NoMatch from "./Components/NoMatch";
-import NavBar from "./Components/NavBar";
-import Register from "./Components/Register";
-import Login from "./Components/Login";
-import FetchUser from "./Components/FetchUser";
-import ProtectedRoute from "./Components/ProtectedRoute";
-import Lander from "./Components/Lander";
-import User from "./Components/User";
-import CoffeeShop from "./Components/CoffeeShop";
-import CoffeeShopForm from "./Components/CoffeeShopForm";
-import Profile from "./Components/Profile";
-import SearchScreen from "./Components/SearchScreen";
+import About from "./Components/home/About";
+import NoMatch from "./Components/auth/NoMatch";
+import NavBar from "./Components/layoutUI/NavBar";
+import Register from "./Components/auth/Register";
+import Login from "./Components/auth/Login";
+import FetchUser from "./Components/auth/FetchUser";
+import ProtectedRoute from "./Components/auth/ProtectedRoute";
+import Lander from "./Components/home/Lander";
+import User from "./Components/userProfile/User";
+import CoffeeShop from "./Components/coffeeShop/CoffeeShop";
+import CoffeeShopForm from "./Components/coffeeShop/CoffeeShopForm";
+import Profile from "./Components/userProfile/Profile";
+import SearchScreen from "./Components/search/SearchScreen";
 import "./App.css";
-import { Container } from "react-bootstrap";
 
 const App = () => (
   <Fragment>

@@ -28,11 +28,8 @@ const AuthProvider = (props) => {
     }
   };
 
-  //TODO We somehow broke this
   const handleLogout = async (history) => {
-    console.log(user);
     try {
-      // await block until done
       let res = await axios.delete("/api/auth/sign_out");
       setUser(null);
       history.push("/login");
@@ -43,12 +40,23 @@ const AuthProvider = (props) => {
 
   const handleUpdate = async (user) => {
     try {
-      let res = await axios.put(`/api/users/${user.id}`, user)
-      setUser(res.data)
+      let res = await axios.put(`/api/users/${user.id}`, user);
+      setUser(res.data);
     } catch (err) {
-      console.log("Edit failed")
+      console.log("Edit failed");
     }
-  }
+  };
+
+  const handleImageUpdate = async (fileState) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", fileState.file);
+      let res = await axios.put(`/api/users/${user.id}/image`, formData);
+      setUser(res.data);
+    } catch (err) {
+      alert("ERROR: Profile, updating user Image");
+    }
+  };
 
   return (
     <AuthContext.Provider
@@ -59,7 +67,8 @@ const AuthProvider = (props) => {
         handleRegister,
         handleLogout,
         handleLogin,
-        handleUpdate
+        handleUpdate,
+        handleImageUpdate,
       }}
     >
       {props.children}

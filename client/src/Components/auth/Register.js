@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { useFormInput } from "../customHooks/useFormInput";
-import { AuthContext } from "../providers/AuthProvider";
+import { useFormInput } from "../../customHooks/useFormInput";
+import { AuthContext } from "../../providers/AuthProvider";
 import { Form, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 

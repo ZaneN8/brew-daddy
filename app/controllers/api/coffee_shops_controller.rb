@@ -12,8 +12,8 @@ before_action :set_user, only: [:cu_index]
     # render json: coffee_shop_result 
 
     coffee_shop_result = CoffeeShop.where(nil)
-    filtering_params(params).each do |key, value|
-      coffee_shop_result = CoffeeShop.public_send("filter_by_#{key}", value) if value.present?
+    filtering_params.each do |key, value|
+      coffee_shop_result = coffee_shop_result.public_send("filter_by_#{key}", value) if value.present?
     end
     render json: coffee_shop_result
   end
@@ -28,21 +28,47 @@ before_action :set_user, only: [:cu_index]
 
   def create
     coffee_shop = @current_user.coffee_shops.new(coffee_shop_params)
-      if coffee_shop.save
-        render json: coffee_shop
-      else
-        render json: coffee_shop.errors, status: 422
-      end
-  end
+    file = params[:file]
 
-  def update
-    if @coffee_shop.update(coffee_shop_params)
-      render json: @coffee_shop
+    if file
+      begin
+        cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true, resource_type: :auto)
+        coffee_shop[:image] = cloud_image["secure_url"]
+      rescue => e
+        render json: { errors: e }, status: 422
+        return
+      end
+    end
+
+    if coffee_shop.save
+      render json: coffee_shop
     else
-      render json: @coffee_shop.errors, status: 422
+      render json: coffee_shop.errors, status: 422
     end
   end
 
+  def update
+
+    file = params[:file]
+
+    if file
+      begin
+        cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true, resource_type: :auto)
+        @coffee_shop[:image] = cloud_image["secure_url"]
+      rescue => e
+        render json: { errors: e }, status: 422
+        return
+      end
+    end
+
+    if @coffee_shop.update(coffee_shop_params)
+      render json: @coffee_shop
+
+    else
+      render json: @coffee_shop.errors, status: 422
+
+    end
+  end
 
   def destroy
     @coffee_shop.destroy
@@ -68,43 +94,33 @@ before_action :set_user, only: [:cu_index]
     @coffee_shop = CoffeeShop.find(params[:id])
   end
 
-  def filtering_params(params)
+  def filtering_params
     params.permit(:name, :state, :zip, :city, :page)
   end
 
   def coffee_shop_params
-    params
-      .require(:coffee_shop)
-      .permit(
-        :name, 
-        :description, 
-        :image, 
-        :city, 
-        :state, 
-        :zip, 
-        :open, 
-        :contact_info, 
-        :cost, 
-        :delivery, 
-        :pickup,
-        :order_online,
-      )
+    params.permit(
+      :name,
+      :description,
+      :image,
+      :address,
+      :city,
+      :state,
+      :zip,
+      :menu,
+      :website,
+      :open,
+      :contact_info,
+      :cost,
+      :delivery,
+      :pickup,
+      :order_online,
+      :user_id
+    )
   end
 
   def set_user
     @user = User.find(params[:user_id])
   end
 
-
 end
-
-
-
-
-
-
-
-
-
-
-

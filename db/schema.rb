@@ -27,16 +27,19 @@ ActiveRecord::Schema.define(version: 2020_10_14_015505) do
     t.string "name"
     t.text "description"
     t.string "image"
+    t.string "address"
     t.string "city"
     t.string "state"
     t.string "zip"
+    t.string "menu"
+    t.string "website"
     t.boolean "open"
     t.string "contact_info"
     t.integer "cost"
     t.boolean "delivery"
     t.boolean "pickup"
     t.boolean "order_online"
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_coffee_shops_on_user_id"
@@ -52,10 +55,10 @@ ActiveRecord::Schema.define(version: 2020_10_14_015505) do
 
   create_table "review_pics", force: :cascade do |t|
     t.string "image"
-    t.bigint "reviews_id", null: false
+    t.bigint "review_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["reviews_id"], name: "index_review_pics_on_reviews_id"
+    t.index ["review_id"], name: "index_review_pics_on_review_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -125,7 +128,7 @@ ActiveRecord::Schema.define(version: 2020_10_14_015505) do
   add_foreign_key "answers", "questions"
   add_foreign_key "coffee_shops", "users"
   add_foreign_key "questions", "coffee_shops"
-  add_foreign_key "review_pics", "reviews", column: "reviews_id"
+  add_foreign_key "review_pics", "reviews"
   add_foreign_key "reviews", "coffee_shops"
   add_foreign_key "reviews", "users"
   add_foreign_key "votes", "reviews"

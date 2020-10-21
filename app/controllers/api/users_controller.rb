@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:update, :destroy]
+  before_action :authenticate_user!, only: [:update, :destroy, :image_update]
 
 
   def index 
@@ -19,9 +19,30 @@ class Api::UsersController < ApplicationController
     end
   end
 
-    def destroy
-      user.find(params[:id]).destroy
+  def image_update
+    file = params[:file]
+
+    if file
+      begin
+        cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true, resource_type: :auto)
+        @current_user[:image] = cloud_image["secure_url"]
+      rescue => e
+        render json: { errors: e }, status: 422
+        return
+      end
     end
+
+    if @current_user.save
+      render json: @current_user
+    else
+      render json: @current_user.errors, status: 422
+    end
+
+  end
+
+  def destroy
+    user.find(params[:id]).destroy
+  end
 
     private
 

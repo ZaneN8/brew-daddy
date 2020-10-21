@@ -1,5 +1,5 @@
 import React from "react";
-import HomeSearch from "./HomeSearch";
+import HomeSearch from "../search/HomeSearch";
 import About from "./About";
 
 const Lander = () => (

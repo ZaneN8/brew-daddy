@@ -1,35 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import { AuthContext } from "../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 
-const CoffeeShopForm = ({ match, add, shopProp }) => {
+const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
   const auth = useContext(AuthContext);
-  const [coffeeShopState, setCoffeeShopState] = useState(
-    shopProp ?
-    {
-      name: shopProp.name,
-      description: shopProp.description,
-      image: "",
-      city: shopProp.city,
-      state: shopProp.state,
-      zip: shopProp.zip,
-      contact_info: shopProp.contact_info,
-      cost: shopProp.cost,
-      open: shopProp.open,
-      delivery: shopProp.delivery,
-      pickup: shopProp.pickup,
-      order_online: shopProp.order_online,
-    }
-    :
-    {
+  const shopDefault = {
     name: "",
     description: "",
-    image: "",
     city: "",
     state: "",
-    zip: 0,
+    image: "",
+    zip: "",
     contact_info: "",
     cost: 0,
     open: false,
@@ -37,8 +19,31 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
     pickup: false,
     order_online: false,
     user_id: auth.user.id,
+  };
+
+  const [coffeeShopState, setCoffeeShopState] = useState(
+    !shopProp
+      ? shopDefault
+      : {
+          name: shopProp.name,
+          description: shopProp.description,
+          city: shopProp.city,
+          state: shopProp.state,
+          zip: shopProp.zip,
+          contact_info: shopProp.contact_info,
+          cost: shopProp.cost,
+          open: shopProp.open,
+          delivery: shopProp.delivery,
+          pickup: shopProp.pickup,
+          order_online: shopProp.order_online,
+        }
+  );
+
+  const [fileState, setFileState] = useState({
+    url: null,
+    blob: null,
+    file: null,
   });
-  
 
   const handleBoo = (e) => {
     const name = e.target.name;
@@ -46,43 +51,62 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
       ...coffeeShopState,
       [name]: !coffeeShopState[name],
     });
-  }
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    const blob = new Blob([file], { type: "image/png" });
+    const url = URL.createObjectURL(blob);
+    setFileState({ file, blob, url });
+  };
 
   const handleChange = (e) => {
     setCoffeeShopState({ ...coffeeShopState, [e.target.name]: e.target.value });
   };
 
-  const editCoffeeShop = async() => {
-    debugger
+  const editCoffeeShop = async () => {
     try {
-      let res = await axios.put(`/api/coffee_shops/${shopProp.id}`, coffeeShopState)
-      setCoffeeShopState(res.data)
+      const formData = new FormData();
+      if (fileState.file) {
+        formData.append("file", fileState.file);
+      }
+      Object.keys(coffeeShopState).forEach((key) => {
+        formData.append(key, coffeeShopState[key]);
+      });
+      let res = await axios.put(`/api/coffee_shops/${shopProp.id}`, formData);
+      setCoffeeShopState(res.data);
+    } catch (err) {
+      alert("ERROR: CoffeeShopForm, updating shop");
     }
-    catch (err) {
-      alert("ERROR: CoffeeShopForm, updating shop")
-    }
-  }
+  };
 
-  const addCoffeeShop = () => {
-    // try {
-    //   let res = await axios.post(`/coffee_shops`, coffeeShopState)
-    // setCoffeeShopState(res.data)
-    // }catch (err) {
-    //   alert("Error: CoffeeShopForm, adding shop")
-    // }
-    axios
-    .post(`/api/coffee_shops`, coffeeShopState)
-    .then((res) => add(res.data));
-  }
+  const addCoffeeShop = async () => {
+    try {
+      const formData = new FormData();
+      if (fileState.file) {
+        formData.append("file", fileState.file);
+      }
+      Object.keys(coffeeShopState).forEach((key) => {
+        formData.append(key, coffeeShopState[key]);
+      });
+
+      let res = await axios.post(`/api/coffee_shops`, formData);
+      setCoffeeShopState(res.data);
+    } catch (err) {
+      console.log(err);
+      alert("Error: CoffeeShopForm, adding shop");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(shopProp){
-      editCoffeeShop()
-    }else{
-    addCoffeeShop();
+    if (shopProp) {
+      editCoffeeShop();
+      // hide()
+    } else {
+      addCoffeeShop();
     }
-      //TODO Hide toggle form
+    hide();
   };
 
   return (
@@ -111,8 +135,9 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
           <Form.File
             label="Upload Coffee Shop Image"
             name="image"
-            value={coffeeShopState.image}
-            onChange={handleChange}
+            type="file"
+            // value={""}
+            onChange={handleImageUpload}
           />
         </Form.Group>
         <Form.Group>
@@ -139,14 +164,13 @@ const CoffeeShopForm = ({ match, add, shopProp }) => {
             name="zip"
             required
             value={coffeeShopState.zip}
-            type="number"
             onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
           <Form.Label>Contact Number</Form.Label>
           <Form.Control
-            // TODO wont let you enter a number till you get 'e' then it will
+            // TODO edit does not fill the current info out
             name="contact_info"
             type="number"
             onChange={handleChange}
