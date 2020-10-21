@@ -8,17 +8,24 @@ const Question = ({ question, deleteQuestion }) => {
   const [showCAnswers, setShowCAnswers] = useState(false);
   const [showEditQuestion, setShowEditQuestion] = useState(false);
   const [answers, setAnswers] = useState([]);
-  const [page, setPage] = useState(1);
   const [noMoreAnswers, setNoMoreAnswers] = useState(false);
 
-  // const getAnswers = async () => {
-  //   try {
-  //     let res = await axios.get(`/api/questions/${question.id}/answers`);
-  //     setAnswers(res.data);
-  //   } catch (err) {
-  //     alert("Error: in answers.js get answers failed");
-  //   }
-  // };
+  const getAnswers = async () => {
+    try {
+      const params = { params: { limit: 1 } };
+      let res = await axios.get(
+        `/api/questions/${question.id}/answers`,
+        params
+      );
+      setAnswers(res.data);
+    } catch (err) {
+      alert("Error: in answers.js get answers failed");
+    }
+  };
+
+  useEffect(() => {
+    getAnswers();
+  }, []);
 
   const deleteAnswer = async (id) => {
     try {
@@ -37,37 +44,18 @@ const Question = ({ question, deleteQuestion }) => {
     ));
   };
 
-  useEffect(() => {
-    const params = { params: { page } };
-
-    axios
-      .get(`/api/questions/${question.id}/answers`, params)
-      .then((res) => {
-        if (res.data.length === 0) {
-          setNoMoreAnswers(true);
-        }
-        setAnswers(res.data);
-      })
-      .catch((err) => {
-        alert("ERROR: No answers");
-      });
-    // getAnswers();
-  }, []);
-
   const nextPage = () => {
     const params = {
       params: {
-        page: page + 1,
+        offset: 1,
       },
     };
+
     axios
       .get(`/api/questions/${question.id}/answers`, params)
       .then((res) => {
-        if (res.data.length === 0) {
-          setNoMoreAnswers(true);
-        }
         setAnswers(answers.concat(res.data));
-        setPage(page + 1);
+        setNoMoreAnswers(true);
       })
       .catch((err) => {
         alert("ERROR: No answers");
@@ -78,12 +66,7 @@ const Question = ({ question, deleteQuestion }) => {
     <div key={question.id}>
       <h2>Question:{question.body}</h2>
       {renderAnswers()}
-      {!noMoreAnswers ? (
-        <button onClick={nextPage}>Show Answers</button>
-      ) : (
-        <p>No More Answers</p>
-      )}
-      <button>Show more Pagination</button>
+      {!noMoreAnswers && <button onClick={nextPage}>Show Answers</button>}
       {showCAnswers && <AnswerForm question={question} />}
       <button onClick={() => setShowCAnswers(!showCAnswers)}>
         {showCAnswers ? "Cancel Answer" : "Add Answer"}

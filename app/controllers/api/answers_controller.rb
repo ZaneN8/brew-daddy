@@ -50,7 +50,7 @@ class Api::AnswersController < ApplicationController
   end
 
   def filtering_params
-    params.permit(:page)
+    params.permit(:limit, :offset)
   end
 
 end

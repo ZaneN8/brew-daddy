@@ -38,6 +38,10 @@ class Api::ReviewPicsController < ApplicationController
 
   private
 
+  def filtering_params
+    params.permit(:page)
+  end
+
   def set_review
     @review = Review.find(params[:review_id])
   end
