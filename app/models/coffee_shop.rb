@@ -14,11 +14,24 @@ class CoffeeShop < ApplicationRecord
         AVG(rv.coffee_rating) as total_coffee,
         AVG(rv.food) as total_food,
         AVG(rv.noise_level) as total_noise_level,
-        AVG(rv.work_friendly) as total_work_friendly
+        AVG(rv.work_friendly) as total_work_friendly,
+        COUNT(rv.*) as total_reviews_count
       FROM reviews AS rv
       WHERE rv.coffee_shop_id = ?
     ", id]).first
   end
+
+ def count_reviews 
+  Review.find_by_sql(["
+    SELECT 1 * s.d rating, count(rv.rating) as review_count
+      from generate_series(0,5) s(d)
+      left outer join reviews rv on s.d = floor(rv.rating / 1)
+      where rv.coffee_shop_id = ?
+      group by s.d
+      order by s.d desc
+      ", id])
+ end
+
 
 
 #   This is the "hard way" method, "James" way. We will not use it but you can run "rating" on rails

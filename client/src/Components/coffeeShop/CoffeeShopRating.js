@@ -16,6 +16,9 @@ const CoffeeShopRating = ({ match }) => {
   const renderAllRating = () => {
     return (
       <div>
+        Total Reviews: {ratingsData.total_reviews_count}
+        <br />
+        <br />
         <b>Overall Rating: {ratingsData.total_rating} </b>
         <br />
         Food Quality: {ratingsData.total_food} <br />
