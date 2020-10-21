@@ -19,12 +19,16 @@ const CoffeeShopRating = ({ match }) => {
         Total Reviews: {ratingsData.total_reviews_count}
         <br />
         <br />
+        {/* <b>
+          Overall Rating: {ratingsData && ratingsData.total_rating.toFixed(1)}{" "}
+        </b> */}
         <b>Overall Rating: {ratingsData.total_rating} </b>
         <br />
         Food Quality: {ratingsData.total_food} <br />
         Coffee Quality: {ratingsData.total_coffee} <br />
         Noise Level: {ratingsData.total_noise_level} <br />
-        Work Friendly: {ratingsData.total_work_friendly} <br />
+        Work Friendly:
+        {ratingsData.total_work_friendly} <br />
       </div>
     );
   };

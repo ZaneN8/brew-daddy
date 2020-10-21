@@ -12,7 +12,8 @@ puts "Let the Seeding begin"
         about_me: Faker::Hipster.paragraph,
         email: "test#{i}@example.com",
         password: "123456",
-        image: Faker::Avatar.image(slug: "user #{i}", size: "300x300", format: "png", set: "set1")
+        # image: Faker::Avatar.image(slug: "user #{i}", size: "300x300", format: "png", set: "set1"),
+        image: "http://placebeard.it/300x300"
     )
 
     puts user.email + " created"
@@ -74,8 +75,8 @@ puts "wait were almost done"
 
         1.times do |m|
             rvp = ReviewPic.create(
-                image: Faker::LoremFlickr.image(size: "300x300", search_terms: ['coffee']),
-                review_id: rv.id
+                image: "https://loremflickr.com/320/240/coffee?random=#{rand(100)}",
+                review_id: rv.id,
             )
         end
 end
