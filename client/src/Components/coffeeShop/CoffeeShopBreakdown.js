@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 
 const CoffeeShopBreakdown= ({ match }) => {
-const [breakdownRating, setBreakdownRating] = useState({});
+const [breakdownRating, setBreakdownRating] = useState([]);
 
 useEffect(() => {
     axios
@@ -17,16 +17,22 @@ useEffect(() => {
 }, [])
 
 const renderBreakdown = () => {
-    return (
+    // console.log(breakdownRating)
+    return breakdownRating.map((rating) => (
         <div>
-        Breakdown of Review by Overall Rating
+            {rating.rating} Stars, Total Reviews: 
+            {rating.review_count}
         </div>
     )
+    )
+    // return (
+    //     <div>test</div>
+    // )
 }
 
 
 return (
-    <>Breakdown:
+    <><br />Breakdown:
     {renderBreakdown()}
     </>
 )
