@@ -9,16 +9,18 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
   const [page, setPage] = useState(false);
   const [noMoreQuestions, setNoMoreQuestions] = useState(false);
 
-  // const getQuestions = async () => {
-  //   try {
-  //     let res = await axios.get(
-  //       `/api/coffee_shops/${questionsShopId}/questions`
-  //     );
-  //     setQuestions(res.data);
-  //   } catch (err) {
-  //     alert("Error: CoffeeShopQuestions, get questions failed");
-  //   }
-  // };
+  const getQuestions = async () => {
+    try {
+      const params = { params: { page } };
+      let res = await axios.get(
+        `/api/coffee_shops/${questionsShopId}/questions`,
+        params
+      );
+      setQuestions(res.data);
+    } catch (err) {
+      alert("Error: CoffeeShopQuestions, get questions failed");
+    }
+  };
 
   const deleteQuestion = async (id) => {
     try {
@@ -33,19 +35,7 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
   };
 
   useEffect(() => {
-    const params = { params: { page } };
-    axios
-      .get(`/api/coffee_shops/${questionsShopId}/questions`, params)
-      .then((res) => {
-        if (res.data.length < 3) {
-          setNoMoreQuestions(true);
-        }
-        setQuestions(res.data);
-      })
-      .catch((err) => {
-        alert("ERROR: No questions");
-      });
-    // getQuestions();
+    getQuestions();
   }, []);
 
   const nextPage = () => {
