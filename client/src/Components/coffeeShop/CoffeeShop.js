@@ -98,12 +98,21 @@ const CoffeeShop = ({ match, history }) => {
         </button>
       </h1>
       <img src={shop.image} />
-
       <h5>Call us at:{shop.contact_info}</h5>
       <h5>
         {shop.state}, {shop.city} {shop.zip}
       </h5>
-
+      <br />
+      Menu:
+      <a href={shop.menu} target="_blank">
+        {shop.name} Menu{"   "}
+      </a>
+      <br />
+      Website:
+      <a href={shop.website} target="_blank">
+        {shop.name} Website
+      </a>
+      <br />
       <p>
         Open:{shop.open} Delivery:{shop.delivery} Order Online:
         {shop.order_online} Pick Up:{shop.pick_up}

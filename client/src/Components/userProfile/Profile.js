@@ -6,6 +6,7 @@ import axios from "axios";
 import EditProfileForm from "./EditProfileForm";
 import { Modal, Form } from "react-bootstrap";
 import styled from "styled-components";
+import UserRating from "./UserRating";
 
 const Profile = () => {
   const [shops, setShops] = useState([]);
@@ -17,6 +18,9 @@ const Profile = () => {
   const [changePic, setChangePic] = useState(false);
   const handleClose = () => setChangePic(false);
   const handleShow = () => setChangePic(true);
+  const closeShow = () => setShow(false);
+  const createShow = () => setShow(true);
+
   const [fileState, setFileState] = useState({
     url: null,
     blob: null,
@@ -124,25 +128,36 @@ const Profile = () => {
           </button>
           {showEdit && <EditProfileForm hide={setShowEdit} />}
         </div>
+
+        {user && <UserRating userId={user.id} />}
       </Box>
 
       <BigBox>
-        <p>About me info HERE</p>
+        <h4>About Me</h4>
+        <p>{user.about_me}</p>
         <h1>Profiles Reviews</h1>
         <div>{renderProfileReviews()}</div>
         <hr />
       </BigBox>
       <Box>
         <h3>{user.name} Coffee Shops </h3>
+        <div>
+          <PlusButton onClick={createShow}>Add Coffee Shop</PlusButton>
+          <Modal show={show} onHide={closeShow}>
+            <Modal.Header closeButton>
+              <Modal.Title>Create Coffee Shop</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <CoffeeShopForm hide={closeShow} add={addCoffeeShop} />
+            </Modal.Body>
+            <Modal.Footer>
+              <button onClick={closeShow}>Cancel</button>
+            </Modal.Footer>
+          </Modal>
+        </div>
         <div>{renderProfileCoffeeShop()}</div>
 
         <hr />
-        <div className="CoffeeShop Right">
-          <PlusButton onClick={() => setShow(!show)}>
-            {show ? <span>&#8854;</span> : <span>&#8853;</span>}
-          </PlusButton>
-          {show && <CoffeeShopForm hide={setShow} add={addCoffeeShop} />}
-        </div>
       </Box>
       <br />
       <br />

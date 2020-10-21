@@ -9,6 +9,7 @@ puts "Let the Seeding begin"
     user = User.create(
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
+        about_me: Faker::Hipster.paragraph,
         email: "test#{i}@example.com",
         password: "123456",
         image: Faker::Avatar.image(slug: "user #{i}", size: "300x300", format: "png", set: "set1")
@@ -23,12 +24,15 @@ puts "Let the Seeding begin"
             name: Faker::Coffee.blend_name,
             description: Faker::Restaurant.description, # Faker::Coffee.notes
             image: Faker::Avatar.image(slug: "Coffee Shop #{j}", size: "300x300", format: "png", set: "set4"),
+            # image: Faker::LoremFlickr.image(size: "300x300", search_terms: ['coffee']),
             address: Faker::Address.street_address,
             city:Faker::Address.city,
             state: Faker::Address.state,
             zip: Faker::Address.zip,
             contact_info: Faker::PhoneNumber.phone_number,
             cost: 3,
+            website: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            menu: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
             open: true,
             delivery: true,
             pickup: true,
@@ -67,6 +71,13 @@ puts "wait were almost done"
         coffee_shop_id: CoffeeShop.order(Arel.sql('RANDOM()')).first.id,
         user_id: User.order(Arel.sql('RANDOM()')).first.id,
     )
+
+        1.times do |m|
+            rvp = ReviewPic.create(
+                image: Faker::LoremFlickr.image(size: "300x300", search_terms: ['coffee']),
+                review_id: rv.id
+            )
+        end
 end
 
 puts "Seeds Successful"

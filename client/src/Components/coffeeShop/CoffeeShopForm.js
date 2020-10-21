@@ -13,6 +13,8 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
     address: "",
     image: "",
     zip: "",
+    menu: "",
+    website: "",
     contact_info: "",
     cost: 0,
     open: false,
@@ -30,6 +32,8 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           description: shopProp.description,
           address: shopProp.address,
           city: shopProp.city,
+          menu: shopProp.menu,
+          website: shopProp.website,
           state: shopProp.state,
           zip: shopProp.zip,
           contact_info: shopProp.contact_info,
@@ -179,6 +183,30 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
               <Form.Label>Zip</Form.Label>
               <Form.Control
                 name="zip"
+                required
+                value={coffeeShopState.zip}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
+        <Form.Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>Menu</Form.Label>
+              <Form.Control
+                name="menu"
+                required
+                value={coffeeShopState.zip}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Website</Form.Label>
+              <Form.Control
+                name="website"
                 required
                 value={coffeeShopState.zip}
                 onChange={handleChange}
