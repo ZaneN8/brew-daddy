@@ -18,6 +18,7 @@ const Profile = () => {
   const handleClose = () => setChangePic(false);
   const handleShow = () => setChangePic(true);
   const [page, setPage] = useState(1);
+  const [noMoreProfileReviews, setNoMoreProfileReviews] = useState(false);
   const [fileState, setFileState] = useState({
     url: null,
     blob: null,
@@ -34,7 +35,7 @@ const Profile = () => {
     }
   };
 
-  const moreUserReviews = () => {
+  const moreProfileReviews = () => {
     const params = {
       params: {
         page: page + 1,
@@ -43,6 +44,9 @@ const Profile = () => {
     axios
       .get(`/api/users/${user.id}/reviews`, params)
       .then((res) => {
+        if (res.data.length < 5) {
+          setNoMoreProfileReviews(true);
+        }
         setProfileReviews(profileReviews.concat(res.data));
         setPage(page + 1);
       })
@@ -148,7 +152,11 @@ const Profile = () => {
           <p>About me info HERE</p>
           <h1>Profiles Reviews</h1>
           <div>{renderProfileReviews()}</div>
-          <button onClick={moreUserReviews}>See more reviews</button>
+          {!noMoreProfileReviews ? (
+            <button onClick={moreProfileReviews}>See more reviews</button>
+          ) : (
+            <p>That's all the reviews for this profile</p>
+          )}
           <hr />
           <h1>Profile Coffee Shops </h1>
           <div>{renderProfileCoffeeShop()}</div>
