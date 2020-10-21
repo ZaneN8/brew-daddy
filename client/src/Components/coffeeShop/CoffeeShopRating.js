@@ -3,7 +3,6 @@ import axios from "axios";
 
 const CoffeeShopRating = ({ match }) => {
   const [ratingsData, setRatingsData] = useState({});
-
   useEffect(() => {
     axios
       .get(`/api/coffee_shops/${match.params.id}/average_stats`)
@@ -26,7 +25,11 @@ const CoffeeShopRating = ({ match }) => {
     );
   };
 
-  return <>{renderAllRating}</>;
+  return (
+  <>Rating:
+  {renderAllRating()}
+  </>
+  )
 };
 
 export default CoffeeShopRating;
