@@ -18,6 +18,9 @@ const Profile = () => {
   const [changePic, setChangePic] = useState(false);
   const handleClose = () => setChangePic(false);
   const handleShow = () => setChangePic(true);
+  const closeShow = () => setShow(false);
+  const createShow = () => setShow(true);
+
   const [fileState, setFileState] = useState({
     url: null,
     blob: null,
@@ -138,15 +141,23 @@ const Profile = () => {
       </BigBox>
       <Box>
         <h3>{user.name} Coffee Shops </h3>
+        <div>
+          <PlusButton onClick={createShow}>Add Coffee Shop</PlusButton>
+          <Modal show={show} onHide={closeShow}>
+            <Modal.Header closeButton>
+              <Modal.Title>Create Coffee Shop</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <CoffeeShopForm hide={closeShow} add={addCoffeeShop} />
+            </Modal.Body>
+            <Modal.Footer>
+              <button onClick={closeShow}>Cancel</button>
+            </Modal.Footer>
+          </Modal>
+        </div>
         <div>{renderProfileCoffeeShop()}</div>
 
         <hr />
-        <div className="CoffeeShop Right">
-          <PlusButton onClick={() => setShow(!show)}>
-            {show ? <span>&#8854;</span> : <span>&#8853;</span>}
-          </PlusButton>
-          {show && <CoffeeShopForm hide={setShow} add={addCoffeeShop} />}
-        </div>
       </Box>
       <br />
       <br />

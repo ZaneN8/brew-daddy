@@ -71,6 +71,13 @@ puts "wait were almost done"
         coffee_shop_id: CoffeeShop.order(Arel.sql('RANDOM()')).first.id,
         user_id: User.order(Arel.sql('RANDOM()')).first.id,
     )
+
+        1.times do |m|
+            rvp = ReviewPic.create(
+                image: Faker::LoremFlickr.image(size: "300x300", search_terms: ['coffee']),
+                review_id: rv.id
+            )
+        end
 end
 
 puts "Seeds Successful"
