@@ -6,11 +6,15 @@ import Question from "./Question";
 const CoffeeShopQuestions = ({ questionsShopId }) => {
   const [questions, setQuestions] = useState([]);
   const [showCQuestions, setShowCQuestions] = useState(false);
+  const [page, setPage] = useState(false);
+  const [noMoreQuestions, setNoMoreQuestions] = useState(false);
 
   const getQuestions = async () => {
     try {
+      const params = { params: { page } };
       let res = await axios.get(
-        `/api/coffee_shops/${questionsShopId}/questions`
+        `/api/coffee_shops/${questionsShopId}/questions`,
+        params
       );
       setQuestions(res.data);
     } catch (err) {
@@ -34,6 +38,26 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
     getQuestions();
   }, []);
 
+  const nextPage = () => {
+    const params = {
+      params: {
+        page: page + 1,
+      },
+    };
+    axios
+      .get(`/api/coffee_shops/${questionsShopId}/questions`, params)
+      .then((res) => {
+        if (res.data.length < 3) {
+          setNoMoreQuestions(true);
+        }
+        setQuestions(questions.concat(res.data));
+        setPage(page + 1);
+      })
+      .catch((err) => {
+        alert("ERROR: No questions");
+      });
+  };
+
   const renderQuestion = () => {
     return questions.map((question) => (
       <Question
@@ -52,6 +76,11 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
         {showCQuestions ? "Cancel Question" : "Add Question"}
       </button>
       {renderQuestion()}
+      {!noMoreQuestions ? (
+        <button onClick={nextPage}>More questions</button>
+      ) : (
+        <p>No more questions</p>
+      )}
     </div>
   );
 };
