@@ -1,6 +1,6 @@
 class Api::CoffeeShopsController < ApplicationController
 before_action :authenticate_user!, only: [:create, :update, :destroy]
-before_action :set_coffee_shop, only: [:show, :update, :destroy, :search, :coffee_ratings, :average_stats]
+before_action :set_coffee_shop, only: [:show, :update, :destroy, :search, :coffee_ratings, :average_stats, :count_reviews]
 before_action :set_user, only: [:cu_index]
 
   # For Search stuff:  https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/
@@ -86,6 +86,10 @@ before_action :set_user, only: [:cu_index]
   # should be route /api/coffee_shops/:id/average_stats
   def average_stats
     render json: @coffee_shop.average_stats
+  end
+
+  def count_reviews
+    render json: @coffee_shop.count_reviews
   end
 
   private
