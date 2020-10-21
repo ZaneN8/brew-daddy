@@ -5,6 +5,7 @@ import CoffeeShopReview from "../review/CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
 import CoffeeShopRating from "./CoffeeShopRating";
 import CoffeeShopQuestions from "../QA/CoffeeShopQuestions";
+import CoffeeShopBreakdown from "./CoffeeShopBreakdown"
 
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
@@ -154,9 +155,11 @@ const CoffeeShop = ({ match, history }) => {
         <div>{renderShopInfo()}</div>
         {/* <div>{renderAllRating()}</div><hr /> */}
         <CoffeeShopRating match={match} />
+        <CoffeeShopBreakdown match={match} />
         <CoffeeShopQuestions questionsShopId={shop.id} />
 
         <hr />
+       
         <div>{renderReviews()}</div>
         {!noMoreReviews ? (
           <button onClick={nextPage}>More reviews</button>
