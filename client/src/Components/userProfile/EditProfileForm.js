@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Col } from "react-bootstrap";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const EditProfileForm = ({ hide }) => {
@@ -23,24 +23,30 @@ const EditProfileForm = ({ hide }) => {
         handleSubmit();
       }}
     >
-      <Form.Group>
-        <Form.Label> First Name</Form.Label>
-        <Form.Control
-          type="text"
-          name="first_name"
-          value={userState.first_name}
-          onChange={handleChange}
-        />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label> Last Name</Form.Label>
-        <Form.Control
-          type="text"
-          name="last_name"
-          value={userState.last_name}
-          onChange={handleChange}
-        />
-      </Form.Group>
+      <Form.Row>
+        <Col>
+          <Form.Group>
+            <Form.Label> First Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="first_name"
+              value={userState.first_name}
+              onChange={handleChange}
+            />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group>
+            <Form.Label> Last Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="last_name"
+              value={userState.last_name}
+              onChange={handleChange}
+            />
+          </Form.Group>
+        </Col>
+      </Form.Row>
       <Form.Group>
         <Form.Label> Email:</Form.Label>
         <Form.Control

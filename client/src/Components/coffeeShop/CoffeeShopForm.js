@@ -10,6 +10,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
     description: "",
     city: "",
     state: "",
+    address: "",
     image: "",
     zip: "",
     contact_info: "",
@@ -27,6 +28,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
       : {
           name: shopProp.name,
           description: shopProp.description,
+          address: shopProp.address,
           city: shopProp.city,
           state: shopProp.state,
           zip: shopProp.zip,
@@ -141,32 +143,49 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label>City</Form.Label>
+          <Form.Label>Street Name</Form.Label>
           <Form.Control
-            name="city"
+            name="address"
             required
-            value={coffeeShopState.city}
+            value={coffeeShopState.address}
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>State</Form.Label>
-          <Form.Control
-            name="state"
-            required
-            onChange={handleChange}
-            value={coffeeShopState.state}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Zip</Form.Label>
-          <Form.Control
-            name="zip"
-            required
-            value={coffeeShopState.zip}
-            onChange={handleChange}
-          />
-        </Form.Group>
+        <Form.Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>City</Form.Label>
+              <Form.Control
+                name="city"
+                required
+                value={coffeeShopState.city}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>State</Form.Label>
+              <Form.Control
+                name="state"
+                required
+                onChange={handleChange}
+                value={coffeeShopState.state}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Zip</Form.Label>
+              <Form.Control
+                name="zip"
+                required
+                value={coffeeShopState.zip}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
         <Form.Group>
           <Form.Label>Contact Number</Form.Label>
           <Form.Control
@@ -177,13 +196,13 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
             value={coffeeShopState.contact_info}
           />
         </Form.Group>
-
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
             Cost
           </Form.Label>
-          <Col sm={10}>
+          <Col>
             <Form.Check
+              active
               type="radio"
               label="$"
               name="cost"
@@ -206,7 +225,6 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
             />
           </Col>
         </Form.Group>
-
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
             Open
@@ -222,7 +240,6 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
             />
           </Col>
         </Form.Group>
-
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
             Delivery
