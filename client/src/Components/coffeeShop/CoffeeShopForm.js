@@ -11,7 +11,8 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
     city: "",
     state: "",
     address: "",
-    image: "",
+    image:
+      "https://perfectdailygrind.com/wp-content/uploads/2019/11/Coffeeshop-Tips-06.jpg",
     zip: "",
     menu: "",
     website: "",
@@ -217,7 +218,6 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
         <Form.Group>
           <Form.Label>Contact Number</Form.Label>
           <Form.Control
-            // TODO edit does not fill the current info out
             name="contact_info"
             onChange={handleChange}
             value={coffeeShopState.contact_info}
@@ -229,7 +229,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           </Form.Label>
           <Col>
             <Form.Check
-              active
+              checked
               type="radio"
               label="$"
               name="cost"
@@ -258,7 +258,8 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
-              active
+              // {coffeeShopState.open == true ? checked : null}
+              defaultChecked={coffeeShopState.open == true}
               type="checkbox"
               label="Yes"
               name="open"
@@ -274,6 +275,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
+              defaultChecked={coffeeShopState.delivery == true}
               type="checkbox"
               label="Yes"
               name="delivery"
@@ -288,6 +290,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
+              defaultChecked={coffeeShopState.pickup == true}
               type="checkbox"
               label="Yes"
               name="pickup"
@@ -302,6 +305,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
+              defaultChecked={coffeeShopState.order_online == true}
               type="checkbox"
               label="Yes"
               name="order_online"

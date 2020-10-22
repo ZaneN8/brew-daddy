@@ -19,7 +19,7 @@ const CoffeeShop = ({ match, history }) => {
   const handleClose = () => setShowEditForm(false);
   const handleShow = () => setShowEditForm(true);
 
-  const handleCloseReview = () => setShowEditForm(false);
+  const handleCloseReview = () => setShowReviewForm(false);
   const handleAddReview = () => setShowReviewForm(true);
 
   useEffect(() => {
@@ -158,7 +158,7 @@ const CoffeeShop = ({ match, history }) => {
   };
 
   const addReview = (review) => {
-    setReviews([...reviews, review]);
+    setReviews([review, ...reviews]);
   };
 
   // const handleSubmit = (e) => {
@@ -188,22 +188,24 @@ const CoffeeShop = ({ match, history }) => {
         ) : (
           <p>No More Reviews</p>
         )}
-        <>
-          <button onClick={handleAddReview}> Add Review</button>
-          <Modal>
-            <Modal.Header></Modal.Header>
-          </Modal>
-          {showReviewForm && (
+        <br />
+        <button onClick={handleAddReview}> Write Review</button>
+        <Modal show={showReviewForm}>
+          <Modal.Header closeButton onHide={handleCloseReview}>
+            <Modal.Title>Create Review</Modal.Title>.
+          </Modal.Header>
+          <Modal.Body>
             <ReviewForm
-              hide={setShowReviewForm}
+              hide={handleCloseReview}
               add={addReview}
               shopId={shop.id}
             />
-          )}
-          <button onClick={() => setShowReviewForm(!showReviewForm)}>
-            {showReviewForm ? "Cancel Review" : "Write Review"}
-          </button>
-        </>
+            <Modal.Footer>
+              <button onClick={handleCloseReview}>Cancel</button>
+            </Modal.Footer>
+          </Modal.Body>
+        </Modal>
+        <br />
         <hr />
 
         <button onClick={history.goBack}>BACK</button>
