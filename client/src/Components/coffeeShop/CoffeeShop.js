@@ -120,8 +120,9 @@ const CoffeeShop = ({ match, history }) => {
       </h1>
       <img src={shop.image} />
       <h5>Call us at:{shop.contact_info}</h5>
+      <h5>{shop.address}</h5>
       <h5>
-        {shop.state}, {shop.city} {shop.zip}
+        {shop.state}, {shop.city}-{shop.zip}
       </h5>
       <br />
       Menu:
