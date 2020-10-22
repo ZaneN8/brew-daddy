@@ -128,7 +128,6 @@ const Profile = () => {
           </button>
           {showEdit && <EditProfileForm hide={setShowEdit} />}
         </div>
-
         {user && <UserRating userId={user.id} />}
       </Box>
 
