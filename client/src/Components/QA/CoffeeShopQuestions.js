@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import QuestionForm from "./QuestionForm";
 import Question from "./Question";
+import { Modal } from "react-bootstrap";
 
 const CoffeeShopQuestions = ({ questionsShopId }) => {
   const [questions, setQuestions] = useState([]);
   const [showCQuestions, setShowCQuestions] = useState(false);
   const [page, setPage] = useState(false);
   const [noMoreQuestions, setNoMoreQuestions] = useState(false);
+
+  const handleClose = () => setShowCQuestions(false);
+  const handleShow = () => setShowCQuestions(true);
 
   const getQuestions = async () => {
     try {
@@ -61,6 +65,7 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
   const renderQuestion = () => {
     return questions.map((question) => (
       <Question
+        questionsShopId={questionsShopId}
         key={question.id}
         question={question}
         deleteQuestion={deleteQuestion}
@@ -71,6 +76,23 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
   return (
     <div>
       <br />
+
+      <button variant="primary" onClick={handleShow}>
+        Write A Question
+      </button>
+
+      <Modal show={showCQuestions} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create Question</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <QuestionForm questionsShopId={questionsShopId} hide={handleClose} />
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleClose}>Cancel</button>
+        </Modal.Footer>
+      </Modal>
+
       {showCQuestions && <QuestionForm questionsShopId={questionsShopId} />}
       <button onClick={() => setShowCQuestions(!showCQuestions)}>
         {showCQuestions ? "Cancel Question" : "Add Question"}

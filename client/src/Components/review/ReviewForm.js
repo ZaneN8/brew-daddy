@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import axios from "axios";
 import { AuthContext } from "../../providers/AuthProvider";
 
-const ReviewForm = ({ add, shopId, review }) => {
+const ReviewForm = ({ add, shopId, review, hide }) => {
   const auth = useContext(AuthContext);
   const [reviewState, setReviewState] = useState(
     review
@@ -63,6 +63,7 @@ const ReviewForm = ({ add, shopId, review }) => {
     } else {
       addReview();
     }
+    hide();
   };
 
   return (

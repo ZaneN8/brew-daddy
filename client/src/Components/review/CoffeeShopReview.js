@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import ReviewForm from "./ReviewForm";
 import ReviewImageUpload from "./ReviewImageUpload";
+import { Modal } from "react-bootstrap";
 
 const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
   const [user, setUser] = useState(null);
@@ -10,6 +11,9 @@ const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
   const [reviewPics, setReviewPics] = useState([]);
   const [page, setPage] = useState(1);
   const [noMoreReviewPics, setNoMoreReviewPics] = useState(false);
+
+  const handleClose = () => setShowEditForm(false);
+  const handleShow = () => setShowEditForm(true);
 
   // get user on initial render
   useEffect(() => {
@@ -89,10 +93,20 @@ const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
       )}
       <ReviewImageUpload reviewProp={review} />
 
-      {showEditForm && <ReviewForm shopId={shopId} review={review} />}
-      <button onClick={() => setShowEditForm(!showEditForm)}>
-        {showEditForm ? "Cancel Edit" : "Edit Review"}
-      </button>
+      <button onClick={handleShow}>Edit Review</button>
+      <Modal show={showEditForm} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Review</Modal.Title>.
+        </Modal.Header>
+        <Modal.Body>
+          <ReviewForm shopId={shopId} review={review} hide={handleClose} />
+        </Modal.Body>
+        <Modal.Footer>
+          <button variant="secondary" onClick={handleClose}>
+            Cancel
+          </button>
+        </Modal.Footer>
+      </Modal>
 
       <button onClick={() => deleteReview(review.id)}>Delete</button>
     </div>

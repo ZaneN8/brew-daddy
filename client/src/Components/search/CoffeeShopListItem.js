@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const CoffeeShopListItem = ({ coffee }) => {
-  const [ratingsData, setRatingsData] = useState(null);
+  const [ratingsData, setRatingsData] = useState({});
 
   useEffect(() => {
     axios
@@ -30,7 +30,8 @@ const CoffeeShopListItem = ({ coffee }) => {
         {coffee.city}, {coffee.state} <br />
         <br />
         <b> Phone Number: </b> {coffee.contact_info} <br />
-        Rating: {ratingsData && ratingsData.total_rating.toFixed(1)} <br />
+        Rating: {ratingsData.total_rating}
+        <br />
         {coffee.description}
       </p>
     </StyledResultCard>
