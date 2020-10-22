@@ -164,7 +164,7 @@ const Profile = () => {
           <h1>Profile Coffee Shops </h1>
           <div>{renderProfileCoffeeShop()}</div>
         </div>
-
+        </div>
         {user && <UserRating userId={user.id} />}
       </Box>
 
