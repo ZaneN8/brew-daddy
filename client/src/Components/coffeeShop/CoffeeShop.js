@@ -31,6 +31,9 @@ const CoffeeShop = ({ match, history }) => {
       .get(`/api/coffee_shops/${match.params.id}/reviews`, params)
       .then((res) => {
         // if reviews are less than 4, set noMoreReview to true
+        if (res.data.length < 4) {
+          setNoMoreReviews(true);
+        }
         setReviews(res.data);
       })
       .catch((err) => {
@@ -168,7 +171,7 @@ const CoffeeShop = ({ match, history }) => {
        
         <div>{renderReviews()}</div>
         {!noMoreReviews ? (
-          <button onClick={nextPage}>load more reviews</button>
+          <button onClick={nextPage}>More reviews</button>
         ) : (
           <p>No More Reviews</p>
         )}

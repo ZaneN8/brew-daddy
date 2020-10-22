@@ -4,7 +4,13 @@ class Api::AnswersController < ApplicationController
   before_action :set_answer, only: [:update, :destroy]
 
   def index
-    render json: @question.answers
+    # render json: @question.answers
+
+    answer_result = @question.answers
+    filtering_params.each do |key, value|
+      answer_result = answer_result.public_send("filter_by_#{key}", value) if value.present?
+    end
+    render json: answer_result
   end
 
   def create
@@ -41,6 +47,10 @@ class Api::AnswersController < ApplicationController
 
   def answer_params
     params.permit(:body, :question_id)
+  end
+
+  def filtering_params
+    params.permit(:limit, :offset)
   end
 
 end
