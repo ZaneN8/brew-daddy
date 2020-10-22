@@ -20,7 +20,8 @@ const Profile = () => {
   const handleShow = () => setChangePic(true);
   const closeShow = () => setShow(false);
   const createShow = () => setShow(true);
-
+  const [page, setPage] = useState(1);
+  const [noMoreProfileReviews, setNoMoreProfileReviews] = useState(false);
   const [fileState, setFileState] = useState({
     url: null,
     blob: null,
@@ -29,11 +30,32 @@ const Profile = () => {
 
   const getProfileReviews = async () => {
     try {
-      let res = await axios.get(`/api/users/${user.id}/reviews`);
+      const params = { params: { page } };
+      let res = await axios.get(`/api/users/${user.id}/reviews`, params);
       setProfileReviews(res.data);
     } catch (err) {
       alert("Error: failed to get this profiles reviews");
     }
+  };
+
+  const moreProfileReviews = () => {
+    const params = {
+      params: {
+        page: page + 1,
+      },
+    };
+    axios
+      .get(`/api/users/${user.id}/reviews`, params)
+      .then((res) => {
+        if (res.data.length < 5) {
+          setNoMoreProfileReviews(true);
+        }
+        setProfileReviews(profileReviews.concat(res.data));
+        setPage(page + 1);
+      })
+      .catch((err) => {
+        alert("ERROR: Could not load more reviews");
+      });
   };
 
   const getProfileCoffeeShops = async () => {
@@ -136,6 +158,11 @@ const Profile = () => {
         <p>{user.about_me}</p>
         <h1>Profiles Reviews</h1>
         <div>{renderProfileReviews()}</div>
+        {!noMoreProfileReviews ? (
+          <button onClick={moreProfileReviews}>See more reviews</button>
+        ) : (
+          <p>That's all the reviews for this profile</p>
+        )}
         <hr />
       </BigBox>
       <Box>
