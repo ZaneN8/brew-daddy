@@ -3,20 +3,33 @@ import Answer from "./Answer";
 import AnswerForm from "./AnswerForm";
 import QuestionForm from "./QuestionForm";
 import axios from "axios";
+import { Modal } from "react-bootstrap";
 
-const Question = ({ question, deleteQuestion }) => {
+const Question = ({ question, deleteQuestion, questionsShopId }) => {
   const [showCAnswers, setShowCAnswers] = useState(false);
   const [showEditQuestion, setShowEditQuestion] = useState(false);
   const [answers, setAnswers] = useState([]);
+  const [noMoreAnswers, setNoMoreAnswers] = useState(false);
+
+  const handleClose = () => setShowEditQuestion(false);
+  const handleShow = () => setShowEditQuestion(true);
 
   const getAnswers = async () => {
     try {
-      let res = await axios.get(`/api/questions/${question.id}/answers`);
+      const params = { params: { limit: 1 } };
+      let res = await axios.get(
+        `/api/questions/${question.id}/answers`,
+        params
+      );
       setAnswers(res.data);
     } catch (err) {
       alert("Error: in answers.js get answers failed");
     }
   };
+
+  useEffect(() => {
+    getAnswers();
+  }, []);
 
   const deleteAnswer = async (id) => {
     try {
@@ -35,27 +48,53 @@ const Question = ({ question, deleteQuestion }) => {
     ));
   };
 
-  useEffect(() => {
-    getAnswers();
-  }, []);
+  const nextPage = () => {
+    const params = {
+      params: {
+        offset: 1,
+      },
+    };
+
+    axios
+      .get(`/api/questions/${question.id}/answers`, params)
+      .then((res) => {
+        setAnswers(answers.concat(res.data));
+        setNoMoreAnswers(true);
+      })
+      .catch((err) => {
+        alert("ERROR: No answers");
+      });
+  };
 
   return (
     <div key={question.id}>
       <h2>Question:{question.body}</h2>
       {renderAnswers()}
-      <button>Show more Pagination</button>
+      {!noMoreAnswers && <button onClick={nextPage}>Show Answers</button>}
       {showCAnswers && <AnswerForm question={question} />}
       <button onClick={() => setShowCAnswers(!showCAnswers)}>
         {showCAnswers ? "Cancel Answer" : "Add Answer"}
       </button>
 
-      {showEditQuestion && <QuestionForm questionProp={question} />}
-      <button onClick={() => setShowEditQuestion(!showEditQuestion)}>
-        {showEditQuestion ? "Cancel Edit" : "Edit Question"}
+      <button variant="primary" onClick={handleShow}>
+        Edit Question
       </button>
-      <button onClick={() => deleteQuestion(question.id)}>
-        Delete Question
-      </button>
+
+      <Modal show={showEditQuestion} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Question</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <QuestionForm
+            questionProp={question}
+            questionsShopId={questionsShopId}
+            hide={handleClose}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleClose}>Cancel</button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

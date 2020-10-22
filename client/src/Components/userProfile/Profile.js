@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import User from "./User";
 import { Link } from "react-router-dom";
 import CoffeeShopForm from "../coffeeShop/CoffeeShopForm";
 import { AuthContext } from "../../providers/AuthProvider";
 import axios from "axios";
 import EditProfileForm from "./EditProfileForm";
 import { Modal, Form } from "react-bootstrap";
+import styled from "styled-components";
+import UserRating from "./UserRating";
 
 const Profile = () => {
   const [shops, setShops] = useState([]);
@@ -17,6 +18,13 @@ const Profile = () => {
   const [changePic, setChangePic] = useState(false);
   const handleClose = () => setChangePic(false);
   const handleShow = () => setChangePic(true);
+  const closeShow = () => setShow(false);
+  const createShow = () => setShow(true);
+  const closeEditShow = () => setShowEdit(false);
+  const createEditShow = () => setShowEdit(true);
+
+  const [page, setPage] = useState(1);
+  const [noMoreProfileReviews, setNoMoreProfileReviews] = useState(false);
   const [fileState, setFileState] = useState({
     url: null,
     blob: null,
@@ -25,11 +33,32 @@ const Profile = () => {
 
   const getProfileReviews = async () => {
     try {
-      let res = await axios.get(`/api/users/${user.id}/reviews`);
+      const params = { params: { page } };
+      let res = await axios.get(`/api/users/${user.id}/reviews`, params);
       setProfileReviews(res.data);
     } catch (err) {
       alert("Error: failed to get this profiles reviews");
     }
+  };
+
+  const moreProfileReviews = () => {
+    const params = {
+      params: {
+        page: page + 1,
+      },
+    };
+    axios
+      .get(`/api/users/${user.id}/reviews`, params)
+      .then((res) => {
+        if (res.data.length < 5) {
+          setNoMoreProfileReviews(true);
+        }
+        setProfileReviews(profileReviews.concat(res.data));
+        setPage(page + 1);
+      })
+      .catch((err) => {
+        alert("ERROR: Could not load more reviews");
+      });
   };
 
   const getProfileCoffeeShops = async () => {
@@ -47,7 +76,7 @@ const Profile = () => {
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
       <div className="profileReviewRender" key={review.id}>
-        <h2>{review.title}</h2>
+        <h4>{review.title}</h4>
         <h5>{review.body}</h5>
         <p>Total rating:{review.rating}</p>
         <p>Coffee rating:{review.coffee_rating}</p>
@@ -63,7 +92,7 @@ const Profile = () => {
       return profileCoffeeShops.map((coffeeShop) => (
         <div className="coffeeShopRender" key={coffeeShop.id}>
           <img src={coffeeShop.image} />
-          <p>{coffeeShop.name}</p>
+          <h5>{coffeeShop.name}</h5>
           <p>
             {coffeeShop.state}, {coffeeShop.city}, {coffeeShop.zip}
           </p>
@@ -91,60 +120,147 @@ const Profile = () => {
   }, []);
 
   return (
-    <div>
-      <div className="userinfo">
-        {/* <User /> */}
-        <h1>PROFILE PAGE</h1>
-        <div>
-          <img onClick={handleShow} src={user.image} />
-          <Modal show={changePic} onHide={handleClose}>
+    <StyledLayout>
+      <Box>
+        <div className="userinfo">
+          <div>
+            <StyledImage onClick={handleShow} src={user.image} />
+            <Modal show={changePic} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Edit User Pic</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form.File
+                  label="Upload New Image for User"
+                  name="image"
+                  type="file"
+                  onChange={handleImageUpload}
+                />
+              </Modal.Body>
+              <Modal.Footer>
+                <button onClick={handleClose}>Close</button>
+                <button onClick={handleSubmit}>Change Picture</button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+          <div>
+            {user.first_name} {user.last_name}
+            <p>{user.email}</p>
+          </div>
+          <button onClick={createEditShow}>
+            <span>&#128295;</span>
+          </button>
+          <Modal
+            show={showEdit}
+            onHide={closeEditShow}
+            backdrop="keyboard false"
+          >
             <Modal.Header closeButton>
-              <Modal.Title>Edit User Pic</Modal.Title>
+              <Modal.Title>Edit User Profile </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form.File
-                label="Upload New Image for User"
-                name="image"
-                type="file"
-                onChange={handleImageUpload}
-              />
+              <EditProfileForm hide={closeEditShow} />
             </Modal.Body>
             <Modal.Footer>
-              <button onClick={handleClose}>Close</button>
-              <button onClick={handleSubmit}>Change Picture</button>
+              <button onClick={closeEditShow}>Close</button>
             </Modal.Footer>
           </Modal>
         </div>
-        <div>
-          {user.first_name} {user.last_name}
-          <p>{user.email}</p>
-        </div>
+        {user && <UserRating userId={user.id} />}
+      </Box>
 
-        {showEdit && <EditProfileForm hide={setShowEdit} />}
-        <button onClick={() => setShowEdit(!showEdit)}>
-          {show ? "Cancel " : "Edit Profile"}
-        </button>
-        <div className="About Me">
-          <h1>About Me</h1>
-          <p>About me info HERE</p>
-          <h1>Profiles Reviews</h1>
-          <div>{renderProfileReviews()}</div>
-          <hr />
-          <h1>Profile Coffee Shops </h1>
-          <div>{renderProfileCoffeeShop()}</div>
-        </div>
+      <BigBox>
+        <h4>About Me</h4>
+        <p>{user.about_me}</p>
+        <h1>Profiles Reviews</h1>
+        <div>{renderProfileReviews()}</div>
+        {!noMoreProfileReviews ? (
+          <button onClick={moreProfileReviews}>See more reviews</button>
+        ) : (
+          <p>That's all the reviews for this profile</p>
+        )}
         <hr />
-        <div className="CoffeeShop Right">
-          {show && <CoffeeShopForm hide={setShow} add={addCoffeeShop} />}
-          <button onClick={() => setShow(!show)}>
-            {show ? "Cancel " : "Create Coffee Shop"}
-          </button>
+      </BigBox>
+      <Box>
+        <h3>{user.name} Coffee Shops </h3>
+        <div>
+          <PlusButton onClick={createShow}>Add Coffee Shop</PlusButton>
+          <Modal show={show} onHide={closeShow}>
+            <Modal.Header closeButton>
+              <Modal.Title>Create Coffee Shop</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <CoffeeShopForm hide={closeShow} add={addCoffeeShop} />
+            </Modal.Body>
+            <Modal.Footer>
+              <button onClick={closeShow}>Cancel</button>
+            </Modal.Footer>
+          </Modal>
         </div>
-        <br />
-        <br />
-      </div>
-    </div>
+        <div>{renderProfileCoffeeShop()}</div>
+
+        <hr />
+      </Box>
+      <br />
+      <br />
+    </StyledLayout>
   );
 };
+
+const StyledPage = styled.div`
+  padding: 1em 4em 1em;
+`;
+
+const StyledLayout = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+`;
+
+const Box = styled.div`
+  display: flex;
+  width: 175px;
+  min-height: 300px;
+  flex-direction: column;
+  padding: 5%;
+  height: 100%;
+`;
+
+const BigBox = styled.div`
+  display: flex;
+  width: 600px;
+  min-height: 300px;
+  flex-direction: column;
+  padding: 5%;
+  height: 100%;
+`;
+
+const StyledImage = styled.img`
+  border-radius: 50%;
+`;
+
+const StyledButton = styled.button`
+  display: inline-block;
+  padding: 0.3em;
+  border-radius: 2em;
+  background-color: #4e9af1;
+`;
+
+const PlusButton = styled.button`
+  display: incline-block;
+  // padding: 0.1em 0.2em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid green;
+  border-radius: 1em;
+  background-color: green;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  transition: all 0.2s;
+  &:hover {
+     border-color: black;
+  }
+`;
 
 export default Profile;

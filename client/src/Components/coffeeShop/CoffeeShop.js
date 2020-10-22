@@ -5,6 +5,8 @@ import CoffeeShopReview from "../review/CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
 import CoffeeShopRating from "./CoffeeShopRating";
 import CoffeeShopQuestions from "../QA/CoffeeShopQuestions";
+import CoffeeShopBreakdown from "./CoffeeShopBreakdown";
+import { Modal } from "react-bootstrap";
 
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
@@ -13,6 +15,12 @@ const CoffeeShop = ({ match, history }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [page, setPage] = useState(1);
   const [noMoreReviews, setNoMoreReviews] = useState(false);
+
+  const handleClose = () => setShowEditForm(false);
+  const handleShow = () => setShowEditForm(true);
+
+  const handleCloseReview = () => setShowReviewForm(false);
+  const handleAddReview = () => setShowReviewForm(true);
 
   useEffect(() => {
     axios
@@ -30,6 +38,9 @@ const CoffeeShop = ({ match, history }) => {
       .get(`/api/coffee_shops/${match.params.id}/reviews`, params)
       .then((res) => {
         // if reviews are less than 4, set noMoreReview to true
+        if (res.data.length < 4) {
+          setNoMoreReviews(true);
+        }
         setReviews(res.data);
       })
       .catch((err) => {
@@ -92,26 +103,42 @@ const CoffeeShop = ({ match, history }) => {
     <div>
       <h1>
         {shop.name}
-        <button onClick={() => setShowEditForm(!showEditForm)}>
-          {showEditForm ? "Cancel" : "Update Coffee Shop"}
+        <button onClick={handleShow}>
+          <span>&#128295;</span>
         </button>
+        <Modal show={showEditForm} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title> Edit Coffee Shop </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <CoffeeShopForm shopProp={shop} hide={handleClose} />
+          </Modal.Body>
+          <Modal.Footer>
+            <button onClick={handleClose}>Cancel</button>
+          </Modal.Footer>
+        </Modal>
       </h1>
       <img src={shop.image} />
-
       <h5>Call us at:{shop.contact_info}</h5>
+      <h5>{shop.address}</h5>
       <h5>
-        {shop.state}, {shop.city} {shop.zip}
+        {shop.state}, {shop.city}-{shop.zip}
       </h5>
-
+      <br />
+      Menu:
+      <a href={shop.menu} target="_blank">
+        {shop.name} Menu{"   "}
+      </a>
+      <br />
+      Website:
+      <a href={shop.website} target="_blank">
+        {shop.name} Website
+      </a>
+      <br />
       <p>
         Open:{shop.open} Delivery:{shop.delivery} Order Online:
         {shop.order_online} Pick Up:{shop.pick_up}
       </p>
-      <>
-        {showEditForm && (
-          <CoffeeShopForm shopProp={shop} hide={setShowEditForm} />
-        )}
-      </>
       <br />
       <button onClick={() => deleteCoffeeShop(shop.id)}>
         {" "}
@@ -132,7 +159,7 @@ const CoffeeShop = ({ match, history }) => {
   };
 
   const addReview = (review) => {
-    setReviews([...reviews, review]);
+    setReviews([review, ...reviews]);
   };
 
   // const handleSubmit = (e) => {
@@ -151,27 +178,35 @@ const CoffeeShop = ({ match, history }) => {
         <div>{renderShopInfo()}</div>
         {/* <div>{renderAllRating()}</div><hr /> */}
         <CoffeeShopRating match={match} />
+        <CoffeeShopBreakdown match={match} />
         <CoffeeShopQuestions questionsShopId={shop.id} />
 
         <hr />
+
         <div>{renderReviews()}</div>
         {!noMoreReviews ? (
-          <button onClick={nextPage}>load more reviews</button>
+          <button onClick={nextPage}>More reviews</button>
         ) : (
           <p>No More Reviews</p>
         )}
-        <>
-          {showReviewForm && (
+        <br />
+        <button onClick={handleAddReview}> Write Review</button>
+        <Modal show={showReviewForm}>
+          <Modal.Header closeButton onHide={handleCloseReview}>
+            <Modal.Title>Create Review</Modal.Title>.
+          </Modal.Header>
+          <Modal.Body>
             <ReviewForm
-              hide={setShowReviewForm}
+              hide={handleCloseReview}
               add={addReview}
               shopId={shop.id}
             />
-          )}
-          <button onClick={() => setShowReviewForm(!showReviewForm)}>
-            {showReviewForm ? "Cancel Review" : "Write Review"}
-          </button>
-        </>
+            <Modal.Footer>
+              <button onClick={handleCloseReview}>Cancel</button>
+            </Modal.Footer>
+          </Modal.Body>
+        </Modal>
+        <br />
         <hr />
 
         <button onClick={history.goBack}>BACK</button>

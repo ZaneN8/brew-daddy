@@ -15,7 +15,14 @@ class Api::ReviewsController < ApplicationController
   end
 
   def cu_reviews
-    render json: @user.reviews
+    # render json: @user.reviews
+    user_reviews_result = @user.reviews
+    filtering_params.each do |key, value|
+      user_reviews_result = user_reviews_result.public_send("filter_by_#{key}", value) if value.present?
+    end
+    render json: user_reviews_result
+
+
   end
 
   def all

@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
@@ -18,7 +18,7 @@ const FetchUser = (props) => {
     }
 
     try {
-      const res = await Axios.get("/api/auth/validate_token");
+      const res = await axios.get("/api/auth/validate_token");
       setUser(res.data.data);
     } catch (err) {
       console.log(err);

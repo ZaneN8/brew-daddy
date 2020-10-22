@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 
-const QuestionForm = ({ questionsShopId, questionProp }) => {
+const QuestionForm = ({ questionsShopId, questionProp, hide }) => {
   const [question, setQuestion] = useState(
     questionProp ? { body: questionProp.body } : { body: "" }
   );
@@ -39,6 +39,7 @@ const QuestionForm = ({ questionsShopId, questionProp }) => {
     } else {
       addQuestion();
     }
+    hide();
   };
 
   const handleChange = (e) => {

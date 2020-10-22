@@ -11,5 +11,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
-  
+   def stats
+    Review.find_by_sql(["
+      SELECT 
+      AVG(rv.rating) as total_rating, 
+      COUNT(*) AS total_count
+      FROM reviews AS rv
+      WHERE rv.user_id = ?
+    ", id]).first
+  end
 end

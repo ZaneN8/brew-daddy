@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import UserRating from "./UserRating";
 
 const User = ({ match }) => {
   const [user, setUser] = useState([]);
@@ -74,19 +76,58 @@ const User = ({ match }) => {
   };
 
   return (
-    <>
-      <h1>User Page</h1>
-      <img src={user.image} />
-      <div>{user.first_name}</div>
-      <p> {user.last_name} </p>
-      <p>{user.email}</p>
-      <h1>USERS REVIEWS </h1>
-      <div> {renderUserReview()}</div>
-      <hr />
-      <h1> USERS COFFEE SHOPS </h1>
-      <div>{renderUserCoffeeShop()}</div>
-    </>
+    <StyledLayout>
+      <Box>
+        <h1>User Page</h1>
+        <StyledImage src={user.image} />
+
+        <div>{user.first_name}</div>
+        <p> {user.last_name} </p>
+        <p>{user.email}</p>
+
+        <UserRating userId={match.params.id} />
+      </Box>
+      <BigBox>
+        <h4>About Me</h4>
+        <p>{user.about_me}</p>
+        <div> {renderUserReview()}</div>
+        <hr />
+      </BigBox>
+      <Box>
+        <h1> USERS COFFEE SHOPS </h1>
+        <div>{renderUserCoffeeShop()}</div>
+      </Box>
+    </StyledLayout>
   );
 };
+
+const StyledLayout = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+`;
+
+const Box = styled.div`
+  display: flex;
+  width: 175px;
+  min-height: 300px;
+  flex-direction: column;
+  padding: 5%;
+  height: 100%;
+`;
+
+const BigBox = styled.div`
+  display: flex;
+  width: 600px;
+  min-height: 300px;
+  flex-direction: column;
+  padding: 5%;
+  height: 100%;
+`;
+
+const StyledImage = styled.img`
+  border-radius: 50%;
+`;
 
 export default User;

@@ -10,8 +10,12 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
     description: "",
     city: "",
     state: "",
-    image: "",
+    address: "",
+    image:
+      "https://perfectdailygrind.com/wp-content/uploads/2019/11/Coffeeshop-Tips-06.jpg",
     zip: "",
+    menu: "",
+    website: "",
     contact_info: "",
     cost: 0,
     open: false,
@@ -27,7 +31,10 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
       : {
           name: shopProp.name,
           description: shopProp.description,
+          address: shopProp.address,
           city: shopProp.city,
+          menu: shopProp.menu,
+          website: shopProp.website,
           state: shopProp.state,
           zip: shopProp.zip,
           contact_info: shopProp.contact_info,
@@ -141,49 +148,88 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label>City</Form.Label>
+          <Form.Label>Street Name</Form.Label>
           <Form.Control
-            name="city"
+            name="address"
             required
-            value={coffeeShopState.city}
+            value={coffeeShopState.address}
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>State</Form.Label>
-          <Form.Control
-            name="state"
-            required
-            onChange={handleChange}
-            value={coffeeShopState.state}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Zip</Form.Label>
-          <Form.Control
-            name="zip"
-            required
-            value={coffeeShopState.zip}
-            onChange={handleChange}
-          />
-        </Form.Group>
+        <Form.Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>City</Form.Label>
+              <Form.Control
+                name="city"
+                required
+                value={coffeeShopState.city}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>State</Form.Label>
+              <Form.Control
+                name="state"
+                required
+                onChange={handleChange}
+                value={coffeeShopState.state}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Zip</Form.Label>
+              <Form.Control
+                name="zip"
+                required
+                value={coffeeShopState.zip}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
+        <Form.Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>Menu</Form.Label>
+              <Form.Control
+                name="menu"
+                required
+                value={coffeeShopState.menu}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Website</Form.Label>
+              <Form.Control
+                name="website"
+                required
+                value={coffeeShopState.website}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
         <Form.Group>
           <Form.Label>Contact Number</Form.Label>
           <Form.Control
-            // TODO edit does not fill the current info out
             name="contact_info"
-            type="number"
             onChange={handleChange}
             value={coffeeShopState.contact_info}
           />
         </Form.Group>
-
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
             Cost
           </Form.Label>
-          <Col sm={10}>
+          <Col>
             <Form.Check
+              checked
               type="radio"
               label="$"
               name="cost"
@@ -206,13 +252,14 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
             />
           </Col>
         </Form.Group>
-
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
             Open
           </Form.Label>
           <Col sm={10}>
             <Form.Check
+              // {coffeeShopState.open == true ? checked : null}
+              defaultChecked={coffeeShopState.open == true}
               type="checkbox"
               label="Yes"
               name="open"
@@ -222,13 +269,13 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
             />
           </Col>
         </Form.Group>
-
         <Form.Group as={Row}>
           <Form.Label as="legend" column sm={2}>
             Delivery
           </Form.Label>
           <Col sm={10}>
             <Form.Check
+              defaultChecked={coffeeShopState.delivery == true}
               type="checkbox"
               label="Yes"
               name="delivery"
@@ -243,6 +290,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
+              defaultChecked={coffeeShopState.pickup == true}
               type="checkbox"
               label="Yes"
               name="pickup"
@@ -257,6 +305,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
+              defaultChecked={coffeeShopState.order_online == true}
               type="checkbox"
               label="Yes"
               name="order_online"

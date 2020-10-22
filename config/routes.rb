@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     get "/coffee_shops/:coffee_shop_id/ratings", to: "coffee_shops#ratings"
     get "/coffee_shops/ratings", to: "coffee_shops#all_ratings"
     get "/coffee_shops/:id/average_stats", to: "coffee_shops#average_stats"
-
+    get "/users/:user_id/ratings", to: "users#ratings"
+    get "/users/:user_id/stats", to: "users#stats"
+    get "/coffee_shops/:id/count_reviews", to: "coffee_shops#count_reviews"
 
     resources :coffee_shops do
       resources :reviews

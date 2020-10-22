@@ -7,7 +7,13 @@ class Api::ReviewPicsController < ApplicationController
   end
 
   def index
-    render json: @review.review_pics
+    # render json: @review.review_pics
+
+    review_pic_result = @review.review_pics
+    filtering_params.each do |key, value|
+      review_pic_result = review_pic_result.public_send("filter_by_#{key}", value) if value.present?
+    end
+    render json: review_pic_result
   end
 
   def create
@@ -37,6 +43,10 @@ class Api::ReviewPicsController < ApplicationController
   end
 
   private
+
+  def filtering_params
+    params.permit(:page)
+  end
 
   def set_review
     @review = Review.find(params[:review_id])
