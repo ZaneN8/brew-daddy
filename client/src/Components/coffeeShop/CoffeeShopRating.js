@@ -20,9 +20,6 @@ const CoffeeShopRating = ({ match }) => {
         Total Reviews: {ratingsData.total_reviews_count}
         <br />
         <br />
-        {/* <b>
-          Overall Rating: {ratingsData && ratingsData.total_rating.toFixed(1)}{" "}
-        </b> */}
         <b>Overall Rating: {ratingsData.total_rating} </b>
         <ProgressBar now={ratingsData.total_rating} max={5} />
         <br />
@@ -38,12 +35,7 @@ const CoffeeShopRating = ({ match }) => {
     );
   };
 
-  return (
-    <>
-      Rating:
-      {renderAllRating()}
-    </>
-  );
+  return <>{renderAllRating()}</>;
 };
 
 export default CoffeeShopRating;

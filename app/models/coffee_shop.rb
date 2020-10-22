@@ -7,15 +7,29 @@ class CoffeeShop < ApplicationRecord
   # Note: only work with postgresql, please refer to document of respective SQL to find "AVG"
 
   # Challenge for Jon, rewrite this like the one in hard way.
+  # def average_stats
+  #   Review.find_by_sql(["
+  #     SELECT 
+  #       AVG(rv.rating) as total_rating,
+  #       AVG(rv.coffee_rating) as total_coffee,
+  #       AVG(rv.food) as total_food,
+  #       AVG(rv.noise_level) as total_noise_level,
+  #       AVG(rv.work_friendly) as total_work_friendly,
+  #       COUNT(rv.*) as total_reviews_count
+  #     FROM reviews AS rv
+  #     WHERE rv.coffee_shop_id = ?
+  #   ", id]).first
+  # end
+
   def average_stats
     Review.find_by_sql(["
       SELECT 
-        AVG(rv.rating) as total_rating,
-        AVG(rv.coffee_rating) as total_coffee,
-        AVG(rv.food) as total_food,
-        AVG(rv.noise_level) as total_noise_level,
-        AVG(rv.work_friendly) as total_work_friendly,
-        COUNT(rv.*) as total_reviews_count
+        ROUND((AVG(rv.rating)::numeric),1) as total_rating,
+        ROUND((AVG(rv.coffee_rating)::numeric),1) as total_coffee,
+        ROUND((AVG(rv.food)::numeric),1) as total_food,
+        ROUND((AVG(rv.noise_level)::numeric),1) as total_noise_level,
+        ROUND((AVG(rv.work_friendly)::numeric),1) as total_work_friendly,
+        COUNT(rv.rating) as total_reviews_count
       FROM reviews AS rv
       WHERE rv.coffee_shop_id = ?
     ", id]).first
