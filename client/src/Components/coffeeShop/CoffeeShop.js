@@ -5,7 +5,8 @@ import CoffeeShopReview from "../review/CoffeeShopReview";
 import CoffeeShopForm from "./CoffeeShopForm";
 import CoffeeShopRating from "./CoffeeShopRating";
 import CoffeeShopQuestions from "../QA/CoffeeShopQuestions";
-import CoffeeShopBreakdown from "./CoffeeShopBreakdown"
+import CoffeeShopBreakdown from "./CoffeeShopBreakdown";
+import styled from "styled-components";
 
 const CoffeeShop = ({ match, history }) => {
   const [shop, setShop] = useState(null);
@@ -94,32 +95,37 @@ const CoffeeShop = ({ match, history }) => {
 
   const renderShopInfo = () => (
     <div>
-      <h1>
-        {shop.name}
-        <button onClick={() => setShowEditForm(!showEditForm)}>
-          {showEditForm ? "Cancel" : "Update Coffee Shop"}
-        </button>
-      </h1>
-      <img src={shop.image} />
-      <h5>Call us at:{shop.contact_info}</h5>
-      <h5>
-        {shop.state}, {shop.city} {shop.zip}
-      </h5>
+      <StyledShop>
+        <StyledImg src={shop.image} />
+        <InfoRight>
+          <StyledCoffeeShopName>
+            {shop.name}
+            <button onClick={() => setShowEditForm(!showEditForm)}>
+              {showEditForm ? "Cancel" : "Update Coffee Shop"}
+            </button>
+          </StyledCoffeeShopName>
+          <StyledShopBoo>
+            Open:{shop.open} Delivery:{shop.delivery} Order Online:
+            {shop.order_online} Pick Up:{shop.pick_up}
+          </StyledShopBoo>
+          <br />
+          <StyledDescription>{shop.description}</StyledDescription>
+          Menu:
+          <a href={shop.menu} target="_blank">
+            {shop.name} Menu{"   "}
+          </a>
+          <br />
+          Website:
+          <a href={shop.website} target="_blank">
+            {shop.name} Website
+          </a>
+          <h5>Call us at:{shop.contact_info}</h5>
+          <h5>
+            {shop.state}, {shop.city} {shop.zip}
+          </h5>
+        </InfoRight>
+      </StyledShop>
       <br />
-      Menu:
-      <a href={shop.menu} target="_blank">
-        {shop.name} Menu{"   "}
-      </a>
-      <br />
-      Website:
-      <a href={shop.website} target="_blank">
-        {shop.name} Website
-      </a>
-      <br />
-      <p>
-        Open:{shop.open} Delivery:{shop.delivery} Order Online:
-        {shop.order_online} Pick Up:{shop.pick_up}
-      </p>
       <>
         {showEditForm && (
           <CoffeeShopForm shopProp={shop} hide={setShowEditForm} />
@@ -160,15 +166,16 @@ const CoffeeShop = ({ match, history }) => {
   if (!shop) return null;
   else
     return (
-      <>
-        <div>{renderShopInfo()}</div>
+      <StyledPage>
+        <StyledInfoContainer>{renderShopInfo()}</StyledInfoContainer>
         {/* <div>{renderAllRating()}</div><hr /> */}
         <CoffeeShopRating match={match} />
         <CoffeeShopBreakdown match={match} />
+        <hr />
         <CoffeeShopQuestions questionsShopId={shop.id} />
 
         <hr />
-       
+
         <div>{renderReviews()}</div>
         {!noMoreReviews ? (
           <button onClick={nextPage}>More reviews</button>
@@ -190,8 +197,49 @@ const CoffeeShop = ({ match, history }) => {
         <hr />
 
         <button onClick={history.goBack}>BACK</button>
-      </>
+      </StyledPage>
     );
 };
+
+const StyledPage = styled.div`
+  padding: 3em 4em 1em;
+`;
+
+const StyledInfoContainer = styled.div`
+  border: 1px solid black; //take out when done
+`;
+
+const InfoRight = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledImg = styled.img`
+  border: 2px solid red; //take out when done
+  display: flex;
+  border-radius: 20%;
+`;
+
+const StyledShop = styled.div`
+  border: 2px solid green; //take out when done
+  display: flex;
+`;
+
+const StyledCoffeeShopName = styled.h1`
+  display: flex;
+  border: 2px solid blue;
+  flex-wrap: wrap;
+`;
+
+const StyledShopBoo = styled.p`
+  display: flex;
+`;
+// color: ${props =>
+// props}
+//make so that boolean value changes color
+const StyledDescription = styled.p`
+  display: flex;
+  border: 1 px solid red;
+`;
 
 export default CoffeeShop;
