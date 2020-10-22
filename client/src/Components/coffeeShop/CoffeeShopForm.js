@@ -258,6 +258,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
+              active
               type="checkbox"
               label="Yes"
               name="open"

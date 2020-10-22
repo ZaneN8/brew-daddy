@@ -20,6 +20,9 @@ const Profile = () => {
   const handleShow = () => setChangePic(true);
   const closeShow = () => setShow(false);
   const createShow = () => setShow(true);
+  const closeEditShow = () => setShowEdit(false);
+  const createEditShow = () => setShowEdit(true);
+
   const [page, setPage] = useState(1);
   const [noMoreProfileReviews, setNoMoreProfileReviews] = useState(false);
   const [fileState, setFileState] = useState({
@@ -144,11 +147,24 @@ const Profile = () => {
             {user.first_name} {user.last_name}
             <p>{user.email}</p>
           </div>
-
-          <button onClick={() => setShowEdit(!showEdit)}>
-            {show ? "Cancel " : <span>&#128295;</span>}
+          <button onClick={createEditShow}>
+            <span>&#128295;</span>
           </button>
-          {showEdit && <EditProfileForm hide={setShowEdit} />}
+          <Modal
+            show={showEdit}
+            onHide={closeEditShow}
+            backdrop="keyboard false"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Edit User Profile </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <EditProfileForm hide={closeEditShow} />
+            </Modal.Body>
+            <Modal.Footer>
+              <button onClick={closeEditShow}>Close</button>
+            </Modal.Footer>
+          </Modal>
         </div>
         {user && <UserRating userId={user.id} />}
       </Box>
