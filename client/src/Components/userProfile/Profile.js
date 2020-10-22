@@ -92,7 +92,7 @@ const Profile = () => {
       return profileCoffeeShops.map((coffeeShop) => (
         <div className="coffeeShopRender" key={coffeeShop.id}>
           <img src={coffeeShop.image} />
-          <h5>{coffeeShop.name}</h5>
+          <a href={`/coffee_shops/${coffeeShop.id}`}>{coffeeShop.name}</a>
           <p>
             {coffeeShop.state}, {coffeeShop.city}, {coffeeShop.zip}
           </p>

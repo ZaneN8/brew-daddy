@@ -14,6 +14,9 @@ const Question = ({ question, deleteQuestion, questionsShopId }) => {
   const handleClose = () => setShowEditQuestion(false);
   const handleShow = () => setShowEditQuestion(true);
 
+  const handleAnswerClose = () => setShowCAnswers(false);
+  const handleAnswerShow = () => setShowCAnswers(true);
+
   const getAnswers = async () => {
     try {
       const params = { params: { limit: 1 } };
@@ -70,11 +73,23 @@ const Question = ({ question, deleteQuestion, questionsShopId }) => {
     <div key={question.id}>
       <h2>Question:{question.body}</h2>
       {renderAnswers()}
+
       {!noMoreAnswers && <button onClick={nextPage}>Show Answers</button>}
-      {showCAnswers && <AnswerForm question={question} />}
-      <button onClick={() => setShowCAnswers(!showCAnswers)}>
-        {showCAnswers ? "Cancel Answer" : "Add Answer"}
-      </button>
+
+      <button onClick={handleAnswerShow}>Create Answer</button>
+      <Modal show={showCAnswers}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create Answer</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AnswerForm question={question} hide={handleAnswerClose} />
+        </Modal.Body>
+        <Modal.Footer>
+          <button variant="secondary" onClick={handleAnswerClose}>
+            cancel
+          </button>
+        </Modal.Footer>
+      </Modal>
 
       <button variant="primary" onClick={handleShow}>
         Edit Question

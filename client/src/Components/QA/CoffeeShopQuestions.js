@@ -3,6 +3,7 @@ import axios from "axios";
 import QuestionForm from "./QuestionForm";
 import Question from "./Question";
 import { Modal } from "react-bootstrap";
+import styled from "styled-components";
 
 const CoffeeShopQuestions = ({ questionsShopId }) => {
   const [questions, setQuestions] = useState([]);
@@ -74,37 +75,67 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
   };
 
   return (
-    <div>
-      <br />
+    <StyledLayout>
+      <StyledResultCard>
+        <h1> Questions & Answers</h1>
+        <br />
 
-      <button variant="primary" onClick={handleShow}>
-        Write A Question
-      </button>
+        <button variant="primary" onClick={handleShow}>
+          Write A Question
+        </button>
 
-      <Modal show={showCQuestions} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Create Question</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <QuestionForm questionsShopId={questionsShopId} hide={handleClose} />
-        </Modal.Body>
-        <Modal.Footer>
-          <button onClick={handleClose}>Cancel</button>
-        </Modal.Footer>
-      </Modal>
+        <Modal show={showCQuestions} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Create Question</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <QuestionForm
+              questionsShopId={questionsShopId}
+              hide={handleClose}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <button onClick={handleClose}>Cancel</button>
+          </Modal.Footer>
+        </Modal>
 
-      {showCQuestions && <QuestionForm questionsShopId={questionsShopId} />}
-      <button onClick={() => setShowCQuestions(!showCQuestions)}>
-        {showCQuestions ? "Cancel Question" : "Add Question"}
-      </button>
-      {renderQuestion()}
-      {!noMoreQuestions ? (
-        <button onClick={nextPage}>More questions</button>
-      ) : (
-        <p>No more questions</p>
-      )}
-    </div>
+        {showCQuestions && <QuestionForm questionsShopId={questionsShopId} />}
+        <button onClick={() => setShowCQuestions(!showCQuestions)}>
+          {showCQuestions ? "Cancel Question" : "Add Question"}
+        </button>
+        {renderQuestion()}
+        {!noMoreQuestions ? (
+          <Button onClick={nextPage}>More questions</Button>
+        ) : (
+          <p>No more questions</p>
+        )}
+      </StyledResultCard>
+    </StyledLayout>
   );
 };
+
+const StyledLayout = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+`;
+
+const StyledResultCard = styled.div`
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border: 1px solid;
+  border-radius: 30px;
+  padding: 1em;
+`;
+
+const Button = styled.button`
+  display: inline-block;
+  font-size: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid;
+  border-radius: 20px;
+  display: block;
+`;
 
 export default CoffeeShopQuestions;

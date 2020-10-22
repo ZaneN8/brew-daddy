@@ -66,7 +66,7 @@ const User = ({ match }) => {
       return coffeeShops.map((coffeeShop) => (
         <div className="coffeeShopRender" key={coffeeShop.id}>
           <img src={coffeeShop.image} />
-          <p>{coffeeShop.name}</p>
+          <a href={`/coffee_shops/${coffeeShop.id}`}>{coffeeShop.name}</a>
           <p>
             {coffeeShop.state},{coffeeShop.city},{coffeeShop.zip}
           </p>

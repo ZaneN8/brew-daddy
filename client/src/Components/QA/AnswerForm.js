@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import Answer from "./Answer";
 
-const AnswerForm = ({ question, answerProp }) => {
+const AnswerForm = ({ question, answerProp, hide }) => {
   const [answer, setAnswer] = useState(
     answerProp ? { body: answerProp.body } : { body: "" }
   );
@@ -39,6 +38,7 @@ const AnswerForm = ({ question, answerProp }) => {
     } else {
       addAnswer();
     }
+    hide();
   };
 
   const handleChange = (e) => {

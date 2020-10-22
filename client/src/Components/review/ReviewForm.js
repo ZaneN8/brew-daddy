@@ -19,11 +19,11 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
       : {
           title: "",
           body: "",
-          rating: 0,
-          coffee_rating: 0,
-          work_friendly: 0,
-          food: 0,
-          noise_level: 0,
+          rating: 1,
+          coffee_rating: 1,
+          work_friendly: 1,
+          food: 1,
+          noise_level: 1,
           user_id: auth.user.id,
         }
   );
@@ -126,6 +126,8 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
             required
             value={reviewState.food}
             type="number"
+            min="1"
+            max="5"
             onChange={handleChange}
           />
         </Form.Group>

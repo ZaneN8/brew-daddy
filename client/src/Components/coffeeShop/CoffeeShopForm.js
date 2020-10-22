@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { AuthContext } from "../../providers/AuthProvider";
 
-const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
+const CoffeeShopForm = ({ history, shopProp, hide }) => {
   const auth = useContext(AuthContext);
   const shopDefault = {
     name: "",
@@ -83,7 +83,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
       let res = await axios.put(`/api/coffee_shops/${shopProp.id}`, formData);
       setCoffeeShopState(res.data);
     } catch (err) {
-      alert("ERROR: CoffeeShopForm, updating shop");
+      console.log("ERROR: CoffeeShopForm, updating shop");
     }
   };
 
@@ -104,6 +104,11 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
       alert("Error: CoffeeShopForm, adding shop");
     }
   };
+
+  // useEffect(() => {
+  //   addCoffeeShop();
+  //   editCoffeeShop();
+  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -259,7 +264,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           <Col sm={10}>
             <Form.Check
               // {coffeeShopState.open == true ? checked : null}
-              defaultChecked={coffeeShopState.open == true}
+              defaultChecked={coffeeShopState.open === true}
               type="checkbox"
               label="Yes"
               name="open"
@@ -275,7 +280,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
-              defaultChecked={coffeeShopState.delivery == true}
+              defaultChecked={coffeeShopState.delivery === true}
               type="checkbox"
               label="Yes"
               name="delivery"
@@ -290,7 +295,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
-              defaultChecked={coffeeShopState.pickup == true}
+              defaultChecked={coffeeShopState.pickup === true}
               type="checkbox"
               label="Yes"
               name="pickup"
@@ -305,7 +310,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           </Form.Label>
           <Col sm={10}>
             <Form.Check
-              defaultChecked={coffeeShopState.order_online == true}
+              defaultChecked={coffeeShopState.order_online === true}
               type="checkbox"
               label="Yes"
               name="order_online"

@@ -74,7 +74,8 @@ const CoffeeShop = ({ match, history }) => {
     axios
       .delete(`/api/coffee_shops/${id}`, { params: { id: id } })
       .then((res) => {
-        setShop(shop.filter((shop) => shop.id !== id));
+        // setShop(shop.filter((shop) => shop.id !== id));
+        history.push("/search");
       });
   };
 
