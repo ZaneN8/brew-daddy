@@ -197,7 +197,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
               <Form.Control
                 name="menu"
                 required
-                value={coffeeShopState.zip}
+                value={coffeeShopState.menu}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -208,7 +208,7 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
               <Form.Control
                 name="website"
                 required
-                value={coffeeShopState.zip}
+                value={coffeeShopState.website}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -219,7 +219,6 @@ const CoffeeShopForm = ({ match, add, shopProp, hide }) => {
           <Form.Control
             // TODO edit does not fill the current info out
             name="contact_info"
-            type="number"
             onChange={handleChange}
             value={coffeeShopState.contact_info}
           />

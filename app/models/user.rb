@@ -20,27 +20,4 @@ class User < ActiveRecord::Base
       WHERE rv.user_id = ?
     ", id]).first
   end
-
-
-
-
-  # def average_stats
-  #   Review.find_by_sql(["
-  #     SELECT 
-  #       AVG(rv.rating) as total_rating,
-  #       AVG(rv.coffee_rating) as total_coffee,
-  #       AVG(rv.food) as total_food,
-  #       AVG(rv.noise_level) as total_noise_level,
-  #       AVG(rv.work_friendly) as total_work_friendly
-  #     FROM reviews AS rv
-  #     WHERE rv.user_id = ?
-  #   ", id]).first
-  # end
-
-
-
-
-
-
-
 end

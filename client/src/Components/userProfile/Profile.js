@@ -18,8 +18,6 @@ const Profile = () => {
   const [changePic, setChangePic] = useState(false);
   const handleClose = () => setChangePic(false);
   const handleShow = () => setChangePic(true);
-  const [page, setPage] = useState(1);
-  const [noMoreProfileReviews, setNoMoreProfileReviews] = useState(false);
   const closeShow = () => setShow(false);
   const createShow = () => setShow(true);
 
@@ -31,32 +29,11 @@ const Profile = () => {
 
   const getProfileReviews = async () => {
     try {
-      const params = { params: { page } };
-      let res = await axios.get(`/api/users/${user.id}/reviews`, params);
+      let res = await axios.get(`/api/users/${user.id}/reviews`);
       setProfileReviews(res.data);
     } catch (err) {
       alert("Error: failed to get this profiles reviews");
     }
-  };
-
-  const moreProfileReviews = () => {
-    const params = {
-      params: {
-        page: page + 1,
-      },
-    };
-    axios
-      .get(`/api/users/${user.id}/reviews`, params)
-      .then((res) => {
-        if (res.data.length < 5) {
-          setNoMoreProfileReviews(true);
-        }
-        setProfileReviews(profileReviews.concat(res.data));
-        setPage(page + 1);
-      })
-      .catch((err) => {
-        alert("ERROR: Could not load more reviews");
-      });
   };
 
   const getProfileCoffeeShops = async () => {
@@ -146,24 +123,10 @@ const Profile = () => {
             <p>{user.email}</p>
           </div>
 
-        {showEdit && <EditProfileForm hide={setShowEdit} />}
-        <button onClick={() => setShowEdit(!showEdit)}>
-          {show ? "Cancel " : "Edit Profile"}
-        </button>
-        <div className="About Me">
-          <h1>About Me</h1>
-          <p>About me info HERE</p>
-          <h1>Profiles Reviews</h1>
-          <div>{renderProfileReviews()}</div>
-          {!noMoreProfileReviews ? (
-            <button onClick={moreProfileReviews}>See more reviews</button>
-          ) : (
-            <p>That's all the reviews for this profile</p>
-          )}
-          <hr />
-          <h1>Profile Coffee Shops </h1>
-          <div>{renderProfileCoffeeShop()}</div>
-        </div>
+          <button onClick={() => setShowEdit(!showEdit)}>
+            {show ? "Cancel " : <span>&#128295;</span>}
+          </button>
+          {showEdit && <EditProfileForm hide={setShowEdit} />}
         </div>
         {user && <UserRating userId={user.id} />}
       </Box>

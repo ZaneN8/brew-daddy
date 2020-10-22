@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 const CoffeeShopRating = ({ match }) => {
   const [ratingsData, setRatingsData] = useState({});
@@ -20,8 +20,11 @@ const CoffeeShopRating = ({ match }) => {
         Total Reviews: {ratingsData.total_reviews_count}
         <br />
         <br />
+        {/* <b>
+          Overall Rating: {ratingsData && ratingsData.total_rating.toFixed(1)}{" "}
+        </b> */}
         <b>Overall Rating: {ratingsData.total_rating} </b>
-        <ProgressBar now={ratingsData.total_rating} max={5}/>
+        <ProgressBar now={ratingsData.total_rating} max={5} />
         <br />
         Food Quality: {ratingsData.total_food} <br />
         <ProgressBar now={ratingsData.total_food} max={5} />
