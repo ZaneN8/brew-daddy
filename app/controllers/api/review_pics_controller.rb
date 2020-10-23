@@ -13,7 +13,7 @@ class Api::ReviewPicsController < ApplicationController
     filtering_params.each do |key, value|
       review_pic_result = review_pic_result.public_send("filter_by_#{key}", value) if value.present?
     end
-    render json: review_pic_result
+    render json: review_pic_result.order(created_at: :desc)
   end
 
   def create

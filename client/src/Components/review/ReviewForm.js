@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import axios from "axios";
 import { AuthContext } from "../../providers/AuthProvider";
 
-const ReviewForm = ({ add, shopId, review, hide }) => {
+const ReviewForm = ({ afterUpdate, afterCreate, shopId, review, hide }) => {
   const auth = useContext(AuthContext);
   const [reviewState, setReviewState] = useState(
     review
@@ -19,11 +19,11 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
       : {
           title: "",
           body: "",
-          rating: 0,
-          coffee_rating: 0,
-          work_friendly: 0,
-          food: 0,
-          noise_level: 0,
+          rating: 1,
+          coffee_rating: 1,
+          work_friendly: 1,
+          food: 1,
+          noise_level: 1,
           user_id: auth.user.id,
         }
   );
@@ -38,7 +38,7 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
         `/api/coffee_shops/${shopId}/reviews`,
         reviewState
       );
-      setReviewState(res.data);
+      if (typeof afterCreate === "function") afterCreate(res.data);
     } catch (err) {
       alert("ERROR: ReviewForm, add review failed");
     }
@@ -50,7 +50,7 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
         `/api/coffee_shops/${shopId}/reviews/${review.id}`,
         reviewState
       );
-      setReviewState(res.data);
+      if (typeof afterUpdate === "function") afterUpdate(res.data);
     } catch (err) {
       alert("ERROR: ReviewForm, updating review issue");
     }
@@ -96,8 +96,8 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
             required
             value={reviewState.rating}
             type="range"
-            min = '1'
-            max = '5'
+            min="1"
+            max="5"
             onChange={handleChange}
           />
         </Form.Group>
@@ -108,8 +108,8 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
             required
             value={reviewState.coffee_rating}
             type="range"
-            min = '1'
-            max = '5'
+            min="1"
+            max="5"
             onChange={handleChange}
           />
         </Form.Group>
@@ -120,8 +120,8 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
             value={reviewState.work_friendly}
             required
             type="range"
-            min = '1'
-            max = '5'
+            min="1"
+            max="5"
             onChange={handleChange}
           />
         </Form.Group>
@@ -132,8 +132,8 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
             required
             value={reviewState.food}
             type="range"
-            min = '1'
-            max = '5'
+            min="1"
+            max="5"
             onChange={handleChange}
           />
         </Form.Group>
@@ -143,8 +143,8 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
             name="noise_level"
             required
             type="range"
-            min = '1'
-            max = '5'
+            min="1"
+            max="5"
             value={reviewState.noise_level}
             onChange={handleChange}
           />

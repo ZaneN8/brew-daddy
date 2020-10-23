@@ -13,7 +13,8 @@ puts "Let the Seeding begin"
         email: "test#{i}@example.com",
         password: "123456",
         # image: Faker::Avatar.image(slug: "user #{i}", size: "300x300", format: "png", set: "set1"),
-        image: "http://placebeard.it/300x300"
+        # image: "http://placebeard.it/300x300",
+        image: Faker::Fillmurray.image,
     )
 
     puts user.email + " created"
@@ -43,13 +44,15 @@ puts "Let the Seeding begin"
         
         3.times do |q|
             question = Question.create(
-                body: Faker::TvShows::RickAndMorty.quote,
+                body:Faker::TvShows::SouthPark.quote,
+                # body: Faker::TvShows::RickAndMorty.quote,
                 coffee_shop_id: cs.id,
                 )
                 
                 3.times do |a|
                     answer = Answer.create(
-                        body:Faker::TvShows::SouthPark.quote,
+                        # body:Faker::TvShows::SouthPark.quote,
+                        body:Faker::Hacker.say_something_smart,
                         question_id: question.id,
                         )
                 end  

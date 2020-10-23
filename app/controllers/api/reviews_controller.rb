@@ -11,7 +11,7 @@ class Api::ReviewsController < ApplicationController
     filtering_params.each do |key, value|
       reviews_result = reviews_result.public_send("filter_by_#{key}", value) if value.present?
     end
-    render json: reviews_result
+    render json: reviews_result.order(created_at: :desc)
   end
 
   def cu_reviews
@@ -20,7 +20,7 @@ class Api::ReviewsController < ApplicationController
     filtering_params.each do |key, value|
       user_reviews_result = user_reviews_result.public_send("filter_by_#{key}", value) if value.present?
     end
-    render json: user_reviews_result
+    render json: user_reviews_result.order(created_at: :desc)
 
 
   end

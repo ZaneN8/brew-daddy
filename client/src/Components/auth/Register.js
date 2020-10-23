@@ -24,11 +24,10 @@ const Register = (props) => {
       // register user
       handleRegister(
         {
-          firstName: firstName.value,
-          lastName: lastName.value,
+          first_name: firstName.value,
+          last_name: lastName.value,
           email: email.value,
           password: password.value,
-          passwordConfirmation: passwordConfirmation.value,
         },
         history
       );

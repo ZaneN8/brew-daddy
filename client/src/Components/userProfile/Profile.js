@@ -7,9 +7,10 @@ import EditProfileForm from "./EditProfileForm";
 import { Modal, Form } from "react-bootstrap";
 import styled from "styled-components";
 import UserRating from "./UserRating";
+import userDefaultPhoto from "../../image/userDefault.svg";
 
 const Profile = () => {
-  const [shops, setShops] = useState([]);
+  // const [shops, setShops] = useState([]);
   const [profileReviews, setProfileReviews] = useState([]);
   const [profileCoffeeShops, setProfileCoffeeShops] = useState([]);
   const [show, setShow] = useState(false);
@@ -71,7 +72,8 @@ const Profile = () => {
     }
   };
 
-  const addCoffeeShop = (shop) => setShops([...shops, shop]);
+  const addCoffeeShop = (shop) =>
+    setProfileCoffeeShops([shop, ...profileCoffeeShops]);
 
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
@@ -92,7 +94,7 @@ const Profile = () => {
       return profileCoffeeShops.map((coffeeShop) => (
         <div className="coffeeShopRender" key={coffeeShop.id}>
           <img src={coffeeShop.image} />
-          <h5>{coffeeShop.name}</h5>
+          <a href={`/coffee_shops/${coffeeShop.id}`}>{coffeeShop.name}</a>
           <p>
             {coffeeShop.state}, {coffeeShop.city}, {coffeeShop.zip}
           </p>
@@ -124,7 +126,10 @@ const Profile = () => {
       <Box>
         <div className="userinfo">
           <div>
-            <StyledImage onClick={handleShow} src={user.image} />
+            <StyledImage
+              onClick={handleShow}
+              src={user.image ? user.image : userDefaultPhoto}
+            />
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit User Pic</Modal.Title>
@@ -150,11 +155,7 @@ const Profile = () => {
           <button onClick={createEditShow}>
             <span>&#128295;</span>
           </button>
-          <Modal
-            show={showEdit}
-            onHide={closeEditShow}
-            backdrop="keyboard false"
-          >
+          <Modal show={showEdit} onHide={closeEditShow}>
             <Modal.Header closeButton>
               <Modal.Title>Edit User Profile </Modal.Title>
             </Modal.Header>
@@ -190,7 +191,7 @@ const Profile = () => {
               <Modal.Title>Create Coffee Shop</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <CoffeeShopForm hide={closeShow} add={addCoffeeShop} />
+              <CoffeeShopForm hide={closeShow} afterCreate={addCoffeeShop} />
             </Modal.Body>
             <Modal.Footer>
               <button onClick={closeShow}>Cancel</button>

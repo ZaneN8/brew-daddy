@@ -2,7 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 
-const QuestionForm = ({ questionsShopId, questionProp, hide }) => {
+const QuestionForm = ({
+  questionsShopId,
+  questionProp,
+  hide,
+  afterAdd,
+  afterEdit,
+}) => {
   const [question, setQuestion] = useState(
     questionProp ? { body: questionProp.body } : { body: "" }
   );
@@ -14,7 +20,7 @@ const QuestionForm = ({ questionsShopId, questionProp, hide }) => {
         question
       );
       setQuestion(res.data);
-      // setQuestion(question.push(question))
+      if (typeof afterAdd === "function") afterAdd(res.data);
     } catch (err) {
       alert("Error: QuestionForm, add question failed");
     }
@@ -26,7 +32,7 @@ const QuestionForm = ({ questionsShopId, questionProp, hide }) => {
         `/api/coffee_shops/${questionsShopId}/questions/${questionProp.id}`,
         question
       );
-      setQuestion(res.data);
+      if (typeof afterEdit === "function") afterEdit(res.data);
     } catch (err) {
       alert("Error: QuestionForm, edit question failed");
     }

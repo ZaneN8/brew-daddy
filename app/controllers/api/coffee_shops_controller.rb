@@ -19,7 +19,7 @@ before_action :set_user, only: [:cu_index]
   end
 
   def cu_index
-    render json: @user.coffee_shops
+    render json: @user.coffee_shops.order(created_at: :desc)
   end
 
   def show

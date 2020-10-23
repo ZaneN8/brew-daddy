@@ -20,13 +20,10 @@ const CoffeeShop = ({ match, history }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [page, setPage] = useState(1);
   const [noMoreReviews, setNoMoreReviews] = useState(false);
-  
   // This is the "smarter" method of verifying if you are the user that own the coffee shop
   const shopOwnedByUser = user && shop && user.id === shop.user_id;
-
   const handleClose = () => setShowEditForm(false);
   const handleShow = () => setShowEditForm(true);
-
   const handleCloseReview = () => setShowReviewForm(false);
   const handleAddReview = () => setShowReviewForm(true);
 
@@ -82,7 +79,8 @@ const CoffeeShop = ({ match, history }) => {
     axios
       .delete(`/api/coffee_shops/${id}`, { params: { id: id } })
       .then((res) => {
-        setShop(shop.filter((shop) => shop.id !== id));
+        // setShop(shop.filter((shop) => shop.id !== id));
+        history.push("/search");
       });
   };
 
@@ -107,22 +105,42 @@ const CoffeeShop = ({ match, history }) => {
   //   </div>)
   // }
 
+  const editCoffeeShop = (fig) => {
+    setShop(fig);
+  };
+
+  const editReview = (newReview) => {
+    const newReviews = reviews.map((review) => {
+      if (newReview.id === review.id) return newReview;
+      else return review;
+    });
+    setReviews(newReviews);
+  };
+
+  const addReview = (review) => {
+    setReviews([review, ...reviews]);
+  };
+
   const renderShopInfo = () => (
     <div>
       <h1>
         {shop.name}
-        {/* TODO #3 add the toggle, see between { and } */} 
-        { shopOwnedByUser &&
+        {/* TODO #3 add the toggle, see between { and } */}
+        {shopOwnedByUser && (
           <button onClick={handleShow}>
             <span>&#128295;</span>
           </button>
-        }
+        )}
         <Modal show={showEditForm} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title> Edit Coffee Shop </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <CoffeeShopForm shopProp={shop} hide={handleClose} />
+            <CoffeeShopForm
+              afterUpdate={editCoffeeShop}
+              shopProp={shop}
+              hide={handleClose}
+            />
           </Modal.Body>
           <Modal.Footer>
             <button onClick={handleClose}>Cancel</button>
@@ -151,12 +169,12 @@ const CoffeeShop = ({ match, history }) => {
         {shop.order_online} Pick Up:{shop.pick_up}
       </p>
       <br />
-      { shopOwnedByUser &&
-       <button onClick={() => deleteCoffeeShop(shop.id)}>
+      {shopOwnedByUser && (
+        <button onClick={() => deleteCoffeeShop(shop.id)}>
           {" "}
           Delete Coffee Shop
         </button>
-      }
+      )}
     </div>
   );
 
@@ -166,23 +184,11 @@ const CoffeeShop = ({ match, history }) => {
         key={review.id}
         review={review}
         shopId={shop.id}
+        editReview={editReview}
         deleteReview={deleteReview}
       />
     ));
   };
-
-  const addReview = (review) => {
-    setReviews([review, ...reviews]);
-  };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   debugger;
-  //   // this needs a updated api call
-  //   axios.post(`/api/coffee_shop/${match.params.id}/reviews`).then((res) => {
-  //     addReview.add(res.data);
-  //   });
-  // };
 
   if (!shop) return null;
   else
@@ -211,7 +217,7 @@ const CoffeeShop = ({ match, history }) => {
           <Modal.Body>
             <ReviewForm
               hide={handleCloseReview}
-              add={addReview}
+              afterCreate={addReview}
               shopId={shop.id}
             />
             <Modal.Footer>

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 
-const ReviewImageUpload = ({ reviewProp }) => {
+const ReviewImageUpload = ({ reviewProp, afterCreate }) => {
   const [show, setShow] = useState(false);
   const [fileState, setFileState] = useState({
     url: null,
@@ -22,6 +22,7 @@ const ReviewImageUpload = ({ reviewProp }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addPictures();
+    handleClose();
   };
 
   const addPictures = async () => {
@@ -32,7 +33,7 @@ const ReviewImageUpload = ({ reviewProp }) => {
         `/api/reviews/${reviewProp.id}/review_pics`,
         formData
       );
-      console.log(res);
+      if (typeof afterCreate === "function") afterCreate(res.data);
     } catch (err) {
       alert("Error: failed to upload an image");
     }
@@ -56,9 +57,7 @@ const ReviewImageUpload = ({ reviewProp }) => {
         </Modal.Body>
         <Modal.Footer>
           <button onClick={handleClose}>Close</button>
-          <button onClick={handleClose && handleSubmit}>
-            Save Changes / SUBMIT
-          </button>
+          <button onClick={handleSubmit}>Save Changes / SUBMIT</button>
         </Modal.Footer>
       </Modal>
     </>
