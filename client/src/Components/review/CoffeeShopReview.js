@@ -4,6 +4,8 @@ import { Link, Redirect } from "react-router-dom";
 import ReviewForm from "./ReviewForm";
 import ReviewImageUpload from "./ReviewImageUpload";
 import { Modal } from "react-bootstrap";
+import Rater from "react-rater";
+import 'react-rater/lib/react-rater.css';
 
 const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
   const [user, setUser] = useState(null);
@@ -79,11 +81,11 @@ const CoffeeShopReview = ({ review, shopId, deleteReview }) => {
       <h2>{review.title}</h2>
       <h5>{review.body}</h5>
       <p>{review.image}</p>
-      <p>Total rating:{review.rating}</p>
-      <p>Coffee rating:{review.coffee_rating}</p>
-      <p>Work friendly:{review.work_friendly}</p>
-      <p>Food:{review.food}</p>
-      <p>Noise:{review.noise_level}</p>
+      <p>Total rating: <Rater total={5} interactive={false} rating={`${review.rating}`} /></p>
+      <p>Coffee rating:<Rater total={5} interactive={false} rating={`${review.coffee}`} /></p>
+      <p>Work friendly:<Rater total={5} interactive={false} rating={`${review.work_friendly}`} /></p>
+      <p>Food:<Rater total={5} interactive={false} rating={`${review.food}`} /></p>
+      <p>Noise:<Rater total={5} interactive={false} rating={`${review.noise_level}`} /></p>
 
       <p>{renderReviewImages()}</p>
       {!noMoreReviewPics ? (
