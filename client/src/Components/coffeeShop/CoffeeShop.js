@@ -88,6 +88,14 @@ const CoffeeShop = ({ match, history }) => {
       .catch(console.log);
   };
 
+  const shopCost = () => {
+    const dollars = [];
+    for (let i = 0; i < shop.cost; i++) {
+      dollars.push(<span>$</span>);
+    }
+    return dollars;
+  };
+
   // const renderAllRating = () => {
   // return (
   //   <div>
@@ -107,80 +115,57 @@ const CoffeeShop = ({ match, history }) => {
         <InfoRight>
           <StyledCoffeeShopName>
             {shop.name}
-            <button onClick={() => setShowEditForm(!showEditForm)}>
-              {showEditForm ? "Cancel" : "Update Coffee Shop"}
+            <button onClick={handleShow}>
+              <span>&#128295;</span>
             </button>
+            <Modal show={showEditForm} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title> Edit Coffee Shop </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <CoffeeShopForm shopProp={shop} hide={handleClose} />
+              </Modal.Body>
+              <Modal.Footer>
+                <button onClick={handleClose}>Cancel</button>
+              </Modal.Footer>
+            </Modal>
           </StyledCoffeeShopName>
+          <p>{shop.cost && shopCost()}</p>
           <StyledShopBoo>
             Open:{shop.open} Delivery:{shop.delivery} Order Online:
             {shop.order_online} Pick Up:{shop.pick_up}
           </StyledShopBoo>
-          <br />
           <StyledDescription>{shop.description}</StyledDescription>
-          Menu:
-          <a href={shop.menu} target="_blank">
-            {shop.name} Menu{"   "}
-          </a>
+          <LinkContainer>
+            <Menu href={shop.menu} target="_blank">
+              {shop.name} Menu{"   "}
+            </Menu>
+            <hr />
+            <Website href={shop.website} target="_blank">
+              {shop.name} Website
+            </Website>
+          </LinkContainer>
+          <Contact>
+            <b>Contact </b>
+            {shop.contact_info}
+          </Contact>
+          <Contact>
+            <b>Address </b>
+            <span>{shop.address}</span>
+          </Contact>
+          <Contact>
+            {shop.state}, {shop.city}-{shop.zip}
+          </Contact>
           <br />
-          Website:
-          <a href={shop.website} target="_blank">
-            {shop.name} Website
-          </a>
-          <h5>Call us at:{shop.contact_info}</h5>
-          <h5>
-            {shop.state}, {shop.city} {shop.zip}
-          </h5>
+          <br />
+          <br />
+          <br />
+          <button onClick={() => deleteCoffeeShop(shop.id)}>
+            {" "}
+            Delete Coffee Shop
+          </button>
         </InfoRight>
       </StyledShop>
-      <br />
-      <>
-        {showEditForm && (
-          <CoffeeShopForm shopProp={shop} hide={setShowEditForm} />
-        )}
-      </>
-      <h1>
-        {shop.name}
-        <button onClick={handleShow}>
-          <span>&#128295;</span>
-        </button>
-        <Modal show={showEditForm} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title> Edit Coffee Shop </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <CoffeeShopForm shopProp={shop} hide={handleClose} />
-          </Modal.Body>
-          <Modal.Footer>
-            <button onClick={handleClose}>Cancel</button>
-          </Modal.Footer>
-        </Modal>
-      </h1>
-      <img src={shop.image} />
-      <h5>Call us at:{shop.contact_info}</h5>
-      <h5>{shop.address}</h5>
-      <h5>
-        {shop.state}, {shop.city}-{shop.zip}
-      </h5>
-      <br />
-      Menu:
-      <a href={shop.menu} target="_blank">
-        {shop.name} Menu{"   "}
-      </a>
-      <br />
-      Website:
-      <a href={shop.website} target="_blank">
-        {shop.name} Website
-      </a>
-      <br />
-      <p>
-        Open:{shop.open} Delivery:{shop.delivery} Order Online:
-        {shop.order_online} Pick Up:{shop.pick_up}
-      </p>
-      <br />
-      <button onClick={() => deleteCoffeeShop(shop.id)}>
-        {" "}
-        Delete Coffee Shop
-      </button>
     </div>
   );
 
@@ -247,7 +232,7 @@ const CoffeeShop = ({ match, history }) => {
         <br />
         <hr />
 
-        <button onClick={history.goBack}>BACK</button>
+        <Button onClick={history.goBack}>BACK</Button>
       </StyledPage>
     );
 };
@@ -257,7 +242,7 @@ const StyledPage = styled.div`
 `;
 
 const StyledInfoContainer = styled.div`
-  border: 1px solid black; //take out when done
+  // border: 1px solid black; //take out when done
 `;
 
 const InfoRight = styled.div`
@@ -266,19 +251,19 @@ const InfoRight = styled.div`
 `;
 
 const StyledImg = styled.img`
-  border: 2px solid red; //take out when done
+  // border: 2px solid red; //take out when done
   display: flex;
   border-radius: 20%;
 `;
 
 const StyledShop = styled.div`
-  border: 2px solid green; //take out when done
+  // border: 2px solid green; //take out when done
   display: flex;
 `;
 
 const StyledCoffeeShopName = styled.h1`
   display: flex;
-  border: 2px solid blue;
+  // border: 2px solid blue;
   flex-wrap: wrap;
 `;
 
@@ -290,7 +275,31 @@ const StyledShopBoo = styled.p`
 //make so that boolean value changes color
 const StyledDescription = styled.p`
   display: flex;
-  border: 1 px solid red;
+  // border: 1 px solid red;
+`;
+
+const LinkContainer = styled.div`
+  display: flex;
+  border: 1 px solid green;
+`;
+
+const Menu = styled.a`
+  display: flex;
+`;
+
+const Website = styled.a`
+  display: flex;
+`;
+
+const Contact = styled.h5`
+  font-size: 12px;
+`;
+
+const Button = styled.button`
+  background-color: #4d4d4d;
+  border-radius: 30px;
+  border: none;
+  color: white;
 `;
 
 export default CoffeeShop;
