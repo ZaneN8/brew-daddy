@@ -4,7 +4,6 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 
 const CoffeeShopRating = ({ match }) => {
   const [ratingsData, setRatingsData] = useState({});
-
   useEffect(() => {
     axios
       .get(`/api/coffee_shops/${match.params.id}/average_stats`)
