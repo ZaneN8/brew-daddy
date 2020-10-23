@@ -10,7 +10,7 @@ class Api::AnswersController < ApplicationController
     filtering_params.each do |key, value|
       answer_result = answer_result.public_send("filter_by_#{key}", value) if value.present?
     end
-    render json: answer_result
+    render json: answer_result.order(created_at: :desc)
   end
 
   def create

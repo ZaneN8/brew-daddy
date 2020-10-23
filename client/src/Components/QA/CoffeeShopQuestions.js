@@ -10,7 +10,6 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
   const [showCQuestions, setShowCQuestions] = useState(false);
   const [page, setPage] = useState(false);
   const [noMoreQuestions, setNoMoreQuestions] = useState(false);
-
   const handleClose = () => setShowCQuestions(false);
   const handleShow = () => setShowCQuestions(true);
 
@@ -63,6 +62,22 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
       });
   };
 
+  const editQuestion = (newQuestion) => {
+    const newQuestions = questions.map((question) => {
+      if (newQuestion.id === question.id) return newQuestion;
+      else return question;
+    });
+    setQuestions(newQuestions);
+  };
+
+  // const editReview = (newReview) => {
+  //   const newReviews = reviews.map((review) => {
+  //     if (newReview.id === review.id) return newReview;
+  //     else return review;
+  //   });
+  //   setReviews(newReviews);
+  // };
+
   const renderQuestion = () => {
     return questions.map((question) => (
       <Question
@@ -70,8 +85,13 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
         key={question.id}
         question={question}
         deleteQuestion={deleteQuestion}
+        editQuestion={editQuestion}
       />
     ));
+  };
+
+  const addQuestion = (question) => {
+    setQuestions([question, ...questions]);
   };
 
   return (
@@ -92,6 +112,7 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
             <QuestionForm
               questionsShopId={questionsShopId}
               hide={handleClose}
+              afterAdd={addQuestion}
             />
           </Modal.Body>
           <Modal.Footer>
@@ -99,10 +120,6 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
           </Modal.Footer>
         </Modal>
 
-        {showCQuestions && <QuestionForm questionsShopId={questionsShopId} />}
-        <button onClick={() => setShowCQuestions(!showCQuestions)}>
-          {showCQuestions ? "Cancel Question" : "Add Question"}
-        </button>
         {renderQuestion()}
         {!noMoreQuestions ? (
           <Button onClick={nextPage}>More questions</Button>

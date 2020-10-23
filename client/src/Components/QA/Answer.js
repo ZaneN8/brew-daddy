@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AnswerForm from "./AnswerForm";
 import { Modal } from "react-bootstrap";
 
-const Answer = ({ answer, deleteAnswer }) => {
+const Answer = ({ answer, deleteAnswer, editAnswer }) => {
   const [showEditAnswer, setShowEditAnswer] = useState(false);
 
   const handleClose = () => setShowEditAnswer(false);
@@ -23,7 +23,11 @@ const Answer = ({ answer, deleteAnswer }) => {
           <Modal.Title>Edit Answer</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AnswerForm answerProp={answer} hide={handleClose} />
+          <AnswerForm
+            answerProp={answer}
+            hide={handleClose}
+            afterUpdate={editAnswer}
+          />
         </Modal.Body>
         <Modal.Footer>
           <button onClick={handleClose}>Cancel</button>

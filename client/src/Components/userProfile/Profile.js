@@ -72,7 +72,7 @@ const Profile = () => {
   };
 
   const addCoffeeShop = (shop) =>
-    setProfileCoffeeShops([...profileCoffeeShops, shop]);
+    setProfileCoffeeShops([shop, ...profileCoffeeShops]);
 
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
