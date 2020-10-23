@@ -3,9 +3,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import UserRating from "./UserRating";
+import userDefaultPhoto from "../../image/userDefault.svg";
 
 const User = ({ match }) => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({});
   const [reviews, setReviews] = useState([]);
   const [coffeeShops, setCoffeeShops] = useState([]);
 
@@ -79,7 +80,7 @@ const User = ({ match }) => {
     <StyledLayout>
       <Box>
         <h1>User Page</h1>
-        <StyledImage src={user.image} />
+        <StyledImage src={user.image ? user.image : userDefaultPhoto} />
 
         <div>{user.first_name}</div>
         <p> {user.last_name} </p>
