@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import ReviewForm from "../review/ReviewForm";
 import CoffeeShopReview from "../review/CoffeeShopReview";
@@ -8,13 +8,21 @@ import CoffeeShopQuestions from "../QA/CoffeeShopQuestions";
 import CoffeeShopBreakdown from "./CoffeeShopBreakdown";
 import { Modal } from "react-bootstrap";
 
+// TODO 1) Add this Context to pull the information from Auth
+import { AuthContext } from "../../providers/AuthProvider";
+
 const CoffeeShop = ({ match, history }) => {
+  // TODO 2) Add this, make sure useContext is in react
+  const { user } = useContext(AuthContext);
   const [shop, setShop] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [page, setPage] = useState(1);
   const [noMoreReviews, setNoMoreReviews] = useState(false);
+  
+  // This is the "smarter" method of verifying if you are the user that own the coffee shop
+  const shopOwnedByUser = user && shop && user.id === shop.user_id;
 
   const handleClose = () => setShowEditForm(false);
   const handleShow = () => setShowEditForm(true);
@@ -103,9 +111,12 @@ const CoffeeShop = ({ match, history }) => {
     <div>
       <h1>
         {shop.name}
-        <button onClick={handleShow}>
-          <span>&#128295;</span>
-        </button>
+        {/* TODO #3 add the toggle, see between { and } */} 
+        { shopOwnedByUser &&
+          <button onClick={handleShow}>
+            <span>&#128295;</span>
+          </button>
+        }
         <Modal show={showEditForm} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title> Edit Coffee Shop </Modal.Title>
@@ -140,10 +151,12 @@ const CoffeeShop = ({ match, history }) => {
         {shop.order_online} Pick Up:{shop.pick_up}
       </p>
       <br />
-      <button onClick={() => deleteCoffeeShop(shop.id)}>
-        {" "}
-        Delete Coffee Shop
-      </button>
+      { shopOwnedByUser &&
+       <button onClick={() => deleteCoffeeShop(shop.id)}>
+          {" "}
+          Delete Coffee Shop
+        </button>
+      }
     </div>
   );
 
