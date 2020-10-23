@@ -7,6 +7,7 @@ import EditProfileForm from "./EditProfileForm";
 import { Modal, Form } from "react-bootstrap";
 import styled from "styled-components";
 import UserRating from "./UserRating";
+import userDefaultPhoto from "../../image/userDefault.svg";
 
 const Profile = () => {
   // const [shops, setShops] = useState([]);
@@ -125,7 +126,10 @@ const Profile = () => {
       <Box>
         <div className="userinfo">
           <div>
-            <StyledImage onClick={handleShow} src={user.image} />
+            <StyledImage
+              onClick={handleShow}
+              src={user.image ? user.image : userDefaultPhoto}
+            />
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit User Pic</Modal.Title>

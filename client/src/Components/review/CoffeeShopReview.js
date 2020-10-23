@@ -35,6 +35,10 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
     }
   };
 
+  const addImage = (newImage) => {
+    setReviewPics([newImage, ...reviewPics]);
+  };
+
   const morePics = () => {
     const params = {
       params: {
@@ -85,7 +89,7 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
       ) : (
         <p>No more pictures</p>
       )}
-      <ReviewImageUpload reviewProp={review} />
+      <ReviewImageUpload reviewProp={review} afterCreate={addImage} />
 
       <button onClick={handleShow}>Edit Review</button>
       <Modal show={showEditForm} onHide={handleClose}>
