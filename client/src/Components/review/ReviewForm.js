@@ -95,7 +95,9 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
             name="rating"
             required
             value={reviewState.rating}
-            type="number"
+            type="range"
+            min="1"
+            max="5"
             onChange={handleChange}
           />
         </Form.Group>
@@ -105,7 +107,9 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
             name="coffee_rating"
             required
             value={reviewState.coffee_rating}
-            type="number"
+            type="range"
+            min="1"
+            max="5"
             onChange={handleChange}
           />
         </Form.Group>
@@ -115,7 +119,9 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
             name="work_friendly"
             value={reviewState.work_friendly}
             required
-            type="number"
+            type="range"
+            min="1"
+            max="5"
             onChange={handleChange}
           />
         </Form.Group>
@@ -125,7 +131,7 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
             name="food"
             required
             value={reviewState.food}
-            type="number"
+            type="range"
             min="1"
             max="5"
             onChange={handleChange}
@@ -136,7 +142,9 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
           <Form.Control
             name="noise_level"
             required
-            type="number"
+            type="range"
+            min="1"
+            max="5"
             value={reviewState.noise_level}
             onChange={handleChange}
           />
