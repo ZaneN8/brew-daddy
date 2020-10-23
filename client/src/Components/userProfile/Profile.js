@@ -9,7 +9,7 @@ import styled from "styled-components";
 import UserRating from "./UserRating";
 
 const Profile = () => {
-  const [shops, setShops] = useState([]);
+  // const [shops, setShops] = useState([]);
   const [profileReviews, setProfileReviews] = useState([]);
   const [profileCoffeeShops, setProfileCoffeeShops] = useState([]);
   const [show, setShow] = useState(false);
@@ -71,7 +71,8 @@ const Profile = () => {
     }
   };
 
-  const addCoffeeShop = (shop) => setShops([...shops, shop]);
+  const addCoffeeShop = (shop) =>
+    setProfileCoffeeShops([...profileCoffeeShops, shop]);
 
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
@@ -150,11 +151,7 @@ const Profile = () => {
           <button onClick={createEditShow}>
             <span>&#128295;</span>
           </button>
-          <Modal
-            show={showEdit}
-            onHide={closeEditShow}
-            backdrop="keyboard false"
-          >
+          <Modal show={showEdit} onHide={closeEditShow}>
             <Modal.Header closeButton>
               <Modal.Title>Edit User Profile </Modal.Title>
             </Modal.Header>
@@ -190,7 +187,7 @@ const Profile = () => {
               <Modal.Title>Create Coffee Shop</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <CoffeeShopForm hide={closeShow} add={addCoffeeShop} />
+              <CoffeeShopForm hide={closeShow} afterCreate={addCoffeeShop} />
             </Modal.Body>
             <Modal.Footer>
               <button onClick={closeShow}>Cancel</button>

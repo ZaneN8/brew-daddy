@@ -15,10 +15,8 @@ const CoffeeShop = ({ match, history }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [page, setPage] = useState(1);
   const [noMoreReviews, setNoMoreReviews] = useState(false);
-
   const handleClose = () => setShowEditForm(false);
   const handleShow = () => setShowEditForm(true);
-
   const handleCloseReview = () => setShowReviewForm(false);
   const handleAddReview = () => setShowReviewForm(true);
 
@@ -100,6 +98,22 @@ const CoffeeShop = ({ match, history }) => {
   //   </div>)
   // }
 
+  const editCoffeeShop = (fig) => {
+    setShop(fig);
+  };
+
+  const editReview = (newReview) => {
+    const newReviews = reviews.map((review) => {
+      if (newReview.id === review.id) return newReview;
+      else return review;
+    });
+    setReviews(newReviews);
+  };
+
+  const addReview = (review) => {
+    setReviews([review, ...reviews]);
+  };
+
   const renderShopInfo = () => (
     <div>
       <h1>
@@ -112,7 +126,11 @@ const CoffeeShop = ({ match, history }) => {
             <Modal.Title> Edit Coffee Shop </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <CoffeeShopForm shopProp={shop} hide={handleClose} />
+            <CoffeeShopForm
+              afterUpdate={editCoffeeShop}
+              shopProp={shop}
+              hide={handleClose}
+            />
           </Modal.Body>
           <Modal.Footer>
             <button onClick={handleClose}>Cancel</button>
@@ -154,23 +172,11 @@ const CoffeeShop = ({ match, history }) => {
         key={review.id}
         review={review}
         shopId={shop.id}
+        editReview={editReview}
         deleteReview={deleteReview}
       />
     ));
   };
-
-  const addReview = (review) => {
-    setReviews([review, ...reviews]);
-  };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   debugger;
-  //   // this needs a updated api call
-  //   axios.post(`/api/coffee_shop/${match.params.id}/reviews`).then((res) => {
-  //     addReview.add(res.data);
-  //   });
-  // };
 
   if (!shop) return null;
   else
@@ -199,7 +205,7 @@ const CoffeeShop = ({ match, history }) => {
           <Modal.Body>
             <ReviewForm
               hide={handleCloseReview}
-              add={addReview}
+              afterCreate={addReview}
               shopId={shop.id}
             />
             <Modal.Footer>

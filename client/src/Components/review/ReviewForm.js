@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import axios from "axios";
 import { AuthContext } from "../../providers/AuthProvider";
 
-const ReviewForm = ({ add, shopId, review, hide }) => {
+const ReviewForm = ({ afterUpdate, afterCreate, shopId, review, hide }) => {
   const auth = useContext(AuthContext);
   const [reviewState, setReviewState] = useState(
     review
@@ -38,7 +38,7 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
         `/api/coffee_shops/${shopId}/reviews`,
         reviewState
       );
-      setReviewState(res.data);
+      if (typeof afterCreate === "function") afterCreate(res.data);
     } catch (err) {
       alert("ERROR: ReviewForm, add review failed");
     }
@@ -50,7 +50,7 @@ const ReviewForm = ({ add, shopId, review, hide }) => {
         `/api/coffee_shops/${shopId}/reviews/${review.id}`,
         reviewState
       );
-      setReviewState(res.data);
+      if (typeof afterUpdate === "function") afterUpdate(res.data);
     } catch (err) {
       alert("ERROR: ReviewForm, updating review issue");
     }

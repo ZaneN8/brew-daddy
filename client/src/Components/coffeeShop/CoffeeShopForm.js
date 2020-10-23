@@ -3,7 +3,13 @@ import { Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { AuthContext } from "../../providers/AuthProvider";
 
-const CoffeeShopForm = ({ history, shopProp, hide }) => {
+const CoffeeShopForm = ({
+  history,
+  shopProp,
+  hide,
+  afterCreate,
+  afterUpdate,
+}) => {
   const auth = useContext(AuthContext);
   const shopDefault = {
     name: "",
@@ -81,7 +87,7 @@ const CoffeeShopForm = ({ history, shopProp, hide }) => {
         formData.append(key, coffeeShopState[key]);
       });
       let res = await axios.put(`/api/coffee_shops/${shopProp.id}`, formData);
-      setCoffeeShopState(res.data);
+      if (typeof afterUpdate === "function") afterUpdate(res.data);
     } catch (err) {
       console.log("ERROR: CoffeeShopForm, updating shop");
     }
@@ -98,23 +104,17 @@ const CoffeeShopForm = ({ history, shopProp, hide }) => {
       });
 
       let res = await axios.post(`/api/coffee_shops`, formData);
-      setCoffeeShopState(res.data);
+      if (typeof afterCreate === "function") afterCreate(res.data);
     } catch (err) {
       console.log(err);
       alert("Error: CoffeeShopForm, adding shop");
     }
   };
 
-  // useEffect(() => {
-  //   addCoffeeShop();
-  //   editCoffeeShop();
-  // }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (shopProp) {
       editCoffeeShop();
-      // hide()
     } else {
       addCoffeeShop();
     }
