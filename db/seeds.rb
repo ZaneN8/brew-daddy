@@ -47,6 +47,7 @@ puts "Let the Seeding begin"
                 body:Faker::TvShows::SouthPark.quote,
                 # body: Faker::TvShows::RickAndMorty.quote,
                 coffee_shop_id: cs.id,
+                user_id: User.order(Arel.sql('RANDOM()')).first.id,
                 )
                 
                 3.times do |a|
@@ -54,6 +55,7 @@ puts "Let the Seeding begin"
                         # body:Faker::TvShows::SouthPark.quote,
                         body:Faker::Hacker.say_something_smart,
                         question_id: question.id,
+                        user_id: User.order(Arel.sql('RANDOM()')).first.id,
                         )
                 end  
                     
