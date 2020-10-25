@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Rater from "react-rater";
-import 'react-rater/lib/react-rater.css';
+import "react-rater/lib/react-rater.css";
 
 const CoffeeShopListItem = ({ coffee }) => {
   const [ratingsData, setRatingsData] = useState({});
@@ -33,7 +33,13 @@ const CoffeeShopListItem = ({ coffee }) => {
         <br />
         <b> Phone Number: </b> {coffee.contact_info} <br />
         {/* Rating: {ratingsData.total_rating} */}
-        <h1><Rater total={5} interactive={false} rating={`${ratingsData.total_rating}`} /></h1>
+        <h1>
+          <Rater
+            total={5}
+            interactive={false}
+            rating={`${ratingsData.total_rating}`}
+          />
+        </h1>
         <br />
         {coffee.description}
       </p>
@@ -47,6 +53,8 @@ const StyledResultCard = styled.div`
   border: 1px solid;
   border-radius: 30px;
   padding: 1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export default CoffeeShopListItem;
