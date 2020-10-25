@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import ReviewForm from "./ReviewForm";
@@ -6,21 +6,24 @@ import ReviewImageUpload from "./ReviewImageUpload";
 import { Modal } from "react-bootstrap";
 import Rater from "react-rater";
 import 'react-rater/lib/react-rater.css';
+import { AuthContext } from "../../providers/AuthProvider";
 
 const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
-  const [user, setUser] = useState(null);
+  const { user } = useContext(AuthContext);
+  const [reviewUser, setReviewUser] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
   const [reviewPics, setReviewPics] = useState([]);
   const [page, setPage] = useState(1);
   const [noMoreReviewPics, setNoMoreReviewPics] = useState(false);
   const handleClose = () => setShowEditForm(false);
   const handleShow = () => setShowEditForm(true);
+  const reviewOwnedByUser = user && review && user.id === review.user_id;
 
   useEffect(() => {
     axios
 
       .get(`/api/users/${review.user_id}`)
-      .then((res) => setUser(res.data))
+      .then((res) => setReviewUser(res.data))
       .catch(console.log);
   }, []);
 
@@ -30,7 +33,7 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
       let res = await axios.get(
         `/api/reviews/${review.id}/review_pics`,
         params
-      );
+      )
       setReviewPics(res.data);
     } catch (err) {
       alert("Error: CoffeeShopReview, failed to get review pics");
@@ -74,7 +77,7 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
   return (
     <div key={review.id}>
       <Link to={`/users/${review.user_id}`}>
-        {user && user.first_name + " " + user.last_name}
+        {reviewUser && reviewUser.first_name + " " + reviewUser.last_name}
       </Link>
       <h2>{review.title}</h2>
       <h5>{review.body}</h5>
@@ -91,9 +94,13 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
       ) : (
         <p>No more pictures</p>
       )}
+      {reviewOwnedByUser && (
       <ReviewImageUpload reviewProp={review} afterCreate={addImage} />
+      )}
 
+      {reviewOwnedByUser && (
       <button onClick={handleShow}>Edit Review</button>
+      )}
       <Modal show={showEditForm} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Review</Modal.Title>.
@@ -113,7 +120,9 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
         </Modal.Footer>
       </Modal>
 
+      {reviewOwnedByUser && (
       <button onClick={() => deleteReview(review.id)}>Delete</button>
+      )}
     </div>
   );
 };

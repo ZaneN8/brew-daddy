@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Answer from "./Answer";
 import AnswerForm from "./AnswerForm";
 import QuestionForm from "./QuestionForm";
 import axios from "axios";
 import { Modal } from "react-bootstrap";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Question = ({
   question,
@@ -11,6 +12,7 @@ const Question = ({
   questionsShopId,
   editQuestion,
 }) => {
+  const { user } = useContext(AuthContext);
   const [showCAnswers, setShowCAnswers] = useState(false);
   const [showEditQuestion, setShowEditQuestion] = useState(false);
   const [answers, setAnswers] = useState([]);
@@ -19,6 +21,7 @@ const Question = ({
   const handleShow = () => setShowEditQuestion(true);
   const handleAnswerClose = () => setShowCAnswers(false);
   const handleAnswerShow = () => setShowCAnswers(true);
+  const questionOwnedByUser = user && question && user.id === question.user_id;
 
   const getAnswers = async () => {
     try {
@@ -115,9 +118,11 @@ const Question = ({
         </Modal.Footer>
       </Modal>
 
+      {questionOwnedByUser && (
       <button variant="primary" onClick={handleShow}>
         Edit Question
       </button>
+      )}
 
       <Modal show={showEditQuestion} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -135,9 +140,10 @@ const Question = ({
           <button onClick={handleClose}>Cancel</button>
         </Modal.Footer>
       </Modal>
-      <button variant="primary" onClick={() => deleteQuestion(question.id)}>
+      {questionOwnedByUser && (<button variant="primary" onClick={() => deleteQuestion(question.id)}>
         Delete Question
       </button>
+      )}
     </div>
   );
 };
