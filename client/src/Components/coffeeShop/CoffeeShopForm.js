@@ -18,7 +18,7 @@ const CoffeeShopForm = ({
     state: "",
     address: "",
     image:
-      "https://perfectdailygrind.com/wp-content/uploads/2019/11/Coffeeshop-Tips-06.jpg",
+      "https://cdn.pixabay.com/photo/2015/12/08/00/26/coffee-shop-1081713_1280.jpg",
     zip: "",
     menu: "",
     website: "",

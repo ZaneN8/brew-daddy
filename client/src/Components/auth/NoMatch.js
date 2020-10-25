@@ -13,9 +13,7 @@ const NoMatch = () => (
     <br />
     <br />
     <h5>You can leave now.</h5>
-    <Link to="/home">
-      <button variant="outline-danger">Danger</button>
-    </Link>
+    <button href="/">Danger</button>
   </div>
 );
 
