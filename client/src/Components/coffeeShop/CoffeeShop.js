@@ -182,10 +182,12 @@ const CoffeeShop = ({ match, history }) => {
           <br />
           <br />
           <br />
-          <button onClick={() => deleteCoffeeShop(shop.id)}>
-            {" "}
-            Delete Coffee Shop
-          </button>
+          {shopOwnedByUser && (
+            <button onClick={() => deleteCoffeeShop(shop.id)}>
+              {" "}
+              Delete Coffee Shop
+            </button>
+          )}
         </InfoRight>
       </StyledShop>
     </div>
