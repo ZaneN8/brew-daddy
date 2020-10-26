@@ -137,9 +137,11 @@ const CoffeeShop = ({ match, history }) => {
         <InfoRight>
           <StyledCoffeeShopName>
             {shop.name}
+            {shopOwnedByUser && (
             <button onClick={handleShow}>
               <span>&#128295;</span>
             </button>
+            )}
             <Modal show={showEditForm} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title> Edit Coffee Shop </Modal.Title>
