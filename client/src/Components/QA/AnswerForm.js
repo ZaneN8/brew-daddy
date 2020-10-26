@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form } from "react-bootstrap";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const AnswerForm = ({
   question,
@@ -9,8 +10,9 @@ const AnswerForm = ({
   afterCreate,
   afterUpdate,
 }) => {
+  const auth = useContext(AuthContext);
   const [answer, setAnswer] = useState(
-    answerProp ? { body: answerProp.body } : { body: "" }
+    answerProp ? { body: answerProp.body } : { body: "", user_id: auth.user.id }
   );
 
   const addAnswer = async () => {

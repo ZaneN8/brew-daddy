@@ -50,7 +50,7 @@ class Api::QuestionsController < ApplicationController
   def question_params
     params
     .require(:question)
-    .permit(:body, :coffee_shop_id)
+    .permit(:body, :coffee_shop_id, :user_id)
   end
 
   def set_coffee_shop
