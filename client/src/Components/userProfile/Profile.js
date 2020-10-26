@@ -83,10 +83,18 @@ const Profile = () => {
     });
     setProfileReviews(newReviews);
   };
+  // const deleteReview = () => {
+  // setProfileReviews(profileReviews.filter((review) => review.id !== id));
+  // };
 
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
-      <CoffeeShopReview displayShop review={review} editReview={editReview} />
+      <CoffeeShopReview
+        displayShop
+        review={review}
+        editReview={editReview}
+        // deleteReview={deleteReview}
+      />
     ));
   };
 
@@ -132,6 +140,12 @@ const Profile = () => {
               onClick={handleShow}
               src={user.image ? user.image : userDefaultPhoto}
             />
+            <button
+              style={{ border: "none", background: "none" }}
+              onClick={createEditShow}
+            >
+              <span>&#128295;</span>
+            </button>
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit User Pic</Modal.Title>
@@ -151,15 +165,12 @@ const Profile = () => {
             </Modal>
           </div>
           <div>
-            {user.first_name} {user.last_name}
+            <br />
+            <h4>
+              {user.first_name} {user.last_name}
+            </h4>
             <p>{user.email}</p>
           </div>
-          <button
-            style={{ border: "none", background: "none" }}
-            onClick={createEditShow}
-          >
-            <span>&#128295;</span>
-          </button>
           <Modal show={showEdit} onHide={closeEditShow}>
             <Modal.Header closeButton>
               <Modal.Title>Edit User Profile </Modal.Title>

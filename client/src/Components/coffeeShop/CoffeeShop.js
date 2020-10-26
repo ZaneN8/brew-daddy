@@ -21,7 +21,7 @@ const CoffeeShop = ({ match, history }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [page, setPage] = useState(1);
   const [noMoreReviews, setNoMoreReviews] = useState(false);
-  const [reviewPics, setReviewPics] = useState([]);
+  // const [reviewPics, setReviewPics] = useState([]);
   // This is the "smarter" method of verifying if you are the user that own the coffee shop
   const shopOwnedByUser = user && shop && user.id === shop.user_id;
   const handleClose = () => setShowEditForm(false);
@@ -55,16 +55,16 @@ const CoffeeShop = ({ match, history }) => {
       });
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(`/api/coffee_shops/${match.params.id}/review_pics`)
-      .then((res) => {
-        setReviewPics(res.data);
-      })
-      .catch((err) => {
-        alert("ERROR: Getting review pics did not work");
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`/api/coffee_shops/${match.params.id}/review_pics`)
+  //     .then((res) => {
+  //       setReviewPics(res.data);
+  //     })
+  //     .catch((err) => {
+  //       alert("ERROR: Getting review pics did not work");
+  //     });
+  // }, []);
 
   const nextPage = () => {
     const params = {
@@ -105,6 +105,9 @@ const CoffeeShop = ({ match, history }) => {
       })
       .catch(console.log);
   };
+  // const deleteReview = () => {
+  //       setReviews(reviews.filter((review) => review.id !== id));
+  // };
 
   const shopCost = () => {
     const dollars = [];
@@ -226,9 +229,13 @@ const CoffeeShop = ({ match, history }) => {
     ));
   };
 
-  const renderReviewPics = () => {
-    return reviewPics;
-  };
+  // const renderReviewPics = () => {
+  //   return reviewPics.map((rpics) => (
+  //     <CoffeeShopReviewPics
+  //           shopId={shop.id}
+  // />
+  //   ));
+  // };
 
   if (!shop) return null;
   else

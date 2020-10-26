@@ -59,6 +59,15 @@ const CoffeeShopReview = ({
     setReviewPics([newImage, ...reviewPics]);
   };
 
+  // const deleteReview = (id) => {
+  //   axios
+  //     .delete(`/api/coffee_shops/${review.coffee_shop_id}/reviews/${id}`)
+  //     .then((res) => {
+  //       setReviews(reviews.filter((review) => review.id !== id));
+  //     })
+  //     .catch(console.log);
+  // };
+
   const morePics = () => {
     const params = {
       params: {
@@ -102,6 +111,11 @@ const CoffeeShopReview = ({
           <Link to={`/users/${review.user_id}`}>
             {reviewUser && reviewUser.first_name + " " + reviewUser.last_name}
           </Link>
+        )}
+        {reviewOwnedByUser && (
+          <button onClick={handleShow}>
+            <span>&#128295;</span>
+          </button>
         )}
         <h3>
           {/* Total rating:{" "} */}
@@ -164,7 +178,6 @@ const CoffeeShopReview = ({
         {reviewOwnedByUser && (
           <ReviewImageUpload reviewProp={review} afterCreate={addImage} />
         )}
-        {reviewOwnedByUser && <button onClick={handleShow}>Edit Review</button>}
         <Modal show={showEditForm} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Edit Review</Modal.Title>
