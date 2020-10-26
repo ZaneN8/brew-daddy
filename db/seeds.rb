@@ -44,7 +44,7 @@ puts "Let the Seeding begin"
         
         3.times do |q|
             question = Question.create(
-                body:Faker::TvShows::SouthPark.quote,
+                body: "Do they serve " + Faker::Restaurant.type + " ?",
                 # body: Faker::TvShows::RickAndMorty.quote,
                 coffee_shop_id: cs.id,
                 user_id: User.order(Arel.sql('RANDOM()')).first.id,
@@ -53,7 +53,7 @@ puts "Let the Seeding begin"
                 3.times do |a|
                     answer = Answer.create(
                         # body:Faker::TvShows::SouthPark.quote,
-                        body:Faker::Hacker.say_something_smart,
+                        body:Faker::TvShows::DrWho.quote,
                         question_id: question.id,
                         user_id: User.order(Arel.sql('RANDOM()')).first.id,
                         )
