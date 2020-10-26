@@ -6,6 +6,7 @@ import CoffeeShopForm from "./CoffeeShopForm";
 import CoffeeShopRating from "./CoffeeShopRating";
 import CoffeeShopQuestions from "../QA/CoffeeShopQuestions";
 import CoffeeShopBreakdown from "./CoffeeShopBreakdown";
+import styled from "styled-components";
 import { Modal } from "react-bootstrap";
 
 // TODO 1) Add this Context to pull the information from Auth
@@ -93,6 +94,14 @@ const CoffeeShop = ({ match, history }) => {
       .catch(console.log);
   };
 
+  const shopCost = () => {
+    const dollars = [];
+    for (let i = 0; i < shop.cost; i++) {
+      dollars.push(<span>$</span>);
+    }
+    return dollars;
+  };
+
   // const renderAllRating = () => {
   // return (
   //   <div>
@@ -123,58 +132,66 @@ const CoffeeShop = ({ match, history }) => {
 
   const renderShopInfo = () => (
     <div>
-      <h1>
-        {shop.name}
-        {/* TODO #3 add the toggle, see between { and } */}
-        {shopOwnedByUser && (
-          <button onClick={handleShow}>
-            <span>&#128295;</span>
-          </button>
-        )}
-        <Modal show={showEditForm} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title> Edit Coffee Shop </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <CoffeeShopForm
-              afterUpdate={editCoffeeShop}
-              shopProp={shop}
-              hide={handleClose}
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <button onClick={handleClose}>Cancel</button>
-          </Modal.Footer>
-        </Modal>
-      </h1>
-      <img src={shop.image} />
-      <h5>Call us at:{shop.contact_info}</h5>
-      <h5>{shop.address}</h5>
-      <h5>
-        {shop.state}, {shop.city}-{shop.zip}
-      </h5>
-      <br />
-      Menu:
-      <a href={shop.menu} target="_blank">
-        {shop.name} Menu{"   "}
-      </a>
-      <br />
-      Website:
-      <a href={shop.website} target="_blank">
-        {shop.name} Website
-      </a>
-      <br />
-      <p>
-        Open:{shop.open} Delivery:{shop.delivery} Order Online:
-        {shop.order_online} Pick Up:{shop.pick_up}
-      </p>
-      <br />
-      {shopOwnedByUser && (
-        <button onClick={() => deleteCoffeeShop(shop.id)}>
-          {" "}
-          Delete Coffee Shop
-        </button>
-      )}
+      <StyledShop>
+        <StyledImg src={shop.image} />
+        <InfoRight>
+          <StyledCoffeeShopName>
+            {shop.name}
+            {shopOwnedByUser && (
+            <button onClick={handleShow}>
+              <span>&#128295;</span>
+            </button>
+            )}
+            <Modal show={showEditForm} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title> Edit Coffee Shop </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <CoffeeShopForm shopProp={shop} hide={handleClose} afterUpdate={editCoffeeShop} />
+              </Modal.Body>
+              <Modal.Footer>
+                <button onClick={handleClose}>Cancel</button>
+              </Modal.Footer>
+            </Modal>
+          </StyledCoffeeShopName>
+          <p>{shop.cost && shopCost()}</p>
+          <StyledShopBoo>
+            Open:{shop.open} Delivery:{shop.delivery} Order Online:
+            {shop.order_online} Pick Up:{shop.pick_up}
+          </StyledShopBoo>
+          <StyledDescription>{shop.description}</StyledDescription>
+          <LinkContainer>
+            <Menu href={shop.menu} target="_blank">
+              {shop.name} Menu{"   "}
+            </Menu>
+            <hr />
+            <Website href={shop.website} target="_blank">
+              {shop.name} Website
+            </Website>
+          </LinkContainer>
+          <Contact>
+            <b>Contact </b>
+            {shop.contact_info}
+          </Contact>
+          <Contact>
+            <b>Address </b>
+            <span>{shop.address}</span>
+          </Contact>
+          <Contact>
+            {shop.state}, {shop.city}-{shop.zip}
+          </Contact>
+          <br />
+          <br />
+          <br />
+          <br />
+          {shopOwnedByUser && (
+            <button onClick={() => deleteCoffeeShop(shop.id)}>
+              {" "}
+              Delete Coffee Shop
+            </button>
+          )}
+        </InfoRight>
+      </StyledShop>
     </div>
   );
 
@@ -193,11 +210,12 @@ const CoffeeShop = ({ match, history }) => {
   if (!shop) return null;
   else
     return (
-      <>
-        <div>{renderShopInfo()}</div>
+      <StyledPage>
+        <StyledInfoContainer>{renderShopInfo()}</StyledInfoContainer>
         {/* <div>{renderAllRating()}</div><hr /> */}
         <CoffeeShopRating match={match} />
         <CoffeeShopBreakdown match={match} />
+        <hr />
         <CoffeeShopQuestions questionsShopId={shop.id} />
 
         <hr />
@@ -228,9 +246,74 @@ const CoffeeShop = ({ match, history }) => {
         <br />
         <hr />
 
-        <button onClick={history.goBack}>BACK</button>
-      </>
+        <Button onClick={history.goBack}>BACK</Button>
+      </StyledPage>
     );
 };
+
+const StyledPage = styled.div`
+  padding: 3em 4em 1em;
+`;
+
+const StyledInfoContainer = styled.div`
+  // border: 1px solid black; //take out when done
+`;
+
+const InfoRight = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledImg = styled.img`
+  // border: 2px solid red; //take out when done
+  display: flex;
+  border-radius: 20%;
+`;
+
+const StyledShop = styled.div`
+  // border: 2px solid green; //take out when done
+  display: flex;
+`;
+
+const StyledCoffeeShopName = styled.h1`
+  display: flex;
+  // border: 2px solid blue;
+  flex-wrap: wrap;
+`;
+
+const StyledShopBoo = styled.p`
+  display: flex;
+`;
+// color: ${props =>
+// props}
+//make so that boolean value changes color
+const StyledDescription = styled.p`
+  display: flex;
+  // border: 1 px solid red;
+`;
+
+const LinkContainer = styled.div`
+  display: flex;
+  border: 1 px solid green;
+`;
+
+const Menu = styled.a`
+  display: flex;
+`;
+
+const Website = styled.a`
+  display: flex;
+`;
+
+const Contact = styled.h5`
+  font-size: 12px;
+`;
+
+const Button = styled.button`
+  background-color: #4d4d4d;
+  border-radius: 30px;
+  border: none;
+  color: white;
+`;
 
 export default CoffeeShop;
