@@ -21,6 +21,7 @@ const CoffeeShop = ({ match, history }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [page, setPage] = useState(1);
   const [noMoreReviews, setNoMoreReviews] = useState(false);
+  const [reviewPics, setReviewPics] = useState([]);
   // This is the "smarter" method of verifying if you are the user that own the coffee shop
   const shopOwnedByUser = user && shop && user.id === shop.user_id;
   const handleClose = () => setShowEditForm(false);
@@ -51,6 +52,17 @@ const CoffeeShop = ({ match, history }) => {
       })
       .catch((err) => {
         alert("ERROR: No reviews");
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`/api/coffee_shops/${match.params.id}/review_pics`)
+      .then((res) => {
+        setReviewPics(res.data);
+      })
+      .catch((err) => {
+        alert("ERROR: Getting review pics did not work");
       });
   }, []);
 
@@ -138,7 +150,10 @@ const CoffeeShop = ({ match, history }) => {
           <StyledCoffeeShopName>
             {shop.name}
             {shopOwnedByUser && (
-              <button onClick={handleShow}>
+              <button
+                style={{ border: "none", background: "none" }}
+                onClick={handleShow}
+              >
                 <span>&#128295;</span>
               </button>
             )}
@@ -209,6 +224,10 @@ const CoffeeShop = ({ match, history }) => {
         deleteReview={deleteReview}
       />
     ));
+  };
+
+  const renderReviewPics = () => {
+    return reviewPics;
   };
 
   if (!shop) return null;

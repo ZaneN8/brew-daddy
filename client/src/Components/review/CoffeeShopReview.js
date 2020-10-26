@@ -9,13 +9,19 @@ import "react-rater/lib/react-rater.css";
 import { AuthContext } from "../../providers/AuthProvider";
 import styled from "styled-components";
 
-const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
+const CoffeeShopReview = ({
+  review,
+  deleteReview,
+  editReview,
+  displayShop,
+}) => {
   const { user } = useContext(AuthContext);
   const [reviewUser, setReviewUser] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
   const [reviewPics, setReviewPics] = useState([]);
   const [page, setPage] = useState(1);
   const [noMoreReviewPics, setNoMoreReviewPics] = useState(false);
+  const [coffeeShop, setCoffeeShop] = useState(null);
   const handleClose = () => setShowEditForm(false);
   const handleShow = () => setShowEditForm(true);
   const reviewOwnedByUser = user && review && user.id === review.user_id;
@@ -25,6 +31,15 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
       .get(`/api/users/${review.user_id}`)
       .then((res) => setReviewUser(res.data))
       .catch(console.log);
+  }, []);
+
+  useEffect(() => {
+    if (displayShop) {
+      axios
+        .get(`/api/coffee_shops/${review.coffee_shop_id}`)
+        .then((res) => setCoffeeShop(res.data))
+        .catch(console.log);
+    }
   }, []);
 
   const getReviewImages = async () => {
@@ -78,9 +93,16 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
     <StyledLayout>
       <div key={review.id}>
         <StyledImage src={""} />{" "}
-        <Link to={`/users/${review.user_id}`}>
-          {reviewUser && reviewUser.first_name + " " + reviewUser.last_name}
-        </Link>
+        {displayShop && coffeeShop && coffeeShop.name ? (
+          <Link to={`/coffee_shops/${review.coffee_shop_id}`}>
+            {" "}
+            {coffeeShop && coffeeShop.name}
+          </Link>
+        ) : (
+          <Link to={`/users/${review.user_id}`}>
+            {reviewUser && reviewUser.first_name + " " + reviewUser.last_name}
+          </Link>
+        )}
         <h3>
           {/* Total rating:{" "} */}
           <Rater total={5} interactive={false} rating={`${review.rating}`} />
@@ -149,7 +171,7 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
           </Modal.Header>
           <Modal.Body>
             <ReviewForm
-              shopId={shopId}
+              shopId={review.coffee_shop_id}
               afterUpdate={editReview}
               review={review}
               hide={handleClose}
