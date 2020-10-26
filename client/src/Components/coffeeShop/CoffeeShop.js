@@ -147,7 +147,7 @@ const CoffeeShop = ({ match, history }) => {
                 <Modal.Title> Edit Coffee Shop </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <CoffeeShopForm shopProp={shop} hide={handleClose} />
+                <CoffeeShopForm shopProp={shop} hide={handleClose} afterUpdate={editCoffeeShop} />
               </Modal.Body>
               <Modal.Footer>
                 <button onClick={handleClose}>Cancel</button>
