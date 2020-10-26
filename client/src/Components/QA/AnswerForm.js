@@ -1,9 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import Answer from "./Answer";
 
-const AnswerForm = ({ question, answerProp }) => {
+const AnswerForm = ({
+  question,
+  answerProp,
+  hide,
+  afterCreate,
+  afterUpdate,
+}) => {
   const [answer, setAnswer] = useState(
     answerProp ? { body: answerProp.body } : { body: "" }
   );
@@ -14,7 +19,7 @@ const AnswerForm = ({ question, answerProp }) => {
         `/api/questions/${question.id}/answers`,
         answer
       );
-      setAnswer(res.data);
+      if (typeof afterCreate === "function") afterCreate(res.data);
     } catch (err) {
       alert("Oh shit add answer does not work");
     }
@@ -26,7 +31,7 @@ const AnswerForm = ({ question, answerProp }) => {
         `/api/questions/${answerProp.question_id}/answers/${answerProp.id}`,
         answer
       );
-      setAnswer(res.data);
+      if (typeof afterUpdate === "function") afterUpdate(res.data);
     } catch (err) {
       alert("Error: AnswerForm, edit answer failed");
     }
@@ -39,6 +44,7 @@ const AnswerForm = ({ question, answerProp }) => {
     } else {
       addAnswer();
     }
+    hide();
   };
 
   const handleChange = (e) => {

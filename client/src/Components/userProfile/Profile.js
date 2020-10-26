@@ -7,13 +7,14 @@ import EditProfileForm from "./EditProfileForm";
 import { Modal, Form } from "react-bootstrap";
 import styled from "styled-components";
 import UserRating from "./UserRating";
+import userDefaultPhoto from "../../image/userDefault.svg";
 
 const Profile = () => {
-  const [shops, setShops] = useState([]);
+  // const [shops, setShops] = useState([]);
   const [profileReviews, setProfileReviews] = useState([]);
   const [profileCoffeeShops, setProfileCoffeeShops] = useState([]);
   const [show, setShow] = useState(false);
-  const { user, handleUpdate, handleImageUpdate } = useContext(AuthContext);
+  const { user, handleImageUpdate } = useContext(AuthContext);
   const [showEdit, setShowEdit] = useState(false);
   const [changePic, setChangePic] = useState(false);
   const handleClose = () => setChangePic(false);
@@ -71,11 +72,13 @@ const Profile = () => {
     }
   };
 
-  const addCoffeeShop = (shop) => setShops([...shops, shop]);
+  const addCoffeeShop = (shop) =>
+    setProfileCoffeeShops([shop, ...profileCoffeeShops]);
 
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
       <div className="profileReviewRender" key={review.id}>
+        <h4>{review.coffee_shop_id}</h4>
         <h4>{review.title}</h4>
         <h5>{review.body}</h5>
         <p>Total rating:{review.rating}</p>
@@ -90,13 +93,14 @@ const Profile = () => {
   const renderProfileCoffeeShop = () => {
     {
       return profileCoffeeShops.map((coffeeShop) => (
-        <div className="coffeeShopRender" key={coffeeShop.id}>
-          <img src={coffeeShop.image} />
-          <h5>{coffeeShop.name}</h5>
+        <StyledCoffeeShop className="coffeeShopRender" key={coffeeShop.id}>
+          <img href={`/coffee_shops/${coffeeShop.id}`} src={coffeeShop.image} />
+          <a href={`/coffee_shops/${coffeeShop.id}`}>{coffeeShop.name}</a>
+          <p>{coffeeShop.state}, </p>
           <p>
-            {coffeeShop.state}, {coffeeShop.city}, {coffeeShop.zip}
+            {coffeeShop.city}, {coffeeShop.zip}
           </p>
-        </div>
+        </StyledCoffeeShop>
       ));
     }
   };
@@ -124,7 +128,10 @@ const Profile = () => {
       <Box>
         <div className="userinfo">
           <div>
-            <StyledImage onClick={handleShow} src={user.image} />
+            <StyledImage
+              onClick={handleShow}
+              src={user.image ? user.image : userDefaultPhoto}
+            />
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit User Pic</Modal.Title>
@@ -150,11 +157,7 @@ const Profile = () => {
           <button onClick={createEditShow}>
             <span>&#128295;</span>
           </button>
-          <Modal
-            show={showEdit}
-            onHide={closeEditShow}
-            backdrop="keyboard false"
-          >
+          <Modal show={showEdit} onHide={closeEditShow}>
             <Modal.Header closeButton>
               <Modal.Title>Edit User Profile </Modal.Title>
             </Modal.Header>
@@ -190,7 +193,7 @@ const Profile = () => {
               <Modal.Title>Create Coffee Shop</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <CoffeeShopForm hide={closeShow} add={addCoffeeShop} />
+              <CoffeeShopForm hide={closeShow} afterCreate={addCoffeeShop} />
             </Modal.Body>
             <Modal.Footer>
               <button onClick={closeShow}>Cancel</button>
@@ -211,11 +214,32 @@ const StyledPage = styled.div`
   padding: 1em 4em 1em;
 `;
 
+const StyledCoffeeShop = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-direction: column;
+  background-image: url("https://cdn.pixabay.com/photo/2015/12/03/08/50/paper-1074131_1280.jpg");
+  transition: 0.3s;
+  border: 0.1em solid;
+  border-radius: 30px;
+  padding: 1em;
+  width: 200px;
+  height: flex;
+  object-fit: scale-down;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 const StyledLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   max-width: 100%;
+`;
+
+const CoffeeShopImage = styled.img`
+  flex: 1;
 `;
 
 const Box = styled.div`

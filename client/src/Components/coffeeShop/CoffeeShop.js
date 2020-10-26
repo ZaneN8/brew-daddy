@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import ReviewForm from "../review/ReviewForm";
 import CoffeeShopReview from "../review/CoffeeShopReview";
@@ -9,17 +9,22 @@ import CoffeeShopBreakdown from "./CoffeeShopBreakdown";
 import styled from "styled-components";
 import { Modal } from "react-bootstrap";
 
+// TODO 1) Add this Context to pull the information from Auth
+import { AuthContext } from "../../providers/AuthProvider";
+
 const CoffeeShop = ({ match, history }) => {
+  // TODO 2) Add this, make sure useContext is in react
+  const { user } = useContext(AuthContext);
   const [shop, setShop] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [page, setPage] = useState(1);
   const [noMoreReviews, setNoMoreReviews] = useState(false);
-
+  // This is the "smarter" method of verifying if you are the user that own the coffee shop
+  const shopOwnedByUser = user && shop && user.id === shop.user_id;
   const handleClose = () => setShowEditForm(false);
   const handleShow = () => setShowEditForm(true);
-
   const handleCloseReview = () => setShowReviewForm(false);
   const handleAddReview = () => setShowReviewForm(true);
 
@@ -75,7 +80,8 @@ const CoffeeShop = ({ match, history }) => {
     axios
       .delete(`/api/coffee_shops/${id}`, { params: { id: id } })
       .then((res) => {
-        setShop(shop.filter((shop) => shop.id !== id));
+        // setShop(shop.filter((shop) => shop.id !== id));
+        history.push("/search");
       });
   };
 
@@ -107,6 +113,22 @@ const CoffeeShop = ({ match, history }) => {
 
   //   </div>)
   // }
+
+  const editCoffeeShop = (fig) => {
+    setShop(fig);
+  };
+
+  const editReview = (newReview) => {
+    const newReviews = reviews.map((review) => {
+      if (newReview.id === review.id) return newReview;
+      else return review;
+    });
+    setReviews(newReviews);
+  };
+
+  const addReview = (review) => {
+    setReviews([review, ...reviews]);
+  };
 
   const renderShopInfo = () => (
     <div>
@@ -175,23 +197,11 @@ const CoffeeShop = ({ match, history }) => {
         key={review.id}
         review={review}
         shopId={shop.id}
+        editReview={editReview}
         deleteReview={deleteReview}
       />
     ));
   };
-
-  const addReview = (review) => {
-    setReviews([review, ...reviews]);
-  };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   debugger;
-  //   // this needs a updated api call
-  //   axios.post(`/api/coffee_shop/${match.params.id}/reviews`).then((res) => {
-  //     addReview.add(res.data);
-  //   });
-  // };
 
   if (!shop) return null;
   else
@@ -221,7 +231,7 @@ const CoffeeShop = ({ match, history }) => {
           <Modal.Body>
             <ReviewForm
               hide={handleCloseReview}
-              add={addReview}
+              afterCreate={addReview}
               shopId={shop.id}
             />
             <Modal.Footer>

@@ -18,9 +18,11 @@ ActiveRecord::Schema.define(version: 2020_10_14_015505) do
   create_table "answers", force: :cascade do |t|
     t.text "body"
     t.bigint "question_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
   create_table "coffee_shops", force: :cascade do |t|
@@ -48,9 +50,11 @@ ActiveRecord::Schema.define(version: 2020_10_14_015505) do
   create_table "questions", force: :cascade do |t|
     t.text "body"
     t.bigint "coffee_shop_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["coffee_shop_id"], name: "index_questions_on_coffee_shop_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "review_pics", force: :cascade do |t|
@@ -127,8 +131,10 @@ ActiveRecord::Schema.define(version: 2020_10_14_015505) do
   end
 
   add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
   add_foreign_key "coffee_shops", "users"
   add_foreign_key "questions", "coffee_shops"
+  add_foreign_key "questions", "users"
   add_foreign_key "review_pics", "reviews"
   add_foreign_key "reviews", "coffee_shops"
   add_foreign_key "reviews", "users"
