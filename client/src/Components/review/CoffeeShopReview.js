@@ -5,8 +5,9 @@ import ReviewForm from "./ReviewForm";
 import ReviewImageUpload from "./ReviewImageUpload";
 import { Modal } from "react-bootstrap";
 import Rater from "react-rater";
-import 'react-rater/lib/react-rater.css';
+import "react-rater/lib/react-rater.css";
 import { AuthContext } from "../../providers/AuthProvider";
+import styled from "styled-components";
 
 const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
   const { user } = useContext(AuthContext);
@@ -21,7 +22,6 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
 
   useEffect(() => {
     axios
-
       .get(`/api/users/${review.user_id}`)
       .then((res) => setReviewUser(res.data))
       .catch(console.log);
@@ -33,7 +33,7 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
       let res = await axios.get(
         `/api/reviews/${review.id}/review_pics`,
         params
-      )
+      );
       setReviewPics(res.data);
     } catch (err) {
       alert("Error: CoffeeShopReview, failed to get review pics");
@@ -66,7 +66,7 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
 
   const renderReviewImages = () => {
     return reviewPics.map((revPic) => (
-      <img key={revPic.id} src={revPic.image} />
+      <UploadedReviewImage key={revPic.id} src={revPic.image} />
     ));
   };
 
@@ -75,56 +75,132 @@ const CoffeeShopReview = ({ review, shopId, deleteReview, editReview }) => {
   }, []);
 
   return (
-    <div key={review.id}>
-      <Link to={`/users/${review.user_id}`}>
-        {reviewUser && reviewUser.first_name + " " + reviewUser.last_name}
-      </Link>
-      <h2>{review.title}</h2>
-      <h5>{review.body}</h5>
-      <p>{review.image}</p>
-      <p>Total rating: <Rater total={5} interactive={false} rating={`${review.rating}`} /></p>
-      <p>Coffee rating:<Rater total={5} interactive={false} rating={`${review.coffee}`} /></p>
-      <p>Work friendly:<Rater total={5} interactive={false} rating={`${review.work_friendly}`} /></p>
-      <p>Food:<Rater total={5} interactive={false} rating={`${review.food}`} /></p>
-      <p>Noise:<Rater total={5} interactive={false} rating={`${review.noise_level}`} /></p>
-
-      <p>{renderReviewImages()}</p>
-      {!noMoreReviewPics ? (
-        <button onClick={morePics}>Load More</button>
-      ) : (
-        <p>No more pictures</p>
-      )}
-      {reviewOwnedByUser && (
-      <ReviewImageUpload reviewProp={review} afterCreate={addImage} />
-      )}
-
-      {reviewOwnedByUser && (
-      <button onClick={handleShow}>Edit Review</button>
-      )}
-      <Modal show={showEditForm} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Review</Modal.Title>.
-        </Modal.Header>
-        <Modal.Body>
-          <ReviewForm
-            shopId={shopId}
-            afterUpdate={editReview}
-            review={review}
-            hide={handleClose}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <button variant="secondary" onClick={handleClose}>
-            Cancel
-          </button>
-        </Modal.Footer>
-      </Modal>
-
-      {reviewOwnedByUser && (
-      <button onClick={() => deleteReview(review.id)}>Delete</button>
-      )}
-    </div>
+    <StyledLayout>
+      <div key={review.id}>
+        <StyledImage src={""} />{" "}
+        <Link to={`/users/${review.user_id}`}>
+          {reviewUser && reviewUser.first_name + " " + reviewUser.last_name}
+        </Link>
+        <h3>
+          {/* Total rating:{" "} */}
+          <Rater total={5} interactive={false} rating={`${review.rating}`} />
+          <br />
+          {review.title}
+        </h3>
+        <h5>{review.body}</h5>
+        <p>{review.image}</p>
+        {/* <p>
+          Total rating:{" "}
+          <Rater total={5} interactive={false} rating={`${review.rating}`} />
+        </p> */}
+        <Row>
+          <Column1>
+            <p>
+              Coffee rating:
+              <Rater
+                total={5}
+                interactive={false}
+                rating={`${review.coffee_rating}`}
+              />
+            </p>
+          </Column1>
+          <Column2>
+            <p>
+              Work friendly:
+              <Rater
+                total={5}
+                interactive={false}
+                rating={`${review.work_friendly}`}
+              />
+            </p>
+          </Column2>
+        </Row>
+        <Row>
+          <Column1>
+            <p>
+              Food:
+              <Rater total={5} interactive={false} rating={`${review.food}`} />
+            </p>
+          </Column1>
+          <Column2>
+            <p>
+              Noise:
+              <Rater
+                total={5}
+                interactive={false}
+                rating={`${review.noise_level}`}
+              />
+            </p>
+          </Column2>
+        </Row>
+        <p>{renderReviewImages()}</p>
+        {!noMoreReviewPics ? (
+          <button onClick={morePics}>Load More</button>
+        ) : (
+          <p>No more pictures</p>
+        )}
+        {reviewOwnedByUser && (
+          <ReviewImageUpload reviewProp={review} afterCreate={addImage} />
+        )}
+        {reviewOwnedByUser && <button onClick={handleShow}>Edit Review</button>}
+        <Modal show={showEditForm} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Review</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <ReviewForm
+              shopId={shopId}
+              afterUpdate={editReview}
+              review={review}
+              hide={handleClose}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <button variant="secondary" onClick={handleClose}>
+              Cancel
+            </button>
+          </Modal.Footer>
+        </Modal>
+        {reviewOwnedByUser && (
+          <button onClick={() => deleteReview(review.id)}>Delete</button>
+        )}
+      </div>
+    </StyledLayout>
   );
 };
+
+const StyledLayout = styled.div`
+  max-width: 1168px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 1em 4em 1em;
+`;
+
+const Row = styled.div`
+  display: flex;
+`;
+
+const Column1 = styled.div`
+  flex: 5;
+  display: flex;
+  flex-directionL column;
+`;
+
+const Column2 = styled.div`
+  flex: 5;
+`;
+
+const StyledImage = styled.img`
+  border-radius: 15px;
+  width: 10px;
+  height: 10px;
+`;
+
+const UploadedReviewImage = styled.img`
+  border-radius: 15px;
+  width: 100px;
+  height: 100px;
+`;
 
 export default CoffeeShopReview;

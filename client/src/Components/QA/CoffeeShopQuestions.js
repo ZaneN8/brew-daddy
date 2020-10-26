@@ -10,7 +10,7 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
   const { user } = useContext(AuthContext);
   const [questions, setQuestions] = useState([]);
   const [showCQuestions, setShowCQuestions] = useState(false);
-  const [page, setPage] = useState(false);
+  const [page, setPage] = useState(1);
   const [noMoreQuestions, setNoMoreQuestions] = useState(false);
   const handleClose = () => setShowCQuestions(false);
   const handleShow = () => setShowCQuestions(true);

@@ -8,6 +8,7 @@ import { Modal, Form } from "react-bootstrap";
 import styled from "styled-components";
 import UserRating from "./UserRating";
 import userDefaultPhoto from "../../image/userDefault.svg";
+import Rater from "react-rater";
 
 const Profile = () => {
   // const [shops, setShops] = useState([]);
@@ -78,6 +79,7 @@ const Profile = () => {
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
       <div className="profileReviewRender" key={review.id}>
+        {/* <CoffeeLookup {review.coffee_shop_id} />  Something like this, ex. User Firstname/Lastname in Coffee Shop Review*/}
         <h4>{review.coffee_shop_id}</h4>
         <h4>{review.title}</h4>
         <h5>{review.body}</h5>
@@ -240,6 +242,8 @@ const StyledLayout = styled.div`
 
 const CoffeeShopImage = styled.img`
   flex: 1;
+  max-height: 200px;
+  max-width: 200px:
 `;
 
 const Box = styled.div`

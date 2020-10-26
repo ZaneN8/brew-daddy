@@ -218,39 +218,44 @@ const CoffeeShop = ({ match, history }) => {
         <StyledInfoContainer>{renderShopInfo()}</StyledInfoContainer>
         {/* <div>{renderAllRating()}</div><hr /> */}
         <CoffeeShopRating match={match} />
-        <CoffeeShopBreakdown match={match} />
         <hr />
         <CoffeeShopQuestions questionsShopId={shop.id} />
 
         <hr />
+        <Row>
+          <Column1>
+            <CoffeeShopBreakdown match={match} />
+          </Column1>
+          <Column2>
+            <div>{renderReviews()}</div>
+            {!noMoreReviews ? (
+              <button onClick={nextPage}>More reviews</button>
+            ) : (
+              <p>No More Reviews</p>
+            )}
+            <br />
+            {user && <button onClick={handleAddReview}> Write Review</button>}
+            <Modal show={showReviewForm}>
+              <Modal.Header closeButton onHide={handleCloseReview}>
+                <Modal.Title>Create Review</Modal.Title>.
+              </Modal.Header>
+              <Modal.Body>
+                <ReviewForm
+                  hide={handleCloseReview}
+                  afterCreate={addReview}
+                  shopId={shop.id}
+                />
+                <Modal.Footer>
+                  <button onClick={handleCloseReview}>Cancel</button>
+                </Modal.Footer>
+              </Modal.Body>
+            </Modal>
+            <br />
+            <hr />
 
-        <div>{renderReviews()}</div>
-        {!noMoreReviews ? (
-          <button onClick={nextPage}>More reviews</button>
-        ) : (
-          <p>No More Reviews</p>
-        )}
-        <br />
-        {user && <button onClick={handleAddReview}> Write Review</button>}
-        <Modal show={showReviewForm}>
-          <Modal.Header closeButton onHide={handleCloseReview}>
-            <Modal.Title>Create Review</Modal.Title>.
-          </Modal.Header>
-          <Modal.Body>
-            <ReviewForm
-              hide={handleCloseReview}
-              afterCreate={addReview}
-              shopId={shop.id}
-            />
-            <Modal.Footer>
-              <button onClick={handleCloseReview}>Cancel</button>
-            </Modal.Footer>
-          </Modal.Body>
-        </Modal>
-        <br />
-        <hr />
-
-        <Button onClick={history.goBack}>BACK</Button>
+            <Button onClick={history.goBack}>BACK</Button>
+          </Column2>
+        </Row>
       </StyledPage>
     );
 };
@@ -318,6 +323,20 @@ const Button = styled.button`
   border-radius: 30px;
   border: none;
   color: white;
+`;
+
+const Row = styled.div`
+  display: flex;
+`;
+
+const Column1 = styled.div`
+  flex: 3;
+  display: flex;
+  flex-directionL column;
+`;
+
+const Column2 = styled.div`
+  flex: 7;
 `;
 
 export default CoffeeShop;
