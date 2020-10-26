@@ -50,7 +50,7 @@ before_action :set_user, only: [:cu_index]
   def update
 
     file = params[:file]
-
+ 
     if file
       begin
         cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true, resource_type: :auto)
