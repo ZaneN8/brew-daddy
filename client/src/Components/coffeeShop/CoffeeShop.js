@@ -138,16 +138,20 @@ const CoffeeShop = ({ match, history }) => {
           <StyledCoffeeShopName>
             {shop.name}
             {shopOwnedByUser && (
-            <button onClick={handleShow}>
-              <span>&#128295;</span>
-            </button>
+              <button onClick={handleShow}>
+                <span>&#128295;</span>
+              </button>
             )}
             <Modal show={showEditForm} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title> Edit Coffee Shop </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <CoffeeShopForm shopProp={shop} hide={handleClose} afterUpdate={editCoffeeShop} />
+                <CoffeeShopForm
+                  shopProp={shop}
+                  hide={handleClose}
+                  afterUpdate={editCoffeeShop}
+                />
               </Modal.Body>
               <Modal.Footer>
                 <button onClick={handleClose}>Cancel</button>
@@ -227,7 +231,7 @@ const CoffeeShop = ({ match, history }) => {
           <p>No More Reviews</p>
         )}
         <br />
-        <button onClick={handleAddReview}> Write Review</button>
+        {user && <button onClick={handleAddReview}> Write Review</button>}
         <Modal show={showReviewForm}>
           <Modal.Header closeButton onHide={handleCloseReview}>
             <Modal.Title>Create Review</Modal.Title>.

@@ -99,7 +99,7 @@ const Question = ({
 
       {!noMoreAnswers && <button onClick={nextPage}>Show Answers</button>}
 
-      <button onClick={handleAnswerShow}>Create Answer</button>
+      {user && <button onClick={handleAnswerShow}>Create Answer</button>}
       <Modal show={showCAnswers}>
         <Modal.Header closeButton>
           <Modal.Title>Create Answer</Modal.Title>
@@ -119,9 +119,9 @@ const Question = ({
       </Modal>
 
       {questionOwnedByUser && (
-      <button variant="primary" onClick={handleShow}>
-        Edit Question
-      </button>
+        <button variant="primary" onClick={handleShow}>
+          Edit Question
+        </button>
       )}
 
       <Modal show={showEditQuestion} onHide={handleClose}>
@@ -140,9 +140,10 @@ const Question = ({
           <button onClick={handleClose}>Cancel</button>
         </Modal.Footer>
       </Modal>
-      {questionOwnedByUser && (<button variant="primary" onClick={() => deleteQuestion(question.id)}>
-        Delete Question
-      </button>
+      {questionOwnedByUser && (
+        <button variant="primary" onClick={() => deleteQuestion(question.id)}>
+          Delete Question
+        </button>
       )}
     </div>
   );
