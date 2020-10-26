@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const QuestionForm = ({
   questionsShopId,
@@ -9,8 +10,11 @@ const QuestionForm = ({
   afterAdd,
   afterEdit,
 }) => {
+  const auth = useContext(AuthContext);
   const [question, setQuestion] = useState(
-    questionProp ? { body: questionProp.body } : { body: "" }
+    questionProp
+      ? { body: questionProp.body }
+      : { body: "", user_id: auth.user.id }
   );
 
   const addQuestion = async () => {

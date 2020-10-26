@@ -46,7 +46,7 @@ class Api::AnswersController < ApplicationController
   end
 
   def answer_params
-    params.permit(:body, :question_id)
+    params.permit(:body, :question_id, :user_id)
   end
 
   def filtering_params
