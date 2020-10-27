@@ -8,6 +8,7 @@ import CoffeeShopQuestions from "../QA/CoffeeShopQuestions";
 import CoffeeShopBreakdown from "./CoffeeShopBreakdown";
 import styled from "styled-components";
 import { Modal } from "react-bootstrap";
+import CoffeeShopReviewPics from "./CoffeeShopReviewPics";
 
 // TODO 1) Add this Context to pull the information from Auth
 import { AuthContext } from "../../providers/AuthProvider";
@@ -21,7 +22,6 @@ const CoffeeShop = ({ match, history }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [page, setPage] = useState(1);
   const [noMoreReviews, setNoMoreReviews] = useState(false);
-  // const [reviewPics, setReviewPics] = useState([]);
   // This is the "smarter" method of verifying if you are the user that own the coffee shop
   const shopOwnedByUser = user && shop && user.id === shop.user_id;
   const handleClose = () => setShowEditForm(false);
@@ -54,17 +54,6 @@ const CoffeeShop = ({ match, history }) => {
         alert("ERROR: No reviews");
       });
   }, []);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`/api/coffee_shops/${match.params.id}/review_pics`)
-  //     .then((res) => {
-  //       setReviewPics(res.data);
-  //     })
-  //     .catch((err) => {
-  //       alert("ERROR: Getting review pics did not work");
-  //     });
-  // }, []);
 
   const nextPage = () => {
     const params = {
@@ -229,14 +218,6 @@ const CoffeeShop = ({ match, history }) => {
     ));
   };
 
-  // const renderReviewPics = () => {
-  //   return reviewPics.map((rpics) => (
-  //     <CoffeeShopReviewPics
-  //           shopId={shop.id}
-  // />
-  //   ));
-  // };
-
   if (!shop) return null;
   else
     return (
@@ -251,6 +232,11 @@ const CoffeeShop = ({ match, history }) => {
         <Row>
           <Column1>
             <CoffeeShopBreakdown match={match} />
+            <br />
+            <hr />
+            <RPics>
+              <CoffeeShopReviewPics shopId={shop.id} />
+            </RPics>
           </Column1>
           <Column2>
             <div>{renderReviews()}</div>
@@ -295,14 +281,15 @@ const StyledInfoContainer = styled.div`
 `;
 
 const InfoRight = styled.div`
+  padding: 15px;
   display: flex;
   flex-direction: column;
 `;
 
 const StyledImg = styled.img`
-  // border: 2px solid red; //take out when done
-  display: flex;
   border-radius: 20%;
+  max-width: 350px;
+  max-hieght: 400px;
 `;
 
 const StyledShop = styled.div`
@@ -322,10 +309,7 @@ const StyledShopBoo = styled.p`
 // color: ${props =>
 // props}
 //make so that boolean value changes color
-const StyledDescription = styled.p`
-  display: flex;
-  // border: 1 px solid red;
-`;
+const StyledDescription = styled.p``;
 
 const LinkContainer = styled.div`
   display: flex;
@@ -358,11 +342,20 @@ const Row = styled.div`
 const Column1 = styled.div`
   flex: 3;
   display: flex;
-  flex-directionL column;
+  flex-direction: column;
 `;
 
 const Column2 = styled.div`
   flex: 7;
+`;
+
+const RPics = styled.div`
+  img {
+    flex_direction: column;
+    height: 100px;
+    border-radius: 8px;
+    margin: 1em;
+  }
 `;
 
 export default CoffeeShop;

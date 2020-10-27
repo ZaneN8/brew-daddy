@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const CoffeeShopReviewPics = ({ shopId }) => {
   const [reviewPics, setReviewPics] = useState([]);
 
   useEffect(() => {
+    // debugger;
     axios
       .get(`/api/coffee_shops/${shopId}/review_pics`)
       .then((res) => setReviewPics(res.data))
       .catch((err) => {
-        alert("ERROR: Getting review pics did not work");
+        debugger;
+        alert("ERROR: CSRP Getting review pics did not work");
       });
   }, []);
 
