@@ -5,21 +5,34 @@ const Team = () => {
   return (
     <>
       <Row>
-        <Card>
-          <h1>THE TEAM</h1>
-        </Card>
-      </Row>
-      <Row>
         <Column1>
           <StyledImage src="https://images.unsplash.com/photo-1587085580271-cf1389892268?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
         </Column1>
         <Column2>
-          <Card>Jon -The Brains </Card>
+          <Card>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
+              amet justo donec enim diam vulputate. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua. Sit amet justo donec enim diam
+              vulputate.
+            </p>{" "}
+          </Card>
         </Column2>
       </Row>
       <Row>
         <Column2>
-          <Card>Zane -The Cunning </Card>
+          <Card>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
+              amet justo donec enim diam vulputate. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua. Sit amet justo donec enim diam
+              vulputate.
+            </p>
+          </Card>
         </Column2>
         <Column1>
           <StyledImage src="https://cdn.shopify.com/s/files/1/0863/0604/products/Marmoset8x10.jpg?v=1531867498" />
@@ -30,14 +43,29 @@ const Team = () => {
           <StyledImage src="https://images.unsplash.com/photo-1587085580271-cf1389892268?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
         </Column1>
         <Column2>
-          <Card>Simon -The Brawn</Card>
+          <Card>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
+              amet justo donec enim diam vulputate. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua. Sit amet justo donec enim diam
+              vulputate.
+            </p>{" "}
+          </Card>
         </Column2>
       </Row>
       <Row>
         <Column2>
           <Card>
-            Riley -The guy who doesn't invite other team members to Eggs in the
-            City
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
+              amet justo donec enim diam vulputate. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua. Sit amet justo donec enim diam
+              vulputate.
+            </p>{" "}
           </Card>
         </Column2>
         <Column1>
@@ -54,7 +82,7 @@ const Row = styled.div`
 `;
 
 const Card = styled.div`
-  background-color: red;
+  background-color: white;
   margin: 10px;
   padding: 10px;
   flex: 1;
@@ -77,6 +105,15 @@ const StyledImage = styled.img`
   width:200px;
   height 200px;
 
+`;
+
+const StyledLayout = styled.div`
+  max-width: 1168px;
+  margin: auto;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  padding: 1em 4em 1em;
 `;
 
 export default Team;

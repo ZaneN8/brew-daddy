@@ -26,7 +26,9 @@ const HomeSearch = () => {
     <StyledLargeForm>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
-          <Form.Label>Search</Form.Label>
+          <Form.Label style={{ color: "white", width: "600px" }}>
+            Search
+          </Form.Label>
           <Form.Control
             className="form"
             autoFocus
@@ -48,8 +50,6 @@ const HomeSearch = () => {
 const StyledLargeForm = styled.div`
   .form {
     border-radius: 30px;
-    border: 1px solid;
-    color: black;
   }
 `;
 

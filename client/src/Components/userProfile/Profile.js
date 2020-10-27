@@ -83,9 +83,10 @@ const Profile = () => {
     });
     setProfileReviews(newReviews);
   };
-  // const deleteReview = () => {
-  // setProfileReviews(profileReviews.filter((review) => review.id !== id));
-  // };
+
+  const deleteReview = (id) => {
+    setProfileReviews(profileReviews.filter((review) => review.id !== id));
+  };
 
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
@@ -93,24 +94,23 @@ const Profile = () => {
         displayShop
         review={review}
         editReview={editReview}
-        // deleteReview={deleteReview}
+        deleteReview={deleteReview}
       />
     ));
   };
 
   const renderProfileCoffeeShop = () => {
-    {
-      return profileCoffeeShops.map((coffeeShop) => (
-        <StyledCoffeeShop className="coffeeShopRender" key={coffeeShop.id}>
-          <img href={`/coffee_shops/${coffeeShop.id}`} src={coffeeShop.image} />
+    return profileCoffeeShops.map((coffeeShop) => (
+      <StyledCoffeeShop className="coffeeShopRender" key={coffeeShop.id}>
+        <CoffeeShopImage url={coffeeShop.image} />
+        <CoffeeShopNameText>
           <a href={`/coffee_shops/${coffeeShop.id}`}>{coffeeShop.name}</a>
-          <p>{coffeeShop.state}, </p>
-          <p>
-            {coffeeShop.city}, {coffeeShop.zip}
-          </p>
-        </StyledCoffeeShop>
-      ));
-    }
+        </CoffeeShopNameText>
+        <CoffeeShopLocationText>
+          {coffeeShop.state}, {coffeeShop.city}, {coffeeShop.zip}
+        </CoffeeShopLocationText>
+      </StyledCoffeeShop>
+    ));
   };
 
   const handleSubmit = (e) => {
@@ -136,16 +136,11 @@ const Profile = () => {
       <Box>
         <div className="userinfo">
           <div>
-            <StyledImage
+            <StyledProfileImage
               onClick={handleShow}
               src={user.image ? user.image : userDefaultPhoto}
             />
-            <button
-              style={{ border: "none", background: "none" }}
-              onClick={createEditShow}
-            >
-              <span>&#128295;</span>
-            </button>
+
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit User Pic</Modal.Title>
@@ -164,13 +159,19 @@ const Profile = () => {
               </Modal.Footer>
             </Modal>
           </div>
-          <div>
+          <br />
+          <Row>
             <br />
-            <h4>
+            <StyledUserName>
               {user.first_name} {user.last_name}
-            </h4>
-            <p>{user.email}</p>
-          </div>
+            </StyledUserName>
+            <button
+              style={{ border: "none", background: "none" }}
+              onClick={createEditShow}
+            >
+              <span>&#128295;</span>
+            </button>
+          </Row>
           <Modal show={showEdit} onHide={closeEditShow}>
             <Modal.Header closeButton>
               <Modal.Title>Edit User Profile </Modal.Title>
@@ -187,9 +188,12 @@ const Profile = () => {
       </Box>
 
       <BigBox>
-        <h4>About Me</h4>
-        <p>{user.about_me}</p>
-        <h1>Profiles Reviews</h1>
+        <br />
+        <br />
+        <StyledHeaderText>About Me</StyledHeaderText>
+        <br />
+        <StyledAboutText>{user.about_me}</StyledAboutText>
+        <StyledHeaderText>Recent Reviews</StyledHeaderText>
         <div>{renderProfileReviews()}</div>
         {!noMoreProfileReviews ? (
           <button onClick={moreProfileReviews}>See more reviews</button>
@@ -199,9 +203,13 @@ const Profile = () => {
         <hr />
       </BigBox>
       <Box>
-        <h3>{user.name} Coffee Shops </h3>
+        <Row>
+          <StyledHeaderText>{user.name} Coffee Shops </StyledHeaderText>
+
+          <PlusButton onClick={createShow}>+</PlusButton>
+        </Row>
+        <br />
         <div>
-          <PlusButton onClick={createShow}>Add Coffee Shop</PlusButton>
           <Modal show={show} onHide={closeShow}>
             <Modal.Header closeButton>
               <Modal.Title>Create Coffee Shop</Modal.Title>
@@ -230,19 +238,76 @@ const StyledPage = styled.div`
 
 const StyledCoffeeShop = styled.div`
   display: flex;
-  flex: 1;
-  align-items: center;
   flex-direction: column;
-  background-image: url("https://cdn.pixabay.com/photo/2015/12/03/08/50/paper-1074131_1280.jpg");
   transition: 0.3s;
-  border: 0.1em solid;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
   border-radius: 30px;
-  padding: 1em;
   width: 200px;
   height: 200px;
-  object-fit: scale-down;
+  margin-bottom: 2rem;
+`;
+
+const CoffeeShopImage = styled.img`
+  width: 200px;
+  height: 135px;
+  flex-shrink: 0;
+  border-radius: 30px 30px 0 0;
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+`;
+
+const CoffeeShopNameText = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 20px;
+`;
+
+const CoffeeShopLocationText = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 15px;
+  padding-right: 20px;
+`;
+
+const StyledHeaderText = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 20px;
+`;
+
+const StyledUserName = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+  padding-left: 20px;
+`;
+
+const StyledAboutText = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
 `;
 
 const StyledLayout = styled.div`
@@ -250,13 +315,6 @@ const StyledLayout = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   max-width: 100%;
-`;
-
-const CoffeeShopImage = styled.img`
-  margin-top:0px;
-  flex: 1;
-  max-height: 200px;
-  max-width: 200px:
 `;
 
 const Box = styled.div`
@@ -270,7 +328,7 @@ const Box = styled.div`
 `;
 
 const BigBox = styled.div`
-  flex: 6;
+  flex: 7;
   display: flex;
   width: 600px;
   min-height: 300px;
@@ -279,10 +337,15 @@ const BigBox = styled.div`
   height: 100%;
 `;
 
-const StyledImage = styled.img`
+const StyledProfileImage = styled.img`
   border-radius: 50%;
   height: 200px;
   width: 200px;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 const StyledButton = styled.button`
@@ -290,6 +353,11 @@ const StyledButton = styled.button`
   padding: 0.3em;
   border-radius: 2em;
   background-color: #4e9af1;
+`;
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const PlusButton = styled.button`
