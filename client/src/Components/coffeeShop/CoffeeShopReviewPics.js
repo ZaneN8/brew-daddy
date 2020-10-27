@@ -5,12 +5,10 @@ const CoffeeShopReviewPics = ({ shopId }) => {
   const [reviewPics, setReviewPics] = useState([]);
 
   useEffect(() => {
-    // debugger;
     axios
       .get(`/api/coffee_shops/${shopId}/review_pics`)
       .then((res) => setReviewPics(res.data))
       .catch((err) => {
-        debugger;
         alert("ERROR: CSRP Getting review pics did not work");
       });
   }, []);

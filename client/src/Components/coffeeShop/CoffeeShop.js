@@ -173,11 +173,10 @@ const CoffeeShop = ({ match, history }) => {
           <StyledDescription>{shop.description}</StyledDescription>
           <LinkContainer>
             <Menu href={shop.menu} target="_blank">
-              {shop.name} Menu{"   "}
+              Menu
             </Menu>
-            <hr />
             <Website href={shop.website} target="_blank">
-              {shop.name} Website
+              Website
             </Website>
           </LinkContainer>
           <Contact>
@@ -281,7 +280,7 @@ const StyledInfoContainer = styled.div`
 `;
 
 const InfoRight = styled.div`
-  padding: 15px;
+  padding-left: 50px;
   display: flex;
   flex-direction: column;
 `;
@@ -306,18 +305,19 @@ const StyledCoffeeShopName = styled.h1`
 const StyledShopBoo = styled.p`
   display: flex;
 `;
-// color: ${props =>
-// props}
+// color: ${(props) => (props.shop.open ? "green" : "white")};
 //make so that boolean value changes color
-const StyledDescription = styled.p``;
+const StyledDescription = styled.p`
+  overflow: hidden;
+`;
 
 const LinkContainer = styled.div`
   display: flex;
-  border: 1 px solid green;
 `;
 
 const Menu = styled.a`
   display: flex;
+  margin-right: 2rem;
 `;
 
 const Website = styled.a`
@@ -351,10 +351,10 @@ const Column2 = styled.div`
 
 const RPics = styled.div`
   img {
-    flex_direction: column;
-    height: 100px;
+    flex_direction: row;
+    height: 40px;
     border-radius: 8px;
-    margin: 1em;
+    margin: 3px;
   }
 `;
 
