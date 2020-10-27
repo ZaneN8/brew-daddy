@@ -75,12 +75,12 @@ const Row = styled.div`
 
 const Column1 = styled.div`
   flex: 3;
-  display: flex;
+  display: centered;
   flex-direction: column;
 `;
 
 const Column2 = styled.div`
-  // flex: 7;
+  flex: 7;
   padding: 1em;
 `;
 
