@@ -9,7 +9,6 @@ import styled from "styled-components";
 import UserRating from "./UserRating";
 import userDefaultPhoto from "../../image/userDefault.svg";
 import CoffeeShopReview from "../review/CoffeeShopReview";
-import FontAwesome from "react-fontawesome";
 
 const Profile = () => {
   // const [shops, setShops] = useState([]);
@@ -141,12 +140,7 @@ const Profile = () => {
               onClick={handleShow}
               src={user.image ? user.image : userDefaultPhoto}
             />
-            <button
-              style={{ border: "none", background: "none" }}
-              onClick={createEditShow}
-            >
-              <span>&#128295;</span>
-            </button>
+
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit User Pic</Modal.Title>
@@ -165,12 +159,19 @@ const Profile = () => {
               </Modal.Footer>
             </Modal>
           </div>
-          <div>
+          <br />
+          <Row>
             <br />
             <StyledUserName>
               {user.first_name} {user.last_name}
             </StyledUserName>
-          </div>
+            <button
+              style={{ border: "none", background: "none" }}
+              onClick={createEditShow}
+            >
+              <span>&#128295;</span>
+            </button>
+          </Row>
           <Modal show={showEdit} onHide={closeEditShow}>
             <Modal.Header closeButton>
               <Modal.Title>Edit User Profile </Modal.Title>
@@ -202,9 +203,13 @@ const Profile = () => {
         <hr />
       </BigBox>
       <Box>
-        <StyledHeaderText>{user.name} Coffee Shops </StyledHeaderText>
+        <Row>
+          <StyledHeaderText>{user.name} Coffee Shops </StyledHeaderText>
+
+          <PlusButton onClick={createShow}>+</PlusButton>
+        </Row>
+        <br />
         <div>
-          <PlusButton onClick={createShow}></PlusButton>
           <Modal show={show} onHide={closeShow}>
             <Modal.Header closeButton>
               <Modal.Title>Create Coffee Shop</Modal.Title>
@@ -262,6 +267,9 @@ const CoffeeShopNameText = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 20px;
 `;
 
 const CoffeeShopLocationText = styled.div`
@@ -273,6 +281,8 @@ const CoffeeShopLocationText = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding-left: 15px;
+  padding-right: 20px;
 `;
 
 const StyledHeaderText = styled.div`
@@ -289,6 +299,7 @@ const StyledUserName = styled.div`
   font-weight: bold;
   font-size: 18px;
   line-height: 20px;
+  padding-left: 20px;
 `;
 
 const StyledLayout = styled.div`
@@ -334,6 +345,11 @@ const StyledButton = styled.button`
   padding: 0.3em;
   border-radius: 2em;
   background-color: #4e9af1;
+`;
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const PlusButton = styled.button`

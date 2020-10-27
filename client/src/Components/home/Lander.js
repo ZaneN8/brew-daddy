@@ -76,8 +76,9 @@ const Lander = () => {
           <h2>Meet Our Team</h2>
         </Wrapper1>
       </Row>
-
-      <Team />
+      <StyledLayout>
+        <Team />
+      </StyledLayout>
       <Wrapper1>{"     "}</Wrapper1>
     </>
   );
@@ -143,25 +144,26 @@ const StyledImage = styled.img`
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
 `;
 
-const Wrapper = styled.div` 
+const Wrapper = styled.div`
   display: flex;
-  justify-content: center
-  width: 1168px ;
-  height: 200px;
-  flex: 10;
-  margin: 0;
-  background: url(https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80) no-repeat center;
-  background-size: cover;
-`;
-
-const Wrapper1 = styled.div` 
-  display: flex;
-  justify-content: center
+  justify-content: center;
   width: 1168px;
   height: 200px;
   flex: 10;
   margin: 0;
-  background: #4D4D4D;
+  background: url(https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80)
+    no-repeat center;
+  background-size: cover;
+`;
+
+const Wrapper1 = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 1168px;
+  height: 200px;
+  flex: 10;
+  margin: 0;
+  background: #4d4d4d;
 `;
 
 export default Lander;
