@@ -16,7 +16,6 @@ const UserRating = ({ userId }) => {
   const renderAllRating = () => {
     return (
       <div>
-        <h5> Users Reviews Average </h5>
         <p>
           Average Rating:{" "}
           {ratingsData.total_rating
