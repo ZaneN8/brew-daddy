@@ -69,6 +69,12 @@ STRING_AGG(CAST(food AS VARCHAR),','ORDER by food DESC) AS food_ratings, COUNT(*
     .group("coffee_shops.id")
   end
 
+  def all_review_pics
+    ReviewPic
+      .joins(:review)
+      .where(reviews: { coffee_shop_id: id })
+  end
+
 
 
   # This will filter and "search" based on query passed from the search bar. 

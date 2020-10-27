@@ -13,11 +13,11 @@ const Answer = ({ answer, deleteAnswer, editAnswer }) => {
 
   return (
     <p key={answer.id}>
-      <h6>Answer:</h6>
+      <h6>
+        <b>Answer:</b>
+      </h6>
       {answer.body}
-      {answerOwnedByUser && (
-      <button onClick={handleShow}>Edit Answer</button>
-      )}
+      {answerOwnedByUser && <button onClick={handleShow}>Edit Answer</button>}
       <Modal
         show={showEditAnswer}
         onHide={handleClose}
@@ -39,7 +39,7 @@ const Answer = ({ answer, deleteAnswer, editAnswer }) => {
         </Modal.Footer>
       </Modal>
       {answerOwnedByUser && (
-      <button onClick={() => deleteAnswer(answer.id)}>Delete</button>
+        <button onClick={() => deleteAnswer(answer.id)}>Delete</button>
       )}
     </p>
   );

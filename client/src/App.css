@@ -2,12 +2,6 @@ body {
   font-family: "Open Sans", sans-serif !important;
 }
 
-img {
-  height: 100px;
-  width: 100px;
-}
-/* TODO Fix image sizing */
-
 .landing {
   margin-top: 10%;
   text-align: center;

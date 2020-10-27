@@ -21,6 +21,7 @@ const CoffeeShop = ({ match, history }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [page, setPage] = useState(1);
   const [noMoreReviews, setNoMoreReviews] = useState(false);
+  // const [reviewPics, setReviewPics] = useState([]);
   // This is the "smarter" method of verifying if you are the user that own the coffee shop
   const shopOwnedByUser = user && shop && user.id === shop.user_id;
   const handleClose = () => setShowEditForm(false);
@@ -53,6 +54,17 @@ const CoffeeShop = ({ match, history }) => {
         alert("ERROR: No reviews");
       });
   }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`/api/coffee_shops/${match.params.id}/review_pics`)
+  //     .then((res) => {
+  //       setReviewPics(res.data);
+  //     })
+  //     .catch((err) => {
+  //       alert("ERROR: Getting review pics did not work");
+  //     });
+  // }, []);
 
   const nextPage = () => {
     const params = {
@@ -93,6 +105,9 @@ const CoffeeShop = ({ match, history }) => {
       })
       .catch(console.log);
   };
+  // const deleteReview = () => {
+  //       setReviews(reviews.filter((review) => review.id !== id));
+  // };
 
   const shopCost = () => {
     const dollars = [];
@@ -138,16 +153,23 @@ const CoffeeShop = ({ match, history }) => {
           <StyledCoffeeShopName>
             {shop.name}
             {shopOwnedByUser && (
-            <button onClick={handleShow}>
-              <span>&#128295;</span>
-            </button>
+              <button
+                style={{ border: "none", background: "none" }}
+                onClick={handleShow}
+              >
+                <span>&#128295;</span>
+              </button>
             )}
             <Modal show={showEditForm} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title> Edit Coffee Shop </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <CoffeeShopForm shopProp={shop} hide={handleClose} afterUpdate={editCoffeeShop} />
+                <CoffeeShopForm
+                  shopProp={shop}
+                  hide={handleClose}
+                  afterUpdate={editCoffeeShop}
+                />
               </Modal.Body>
               <Modal.Footer>
                 <button onClick={handleClose}>Cancel</button>
@@ -207,6 +229,14 @@ const CoffeeShop = ({ match, history }) => {
     ));
   };
 
+  // const renderReviewPics = () => {
+  //   return reviewPics.map((rpics) => (
+  //     <CoffeeShopReviewPics
+  //           shopId={shop.id}
+  // />
+  //   ));
+  // };
+
   if (!shop) return null;
   else
     return (
@@ -214,39 +244,44 @@ const CoffeeShop = ({ match, history }) => {
         <StyledInfoContainer>{renderShopInfo()}</StyledInfoContainer>
         {/* <div>{renderAllRating()}</div><hr /> */}
         <CoffeeShopRating match={match} />
-        <CoffeeShopBreakdown match={match} />
         <hr />
         <CoffeeShopQuestions questionsShopId={shop.id} />
 
         <hr />
+        <Row>
+          <Column1>
+            <CoffeeShopBreakdown match={match} />
+          </Column1>
+          <Column2>
+            <div>{renderReviews()}</div>
+            {!noMoreReviews ? (
+              <button onClick={nextPage}>More reviews</button>
+            ) : (
+              <p>No More Reviews</p>
+            )}
+            <br />
+            {user && <button onClick={handleAddReview}> Write Review</button>}
+            <Modal show={showReviewForm}>
+              <Modal.Header closeButton onHide={handleCloseReview}>
+                <Modal.Title>Create Review</Modal.Title>.
+              </Modal.Header>
+              <Modal.Body>
+                <ReviewForm
+                  hide={handleCloseReview}
+                  afterCreate={addReview}
+                  shopId={shop.id}
+                />
+                <Modal.Footer>
+                  <button onClick={handleCloseReview}>Cancel</button>
+                </Modal.Footer>
+              </Modal.Body>
+            </Modal>
+            <br />
+            <hr />
 
-        <div>{renderReviews()}</div>
-        {!noMoreReviews ? (
-          <button onClick={nextPage}>More reviews</button>
-        ) : (
-          <p>No More Reviews</p>
-        )}
-        <br />
-        <button onClick={handleAddReview}> Write Review</button>
-        <Modal show={showReviewForm}>
-          <Modal.Header closeButton onHide={handleCloseReview}>
-            <Modal.Title>Create Review</Modal.Title>.
-          </Modal.Header>
-          <Modal.Body>
-            <ReviewForm
-              hide={handleCloseReview}
-              afterCreate={addReview}
-              shopId={shop.id}
-            />
-            <Modal.Footer>
-              <button onClick={handleCloseReview}>Cancel</button>
-            </Modal.Footer>
-          </Modal.Body>
-        </Modal>
-        <br />
-        <hr />
-
-        <Button onClick={history.goBack}>BACK</Button>
+            <Button onClick={history.goBack}>BACK</Button>
+          </Column2>
+        </Row>
       </StyledPage>
     );
 };
@@ -314,6 +349,20 @@ const Button = styled.button`
   border-radius: 30px;
   border: none;
   color: white;
+`;
+
+const Row = styled.div`
+  display: flex;
+`;
+
+const Column1 = styled.div`
+  flex: 3;
+  display: flex;
+  flex-directionL column;
+`;
+
+const Column2 = styled.div`
+  flex: 7;
 `;
 
 export default CoffeeShop;
