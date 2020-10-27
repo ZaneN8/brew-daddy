@@ -192,7 +192,7 @@ const Profile = () => {
         <br />
         <StyledHeaderText>About Me</StyledHeaderText>
         <br />
-        <p>{user.about_me}</p>
+        <StyledAboutText>{user.about_me}</StyledAboutText>
         <StyledHeaderText>Recent Reviews</StyledHeaderText>
         <div>{renderProfileReviews()}</div>
         {!noMoreProfileReviews ? (
@@ -300,6 +300,14 @@ const StyledUserName = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding-left: 20px;
+`;
+
+const StyledAboutText = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
 `;
 
 const StyledLayout = styled.div`

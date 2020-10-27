@@ -83,7 +83,8 @@ const User = ({ match }) => {
       </Box>
       <BigBox>
         <StyledHeaderText>About Me</StyledHeaderText>
-        <p>{user.about_me}</p>
+        <br />
+        <StyledAboutText>{user.about_me}</StyledAboutText>
         <div> {renderUserReview()}</div>
         <hr />
       </BigBox>
@@ -166,6 +167,14 @@ const StyledUserName = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding-left: 20px;
+`;
+
+const StyledAboutText = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
 `;
 
 const StyledLayout = styled.div`
