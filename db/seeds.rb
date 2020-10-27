@@ -25,14 +25,15 @@ puts "Let the Seeding begin"
         cs = CoffeeShop.create(
             name: Faker::Coffee.blend_name,
             description: Faker::Restaurant.description, # Faker::Coffee.notes
-            image: Faker::Avatar.image(slug: "Coffee Shop #{j}", size: "300x300", format: "png", set: "set4"),
+            image: "https://loremflickr.com/480/320/coffee?random=#{rand(100)}",
+            # image: Faker::Avatar.image(slug: "Coffee Shop #{j}", size: "300x300", format: "png", set: "set4"),
             # image: Faker::LoremFlickr.image(size: "300x300", search_terms: ['coffee']),
             address: Faker::Address.street_address,
             city:Faker::Address.city,
             state: Faker::Address.state,
             zip: Faker::Address.zip,
             contact_info: Faker::PhoneNumber.phone_number,
-            cost: 3,
+            cost: rand(1..4),
             website: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
             menu: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
             open: true,
