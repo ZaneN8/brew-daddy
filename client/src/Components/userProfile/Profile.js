@@ -167,10 +167,9 @@ const Profile = () => {
           </div>
           <div>
             <br />
-            <h4>
+            <StyledUserName>
               {user.first_name} {user.last_name}
-            </h4>
-            <p>{user.email}</p>
+            </StyledUserName>
           </div>
           <Modal show={showEdit} onHide={closeEditShow}>
             <Modal.Header closeButton>
@@ -203,9 +202,9 @@ const Profile = () => {
         <hr />
       </BigBox>
       <Box>
-        <h3>{user.name} Coffee Shops </h3>
+        <StyledHeaderText>{user.name} Coffee Shops </StyledHeaderText>
         <div>
-          <PlusButton onClick={createShow}>HEY</PlusButton>
+          <PlusButton onClick={createShow}></PlusButton>
           <Modal show={show} onHide={closeShow}>
             <Modal.Header closeButton>
               <Modal.Title>Create Coffee Shop</Modal.Title>
@@ -281,6 +280,14 @@ const StyledHeaderText = styled.div`
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
+  line-height: 20px;
+`;
+
+const StyledUserName = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
   line-height: 20px;
 `;
 
