@@ -73,6 +73,10 @@ const Column2 = styled.div`
 
 const StyledImage = styled.img`
   border-radius: 50%;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  width:200px;
+  height 200px;
+
 `;
 
 export default Team;

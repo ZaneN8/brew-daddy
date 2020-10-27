@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import QuestionForm from "./QuestionForm";
 import Question from "./Question";
 import { Modal } from "react-bootstrap";
 import styled from "styled-components";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const CoffeeShopQuestions = ({ questionsShopId }) => {
+  const { user } = useContext(AuthContext);
   const [questions, setQuestions] = useState([]);
   const [showCQuestions, setShowCQuestions] = useState(false);
-  const [page, setPage] = useState(false);
+  const [page, setPage] = useState(1);
   const [noMoreQuestions, setNoMoreQuestions] = useState(false);
   const handleClose = () => setShowCQuestions(false);
   const handleShow = () => setShowCQuestions(true);
@@ -100,9 +102,11 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
         <h1> Questions & Answers</h1>
         <br />
 
-        <button variant="primary" onClick={handleShow}>
-          Write A Question
-        </button>
+        {user && (
+          <button variant="primary" onClick={handleShow}>
+            Write A Question
+          </button>
+        )}
 
         <Modal show={showCQuestions} onHide={handleClose}>
           <Modal.Header closeButton>

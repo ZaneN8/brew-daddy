@@ -22,32 +22,37 @@ const CoffeeShopListItem = ({ coffee }) => {
 
   return (
     <StyledResultCard key={coffee.id}>
-      <p key={coffee.id}>
-        <img src={coffee.image} />
-        <Link as="h1" to={`/coffee_shops/${coffee.id}`}>
-          {coffee.name}
-        </Link>
-        <br />
-        <b> Address: </b> {coffee.address} <br />
-        {coffee.city}, {coffee.state} <br />
-        <br />
-        <b> Phone Number: </b> {coffee.contact_info} <br />
-        {/* Rating: {ratingsData.total_rating} */}
-        <h1>
-          <Rater
-            total={5}
-            interactive={false}
-            rating={`${ratingsData.total_rating}`}
-          />
-        </h1>
-        <br />
-        {coffee.description}
-      </p>
+      <Row>
+        <Column1>
+          <img src={coffee.image} />
+        </Column1>
+        <Column2>
+          <Link as="h1" to={`/coffee_shops/${coffee.id}`}>
+            {coffee.name}
+          </Link>
+          <br />
+          <b> Address: </b> {coffee.address} <br />
+          {coffee.city}, {coffee.state} <br />
+          <br />
+          <b> Phone Number: </b> {coffee.contact_info} <br />
+          {/* Rating: {ratingsData.total_rating} */}
+          <h1>
+            <Rater
+              total={5}
+              interactive={false}
+              rating={`${ratingsData.total_rating}`}
+            />
+          </h1>
+          <br />
+          {coffee.description}
+        </Column2>
+      </Row>
     </StyledResultCard>
   );
 };
 
 const StyledResultCard = styled.div`
+  display: flex;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border: 1px solid;
@@ -55,6 +60,20 @@ const StyledResultCard = styled.div`
   padding: 1em;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+const Row = styled.div`
+  display: flex;
+`;
+
+const Column1 = styled.div`
+  flex: 3;
+  display: flex;
+  flex-directionL column;
+`;
+
+const Column2 = styled.div`
+  flex: 7;
 `;
 
 export default CoffeeShopListItem;

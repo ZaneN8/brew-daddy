@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import UserRating from "./UserRating";
 import userDefaultPhoto from "../../image/userDefault.svg";
+import CoffeeShopReview from "../review/CoffeeShopReview";
 
 const User = ({ match }) => {
   const [user, setUser] = useState({});
@@ -47,19 +48,9 @@ const User = ({ match }) => {
   }, []);
 
   const renderUserReview = () => {
-    {
-      return reviews.map((review) => (
-        <div className="reviewRender" key={review.id}>
-          <h2>{review.title}</h2>
-          <h5>{review.body}</h5>
-          <p>Total rating:{review.rating}</p>
-          <p>Coffee rating:{review.coffee_rating}</p>
-          <p>Work friendly:{review.work_friendly}</p>
-          <p>Food:{review.food}</p>
-          <p>Noise:{review.noise_level}</p>
-        </div>
-      ));
-    }
+    return reviews.map((review) => (
+      <CoffeeShopReview displayShop review={review} />
+    ));
   };
 
   const renderUserCoffeeShop = () => {
@@ -110,6 +101,7 @@ const StyledLayout = styled.div`
 `;
 
 const Box = styled.div`
+  flex: 3;
   display: flex;
   width: 175px;
   min-height: 300px;
@@ -119,6 +111,7 @@ const Box = styled.div`
 `;
 
 const BigBox = styled.div`
+  flex: 6;
   display: flex;
   width: 600px;
   min-height: 300px;
@@ -129,6 +122,8 @@ const BigBox = styled.div`
 
 const StyledImage = styled.img`
   border-radius: 50%;
+  height: 200px;
+  width: 200px;
 `;
 
 export default User;

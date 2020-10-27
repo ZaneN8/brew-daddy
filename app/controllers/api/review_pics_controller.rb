@@ -1,9 +1,15 @@
 class Api::ReviewPicsController < ApplicationController
   before_action :set_review
   before_action :set_review_pic, only: [:show, :destroy]
+  before_action :set_coffee_shop, only: [:all_review_pics]
 
   def show
     
+  end
+
+  def all_review_pics
+    review_pics = @coffee_shop.all_review_pics
+    render json: review_pics 
   end
 
   def index
@@ -55,5 +61,9 @@ class Api::ReviewPicsController < ApplicationController
 
   def set_review_pic
     @review_pic = @review.review_pics.find(params[:id])
+  end
+
+  def set_coffee_shop
+    @coffee_shop = CoffeeShop.find(params[:coffee_shop_id])
   end
 end

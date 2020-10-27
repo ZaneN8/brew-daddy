@@ -8,6 +8,7 @@ import { Modal, Form } from "react-bootstrap";
 import styled from "styled-components";
 import UserRating from "./UserRating";
 import userDefaultPhoto from "../../image/userDefault.svg";
+import CoffeeShopReview from "../review/CoffeeShopReview";
 
 const Profile = () => {
   // const [shops, setShops] = useState([]);
@@ -75,18 +76,25 @@ const Profile = () => {
   const addCoffeeShop = (shop) =>
     setProfileCoffeeShops([shop, ...profileCoffeeShops]);
 
+  const editReview = (newReview) => {
+    const newReviews = profileReviews.map((review) => {
+      if (newReview.id === review.id) return newReview;
+      else return review;
+    });
+    setProfileReviews(newReviews);
+  };
+  // const deleteReview = () => {
+  // setProfileReviews(profileReviews.filter((review) => review.id !== id));
+  // };
+
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
-      <div className="profileReviewRender" key={review.id}>
-        <h4>{review.coffee_shop_id}</h4>
-        <h4>{review.title}</h4>
-        <h5>{review.body}</h5>
-        <p>Total rating:{review.rating}</p>
-        <p>Coffee rating:{review.coffee_rating}</p>
-        <p>Work friendly:{review.work_friendly}</p>
-        <p>Food:{review.food}</p>
-        <p>Noise:{review.noise_level}</p>
-      </div>
+      <CoffeeShopReview
+        displayShop
+        review={review}
+        editReview={editReview}
+        // deleteReview={deleteReview}
+      />
     ));
   };
 
@@ -132,6 +140,12 @@ const Profile = () => {
               onClick={handleShow}
               src={user.image ? user.image : userDefaultPhoto}
             />
+            <button
+              style={{ border: "none", background: "none" }}
+              onClick={createEditShow}
+            >
+              <span>&#128295;</span>
+            </button>
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit User Pic</Modal.Title>
@@ -151,12 +165,12 @@ const Profile = () => {
             </Modal>
           </div>
           <div>
-            {user.first_name} {user.last_name}
+            <br />
+            <h4>
+              {user.first_name} {user.last_name}
+            </h4>
             <p>{user.email}</p>
           </div>
-          <button onClick={createEditShow}>
-            <span>&#128295;</span>
-          </button>
           <Modal show={showEdit} onHide={closeEditShow}>
             <Modal.Header closeButton>
               <Modal.Title>Edit User Profile </Modal.Title>
@@ -225,7 +239,7 @@ const StyledCoffeeShop = styled.div`
   border-radius: 30px;
   padding: 1em;
   width: 200px;
-  height: flex;
+  height: 200px;
   object-fit: scale-down;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -239,10 +253,14 @@ const StyledLayout = styled.div`
 `;
 
 const CoffeeShopImage = styled.img`
+  margin-top:0px;
   flex: 1;
+  max-height: 200px;
+  max-width: 200px:
 `;
 
 const Box = styled.div`
+  flex: 3;
   display: flex;
   width: 175px;
   min-height: 300px;
@@ -252,6 +270,7 @@ const Box = styled.div`
 `;
 
 const BigBox = styled.div`
+  flex: 6;
   display: flex;
   width: 600px;
   min-height: 300px;
@@ -262,6 +281,8 @@ const BigBox = styled.div`
 
 const StyledImage = styled.img`
   border-radius: 50%;
+  height: 200px;
+  width: 200px;
 `;
 
 const StyledButton = styled.button`

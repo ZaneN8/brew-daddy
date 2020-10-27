@@ -16,15 +16,13 @@ const UserRating = ({ userId }) => {
   const renderAllRating = () => {
     return (
       <div>
-        <h4> Users Reviews Average </h4>
-        <br />
+        <h5> Users Reviews Average </h5>
         <p>
           Average Rating:{" "}
           {ratingsData.total_rating
             ? ratingsData.total_rating.toFixed(1)
             : "NA"}
         </p>
-        <br />
         <p>Total Ratings: {ratingsData && ratingsData.total_count}</p>
       </div>
     );

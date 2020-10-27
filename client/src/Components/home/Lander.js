@@ -61,19 +61,31 @@ const Row = styled.div`
 `;
 
 const Card1 = styled.div`
-  background-color: red;
+  background: linear-gradient(
+    156.55deg,
+    #d8d8d8 30.74%,
+    rgba(255, 255, 255, 0) 149.22%
+  );
   margin: 10px;
   padding: 10px;
   flex: 1;
   border-radius: 16px;
+  width: 570px;
+  height: 200px;
 `;
 
 const Card2 = styled.div`
-  background-color: blue;
+  background: linear-gradient(
+    156.55deg,
+    #4d4d4d 30.74%,
+    rgba(77, 77, 77, 0) 149.22%
+  );
   margin: 10px;
   padding: 10px;
   flex: 1;
   border-radius: 16px;
+  width: 570px;
+  height: 200px;
 `;
 
 const Column1 = styled.div`
@@ -88,6 +100,8 @@ const Column2 = styled.div`
 
 const StyledImage = styled.img`
   border-radius: 15px;
+  width: 500px;
+  height: 500px;
 `;
 
 export default Lander;
