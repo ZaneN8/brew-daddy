@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styled from "styled-components";
 
 const UserRating = ({ userId }) => {
   const [ratingsData, setRatingsData] = useState(null);
@@ -16,19 +17,29 @@ const UserRating = ({ userId }) => {
   const renderAllRating = () => {
     return (
       <div>
-        <h5> Users Reviews Average </h5>
-        <p>
-          Average Rating:{" "}
+        <StyledUserInfo>
+          {ratingsData && ratingsData.total_count} Reviews
+        </StyledUserInfo>
+        <StyledUserInfo>
           {ratingsData.total_rating
             ? ratingsData.total_rating.toFixed(1)
-            : "NA"}
-        </p>
-        <p>Total Ratings: {ratingsData && ratingsData.total_count}</p>
+            : "NA"}{" "}
+          Avg Rating
+        </StyledUserInfo>
       </div>
     );
   };
 
   return <>{ratingsData && renderAllRating()}</>;
 };
+
+const StyledUserInfo = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  padding-left: 20px;
+`;
 
 export default UserRating;

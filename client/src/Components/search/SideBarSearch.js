@@ -47,8 +47,9 @@ const SideBarSearch = ({
 const StyledForm = styled(Form)`
   margin: auto;
   display: flex;
-  background: #d9d9d9;
+  background: #ffffff;
   padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 `;
 
 const StyledGroup = styled(Form.Group)`

@@ -59,14 +59,17 @@ const CoffeeShopReview = ({
     setReviewPics([newImage, ...reviewPics]);
   };
 
-  // const deleteReview = (id) => {
-  //   axios
-  //     .delete(`/api/coffee_shops/${review.coffee_shop_id}/reviews/${id}`)
-  //     .then((res) => {
-  //       setReviews(reviews.filter((review) => review.id !== id));
-  //     })
-  //     .catch(console.log);
-  // };
+  const handleReviewDelete = () => {
+    const { id, coffee_shop_id } = review;
+    axios
+      .delete(`/api/coffee_shops/${coffee_shop_id}/reviews/${id}`)
+      .then((res) => {
+        if (typeof deleteReview === "function") {
+          deleteReview(id);
+        }
+      })
+      .catch(console.log);
+  };
 
   const morePics = () => {
     const params = {
@@ -99,7 +102,8 @@ const CoffeeShopReview = ({
   }, []);
 
   return (
-    <StyledLayout>
+    <>
+      <br />
       <div key={review.id}>
         <StyledImage src={""} />{" "}
         {displayShop && coffeeShop && coffeeShop.name ? (
@@ -197,10 +201,10 @@ const CoffeeShopReview = ({
           </Modal.Footer>
         </Modal>
         {reviewOwnedByUser && (
-          <button onClick={() => deleteReview(review.id)}>Delete</button>
+          <button onClick={handleReviewDelete}>Delete</button>
         )}
       </div>
-    </StyledLayout>
+    </>
   );
 };
 

@@ -87,16 +87,8 @@ const CoffeeShop = ({ match, history }) => {
   };
 
   const deleteReview = (id) => {
-    axios
-      .delete(`/api/coffee_shops/${shop.id}/reviews/${id}`)
-      .then((res) => {
-        setReviews(reviews.filter((review) => review.id !== id));
-      })
-      .catch(console.log);
+    setReviews(reviews.filter((review) => review.id !== id));
   };
-  // const deleteReview = () => {
-  //       setReviews(reviews.filter((review) => review.id !== id));
-  // };
 
   const shopCost = () => {
     const dollars = [];
