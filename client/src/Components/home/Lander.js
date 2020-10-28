@@ -18,7 +18,7 @@ const Lander = () => {
       <StyledLayout>
         <Row>
           <div>
-            <h2>We are Brew Daddy</h2>
+            <h2 style={{ paddingTop: "10%" }}>We are Brew Daddy</h2>
             <p>
               <About />
             </p>
@@ -72,14 +72,14 @@ const Lander = () => {
         </Row>
       </StyledLayout>
       <Row>
-        <Wrapper1>
-          <h2 style={{ color: "white", paddingTop: "90px" }}>Meet Our Team</h2>
+        <Wrapper1 style={{ background: "#FBF7F3" }}>
+          <h2 style={{ color: "black", paddingTop: "90px" }}>Meet Our Team</h2>
         </Wrapper1>
       </Row>
       <StyledLayout>
         <Team />
       </StyledLayout>
-      <Wrapper1>{"     "}</Wrapper1>
+      <Wrapper1 style={{ background: "#2D2721" }}>{"     "}</Wrapper1>
     </>
   );
 };
@@ -157,7 +157,6 @@ const Wrapper1 = styled.div`
   height: 200px;
   flex: 10;
   margin: 0;
-  background: black;
 `;
 
 export default Lander;

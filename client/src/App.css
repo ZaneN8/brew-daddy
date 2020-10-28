@@ -5,7 +5,8 @@ body {
 h1,
 h2,
 h3 {
-  font-family: "Miriam Libre", sans-serif !important;
+  font-family: "Anton", sans-serif;
+  letter-spacing: 0.02em;
 }
 
 .landing {

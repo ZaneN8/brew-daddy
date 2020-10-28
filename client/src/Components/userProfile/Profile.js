@@ -9,6 +9,7 @@ import styled from "styled-components";
 import UserRating from "./UserRating";
 import userDefaultPhoto from "../../image/userDefault.svg";
 import CoffeeShopReview from "../review/CoffeeShopReview";
+import FontAwesome from "react-fontawesome";
 
 const Profile = () => {
   // const [shops, setShops] = useState([]);
@@ -168,7 +169,16 @@ const Profile = () => {
               style={{ border: "none", background: "none" }}
               onClick={createEditShow}
             >
-              <span>&#128295;</span>
+              <span>
+                <FontAwesome
+                  style={{
+                    border: "none",
+                    background: "none",
+                    color: "#DADADA",
+                  }}
+                  name="wrench"
+                />
+              </span>
             </button>
           </Row>
           <Modal show={showEdit} onHide={closeEditShow}>
@@ -185,19 +195,16 @@ const Profile = () => {
         </div>
         {user && <UserRating userId={user.id} />}
       </Box>
-
       <BigBox>
         <StyledHeaderText>About Me</StyledHeaderText>
-        <hr />
         <StyledAboutText>{user.about_me}</StyledAboutText>
-        <hr />
-        <StyledHeaderText>Recent Reviews</StyledHeaderText>
+        <StyledReviewText>Recent Reviews</StyledReviewText>
         <div>{renderProfileReviews()}</div>
         <br />
         {!noMoreProfileReviews ? (
-          <StyledButton onClick={moreProfileReviews}>
+          <StyledLoadMoreButton onClick={moreProfileReviews}>
             See more reviews
-          </StyledButton>
+          </StyledLoadMoreButton>
         ) : (
           <StyledAboutText>
             That's all the reviews for this profile
@@ -207,8 +214,24 @@ const Profile = () => {
       </BigBox>
       <Box>
         <Row>
-          <StyledHeaderText>Coffee Shops</StyledHeaderText>
-          <PlusButton onClick={createShow}>+</PlusButton>
+          <StyledHeaderText>
+            Coffee Shops
+            <button
+              style={{ border: "none", background: "none" }}
+              onClick={createShow}
+            >
+              <span>
+                <FontAwesome
+                  style={{
+                    border: "none",
+                    background: "none",
+                    color: "#dbd4cc",
+                  }}
+                  name="plus-circle"
+                />
+              </span>
+            </button>
+          </StyledHeaderText>
         </Row>
         <br />
         <div>
@@ -225,7 +248,6 @@ const Profile = () => {
           </Modal>
         </div>
         <div>{renderProfileCoffeeShop()}</div>
-
         <hr />
       </Box>
       <br />
@@ -293,6 +315,15 @@ const StyledHeaderText = styled.div`
   font-weight: bold;
   font-size: 24px;
   line-height: 20px;
+  padding-bottom: 30px;
+`;
+const StyledReviewText = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 20px;
+  padding-bottom: 30px;
 `;
 
 const StyledUserName = styled.div`
@@ -311,6 +342,7 @@ const StyledAboutText = styled.div`
   font-weight: normal;
   font-size: 12px;
   line-height: 20px;
+  padding-bottom: 60px;
 `;
 
 const StyledLayout = styled.div`
@@ -349,6 +381,25 @@ const StyledProfileImage = styled.img`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  cursor: pointer;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  }
+`;
+
+const StyledLoadMoreButton = styled.button`
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 `;
 
 const StyledButton = styled.button`
@@ -367,7 +418,7 @@ const StyledButton = styled.button`
   line-height: 20px;
   transition: all 0.2s;
   &:hover {
-     border-color: #371e0a;
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
   }
 `;
 

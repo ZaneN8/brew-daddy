@@ -72,14 +72,6 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
     setQuestions(newQuestions);
   };
 
-  // const editReview = (newReview) => {
-  //   const newReviews = reviews.map((review) => {
-  //     if (newReview.id === review.id) return newReview;
-  //     else return review;
-  //   });
-  //   setReviews(newReviews);
-  // };
-
   const renderQuestion = () => {
     return questions.map((question) => (
       <Question
@@ -102,11 +94,7 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
         <h1> Questions & Answers</h1>
         <br />
 
-        {user && (
-          <button variant="primary" onClick={handleShow}>
-            Write A Question
-          </button>
-        )}
+        {user && <button onClick={handleShow}>Write A Question</button>}
 
         <Modal show={showCQuestions} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -126,7 +114,9 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
 
         {renderQuestion()}
         {!noMoreQuestions ? (
-          <Button onClick={nextPage}>More questions</Button>
+          <StyledLoadMoreButton onClick={nextPage}>
+            See more questions
+          </StyledLoadMoreButton>
         ) : (
           <p>No more questions</p>
         )}
@@ -150,13 +140,17 @@ const StyledResultCard = styled.div`
   padding: 1em;
 `;
 
-const Button = styled.button`
-  display: inline-block;
-  font-size: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid;
-  border-radius: 20px;
-  display: block;
+const StyledLoadMoreButton = styled.button`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 `;
 
 export default CoffeeShopQuestions;

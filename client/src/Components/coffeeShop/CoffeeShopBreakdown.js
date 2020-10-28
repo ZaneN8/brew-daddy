@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import styled from "styled-components";
 
 const CoffeeShopBreakdown = ({ match }) => {
   const [breakdownRating, setBreakdownRating] = useState([]);
@@ -31,7 +32,10 @@ const CoffeeShopBreakdown = ({ match }) => {
     return breakdownRating.map((rating) => (
       <div>
         {rating.rating} Stars{" "}
-        <ProgressBar now={rating.review_count} max={ratingsData.total_rating} />
+        <StyledProgress
+          now={rating.review_count}
+          max={ratingsData.total_rating}
+        />
       </div>
     ));
     // return (
@@ -47,5 +51,13 @@ const CoffeeShopBreakdown = ({ match }) => {
     </>
   );
 };
+
+const StyledProgress = styled(ProgressBar)`
+  margin-bottom: 1rem;
+
+  .progress-bar {
+    background-color: #2d2721 !important;
+  }
+`;
 
 export default CoffeeShopBreakdown;

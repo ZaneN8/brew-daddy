@@ -5,6 +5,8 @@ import QuestionForm from "./QuestionForm";
 import axios from "axios";
 import { Modal } from "react-bootstrap";
 import { AuthContext } from "../../providers/AuthProvider";
+import styled from "styled-components";
+import FontAwesome from "react-fontawesome";
 
 const Question = ({
   question,
@@ -94,12 +96,31 @@ const Question = ({
 
   return (
     <div key={question.id}>
-      <h2>Question:{question.body}</h2>
+      <p>
+        <b>Question:{question.body}</b>
+
+        {questionOwnedByUser && (
+          <StyledButton onClick={handleShow}>Edit Question</StyledButton>
+        )}
+        {questionOwnedByUser && (
+          <StyledButton onClick={() => deleteQuestion(question.id)}>
+            Delete Question
+          </StyledButton>
+        )}
+      </p>
       {renderAnswers()}
 
-      {!noMoreAnswers && <button onClick={nextPage}>Show Answers</button>}
-
-      {user && <button onClick={handleAnswerShow}>Create Answer</button>}
+      {!noMoreAnswers && (
+        <StyledLoadMoreAButton onClick={nextPage}>
+          see more answers
+        </StyledLoadMoreAButton>
+      )}
+      <br />
+      {user && (
+        <StyledButton style={{ marginTop: "5px" }} onClick={handleAnswerShow}>
+          Create Answer
+        </StyledButton>
+      )}
       <Modal show={showCAnswers}>
         <Modal.Header closeButton>
           <Modal.Title>Create Answer</Modal.Title>
@@ -119,9 +140,18 @@ const Question = ({
       </Modal>
 
       {questionOwnedByUser && (
-        <button variant="primary" onClick={handleShow}>
-          Edit Question
-        </button>
+        <StyledButton onClick={handleShow}>
+          <span>
+            <FontAwesome
+              style={{
+                border: "none",
+                background: "none",
+                color: "#DADADA",
+              }}
+              name="wrench"
+            />
+          </span>
+        </StyledButton>
       )}
 
       <Modal show={showEditQuestion} onHide={handleClose}>
@@ -140,13 +170,42 @@ const Question = ({
           <button onClick={handleClose}>Cancel</button>
         </Modal.Footer>
       </Modal>
-      {questionOwnedByUser && (
-        <button variant="primary" onClick={() => deleteQuestion(question.id)}>
-          Delete Question
-        </button>
-      )}
     </div>
   );
 };
+
+const StyledLoadMoreAButton = styled.button`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  color: #7b7b7b;
+  line-height: 20px;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+`;
+
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  // margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.2s;
+  &:hover {
+     border-color: #371e0a;
+  }
+`;
 
 export default Question;
