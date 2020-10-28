@@ -64,7 +64,7 @@ puts "Let the Seeding begin"
     end
 end
 
-puts "wait were almost done"
+puts "Please wait, we're almost done!"
 
 300.times do |r|
     rv = Review.create(

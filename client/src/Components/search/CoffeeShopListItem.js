@@ -35,22 +35,25 @@ const CoffeeShopListItem = ({ coffee }) => {
           <img src={coffee.image} />
         </Column1>
         <Column2>
-          <Title><Link to={`/coffee_shops/${coffee.id}`}>
-            {coffee.name}
-          </Link></Title>
+          <Title>
+            <Link to={`/coffee_shops/${coffee.id}`}>{coffee.name}</Link>
+          </Title>
           <Rater
-              total={5}
-              interactive={false}
-              rating={`${ratingsData.total_rating}`}
-            /> {coffee.cost && shopCost()}
+            total={5}
+            interactive={false}
+            rating={`${ratingsData.total_rating}`}
+          />{" "}
+          {coffee.cost && shopCost()}
           <br />
           <Contact>
-          <b> Address: </b> {coffee.address} {coffee.city}, {coffee.state} {coffee.zip}<br />
-          <b> Contact: </b> {coffee.contact_info} <br />
-         
-          {/* Rating: {ratingsData.total_rating} */}
-          <br />
-          {coffee.description} </Contact>
+            <b> Address: </b> {coffee.address} {coffee.city}, {coffee.state}{" "}
+            {coffee.zip}
+            <br />
+            <b> Contact: </b> {coffee.contact_info} <br />
+            {/* Rating: {ratingsData.total_rating} */}
+            <br />
+            {coffee.description}{" "}
+          </Contact>
         </Column2>
       </Row>
     </StyledResultCard>
@@ -67,6 +70,8 @@ const StyledResultCard = styled.div`
   margin: 2em;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-overflow: "…";
+  height: 200px;
 `;
 
 const Row = styled.div`
@@ -91,6 +96,6 @@ const Contact = styled.h5`
 const Title = styled.div`
   font-size: 16px;
   font-weight: bold;
-`
+`;
 
 export default CoffeeShopListItem;

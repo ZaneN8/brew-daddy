@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Form, Modal } from "react-bootstrap";
+import styled from "styled-components";
 
 const ReviewImageUpload = ({ reviewProp, afterCreate }) => {
   const [show, setShow] = useState(false);
@@ -41,7 +42,7 @@ const ReviewImageUpload = ({ reviewProp, afterCreate }) => {
 
   return (
     <>
-      <button onClick={handleShow}>Add Image</button>
+      <PlusButton onClick={handleShow}>+</PlusButton>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -63,5 +64,23 @@ const ReviewImageUpload = ({ reviewProp, afterCreate }) => {
     </>
   );
 };
+
+const PlusButton = styled.button`
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  // padding: 0.1em 0.2em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  transition: all 0.2s;
+  &:hover {
+     border-color: black;
+  }
+`;
 
 export default ReviewImageUpload;

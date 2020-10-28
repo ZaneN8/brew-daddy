@@ -62,7 +62,7 @@ const User = ({ match }) => {
             <a href={`/coffee_shops/${coffeeShop.id}`}>{coffeeShop.name}</a>
           </CoffeeShopNameText>
           <CoffeeShopLocationText>
-            {coffeeShop.state},{coffeeShop.city},{coffeeShop.zip}
+            {coffeeShop.state}, {coffeeShop.city}, {coffeeShop.zip}
           </CoffeeShopLocationText>
         </StyledCoffeeShop>
       ));
@@ -78,18 +78,19 @@ const User = ({ match }) => {
         <StyledUserName>
           {user.first_name} {user.last_name}
         </StyledUserName>
-        <br />
         <UserRating userId={match.params.id} />
       </Box>
       <BigBox>
         <StyledHeaderText>About Me</StyledHeaderText>
-        <br />
+        <hr />
         <StyledAboutText>{user.about_me}</StyledAboutText>
-        <div> {renderUserReview()}</div>
+        <hr />
+        <StyledHeaderText>Recent Reviews</StyledHeaderText>
+        <div>{renderUserReview()}</div>
         <hr />
       </BigBox>
       <Box>
-        <StyledHeaderText>COFFEE SHOPS </StyledHeaderText>
+        <StyledHeaderText>Coffee Shops</StyledHeaderText>
         <br />
         <Row>
           <div>{renderUserCoffeeShop()}</div>
@@ -167,6 +168,7 @@ const StyledUserName = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding-left: 20px;
+  padding-bottom: 15px;
 `;
 
 const StyledAboutText = styled.div`

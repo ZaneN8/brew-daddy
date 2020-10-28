@@ -140,7 +140,6 @@ const Profile = () => {
               onClick={handleShow}
               src={user.image ? user.image : userDefaultPhoto}
             />
-
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit User Pic</Modal.Title>
@@ -174,7 +173,7 @@ const Profile = () => {
           </Row>
           <Modal show={showEdit} onHide={closeEditShow}>
             <Modal.Header closeButton>
-              <Modal.Title>Edit User Profile </Modal.Title>
+              <Modal.Title>Edit User Profile</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <EditProfileForm hide={closeEditShow} />
@@ -188,11 +187,10 @@ const Profile = () => {
       </Box>
 
       <BigBox>
-        <br />
-        <br />
         <StyledHeaderText>About Me</StyledHeaderText>
-        <br />
+        <hr />
         <StyledAboutText>{user.about_me}</StyledAboutText>
+        <hr />
         <StyledHeaderText>Recent Reviews</StyledHeaderText>
         <div>{renderProfileReviews()}</div>
         {!noMoreProfileReviews ? (
@@ -204,8 +202,7 @@ const Profile = () => {
       </BigBox>
       <Box>
         <Row>
-          <StyledHeaderText>{user.name} Coffee Shops </StyledHeaderText>
-
+          <StyledHeaderText>Coffee Shops</StyledHeaderText>
           <PlusButton onClick={createShow}>+</PlusButton>
         </Row>
         <br />
@@ -300,6 +297,7 @@ const StyledUserName = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding-left: 20px;
+  padding-bottom: 15px;
 `;
 
 const StyledAboutText = styled.div`
@@ -362,17 +360,16 @@ const Row = styled.div`
 
 const PlusButton = styled.button`
   display: incline-block;
-  // padding: 0.1em 0.2em;
   margin: 0 0.1em 0.1em 0;
-  border: 0.16em solid green;
-  border-radius: 1em;
-  background-color: green;
+  border: 0.16em solid #dbd4cc;
+  border-radius: 50%;
+  background-color: #dbd4cc;
   color: white;
   text-align: center;
   font-size: 30px;
   transition: all 0.2s;
   &:hover {
-     border-color: black;
+     border-color: #371e0a;
   }
 `;
 
