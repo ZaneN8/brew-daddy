@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
+import CoffeeDesc from "./CoffeeDesc";
 
 const CoffeeShopListItem = ({ coffee }) => {
   const [ratingsData, setRatingsData] = useState({});
@@ -52,7 +53,9 @@ const CoffeeShopListItem = ({ coffee }) => {
             <b> Contact: </b> {coffee.contact_info} <br />
             {/* Rating: {ratingsData.total_rating} */}
             <br />
-            {coffee.description}{" "}
+            {/* {coffee.description}{" "} */}
+            <CoffeeDesc coffee={coffee} /> <Link to={`/coffee_shops/${coffee.id}`}>Read More...</Link>
+        
           </Contact>
         </Column2>
       </Row>

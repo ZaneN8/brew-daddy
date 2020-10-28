@@ -129,7 +129,9 @@ const CoffeeShop = ({ match, history }) => {
   const renderShopInfo = () => (
     <div>
       <StyledShop>
-        <StyledImg src={shop.image} />
+        <ImageBox>
+          <StyledImg src={shop.image} />
+        </ImageBox>
         <InfoRight>
           <StyledCoffeeShopName>
             {shop.name}
@@ -178,10 +180,17 @@ const CoffeeShop = ({ match, history }) => {
             rating={`${ratingsData.total_rating}`}
           />
           <StyledMoney>{shop.cost && shopCost()}</StyledMoney>
-          <StyledShopBoo>
-            Open:{shop.open} Delivery:{shop.delivery} Order Online:
-            {shop.order_online} Pick Up:{shop.pick_up}
-          </StyledShopBoo>
+          <BoolenBox>
+            <Open open={shop.open}>Open{shop.open}</Open>
+            <Delivery delivers={shop.delivery}>
+              Delivery{shop.delivery}
+            </Delivery>
+            <Online online={shop.order_online}>
+              Order Online
+              {shop.order_online}
+            </Online>
+            <PickUp pick={shop.pick_up}>Pick Up{shop.pick_up}</PickUp>
+          </BoolenBox>
           <StyledDescription>{shop.description}</StyledDescription>
           <LinkContainer>
             <Menu href={shop.menu} target="_blank">
@@ -284,7 +293,7 @@ const CoffeeShop = ({ match, history }) => {
 };
 
 const StyledPage = styled.div`
-  padding: 3em 4em 1em;
+  padding: 3em 6em 1em;
 `;
 
 const StyledInfoContainer = styled.div`
@@ -297,10 +306,16 @@ const InfoRight = styled.div`
   flex-direction: column;
 `;
 
+const ImageBox = styled.div``;
+
 const StyledImg = styled.img`
+  heigth: 400px;
+  width: 350px;
   border-radius: 20%;
-  max-width: 350px;
-  max-height: 400px;
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 const StyledShop = styled.div`
@@ -322,11 +337,49 @@ const StyledMoney = styled.div`
   color: #86945e;
 `;
 
-const StyledShopBoo = styled.p`
+const BoolenBox = styled.div`
   display: flex;
 `;
-// color: ${(props) => (props.shop.open ? "green" : "white")};
-//make so that boolean value changes color
+
+const Open = styled.p`
+  font-weight: bold;
+  margin: 5px;
+  padding: 4px;
+  background-color: ${(props) => (props.open ? "#86945E" : "#ff6961")};
+  color: ${(props) => (props.open ? "white" : "white")};
+  opacity: ${(props) => (props.open ? 0.9 : 0.2)};
+  border-radius: 8px;
+`;
+
+const Delivery = styled.p`
+  font-weight: bold;
+  margin: 5px;
+  padding: 4px;
+  background-color: ${(props) => (props.delivers ? "#86945E" : "#ff6961")};
+  color: ${(props) => (props.delivers ? "white" : "white")};
+  opacity: ${(props) => (props.delivers ? 0.9 : 0.2)};
+  border-radius: 8px;
+`;
+
+const PickUp = styled.p`
+  font-weight: bold;
+  margin: 5px;
+  padding: 4px;
+  background-color: ${(props) => (props.pick ? "#86945E" : "#ff6961")};
+  color: ${(props) => (props.pick ? "white" : "white")};
+  opacity: ${(props) => (props.pick ? 0.9 : 0.2)};
+  border-radius: 8px;
+`;
+
+const Online = styled.p`
+  font-weight: bold;
+  margin: 5px;
+  padding: 4px;
+  background-color: ${(props) => (props.online ? "#86945E" : "#ff6961")};
+  color: ${(props) => (props.online ? "white" : "white")};
+  opacity: ${(props) => (props.online ? 0.9 : 0.2)};
+  border-radius: 8px;
+`;
 const StyledDescription = styled.p`
   overflow: hidden;
 `;
@@ -360,6 +413,7 @@ const Row = styled.div`
 `;
 
 const Column1 = styled.div`
+  margin-right: 5rem;
   flex: 3;
   display: flex;
   flex-direction: column;
