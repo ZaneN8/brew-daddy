@@ -98,18 +98,6 @@ const CoffeeShop = ({ match, history }) => {
     return dollars;
   };
 
-  // const renderAllRating = () => {
-  // return (
-  //   <div>
-  //   <b>Overall Rating: {ratingsData.total_rating} </b><br />
-  //   Food Quality: {ratingsData.total_food} <br />
-  //   Coffee Quality: {ratingsData.total_coffee} <br />
-  //   Noise Level: {ratingsData.total_noise_level} <br />
-  //   Work Friendly: {ratingsData.total_work_friendly} <br />
-
-  //   </div>)
-  // }
-
   const editCoffeeShop = (fig) => {
     setShop(fig);
   };
@@ -236,6 +224,7 @@ const CoffeeShop = ({ match, history }) => {
             ) : (
               <p>No More Reviews</p>
             )}
+            <hr />
             <br />
             {user && <button onClick={handleAddReview}> Write Review</button>}
             <Modal show={showReviewForm}>
@@ -255,7 +244,6 @@ const CoffeeShop = ({ match, history }) => {
             </Modal>
             <br />
             <hr />
-
             <Button onClick={history.goBack}>BACK</Button>
           </Column2>
         </Row>
@@ -280,7 +268,7 @@ const InfoRight = styled.div`
 const StyledImg = styled.img`
   border-radius: 20%;
   max-width: 350px;
-  max-hieght: 400px;
+  max-height: 400px;
 `;
 
 const StyledShop = styled.div`
@@ -335,6 +323,7 @@ const Column1 = styled.div`
   flex: 3;
   display: flex;
   flex-direction: column;
+  padding-right: 2.5%;
 `;
 
 const Column2 = styled.div`

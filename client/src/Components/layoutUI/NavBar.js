@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import styled from "styled-components";
+import BrewDad from "../../image/Brew_Daddy.jpeg";
 
 // For Basic setup only please change
 const NavBar = ({ match }) => {
@@ -11,29 +13,50 @@ const NavBar = ({ match }) => {
     if (user) {
       return (
         <>
-          <Link onClick={() => handleLogout(history)} to="">
-            Logout
+          <Link
+            style={{ color: "white" }}
+            onClick={() => handleLogout(history)}
+            to=""
+          >
+            {"    "}Logout
           </Link>
         </>
       );
     } else {
       return (
         <>
-          <Link to="/login">Login</Link>
+          <Link style={{ color: "white" }} to="/login">
+            {"    "}Login
+          </Link>
           <span style={{ marginRight: "10px" }}></span>
-          <Link to="/register">Register</Link>
+          <Link style={{ color: "white" }} to="/register">
+            {"    "}Register
+          </Link>
         </>
       );
     }
   };
 
   return (
-    <div style={styles.navbar}>
-      <Link to="/">DashBoard</Link>
-      <span style={{ marginRight: "10px" }}></span>
-      <div>{correctNavBar()}</div>
-      {user && <Link to="/profile">User Profile</Link>}
-    </div>
+    <StyledLayout>
+      <div style={styles.navbar}>
+        <div style={{ justifyContent: "space-between", padding: "10px" }}>
+          <Row>
+            <StyledImage src={BrewDad} />
+            <Link style={{ color: "white" }} to="/">
+              Home
+            </Link>
+            <span style={{ marginRight: "10px" }}></span>
+            {user && (
+              <Link style={{ color: "white" }} to="/profile">
+                Profile{"    "}
+              </Link>
+            )}
+            {correctNavBar()}
+          </Row>
+        </div>
+      </div>
+    </StyledLayout>
   );
 };
 
@@ -41,7 +64,31 @@ const styles = {
   navbar: {
     background: "black",
     padding: "10px",
+    textAlign: "end",
   },
 };
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StyledLayout = styled.div`
+  max-width: 100%;
+  max-height: 50px
+  margin: 0%;
+  display: flex;
+  flex-direction: column;
+  background: "#BFBFBF";
+`;
+
+const StyledImage = styled.img`
+  display: flex;
+  flex: 1;
+  margin-right: 80% !important;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+`;
 
 export default NavBar;

@@ -140,7 +140,6 @@ const Profile = () => {
               onClick={handleShow}
               src={user.image ? user.image : userDefaultPhoto}
             />
-
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit User Pic</Modal.Title>
@@ -361,17 +360,16 @@ const Row = styled.div`
 
 const PlusButton = styled.button`
   display: incline-block;
-  // padding: 0.1em 0.2em;
   margin: 0 0.1em 0.1em 0;
-  border: 0.16em solid green;
-  border-radius: 1em;
-  background-color: green;
+  border: 0.16em solid #dbd4cc;
+  border-radius: 50%;
+  background-color: #dbd4cc;
   color: white;
   text-align: center;
   font-size: 30px;
   transition: all 0.2s;
   &:hover {
-     border-color: black;
+     border-color: #371e0a;
   }
 `;
 

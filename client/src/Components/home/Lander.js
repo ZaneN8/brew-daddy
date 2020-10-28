@@ -44,7 +44,7 @@ const Lander = () => {
             </Card2>
           </Column2>
           <Column1>
-            <StyledImage src="https://images.unsplash.com/photo-1586818063302-af03b7573133?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
+            <StyledImage src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
           </Column1>
         </Row>
         <Row>
@@ -73,7 +73,7 @@ const Lander = () => {
       </StyledLayout>
       <Row>
         <Wrapper1>
-          <h2 style={{ color: "white", paddingTop: "15%" }}>Meet Our Team</h2>
+          <h2 style={{ color: "white", paddingTop: "90px" }}>Meet Our Team</h2>
         </Wrapper1>
       </Row>
       <StyledLayout>
@@ -98,11 +98,8 @@ const Row = styled.div`
 `;
 
 const Card1 = styled.div`
-  background: linear-gradient(
-    156.55deg,
-    #d8d8d8 30.74%,
-    rgba(255, 255, 255, 0) 149.22%
-  );
+  color: white;
+  background: linear-gradient(156.55deg, #2d2721 30.74%, #8a8179 149.22%);
   margin: 10px;
   padding: 10px;
   flex: 1;
@@ -113,11 +110,7 @@ const Card1 = styled.div`
 `;
 
 const Card2 = styled.div`
-  background: linear-gradient(
-    156.55deg,
-    #4d4d4d 30.74%,
-    rgba(77, 77, 77, 0) 149.22%
-  );
+  background: linear-gradient(156.55deg, #fdf6ee 30.74%, #dbd4cc 149.22%);
   margin: 10px;
   padding: 10px;
   flex: 1;
@@ -164,7 +157,7 @@ const Wrapper1 = styled.div`
   height: 200px;
   flex: 10;
   margin: 0;
-  background: #4d4d4d;
+  background: black;
 `;
 
 export default Lander;
