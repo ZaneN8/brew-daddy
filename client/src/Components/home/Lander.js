@@ -7,7 +7,7 @@ import styled from "styled-components";
 const Lander = () => {
   return (
     <>
-      <Wrapper>
+      <Wrapper url="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80">
         <StyledLayout>
           <Row>
             <HomeSearch />
@@ -73,7 +73,7 @@ const Lander = () => {
       </StyledLayout>
       <Row>
         <Wrapper1>
-          <h2>Meet Our Team</h2>
+          <h2 style={{ color: "white", paddingTop: "90px" }}>Meet Our Team</h2>
         </Wrapper1>
       </Row>
       <StyledLayout>
@@ -98,11 +98,8 @@ const Row = styled.div`
 `;
 
 const Card1 = styled.div`
-  background: linear-gradient(
-    156.55deg,
-    #d8d8d8 30.74%,
-    rgba(255, 255, 255, 0) 149.22%
-  );
+  color: white;
+  background: linear-gradient(156.55deg, #2d2721 30.74%, #8a8179 149.22%);
   margin: 10px;
   padding: 10px;
   flex: 1;
@@ -113,11 +110,7 @@ const Card1 = styled.div`
 `;
 
 const Card2 = styled.div`
-  background: linear-gradient(
-    156.55deg,
-    #4d4d4d 30.74%,
-    rgba(77, 77, 77, 0) 149.22%
-  );
+  background: linear-gradient(156.55deg, #fdf6ee 30.74%, #dbd4cc 149.22%);
   margin: 10px;
   padding: 10px;
   flex: 1;
@@ -147,23 +140,24 @@ const StyledImage = styled.img`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 1168px;
+  width: 100%;
   height: 200px;
-  flex: 10;
+  flex-shrink: 0;
   margin: 0;
-  background: url(https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80)
-    no-repeat center;
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 `;
 
 const Wrapper1 = styled.div`
   display: flex;
   justify-content: center;
-  width: 1168px;
+  width: 100%;
   height: 200px;
   flex: 10;
   margin: 0;
-  background: #4d4d4d;
+  background: black;
 `;
 
 export default Lander;

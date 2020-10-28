@@ -88,7 +88,7 @@ const User = ({ match }) => {
             <a href={`/coffee_shops/${coffeeShop.id}`}>{coffeeShop.name}</a>
           </CoffeeShopNameText>
           <CoffeeShopLocationText>
-            {coffeeShop.state},{coffeeShop.city},{coffeeShop.zip}
+            {coffeeShop.state}, {coffeeShop.city}, {coffeeShop.zip}
           </CoffeeShopLocationText>
         </StyledCoffeeShop>
       ));
@@ -104,13 +104,13 @@ const User = ({ match }) => {
         <StyledUserName>
           {user.first_name} {user.last_name}
         </StyledUserName>
-        <br />
         <UserRating userId={match.params.id} />
       </Box>
       <BigBox>
         <StyledHeaderText>About Me</StyledHeaderText>
-        <br />
+        <hr />
         <StyledAboutText>{user.about_me}</StyledAboutText>
+        <StyledHeaderText>Recent Reviews</StyledHeaderText>
         <div> {renderUserReview()}</div>
         {!noMoreUserReviews ? (
           <button onClick={moreUserReviews}>See more reviews</button>
@@ -118,9 +118,10 @@ const User = ({ match }) => {
           <p>That's all the reviews for this profile</p>
         )}
         <hr />
+        <hr />
       </BigBox>
       <Box>
-        <StyledHeaderText>COFFEE SHOPS </StyledHeaderText>
+        <StyledHeaderText>Coffee Shops</StyledHeaderText>
         <br />
         <Row>
           <div>{renderUserCoffeeShop()}</div>
@@ -198,6 +199,7 @@ const StyledUserName = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding-left: 20px;
+  padding-bottom: 15px;
 `;
 
 const StyledAboutText = styled.div`
@@ -213,6 +215,22 @@ const StyledLayout = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   max-width: 100%;
+`;
+
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  // margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-size: 12px;
+  transition: all 0.2s;
+  &:hover {
+     border-color: #371e0a;
+  }
 `;
 
 const Box = styled.div`
@@ -244,13 +262,6 @@ const StyledUserImage = styled.img`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-`;
-
-const StyledButton = styled.button`
-  display: inline-block;
-  padding: 0.3em;
-  border-radius: 2em;
-  background-color: #4e9af1;
 `;
 
 const Row = styled.div`

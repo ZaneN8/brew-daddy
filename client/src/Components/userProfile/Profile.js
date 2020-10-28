@@ -140,7 +140,6 @@ const Profile = () => {
               onClick={handleShow}
               src={user.image ? user.image : userDefaultPhoto}
             />
-
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit User Pic</Modal.Title>
@@ -174,7 +173,7 @@ const Profile = () => {
           </Row>
           <Modal show={showEdit} onHide={closeEditShow}>
             <Modal.Header closeButton>
-              <Modal.Title>Edit User Profile </Modal.Title>
+              <Modal.Title>Edit User Profile</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <EditProfileForm hide={closeEditShow} />
@@ -188,24 +187,27 @@ const Profile = () => {
       </Box>
 
       <BigBox>
-        <br />
-        <br />
         <StyledHeaderText>About Me</StyledHeaderText>
-        <br />
+        <hr />
         <StyledAboutText>{user.about_me}</StyledAboutText>
+        <hr />
         <StyledHeaderText>Recent Reviews</StyledHeaderText>
         <div>{renderProfileReviews()}</div>
+        <br />
         {!noMoreProfileReviews ? (
-          <button onClick={moreProfileReviews}>See more reviews</button>
+          <StyledButton onClick={moreProfileReviews}>
+            See more reviews
+          </StyledButton>
         ) : (
-          <p>That's all the reviews for this profile</p>
+          <StyledAboutText>
+            That's all the reviews for this profile
+          </StyledAboutText>
         )}
         <hr />
       </BigBox>
       <Box>
         <Row>
-          <StyledHeaderText>{user.name} Coffee Shops </StyledHeaderText>
-
+          <StyledHeaderText>Coffee Shops</StyledHeaderText>
           <PlusButton onClick={createShow}>+</PlusButton>
         </Row>
         <br />
@@ -300,6 +302,7 @@ const StyledUserName = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding-left: 20px;
+  padding-bottom: 15px;
 `;
 
 const StyledAboutText = styled.div`
@@ -349,10 +352,23 @@ const StyledProfileImage = styled.img`
 `;
 
 const StyledButton = styled.button`
-  display: inline-block;
-  padding: 0.3em;
-  border-radius: 2em;
-  background-color: #4e9af1;
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  // margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.2s;
+  &:hover {
+     border-color: #371e0a;
+  }
 `;
 
 const Row = styled.div`
@@ -362,17 +378,16 @@ const Row = styled.div`
 
 const PlusButton = styled.button`
   display: incline-block;
-  // padding: 0.1em 0.2em;
   margin: 0 0.1em 0.1em 0;
-  border: 0.16em solid green;
-  border-radius: 1em;
-  background-color: green;
+  border: 0.16em solid #dbd4cc;
+  border-radius: 50%;
+  background-color: #dbd4cc;
   color: white;
   text-align: center;
   font-size: 30px;
   transition: all 0.2s;
   &:hover {
-     border-color: black;
+     border-color: #371e0a;
   }
 `;
 

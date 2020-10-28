@@ -55,6 +55,11 @@ const CoffeeShopReview = ({
     }
   };
 
+  const reviewTimeStamp = () => {
+    let date = new Date(review.created_at);
+    return <>{review && date.toLocaleDateString("en-US")}</>;
+  };
+
   const addImage = (newImage) => {
     setReviewPics([newImage, ...reviewPics]);
   };
@@ -105,83 +110,96 @@ const CoffeeShopReview = ({
     <>
       <br />
       <div key={review.id}>
-        <StyledImage src={""} />{" "}
-        {displayShop && coffeeShop && coffeeShop.name ? (
-          <Link to={`/coffee_shops/${review.coffee_shop_id}`}>
-            {" "}
-            {coffeeShop && coffeeShop.name}
-          </Link>
-        ) : (
-          <Link to={`/users/${review.user_id}`}>
-            {reviewUser && reviewUser.first_name + " " + reviewUser.last_name}
-          </Link>
-        )}
-        {reviewOwnedByUser && (
-          <button onClick={handleShow}>
-            <span>&#128295;</span>
-          </button>
-        )}
-        <h3>
-          {/* Total rating:{" "} */}
+        <Row>
+          {displayShop && coffeeShop ? (
+            <StyledImage src={coffeeShop.image} />
+          ) : !displayShop && user ? (
+            <StyledImage src={user.image} />
+          ) : (
+            <img src="" />
+          )}
+          {displayShop && coffeeShop && coffeeShop.name ? (
+            <StyledReviewName>
+              <Link to={`/coffee_shops/${review.coffee_shop_id}`}>
+                {coffeeShop && coffeeShop.name}
+              </Link>
+            </StyledReviewName>
+          ) : (
+            <StyledReviewName>
+              <Link to={`/users/${review.user_id}`}>
+                {reviewUser &&
+                  reviewUser.first_name + " " + reviewUser.last_name}
+              </Link>
+            </StyledReviewName>
+          )}
+          {reviewOwnedByUser && (
+            <button onClick={handleShow}>
+              <span>&#128295;</span>
+            </button>
+          )}
+        </Row>
+        <Row>
           <Rater total={5} interactive={false} rating={`${review.rating}`} />
-          <br />
-          {review.title}
-        </h3>
-        <h5>{review.body}</h5>
+          <StyledReviewHeader>{review.title}</StyledReviewHeader>
+        </Row>
+        <StyledTimeStamp>Reviewed on {reviewTimeStamp()}</StyledTimeStamp>
+        <StyledReviewName>{review.body}</StyledReviewName>
         <p>{review.image}</p>
-        {/* <p>
-          Total rating:{" "}
-          <Rater total={5} interactive={false} rating={`${review.rating}`} />
-        </p> */}
         <Row>
           <Column1>
-            <p>
+            <StyledRating>
               Coffee rating:
               <Rater
                 total={5}
                 interactive={false}
                 rating={`${review.coffee_rating}`}
               />
-            </p>
+            </StyledRating>
           </Column1>
           <Column2>
-            <p>
+            <StyledRating>
               Work friendly:
               <Rater
                 total={5}
                 interactive={false}
                 rating={`${review.work_friendly}`}
               />
-            </p>
+            </StyledRating>
           </Column2>
         </Row>
         <Row>
           <Column1>
-            <p>
+            <StyledRating>
               Food:
               <Rater total={5} interactive={false} rating={`${review.food}`} />
-            </p>
+            </StyledRating>
           </Column1>
           <Column2>
-            <p>
+            <StyledRating>
               Noise:
               <Rater
                 total={5}
                 interactive={false}
                 rating={`${review.noise_level}`}
               />
-            </p>
+            </StyledRating>
           </Column2>
         </Row>
-        <p>{renderReviewImages()}</p>
+        <br />
+        <Row>
+          <p>{renderReviewImages()}</p>
+          <p>
+            {reviewOwnedByUser && (
+              <ReviewImageUpload reviewProp={review} afterCreate={addImage} />
+            )}
+          </p>
+        </Row>
         {!noMoreReviewPics ? (
-          <button onClick={morePics}>Load More</button>
+          <StyledButton onClick={morePics}>Load More</StyledButton>
         ) : (
           <p>No more pictures</p>
         )}
-        {reviewOwnedByUser && (
-          <ReviewImageUpload reviewProp={review} afterCreate={addImage} />
-        )}
+
         <Modal show={showEditForm} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Edit Review</Modal.Title>
@@ -201,7 +219,7 @@ const CoffeeShopReview = ({
           </Modal.Footer>
         </Modal>
         {reviewOwnedByUser && (
-          <button onClick={handleReviewDelete}>Delete</button>
+          <StyledButton onClick={handleReviewDelete}>Delete</StyledButton>
         )}
       </div>
     </>
@@ -218,6 +236,8 @@ const StyledLayout = styled.div`
 
 const Row = styled.div`
   display: flex;
+  align-items: center;
+  grid-column-gap: 5px;
 `;
 
 const Column1 = styled.div`
@@ -230,10 +250,59 @@ const Column2 = styled.div`
   flex: 5;
 `;
 
-const StyledImage = styled.img`
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  // margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid #dbd4cc;
   border-radius: 15px;
-  width: 10px;
-  height: 10px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-size: 12px;
+  transition: all 0.2s;
+  &:hover {
+     border-color: #371e0a;
+  }
+`;
+
+const StyledImage = styled.img`
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+`;
+
+const StyledReviewName = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
+`;
+
+const StyledTimeStamp = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
+  color: #7b7b7b;
+`;
+
+const StyledReviewHeader = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+`;
+
+const StyledRating = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
 `;
 
 const UploadedReviewImage = styled.img`
