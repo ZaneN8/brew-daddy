@@ -193,10 +193,15 @@ const Profile = () => {
         <hr />
         <StyledHeaderText>Recent Reviews</StyledHeaderText>
         <div>{renderProfileReviews()}</div>
+        <br />
         {!noMoreProfileReviews ? (
-          <button onClick={moreProfileReviews}>See more reviews</button>
+          <StyledButton onClick={moreProfileReviews}>
+            See more reviews
+          </StyledButton>
         ) : (
-          <p>That's all the reviews for this profile</p>
+          <StyledAboutText>
+            That's all the reviews for this profile
+          </StyledAboutText>
         )}
         <hr />
       </BigBox>
@@ -347,10 +352,23 @@ const StyledProfileImage = styled.img`
 `;
 
 const StyledButton = styled.button`
-  display: inline-block;
-  padding: 0.3em;
-  border-radius: 2em;
-  background-color: #4e9af1;
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  // margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.2s;
+  &:hover {
+     border-color: #371e0a;
+  }
 `;
 
 const Row = styled.div`
