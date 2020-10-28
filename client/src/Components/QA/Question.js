@@ -100,12 +100,12 @@ const Question = ({
         <b>Question:{question.body}</b>
 
         {questionOwnedByUser && (
-          <StyledButton onClick={handleShow}>Edit Question</StyledButton>
+          <button onClick={handleShow}>Edit Question</button>
         )}
         {questionOwnedByUser && (
-          <StyledButton onClick={() => deleteQuestion(question.id)}>
+          <button onClick={() => deleteQuestion(question.id)}>
             Delete Question
-          </StyledButton>
+          </button>
         )}
       </p>
       {renderAnswers()}
@@ -117,9 +117,9 @@ const Question = ({
       )}
       <br />
       {user && (
-        <StyledButton style={{ marginTop: "5px" }} onClick={handleAnswerShow}>
+        <button style={{ marginTop: "5px" }} onClick={handleAnswerShow}>
           Create Answer
-        </StyledButton>
+        </button>
       )}
       <Modal show={showCAnswers}>
         <Modal.Header closeButton>
@@ -140,7 +140,7 @@ const Question = ({
       </Modal>
 
       {questionOwnedByUser && (
-        <StyledButton onClick={handleShow}>
+        <button onClick={handleShow}>
           <span>
             <FontAwesome
               style={{
@@ -151,7 +151,7 @@ const Question = ({
               name="wrench"
             />
           </span>
-        </StyledButton>
+        </button>
       )}
 
       <Modal show={showEditQuestion} onHide={handleClose}>
@@ -186,26 +186,6 @@ const StyledLoadMoreAButton = styled.button`
   margin: 0;
   padding: 0;
   cursor: pointer;
-`;
-
-const StyledButton = styled.button`
-  display: incline-block;
-  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
-  // margin: 0 0.1em 0.1em 0;
-  border: 0.16em solid #dbd4cc;
-  border-radius: 15px;
-  background-color: #dbd4cc;
-  color: black;
-  text-align: center;
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 20px;
-  transition: all 0.2s;
-  &:hover {
-     border-color: #371e0a;
-  }
 `;
 
 export default Question;
