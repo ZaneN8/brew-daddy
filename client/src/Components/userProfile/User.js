@@ -186,6 +186,22 @@ const StyledLayout = styled.div`
   max-width: 100%;
 `;
 
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  // margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-size: 12px;
+  transition: all 0.2s;
+  &:hover {
+     border-color: #371e0a;
+  }
+`;
+
 const Box = styled.div`
   flex: 3;
   display: flex;
@@ -215,13 +231,6 @@ const StyledUserImage = styled.img`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-`;
-
-const StyledButton = styled.button`
-  display: inline-block;
-  padding: 0.3em;
-  border-radius: 2em;
-  background-color: #4e9af1;
 `;
 
 const Row = styled.div`

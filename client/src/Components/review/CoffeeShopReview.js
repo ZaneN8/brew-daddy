@@ -111,10 +111,12 @@ const CoffeeShopReview = ({
       <br />
       <div key={review.id}>
         <Row>
-          {displayShop && coffeeShop && coffeeShop.name ? (
+          {displayShop && coffeeShop ? (
             <StyledImage src={coffeeShop.image} />
-          ) : (
+          ) : !displayShop && user ? (
             <StyledImage src={user.image} />
+          ) : (
+            <img src="" />
           )}
           {displayShop && coffeeShop && coffeeShop.name ? (
             <StyledReviewName>
@@ -140,7 +142,6 @@ const CoffeeShopReview = ({
           <Rater total={5} interactive={false} rating={`${review.rating}`} />
           <StyledReviewHeader>{review.title}</StyledReviewHeader>
         </Row>
-        {/* <StyledTimeStamp>{review.created_at}</StyledTimeStamp> */}
         <StyledTimeStamp>Reviewed on {reviewTimeStamp()}</StyledTimeStamp>
         <StyledReviewName>{review.body}</StyledReviewName>
         <p>{review.image}</p>
@@ -184,6 +185,7 @@ const CoffeeShopReview = ({
             </StyledRating>
           </Column2>
         </Row>
+        <br />
         <Row>
           <p>{renderReviewImages()}</p>
           <p>
@@ -193,7 +195,7 @@ const CoffeeShopReview = ({
           </p>
         </Row>
         {!noMoreReviewPics ? (
-          <button onClick={morePics}>Load More</button>
+          <StyledButton onClick={morePics}>Load More</StyledButton>
         ) : (
           <p>No more pictures</p>
         )}
@@ -217,7 +219,7 @@ const CoffeeShopReview = ({
           </Modal.Footer>
         </Modal>
         {reviewOwnedByUser && (
-          <button onClick={handleReviewDelete}>Delete</button>
+          <StyledButton onClick={handleReviewDelete}>Delete</StyledButton>
         )}
       </div>
     </>
@@ -246,6 +248,22 @@ const Column1 = styled.div`
 
 const Column2 = styled.div`
   flex: 5;
+`;
+
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  // margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-size: 12px;
+  transition: all 0.2s;
+  &:hover {
+     border-color: #371e0a;
+  }
 `;
 
 const StyledImage = styled.img`
