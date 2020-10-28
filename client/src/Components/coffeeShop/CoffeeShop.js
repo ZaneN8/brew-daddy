@@ -277,19 +277,13 @@ const InfoRight = styled.div`
 const ImageBox = styled.div``;
 
 const StyledImg = styled.img`
-<<<<<<< HEAD
   hiegth: 400px;
   width: 350px;
-  border-radius: 30px;
+  border-radius: 20%;
   background-image: url(${(props) => props.url});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-=======
-  border-radius: 20%;
-  max-width: 350px;
-  max-height: 400px;
->>>>>>> 9bf51e746e9a7dfb00d1a60e9a81ad126fba6934
 `;
 
 const StyledShop = styled.div`
