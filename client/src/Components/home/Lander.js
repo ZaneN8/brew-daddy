@@ -7,7 +7,7 @@ import styled from "styled-components";
 const Lander = () => {
   return (
     <>
-      <Wrapper>
+      <Wrapper url="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80">
         <StyledLayout>
           <Row>
             <HomeSearch />
@@ -44,7 +44,7 @@ const Lander = () => {
             </Card2>
           </Column2>
           <Column1>
-            <StyledImage src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
+            <StyledImage src="https://images.unsplash.com/photo-1586818063302-af03b7573133?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
           </Column1>
         </Row>
         <Row>
@@ -73,7 +73,7 @@ const Lander = () => {
       </StyledLayout>
       <Row>
         <Wrapper1>
-          <h2>Meet Our Team</h2>
+          <h2 style={{ color: "white", paddingTop: "15%" }}>Meet Our Team</h2>
         </Wrapper1>
       </Row>
       <StyledLayout>
@@ -147,19 +147,20 @@ const StyledImage = styled.img`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 1168px;
+  width: 100%;
   height: 200px;
-  flex: 10;
+  flex-shrink: 0;
   margin: 0;
-  background: url(https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80)
-    no-repeat center;
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 `;
 
 const Wrapper1 = styled.div`
   display: flex;
   justify-content: center;
-  width: 1168px;
+  width: 100%;
   height: 200px;
   flex: 10;
   margin: 0;

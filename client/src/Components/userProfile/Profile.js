@@ -174,7 +174,7 @@ const Profile = () => {
           </Row>
           <Modal show={showEdit} onHide={closeEditShow}>
             <Modal.Header closeButton>
-              <Modal.Title>Edit User Profile </Modal.Title>
+              <Modal.Title>Edit User Profile</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <EditProfileForm hide={closeEditShow} />
@@ -188,11 +188,10 @@ const Profile = () => {
       </Box>
 
       <BigBox>
-        <br />
-        <br />
         <StyledHeaderText>About Me</StyledHeaderText>
-        <br />
+        <hr />
         <StyledAboutText>{user.about_me}</StyledAboutText>
+        <hr />
         <StyledHeaderText>Recent Reviews</StyledHeaderText>
         <div>{renderProfileReviews()}</div>
         {!noMoreProfileReviews ? (
@@ -204,8 +203,7 @@ const Profile = () => {
       </BigBox>
       <Box>
         <Row>
-          <StyledHeaderText>{user.name} Coffee Shops </StyledHeaderText>
-
+          <StyledHeaderText>Coffee Shops</StyledHeaderText>
           <PlusButton onClick={createShow}>+</PlusButton>
         </Row>
         <br />
@@ -300,6 +298,7 @@ const StyledUserName = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding-left: 20px;
+  padding-bottom: 15px;
 `;
 
 const StyledAboutText = styled.div`

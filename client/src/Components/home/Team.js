@@ -10,6 +10,7 @@ const Team = () => {
         </Column1>
         <Column2>
           <Card>
+            <h3 style={{ textAlign: "left" }}>Jon Roberts</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
@@ -17,13 +18,14 @@ const Team = () => {
               consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
               labore et dolore magna aliqua. Sit amet justo donec enim diam
               vulputate.
-            </p>{" "}
+            </p>
           </Card>
         </Column2>
       </Row>
       <Row>
         <Column2>
           <Card>
+            <h3 style={{ textAlign: "right" }}>Zane Newsom</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
@@ -44,6 +46,7 @@ const Team = () => {
         </Column1>
         <Column2>
           <Card>
+            <h3 style={{ textAlign: "left" }}>Simon Johnston</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
@@ -58,6 +61,7 @@ const Team = () => {
       <Row>
         <Column2>
           <Card>
+            <h3 style={{ textAlign: "right" }}>Riley Santi</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit

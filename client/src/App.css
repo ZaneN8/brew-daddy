@@ -2,7 +2,9 @@ body {
   font-family: "Open Sans", sans-serif !important;
 }
 
-h1 {
+h1,
+h2,
+h3 {
   font-family: "Miriam Libre", sans-serif !important;
 }
 
