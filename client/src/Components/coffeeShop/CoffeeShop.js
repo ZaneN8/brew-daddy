@@ -277,7 +277,7 @@ const InfoRight = styled.div`
 const ImageBox = styled.div``;
 
 const StyledImg = styled.img`
-  hiegth: 400px;
+  heigth: 400px;
   width: 350px;
   border-radius: 20%;
   background-image: url(${(props) => props.url});
