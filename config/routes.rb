@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'api/auth'
-  namespace :api do 
+  namespace :api do
     #This will list ALL review in database, for database validation. 
     #Remove the line below to disable view of all reviews.
     get "/reviews/all", to: "reviews#all"
@@ -41,5 +41,7 @@ Rails.application.routes.draw do
       resources :coffee_shops
     end
   end
+
+  get '*other', to: 'static#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
