@@ -8,6 +8,7 @@ import CoffeeShopQuestions from "../QA/CoffeeShopQuestions";
 import CoffeeShopBreakdown from "./CoffeeShopBreakdown";
 import styled from "styled-components";
 import { Modal } from "react-bootstrap";
+import CoffeeShopReviewPics from "./CoffeeShopReviewPics";
 
 // TODO 1) Add this Context to pull the information from Auth
 import { AuthContext } from "../../providers/AuthProvider";
@@ -21,7 +22,6 @@ const CoffeeShop = ({ match, history }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [page, setPage] = useState(1);
   const [noMoreReviews, setNoMoreReviews] = useState(false);
-  // const [reviewPics, setReviewPics] = useState([]);
   // This is the "smarter" method of verifying if you are the user that own the coffee shop
   const shopOwnedByUser = user && shop && user.id === shop.user_id;
   const handleClose = () => setShowEditForm(false);
@@ -54,17 +54,6 @@ const CoffeeShop = ({ match, history }) => {
         alert("ERROR: No reviews");
       });
   }, []);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`/api/coffee_shops/${match.params.id}/review_pics`)
-  //     .then((res) => {
-  //       setReviewPics(res.data);
-  //     })
-  //     .catch((err) => {
-  //       alert("ERROR: Getting review pics did not work");
-  //     });
-  // }, []);
 
   const nextPage = () => {
     const params = {
@@ -176,11 +165,10 @@ const CoffeeShop = ({ match, history }) => {
           <StyledDescription>{shop.description}</StyledDescription>
           <LinkContainer>
             <Menu href={shop.menu} target="_blank">
-              {shop.name} Menu{"   "}
+              Menu
             </Menu>
-            <hr />
             <Website href={shop.website} target="_blank">
-              {shop.name} Website
+              Website
             </Website>
           </LinkContainer>
           <Contact>
@@ -221,14 +209,6 @@ const CoffeeShop = ({ match, history }) => {
     ));
   };
 
-  // const renderReviewPics = () => {
-  //   return reviewPics.map((rpics) => (
-  //     <CoffeeShopReviewPics
-  //           shopId={shop.id}
-  // />
-  //   ));
-  // };
-
   if (!shop) return null;
   else
     return (
@@ -243,6 +223,11 @@ const CoffeeShop = ({ match, history }) => {
         <Row>
           <Column1>
             <CoffeeShopBreakdown match={match} />
+            <br />
+            <hr />
+            <RPics>
+              <CoffeeShopReviewPics shopId={shop.id} />
+            </RPics>
           </Column1>
           <Column2>
             <div>{renderReviews()}</div>
@@ -287,14 +272,15 @@ const StyledInfoContainer = styled.div`
 `;
 
 const InfoRight = styled.div`
+  padding-left: 50px;
   display: flex;
   flex-direction: column;
 `;
 
 const StyledImg = styled.img`
-  // border: 2px solid red; //take out when done
-  display: flex;
   border-radius: 20%;
+  max-width: 350px;
+  max-hieght: 400px;
 `;
 
 const StyledShop = styled.div`
@@ -311,21 +297,19 @@ const StyledCoffeeShopName = styled.h1`
 const StyledShopBoo = styled.p`
   display: flex;
 `;
-// color: ${props =>
-// props}
+// color: ${(props) => (props.shop.open ? "green" : "white")};
 //make so that boolean value changes color
 const StyledDescription = styled.p`
-  display: flex;
-  // border: 1 px solid red;
+  overflow: hidden;
 `;
 
 const LinkContainer = styled.div`
   display: flex;
-  border: 1 px solid green;
 `;
 
 const Menu = styled.a`
   display: flex;
+  margin-right: 2rem;
 `;
 
 const Website = styled.a`
@@ -350,11 +334,20 @@ const Row = styled.div`
 const Column1 = styled.div`
   flex: 3;
   display: flex;
-  flex-directionL column;
+  flex-direction: column;
 `;
 
 const Column2 = styled.div`
   flex: 7;
+`;
+
+const RPics = styled.div`
+  img {
+    flex_direction: row;
+    height: 40px;
+    border-radius: 8px;
+    margin: 3px;
+  }
 `;
 
 export default CoffeeShop;

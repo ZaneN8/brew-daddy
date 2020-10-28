@@ -1,5 +1,5 @@
 class Api::ReviewPicsController < ApplicationController
-  before_action :set_review
+  before_action :set_review, only: [:create, :index, :destroy]
   before_action :set_review_pic, only: [:show, :destroy]
   before_action :set_coffee_shop, only: [:all_review_pics]
 
