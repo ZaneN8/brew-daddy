@@ -54,8 +54,8 @@ const CoffeeShopListItem = ({ coffee }) => {
             {/* Rating: {ratingsData.total_rating} */}
             <br />
             {/* {coffee.description}{" "} */}
-            <CoffeeDesc coffee={coffee} /> <Link to={`/coffee_shops/${coffee.id}`}>Read More...</Link>
-        
+            <CoffeeDesc coffee={coffee} />{" "}
+            <Link to={`/coffee_shops/${coffee.id}`}>Read More...</Link>
           </Contact>
         </Column2>
       </Row>
@@ -82,13 +82,13 @@ const Row = styled.div`
 `;
 
 const Column1 = styled.div`
-  flex: 3;
+  flex: 1;
   display: centered;
   flex-direction: column;
 `;
 
 const Column2 = styled.div`
-  flex: 7;
+  flex: 9;
   padding: 1em;
 `;
 

@@ -99,7 +99,7 @@ const CoffeeShopReview = ({
 
   const renderReviewImages = () => {
     return reviewPics.map((revPic) => (
-      <UploadedReviewImage key={revPic.id} src={revPic.image} />
+      <UploadedReviewImage key={revPic.id} url={revPic.image} />
     ));
   };
 
@@ -112,9 +112,9 @@ const CoffeeShopReview = ({
       <div key={review.id}>
         <Row>
           {displayShop && coffeeShop ? (
-            <StyledImage src={coffeeShop.image} />
+            <StyledImage url={coffeeShop.image} />
           ) : !displayShop && user ? (
-            <StyledImage src={user.image} />
+            <StyledImage url={user.image} />
           ) : (
             <img src="" />
           )}
@@ -283,10 +283,14 @@ const StyledLoadMoreButton = styled.button`
   cursor: pointer;
 `;
 
-const StyledImage = styled.img`
+const StyledImage = styled.div`
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 const StyledReviewName = styled.div`
@@ -322,11 +326,15 @@ const StyledRating = styled.div`
   line-height: 20px;
 `;
 
-const UploadedReviewImage = styled.img`
+const UploadedReviewImage = styled.div`
   border-radius: 15px;
   margin: 5px;
   width: 50px;
   height: 50px;
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 export default CoffeeShopReview;

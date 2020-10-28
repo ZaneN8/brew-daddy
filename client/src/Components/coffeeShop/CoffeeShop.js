@@ -130,7 +130,7 @@ const CoffeeShop = ({ match, history }) => {
     <div>
       <StyledShop>
         <ImageBox>
-          <StyledImg src={shop.image} />
+          <StyledImg url={shop.image} />
         </ImageBox>
         <InfoRight>
           <StyledCoffeeShopName>
@@ -153,9 +153,18 @@ const CoffeeShop = ({ match, history }) => {
               </button>
             )}
             {shopOwnedByUser && (
-              <button onClick={() => deleteCoffeeShop(shop.id)}>
-                {" "}
-                Delete Coffee Shop
+              <button
+                style={{ border: "none", background: "none" }}
+                onClick={() => deleteCoffeeShop(shop.id)}
+              >
+                <FontAwesome
+                  style={{
+                    border: "none",
+                    background: "none",
+                    color: "#DADADA",
+                  }}
+                  name="trash"
+                />
               </button>
             )}
             <Modal show={showEditForm} onHide={handleClose}>
@@ -215,12 +224,6 @@ const CoffeeShop = ({ match, history }) => {
           <br />
           <br />
           <br />
-          {shopOwnedByUser && (
-            <button onClick={() => deleteCoffeeShop(shop.id)}>
-              {" "}
-              Delete Coffee Shop
-            </button>
-          )}
         </InfoRight>
       </StyledShop>
     </div>
@@ -308,10 +311,11 @@ const InfoRight = styled.div`
 
 const ImageBox = styled.div``;
 
-const StyledImg = styled.img`
-  heigth: 400px;
+const StyledImg = styled.div`
+  height: 400px;
   width: 350px;
-  border-radius: 20%;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  border-radius: 30px;
   background-image: url(${(props) => props.url});
   background-repeat: no-repeat;
   background-size: cover;

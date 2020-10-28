@@ -139,7 +139,7 @@ const Profile = () => {
           <div>
             <StyledProfileImage
               onClick={handleShow}
-              src={user.image ? user.image : userDefaultPhoto}
+              url={user.image ? user.image : userDefaultPhoto}
             />
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
@@ -263,7 +263,7 @@ const StyledCoffeeShop = styled.div`
   margin-bottom: 2rem;
 `;
 
-const CoffeeShopImage = styled.img`
+const CoffeeShopImage = styled.div`
   width: 200px;
   height: 135px;
   flex-shrink: 0;
@@ -366,7 +366,7 @@ const BigBox = styled.div`
   height: 100%;
 `;
 
-const StyledProfileImage = styled.img`
+const StyledProfileImage = styled.div`
   border-radius: 50%;
   height: 200px;
   width: 200px;
@@ -380,7 +380,7 @@ const StyledProfileImage = styled.img`
 
 const StyledLoadMoreButton = styled.button`
   color: black;
-  text-align: center;
+  text-align: left;
   font-family: Open Sans;
   font-style: normal;
   font-weight: bold;

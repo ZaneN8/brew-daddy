@@ -29,7 +29,7 @@ const NavBar = ({ match }) => {
             {"    "}Login
           </Link>
           <span style={{ marginRight: "10px" }}></span>
-          <Link style={{ color: "white" }} to="/register">
+          <Link style={{ color: "black" }} to="/register">
             {"    "}Register
           </Link>
         </>
@@ -42,9 +42,11 @@ const NavBar = ({ match }) => {
       <div style={styles.navbar}>
         <div style={{ justifyContent: "space-between", padding: "10px" }}>
           <Row>
-            <StyledImage src={BrewDad} />
+            <Link to="/">
+              <StyledImage src={BrewDad} />
+            </Link>
             <Link style={{ color: "black" }} to="/">
-              Home
+              Home{"    "}
             </Link>
             <span style={{ marginRight: "10px" }}></span>
             {user && (

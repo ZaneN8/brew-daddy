@@ -135,6 +135,10 @@ const StyledImage = styled.img`
   width: 500px;
   height: 500px;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  // background-image: url(${(props) => props.url});
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  // background-position: center;
 `;
 
 const Wrapper = styled.div`

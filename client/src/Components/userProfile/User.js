@@ -83,7 +83,7 @@ const User = ({ match }) => {
     {
       return coffeeShops.map((coffeeShop) => (
         <StyledCoffeeShop className="coffeeShopRender" key={coffeeShop.id}>
-          <CoffeeShopImage src={coffeeShop.image} />
+          <CoffeeShopImage url={coffeeShop.image} />
           <CoffeeShopNameText>
             <a href={`/coffee_shops/${coffeeShop.id}`}>{coffeeShop.name}</a>
           </CoffeeShopNameText>
@@ -98,7 +98,7 @@ const User = ({ match }) => {
   return (
     <StyledLayout>
       <Box>
-        <StyledUserImage src={user.image ? user.image : userDefaultPhoto} />
+        <StyledUserImage url={user.image ? user.image : userDefaultPhoto} />
         <StyledUserName>
           {user.first_name} {user.last_name}
         </StyledUserName>
@@ -110,7 +110,9 @@ const User = ({ match }) => {
         <StyledReviewText>Recent Reviews</StyledReviewText>
         <div> {renderUserReview()}</div>
         {!noMoreUserReviews ? (
-          <button onClick={moreUserReviews}>See more reviews</button>
+          <StyledLoadMoreButton onClick={moreUserReviews}>
+            See more reviews
+          </StyledLoadMoreButton>
         ) : (
           <StyledAboutText>
             That's all the reviews for this profile
@@ -142,7 +144,7 @@ const StyledCoffeeShop = styled.div`
   margin-bottom: 2rem;
 `;
 
-const CoffeeShopImage = styled.img`
+const CoffeeShopImage = styled.div`
   width: 200px;
   height: 135px;
   flex-shrink: 0;
@@ -220,7 +222,7 @@ const StyledUserName = styled.div`
 
 const StyledLoadMoreButton = styled.button`
   color: black;
-  text-align: center;
+  text-align: left;
   font-family: Open Sans;
   font-style: normal;
   font-weight: bold;
@@ -259,7 +261,7 @@ const BigBox = styled.div`
   height: 100%;
 `;
 
-const StyledUserImage = styled.img`
+const StyledUserImage = styled.div`
   border-radius: 50%;
   height: 200px;
   width: 200px;
