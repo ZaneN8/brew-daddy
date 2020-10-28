@@ -72,9 +72,7 @@ const User = ({ match }) => {
   return (
     <StyledLayout>
       <Box>
-        {/* <h1>User Page</h1> */}
         <StyledUserImage src={user.image ? user.image : userDefaultPhoto} />
-        <br />
         <StyledUserName>
           {user.first_name} {user.last_name}
         </StyledUserName>
@@ -82,16 +80,12 @@ const User = ({ match }) => {
       </Box>
       <BigBox>
         <StyledHeaderText>About Me</StyledHeaderText>
-        <hr />
         <StyledAboutText>{user.about_me}</StyledAboutText>
-        <hr />
-        <StyledHeaderText>Recent Reviews</StyledHeaderText>
+        <StyledReviewText>Recent Reviews</StyledReviewText>
         <div>{renderUserReview()}</div>
-        <hr />
       </BigBox>
       <Box>
         <StyledHeaderText>Coffee Shops</StyledHeaderText>
-        <br />
         <Row>
           <div>{renderUserCoffeeShop()}</div>
         </Row>
@@ -159,6 +153,25 @@ const StyledHeaderText = styled.div`
   font-weight: bold;
   font-size: 24px;
   line-height: 20px;
+  padding-bottom: 30px;
+`;
+
+const StyledAboutText = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
+  padding-bottom: 60px;
+`;
+
+const StyledReviewText = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 20px;
+  padding-bottom: 30px;
 `;
 
 const StyledUserName = styled.div`
@@ -168,15 +181,22 @@ const StyledUserName = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding-left: 20px;
+  padding-top: 25px;
   padding-bottom: 15px;
 `;
 
-const StyledAboutText = styled.div`
+const StyledLoadMoreButton = styled.button`
+  color: black;
+  text-align: center;
   font-family: Open Sans;
   font-style: normal;
-  font-weight: normal;
+  font-weight: bold;
   font-size: 12px;
-  line-height: 20px;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 `;
 
 const StyledLayout = styled.div`
@@ -184,26 +204,6 @@ const StyledLayout = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   max-width: 100%;
-`;
-
-const StyledButton = styled.button`
-  display: incline-block;
-  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
-  // margin: 0 0.1em 0.1em 0;
-  border: 0.16em solid #dbd4cc;
-  border-radius: 15px;
-  background-color: #dbd4cc;
-  color: black;
-  text-align: center;
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 20px;
-  transition: all 0.2s;
-  &:hover {
-     border-color: #371e0a;
-  }
 `;
 
 const Box = styled.div`

@@ -150,6 +150,12 @@ const CoffeeShop = ({ match, history }) => {
                 </span>
               </button>
             )}
+            {shopOwnedByUser && (
+              <button onClick={() => deleteCoffeeShop(shop.id)}>
+                {" "}
+                Delete Coffee Shop
+              </button>
+            )}
             <Modal show={showEditForm} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title> Edit Coffee Shop </Modal.Title>
@@ -171,7 +177,7 @@ const CoffeeShop = ({ match, history }) => {
             interactive={false}
             rating={`${ratingsData.total_rating}`}
           />
-          <p>{shop.cost && shopCost()}</p>
+          <StyledMoney>{shop.cost && shopCost()}</StyledMoney>
           <StyledShopBoo>
             Open:{shop.open} Delivery:{shop.delivery} Order Online:
             {shop.order_online} Pick Up:{shop.pick_up}
@@ -310,6 +316,10 @@ const StyledCoffeeShopName = styled.h1`
   font-size: 36px;
   line-height: 49px;
   flex-wrap: wrap;
+`;
+
+const StyledMoney = styled.div`
+  color: #86945e;
 `;
 
 const StyledShopBoo = styled.p`

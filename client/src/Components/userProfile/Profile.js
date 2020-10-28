@@ -159,9 +159,7 @@ const Profile = () => {
               </Modal.Footer>
             </Modal>
           </div>
-          <br />
           <Row>
-            <br />
             <StyledUserName>
               {user.first_name} {user.last_name}
             </StyledUserName>
@@ -200,7 +198,6 @@ const Profile = () => {
         <StyledAboutText>{user.about_me}</StyledAboutText>
         <StyledReviewText>Recent Reviews</StyledReviewText>
         <div>{renderProfileReviews()}</div>
-        <br />
         {!noMoreProfileReviews ? (
           <StyledLoadMoreButton onClick={moreProfileReviews}>
             See more reviews
@@ -210,7 +207,6 @@ const Profile = () => {
             That's all the reviews for this profile
           </StyledAboutText>
         )}
-        <hr />
       </BigBox>
       <Box>
         <Row>
@@ -225,7 +221,7 @@ const Profile = () => {
                   style={{
                     border: "none",
                     background: "none",
-                    color: "#dbd4cc",
+                    color: "#2D2721",
                   }}
                   name="plus-circle"
                 />
@@ -233,7 +229,6 @@ const Profile = () => {
             </button>
           </StyledHeaderText>
         </Row>
-        <br />
         <div>
           <Modal show={show} onHide={closeShow}>
             <Modal.Header closeButton>
@@ -248,10 +243,7 @@ const Profile = () => {
           </Modal>
         </div>
         <div>{renderProfileCoffeeShop()}</div>
-        <hr />
       </Box>
-      <br />
-      <br />
     </StyledLayout>
   );
 };
@@ -317,6 +309,7 @@ const StyledHeaderText = styled.div`
   line-height: 20px;
   padding-bottom: 30px;
 `;
+
 const StyledReviewText = styled.div`
   font-family: Open Sans;
   font-style: normal;
@@ -333,6 +326,7 @@ const StyledUserName = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding-left: 20px;
+  padding-top: 25px;
   padding-bottom: 15px;
 `;
 
@@ -382,10 +376,6 @@ const StyledProfileImage = styled.img`
   background-size: cover;
   background-position: center;
   cursor: pointer;
-  transition: all 0.5s;
-  &:hover {
-    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
-  }
 `;
 
 const StyledLoadMoreButton = styled.button`
@@ -425,21 +415,6 @@ const StyledButton = styled.button`
 const Row = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const PlusButton = styled.button`
-  display: incline-block;
-  margin: 0 0.1em 0.1em 0;
-  border: 0.16em solid #dbd4cc;
-  border-radius: 50%;
-  background-color: #dbd4cc;
-  color: white;
-  text-align: center;
-  font-size: 30px;
-  transition: all 0.2s;
-  &:hover {
-     border-color: #371e0a;
-  }
 `;
 
 export default Profile;
