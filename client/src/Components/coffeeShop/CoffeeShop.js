@@ -9,6 +9,8 @@ import CoffeeShopBreakdown from "./CoffeeShopBreakdown";
 import styled from "styled-components";
 import { Modal } from "react-bootstrap";
 import CoffeeShopReviewPics from "./CoffeeShopReviewPics";
+import Rater from "react-rater";
+import FontAwesome from "react-fontawesome";
 
 // TODO 1) Add this Context to pull the information from Auth
 import { AuthContext } from "../../providers/AuthProvider";
@@ -22,6 +24,7 @@ const CoffeeShop = ({ match, history }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [page, setPage] = useState(1);
   const [noMoreReviews, setNoMoreReviews] = useState(false);
+  const [ratingsData, setRatingsData] = useState({});
   // This is the "smarter" method of verifying if you are the user that own the coffee shop
   const shopOwnedByUser = user && shop && user.id === shop.user_id;
   const handleClose = () => setShowEditForm(false);
@@ -77,6 +80,15 @@ const CoffeeShop = ({ match, history }) => {
       });
   };
 
+  useEffect(() => {
+    axios
+      .get(`/api/coffee_shops/${match.params.id}/average_stats`)
+      .then((res) => setRatingsData(res.data))
+      .catch((err) => {
+        console.log("ERROR Setting Rating Data");
+      });
+  }, []);
+
   const deleteCoffeeShop = (id) => {
     axios
       .delete(`/api/coffee_shops/${id}`, { params: { id: id } })
@@ -128,7 +140,22 @@ const CoffeeShop = ({ match, history }) => {
                 style={{ border: "none", background: "none" }}
                 onClick={handleShow}
               >
-                <span>&#128295;</span>
+                <span>
+                  <FontAwesome
+                    style={{
+                      border: "none",
+                      background: "none",
+                      color: "#DADADA",
+                    }}
+                    name="wrench"
+                  />
+                </span>
+              </button>
+            )}
+            {shopOwnedByUser && (
+              <button onClick={() => deleteCoffeeShop(shop.id)}>
+                {" "}
+                Delete Coffee Shop
               </button>
             )}
             <Modal show={showEditForm} onHide={handleClose}>
@@ -147,7 +174,12 @@ const CoffeeShop = ({ match, history }) => {
               </Modal.Footer>
             </Modal>
           </StyledCoffeeShopName>
-          <p>{shop.cost && shopCost()}</p>
+          <Rater
+            total={5}
+            interactive={false}
+            rating={`${ratingsData.total_rating}`}
+          />
+          <StyledMoney>{shop.cost && shopCost()}</StyledMoney>
           <BoolenBox>
             <Open open={shop.open}>Open{shop.open}</Open>
             <Delivery delivers={shop.delivery}>
@@ -212,7 +244,7 @@ const CoffeeShop = ({ match, history }) => {
       <StyledPage>
         <StyledInfoContainer>{renderShopInfo()}</StyledInfoContainer>
         {/* <div>{renderAllRating()}</div><hr /> */}
-        <CoffeeShopRating match={match} />
+        <CoffeeShopRating ratingsData={ratingsData} />
         <hr />
         <CoffeeShopQuestions questionsShopId={shop.id} />
 
@@ -293,8 +325,16 @@ const StyledShop = styled.div`
 
 const StyledCoffeeShopName = styled.h1`
   display: flex;
-  // border: 2px solid blue;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 49px;
   flex-wrap: wrap;
+`;
+
+const StyledMoney = styled.div`
+  color: #86945e;
 `;
 
 const BoolenBox = styled.div`

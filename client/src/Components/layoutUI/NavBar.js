@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import styled from "styled-components";
-import BrewDad from "../../image/Brew_Daddy.jpeg";
+import BrewDad from "../../image/brewDaddyLogo2.svg";
 
 // For Basic setup only please change
 const NavBar = ({ match }) => {
@@ -14,7 +14,7 @@ const NavBar = ({ match }) => {
       return (
         <>
           <Link
-            style={{ color: "white", marginLeft: "7px" }}
+            style={{ color: "black", marginLeft: "7px" }}
             onClick={() => handleLogout(history)}
             to=""
           >
@@ -25,7 +25,7 @@ const NavBar = ({ match }) => {
     } else {
       return (
         <>
-          <Link style={{ color: "white", marginLeft: "7px" }} to="/login">
+          <Link style={{ color: "black", marginLeft: "7px" }} to="/login">
             {"    "}Login
           </Link>
           <span style={{ marginRight: "10px" }}></span>
@@ -43,12 +43,12 @@ const NavBar = ({ match }) => {
         <div style={{ justifyContent: "space-between", padding: "10px" }}>
           <Row>
             <StyledImage src={BrewDad} />
-            <Link style={{ color: "white" }} to="/">
+            <Link style={{ color: "black" }} to="/">
               Home
             </Link>
             <span style={{ marginRight: "10px" }}></span>
             {user && (
-              <Link style={{ color: "white" }} to="/profile">
+              <Link style={{ color: "black" }} to="/profile">
                 Profile{"    "}
               </Link>
             )}
@@ -62,7 +62,7 @@ const NavBar = ({ match }) => {
 
 const styles = {
   navbar: {
-    background: "black",
+    background: "#FBF7F3",
     padding: "10px",
     textAlign: "end",
   },

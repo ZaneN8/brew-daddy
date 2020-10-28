@@ -8,6 +8,7 @@ import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
 import { AuthContext } from "../../providers/AuthProvider";
 import styled from "styled-components";
+import FontAwesome from "react-fontawesome";
 
 const CoffeeShopReview = ({
   review,
@@ -108,7 +109,6 @@ const CoffeeShopReview = ({
 
   return (
     <>
-      <br />
       <div key={review.id}>
         <Row>
           {displayShop && coffeeShop ? (
@@ -133,8 +133,28 @@ const CoffeeShopReview = ({
             </StyledReviewName>
           )}
           {reviewOwnedByUser && (
-            <button onClick={handleShow}>
-              <span>&#128295;</span>
+            <button
+              style={{ border: "none", background: "none" }}
+              onClick={handleShow}
+            >
+              <span>
+                <FontAwesome
+                  style={{
+                    border: "none",
+                    background: "none",
+                    color: "#DADADA",
+                  }}
+                  name="wrench"
+                />
+              </span>
+            </button>
+          )}
+          {reviewOwnedByUser && (
+            <button
+              style={{ border: "none", background: "none", color: "#DADADA" }}
+              onClick={handleReviewDelete}
+            >
+              <FontAwesome name="trash" />
             </button>
           )}
         </Row>
@@ -148,44 +168,44 @@ const CoffeeShopReview = ({
         <Row>
           <Column1>
             <StyledRating>
-              Coffee rating:
-              <Rater
-                total={5}
-                interactive={false}
-                rating={`${review.coffee_rating}`}
-              />
-            </StyledRating>
-          </Column1>
-          <Column2>
-            <StyledRating>
-              Work friendly:
               <Rater
                 total={5}
                 interactive={false}
                 rating={`${review.work_friendly}`}
-              />
+              />{" "}
+              Work Friendly
+            </StyledRating>
+          </Column1>
+          <Column2>
+            <StyledRating>
+              <Rater
+                total={5}
+                interactive={false}
+                rating={`${review.coffee_rating}`}
+              />{" "}
+              Coffee Quality
             </StyledRating>
           </Column2>
         </Row>
         <Row>
           <Column1>
             <StyledRating>
-              Food:
-              <Rater total={5} interactive={false} rating={`${review.food}`} />
-            </StyledRating>
-          </Column1>
-          <Column2>
-            <StyledRating>
-              Noise:
               <Rater
                 total={5}
                 interactive={false}
                 rating={`${review.noise_level}`}
-              />
+              />{" "}
+              Background Noise
+            </StyledRating>
+          </Column1>
+          <Column2>
+            <StyledRating>
+              <Rater total={5} interactive={false} rating={`${review.food}`} />{" "}
+              Food Quality
             </StyledRating>
           </Column2>
         </Row>
-        <br />
+
         <Row>
           <p>{renderReviewImages()}</p>
           <p>
@@ -195,7 +215,9 @@ const CoffeeShopReview = ({
           </p>
         </Row>
         {!noMoreReviewPics ? (
-          <StyledButton onClick={morePics}>Load More</StyledButton>
+          <StyledLoadMoreButton onClick={morePics}>
+            Load More...
+          </StyledLoadMoreButton>
         ) : (
           <p>No more pictures</p>
         )}
@@ -218,9 +240,6 @@ const CoffeeShopReview = ({
             </button>
           </Modal.Footer>
         </Modal>
-        {reviewOwnedByUser && (
-          <StyledButton onClick={handleReviewDelete}>Delete</StyledButton>
-        )}
       </div>
     </>
   );
@@ -250,20 +269,18 @@ const Column2 = styled.div`
   flex: 5;
 `;
 
-const StyledButton = styled.button`
-  display: incline-block;
-  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
-  // margin: 0 0.1em 0.1em 0;
-  border: 0.16em solid #dbd4cc;
-  border-radius: 15px;
-  background-color: #dbd4cc;
+const StyledLoadMoreButton = styled.button`
   color: black;
   text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
   font-size: 12px;
-  transition: all 0.2s;
-  &:hover {
-     border-color: #371e0a;
-  }
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 `;
 
 const StyledImage = styled.img`
@@ -307,8 +324,9 @@ const StyledRating = styled.div`
 
 const UploadedReviewImage = styled.img`
   border-radius: 15px;
-  width: 100px;
-  height: 100px;
+  margin: 5px;
+  width: 50px;
+  height: 50px;
 `;
 
 export default CoffeeShopReview;

@@ -66,8 +66,8 @@ const ReviewImageUpload = ({ reviewProp, afterCreate }) => {
 };
 
 const PlusButton = styled.button`
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   text-align: center;
   // padding: 0.1em 0.2em;
   margin: 0 0.1em 0.1em 0;
