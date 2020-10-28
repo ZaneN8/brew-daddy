@@ -10,6 +10,8 @@ const User = ({ match }) => {
   const [user, setUser] = useState({});
   const [reviews, setReviews] = useState([]);
   const [coffeeShops, setCoffeeShops] = useState([]);
+  const [page, setPage] = useState(1);
+  const [noMoreUserReviews, setNoMoreUserReviews] = useState(false);
 
   const getUser = async () => {
     try {
@@ -22,13 +24,37 @@ const User = ({ match }) => {
   };
 
   const getReviews = async () => {
+    const params = { params: { page } };
     try {
-      let res = await axios.get(`/api/users/${match.params.id}/reviews`);
+      let res = await axios.get(
+        `/api/users/${match.params.id}/reviews`,
+        params
+      );
       setReviews(res.data);
     } catch (err) {
       console.log(err.response);
       alert("Error: failed to get users reviews");
     }
+  };
+
+  const moreUserReviews = () => {
+    const params = {
+      params: {
+        page: page + 1,
+      },
+    };
+    axios
+      .get(`/api/users/${match.params.id}/reviews`, params)
+      .then((res) => {
+        if (res.data.length === 0) {
+          setNoMoreUserReviews(true);
+        }
+        setReviews(reviews.concat(res.data));
+        setPage(page + 1);
+      })
+      .catch((err) => {
+        alert("ERROR: could not retrive more reviews, User.js");
+      });
   };
 
   const getCoffeeShops = async () => {
@@ -84,9 +110,14 @@ const User = ({ match }) => {
         <StyledHeaderText>About Me</StyledHeaderText>
         <hr />
         <StyledAboutText>{user.about_me}</StyledAboutText>
-        <hr />
         <StyledHeaderText>Recent Reviews</StyledHeaderText>
-        <div>{renderUserReview()}</div>
+        <div> {renderUserReview()}</div>
+        {!noMoreUserReviews ? (
+          <button onClick={moreUserReviews}>See more reviews</button>
+        ) : (
+          <p>That's all the reviews for this profile</p>
+        )}
+        <hr />
         <hr />
       </BigBox>
       <Box>
