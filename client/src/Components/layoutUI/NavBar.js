@@ -14,7 +14,7 @@ const NavBar = ({ match }) => {
       return (
         <>
           <Link
-            style={{ color: "white" }}
+            style={{ color: "white", marginLeft: "7px" }}
             onClick={() => handleLogout(history)}
             to=""
           >
@@ -25,7 +25,7 @@ const NavBar = ({ match }) => {
     } else {
       return (
         <>
-          <Link style={{ color: "white" }} to="/login">
+          <Link style={{ color: "white", marginLeft: "7px" }} to="/login">
             {"    "}Login
           </Link>
           <span style={{ marginRight: "10px" }}></span>
