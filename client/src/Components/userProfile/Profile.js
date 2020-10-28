@@ -360,7 +360,11 @@ const StyledButton = styled.button`
   background-color: #dbd4cc;
   color: black;
   text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
   font-size: 12px;
+  line-height: 20px;
   transition: all 0.2s;
   &:hover {
      border-color: #371e0a;
