@@ -14,7 +14,7 @@ const CoffeeShopReviewPics = ({ shopId }) => {
   }, []);
 
   const renderReviewPics = () => {
-    return reviewPics.map((rpic) => <img src={rpic.image} />);
+    return reviewPics.map((rpic) => <img key={rpic.id} src={rpic.image} />);
   };
 
   return (
