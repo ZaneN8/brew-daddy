@@ -237,7 +237,7 @@ const CoffeeShopReview = ({
         </Row>
 
         <Row>
-          <p>{renderReviewImages()}</p>
+          <div>{renderReviewImages()}</div>
           <p>
             {reviewOwnedByUser && (
               <ReviewImageUpload reviewProp={review} afterCreate={addImage} />

@@ -44,7 +44,7 @@ const Answer = ({ answer, deleteAnswer, editAnswer }) => {
         show={showEditAnswer}
         onHide={handleClose}
         // backdrop="static"
-        keyboard={false}
+        // keyboard={false}
       >
         <Modal.Header closeButton>
           <Modal.Title>Edit Answer</Modal.Title>
