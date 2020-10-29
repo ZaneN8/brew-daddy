@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { AuthContext } from "../../providers/AuthProvider";
-import BrewDad from "../../image/Brew_Daddy.jpeg";
+import BrewDad from "../../image/brew-daddy-logo.svg";
 import styled from "styled-components";
 
 const CoffeeShopForm = ({
@@ -19,12 +19,12 @@ const CoffeeShopForm = ({
     city: "",
     state: "",
     address: "",
-    image: "",
+    image: BrewDad,
     zip: "",
     menu: "",
     website: "",
     contact_info: "",
-    cost: 1, //TODO this is always what it will work
+    cost: 1,
     open: false,
     delivery: false,
     pickup: false,
@@ -116,10 +116,11 @@ const CoffeeShopForm = ({
     e.preventDefault();
     if (shopProp) {
       editCoffeeShop();
+      hide();
     } else {
       addCoffeeShop();
+      hide();
     }
-    hide();
   };
 
   return (

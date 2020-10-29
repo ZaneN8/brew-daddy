@@ -92,6 +92,7 @@ const Profile = () => {
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
       <CoffeeShopReview
+        key={review.id}
         displayShop
         review={review}
         editReview={editReview}
@@ -230,7 +231,9 @@ const Profile = () => {
         </Row>
         <div>
           <Modal show={show} onHide={closeShow}>
-            <Modal.Title>Create Coffee Shop</Modal.Title>
+            <Modal.Header>
+              <Modal.Title>Create Coffee Shop</Modal.Title>
+            </Modal.Header>
             <Modal.Body>
               <CoffeeShopForm hide={closeShow} afterCreate={addCoffeeShop} />
             </Modal.Body>
@@ -341,7 +344,7 @@ const StyledLayout = styled.div`
 `;
 
 const Box = styled.div`
-  flex: 2;
+  flex: 3;
   display: flex;
   width: 175px;
   min-height: 300px;

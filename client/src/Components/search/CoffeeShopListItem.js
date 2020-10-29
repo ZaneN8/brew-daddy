@@ -77,12 +77,13 @@ const CoffeeShopImage = styled.div`
 
 const StyledResultCard = styled.div`
   display: flex;
+  width: 85%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   transition: 0.3s;
   border: 0px solid;
   border-radius: 30px;
   padding: 0em;
-  margin: 2em;
+  margin: 1em;
   overflow: hidden;
   text-overflow: ellipsis;
   text-overflow: "…";
@@ -124,18 +125,21 @@ const Column2 = styled.div`
 
 const StyledMoney = styled.div`
   color: #86945e;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.2em;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: sans-serif;
 `;
 
 const StyledRater = styled(Rater)`
   display: flex;
   .react-rater-star.is-disabled.is-active {
-    color: #f0af6d !important;
+    color: #f08f2d !important;
     background: none;
   }
 
   .react-rater-star.is-disabled.is-active-half::before {
-    color: #f0af6d !important;
+    color: #f08f2d !important;
     background: none;
   }
 `;

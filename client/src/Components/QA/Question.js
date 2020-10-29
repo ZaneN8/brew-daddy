@@ -100,7 +100,8 @@ const Question = ({
   return (
     <div key={question.id}>
       <p>
-        <b>Question: {question.body}</b>
+        <b>Question: </b>
+        {question.body}
 
         {questionOwnedByUser && (
           <button
@@ -181,7 +182,7 @@ const Question = ({
           />
         </button>
       )}
-      <Modal show={showCAnswers}>
+      <Modal show={showCAnswers} onHide={handleAnswerClose}>
         <Modal.Header>
           <Modal.Title>Create Answer</Modal.Title>
         </Modal.Header>
@@ -253,9 +254,9 @@ const StyledLoadMoreAButton = styled.button`
 const StyledYesButton = styled.button`
   display: incline-block;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
-  border: 0.16em solid #86945e;
+  border: 0.16em solid #ff6961;
   border-radius: 15px;
-  background-color: #86945e;
+  background-color: #ff6961;
   opacity: 0.9;
   color: white;
   text-align: center;
@@ -272,9 +273,9 @@ const StyledYesButton = styled.button`
 const StyledNoButton = styled.button`
   display: incline-block;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
-  border: 0.16em solid #ff6961;
+  border: 0.16em solid #86945e;
   border-radius: 15px;
-  background-color: #ff6961;
+  background-color: #86945e;
   opacity: 0.9;
   color: white;
   text-align: center;

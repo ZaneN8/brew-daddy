@@ -12,50 +12,47 @@ const SideBarSearch = ({
   handleSubmit,
 }) => {
   return (
-    <div>
+    <Container>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledGroup>
-          <Input
-            autoFocus
-            placeholder="City"
-            name="query"
-            value={cityQuery}
-            onChange={(e) => setCityQuery(e.target.value)}
-          />
-          <Input
-            autoFocus
-            placeholder="State"
-            name="query"
-            value={stateQuery}
-            onChange={(e) => setStateQuery(e.target.value)}
-          />
-          <Input
-            autoFocus
-            placeholder="Zip Code"
-            name="query"
-            value={zipQuery}
-            onChange={(e) => setZipQuery(e.target.value)}
-          />
-          <InvisibleButton type="submit" />
-        </StyledGroup>
+        <Input
+          autoFocus
+          placeholder="City"
+          name="query"
+          value={cityQuery}
+          onChange={(e) => setCityQuery(e.target.value)}
+        />
+        <Input
+          autoFocus
+          placeholder="State"
+          name="query"
+          value={stateQuery}
+          onChange={(e) => setStateQuery(e.target.value)}
+        />
+        <Input
+          autoFocus
+          placeholder="Zip Code"
+          name="query"
+          value={zipQuery}
+          onChange={(e) => setZipQuery(e.target.value)}
+        />
+        <InvisibleButton type="submit" />
       </StyledForm>
-    </div>
+    </Container>
   );
 };
 
-const StyledForm = styled(Form)`
-  margin: auto;
+const Container = styled.div`
   display: flex;
+  justify-content: center;
   background: #ffffff;
-  padding: 10px;
+  padding: 15px 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 100%;
 `;
 
-const StyledGroup = styled(Form.Group)`
+const StyledForm = styled(Form)`
   display: flex;
-  justify-content: left;
-  margin: auto;
-  backgroud-color: #cccccc;
+  width: 85%;
 `;
 
 const Input = styled(Form.Control)`

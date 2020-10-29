@@ -92,6 +92,7 @@ before_action :set_user, only: [:cu_index]
     render json: @coffee_shop.count_reviews
   end
 
+  
   private
 
   def set_coffee_shop

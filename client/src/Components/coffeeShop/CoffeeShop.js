@@ -206,6 +206,7 @@ const CoffeeShop = ({ match, history }) => {
           <StyledMoney>{shop.cost && shopCost()}</StyledMoney>
           <BoolenBox>
             <Open open={shop.open}>Open{shop.open}</Open>
+            <PickUp pick={shop.pickup}>Pickup{shop.pickup}</PickUp>
             <Delivery delivers={shop.delivery}>
               Delivery{shop.delivery}
             </Delivery>
@@ -213,7 +214,6 @@ const CoffeeShop = ({ match, history }) => {
               Order Online
               {shop.order_online}
             </Online>
-            <PickUp pick={shop.pick_up}>Pick Up{shop.pick_up}</PickUp>
           </BoolenBox>
           <StyledDescription>{shop.description}</StyledDescription>
           <LinkContainer>
@@ -277,19 +277,23 @@ const CoffeeShop = ({ match, history }) => {
             </RPics>
           </Column1>
           <Column2>
-            <div>{renderReviews()}</div>
-            {!noMoreReviews ? (
-              <button onClick={nextPage}>More reviews</button>
-            ) : (
-              <p>No More Reviews</p>
-            )}
-            <hr />
             {user && (
-              <StyledButton onClick={handleAddReview}>
+              <StyledButton
+                style={{ marginBottom: "20px" }}
+                onClick={handleAddReview}
+              >
                 Write A Review
               </StyledButton>
             )}
-            <Modal show={showReviewForm}>
+            <div>{renderReviews()}</div>
+            {!noMoreReviews ? (
+              <StyledLoadMoreButton onClick={nextPage}>
+                More reviews
+              </StyledLoadMoreButton>
+            ) : (
+              <StyledLoadMoreButton>No More Reviews</StyledLoadMoreButton>
+            )}
+            <Modal show={showReviewForm} onHide={handleCloseReview}>
               <Modal.Body>
                 <ReviewForm
                   hide={handleCloseReview}
@@ -299,7 +303,7 @@ const CoffeeShop = ({ match, history }) => {
               </Modal.Body>
             </Modal>
             <br />
-            <hr />
+
             <Button onClick={history.goBack}>BACK</Button>
           </Column2>
         </Row>
@@ -309,6 +313,20 @@ const CoffeeShop = ({ match, history }) => {
 
 const StyledPage = styled.div`
   padding: 3em 6em 1em;
+`;
+
+const StyledLoadMoreButton = styled.button`
+  color: #2d2721;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 `;
 
 const StyledButton = styled.button`
@@ -333,9 +351,9 @@ const StyledButton = styled.button`
 const StyledYesButton = styled.button`
   display: incline-block;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
-  border: 0.16em solid #86945e;
+  border: 0.16em solid #ff6961;
   border-radius: 15px;
-  background-color: #86945e;
+  background-color: #ff6961;
   opacity: 0.9;
   color: white;
   text-align: center;
@@ -352,9 +370,9 @@ const StyledYesButton = styled.button`
 const StyledNoButton = styled.button`
   display: incline-block;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
-  border: 0.16em solid #ff6961;
+  border: 0.16em solid #86945e;
   border-radius: 15px;
-  background-color: #ff6961;
+  background-color: #86945e;
   opacity: 0.9;
   color: white;
   text-align: center;
@@ -373,11 +391,11 @@ const StyledRater = styled(Rater)`
   display: flex;
   margin: 4px;
   .react-rater-star.is-disabled.is-active {
-    color: #e1ccb7 !important;
+    color: #F08F2D !important;
     background: none:
   }
   .react-rater-star.is-disabled.is-active-half::before {
-    color: #e1ccb7 !important;
+    color: #F08F2D !important;
     background: none:
   }`;
 
@@ -418,9 +436,10 @@ const StyledCoffeeShopName = styled.h1`
 
 const StyledMoney = styled.div`
   color: #86945e;
-  letter-spacing: 2px;
-  padding: 3px;
-  margin-top: 3px;
+  letter-spacing: 0.2em;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: sans-serif;
 `;
 
 const BoolenBox = styled.div`

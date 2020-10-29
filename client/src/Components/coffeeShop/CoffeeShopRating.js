@@ -6,6 +6,7 @@ const CoffeeShopRating = ({ ratingsData }) => (
   <StyledText>
     Total Reviews: {ratingsData.total_reviews_count}
     <h4>
+      <br />
       <StyledB>Measures</StyledB>
     </h4>
     <b>Overall Rating: {ratingsData.total_rating}</b>

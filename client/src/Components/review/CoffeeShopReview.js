@@ -75,6 +75,7 @@ const CoffeeShopReview = ({
       .then((res) => {
         if (typeof deleteReview === "function") {
           deleteReview(id);
+          setShowDelete(false);
         }
       })
       .catch(console.log);
@@ -190,42 +191,44 @@ const CoffeeShopReview = ({
         <StyledTimeStamp>Reviewed on {reviewTimeStamp()}</StyledTimeStamp>
         <StyledReviewName>{review.body}</StyledReviewName>
         <p>{review.image}</p>
-        <Column1>
-          <Row>
-            <StyledRater
-              total={5}
-              interactive={false}
-              rating={`${review.work_friendly}`}
-            />{" "}
-            <StyledRating>Work Friendly</StyledRating>
-          </Row>
-          <Row>
-            <StyledRater
-              total={5}
-              interactive={false}
-              rating={`${review.coffee_rating}`}
-            />
-            <StyledRating>Coffee Quality </StyledRating>
-          </Row>
-        </Column1>
-        <Column1>
-          <Row>
-            <StyledRater
-              total={5}
-              interactive={false}
-              rating={`${review.noise_level}`}
-            />{" "}
-            <StyledRating>Background Noise</StyledRating>
-          </Row>
-          <Row>
-            <StyledRater
-              total={5}
-              interactive={false}
-              rating={`${review.food}`}
-            />{" "}
-            <StyledRating>Food Quality</StyledRating>
-          </Row>
-        </Column1>
+        <RatingContainer>
+          <Column1>
+            <Row>
+              <StyledRater
+                total={5}
+                interactive={false}
+                rating={`${review.work_friendly}`}
+              />{" "}
+              <StyledRating>Work Friendly</StyledRating>
+            </Row>
+            <Row>
+              <StyledRater
+                total={5}
+                interactive={false}
+                rating={`${review.coffee_rating}`}
+              />
+              <StyledRating>Coffee Quality </StyledRating>
+            </Row>
+          </Column1>
+          <Column1>
+            <Row>
+              <StyledRater
+                total={5}
+                interactive={false}
+                rating={`${review.noise_level}`}
+              />{" "}
+              <StyledRating>Background Noise</StyledRating>
+            </Row>
+            <Row>
+              <StyledRater
+                total={5}
+                interactive={false}
+                rating={`${review.food}`}
+              />{" "}
+              <StyledRating>Food Quality</StyledRating>
+            </Row>
+          </Column1>
+        </RatingContainer>
 
         <Row>
           <div>{renderReviewImages()}</div>
@@ -251,21 +254,27 @@ const CoffeeShopReview = ({
             />
           </Modal.Body>
         </Modal>
-        <hr />
       </div>
+      <hr />
     </>
   );
 };
+
+const RatingContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 75%;
+`;
 
 const StyledRater = styled(Rater)`
   display: flex;
 
   .react-rater-star.is-disabled.is-active {
-    color: #e1ccb7 !important;
+    color: #F08F2D !important;
     background: none:
   }
   .react-rater-star.is-disabled.is-active-half {
-    color: #e1ccb7 !important;
+    color: #F08F2D !important;
     background: none:
   }
 `;
@@ -280,15 +289,17 @@ const StyledLayout = styled.div`
 
 const Row = styled.div`
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   grid-column-gap: 5px;
   padding-right: 20px;
 `;
 
 const Column1 = styled.div`
-  flex: 5;
+  width: 50%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  flex-shrink: 0;
 `;
 
 const Column2 = styled.div`
@@ -366,9 +377,9 @@ const UploadedReviewImage = styled.div`
 const StyledYesButton = styled.button`
   display: incline-block;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
-  border: 0.16em solid #86945e;
+  border: 0.16em solid #ff6961;
   border-radius: 15px;
-  background-color: #86945e;
+  background-color: #ff6961;
   opacity: 0.9;
   color: white;
   text-align: center;
@@ -385,9 +396,9 @@ const StyledYesButton = styled.button`
 const StyledNoButton = styled.button`
   display: incline-block;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
-  border: 0.16em solid #ff6961;
+  border: 0.16em solid #86945e;
   border-radius: 15px;
-  background-color: #ff6961;
+  background-color: #86945e;
   opacity: 0.9;
   color: white;
   text-align: center;

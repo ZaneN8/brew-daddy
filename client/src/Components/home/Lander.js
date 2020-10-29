@@ -8,17 +8,13 @@ const Lander = () => {
   return (
     <>
       <Wrapper url="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80">
-        <StyledLayout>
-          <Row>
-            <HomeSearch />
-          </Row>
-        </StyledLayout>
+        <HomeSearch />
       </Wrapper>
 
       <StyledLayout>
         <Row>
           <div>
-            <h2 style={{ paddingTop: "10%" }}>We are Brew Daddy</h2>
+            <h2 style={{ paddingTop: "5%" }}>We are Brew Daddy</h2>
             <p>
               <About />
             </p>
@@ -26,33 +22,30 @@ const Lander = () => {
         </Row>
         <Row>
           <Column2>
-            <Card1>
+            <Card1 style={{ margin: "0 30px 30px 0" }}>
               <h2> Your Perfect Shop </h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
-                amet justo donec enim diam vulputate.
+                Find your perfect coffee shop. You will be able to see each
+                coffee with its information and reviews. Want to look for the
+                best taste? or Best place to work away from office? We got you
+                covered!
               </p>
             </Card1>
-            <Card2>
+            <Card2 style={{ margin: "0 30px 0 0" }}>
               <h2> Get Involved </h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
-                amet justo donec enim diam vulputate.
+                We encourage people to be involved by telling their thoughts of
+                the coffee shop!
               </p>
             </Card2>
           </Column2>
-          <Column1>
-            <StyledImage url="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
-          </Column1>
+          <StyledImage url="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
         </Row>
+        <Spacer />
         <Row>
-          <Column1>
-            <StyledImage url="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
-          </Column1>
+          <StyledImage url="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
           <Column2>
-            <Card2>
+            <Card2 style={{ margin: "0 0 30px 30px" }}>
               <h2> Take Pictures </h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -60,7 +53,7 @@ const Lander = () => {
                 amet justo donec enim diam vulputate.
               </p>
             </Card2>
-            <Card1>
+            <Card1 style={{ margin: "0 0 0 30px" }}>
               <h2> Voice an Opinion </h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -99,32 +92,40 @@ const Row = styled.div`
 `;
 
 const Card1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
   color: white;
   background: linear-gradient(156.55deg, #2d2721 30.74%, #8a8179 149.22%);
-  margin: 10px;
-  padding: 10px;
+  padding: 20px;
   flex: 1;
   border-radius: 16px;
-  width: 570px;
-  height: 200px;
+  flex-grow: 1;
+  height: 235px;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
 `;
 
 const Card2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
   background: linear-gradient(156.55deg, #fdf6ee 30.74%, #dbd4cc 149.22%);
-  margin: 10px;
   padding: 10px;
   flex: 1;
   border-radius: 16px;
-  width: 570px;
-  height: 200px;
+  flex-grow: 1;
+  height: 235px;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
 `;
 
 const Column1 = styled.div`
   flex: 5;
   display: flex;
-  flex-directionL column;
+  flex-direction: column;
   justify-content: space-between;
 `;
 
@@ -132,7 +133,6 @@ const Column2 = styled.div`
   flex: 5;
 `;
 
-// TODO remove .img
 const StyledImage = styled.div`
   border-radius: 15px;
   width: 500px;
@@ -147,8 +147,9 @@ const StyledImage = styled.div`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 200px;
+  height: 400px;
   flex-shrink: 0;
   margin: 0;
   background-image: url(${(props) => props.url});
@@ -164,6 +165,10 @@ const Wrapper1 = styled.div`
   height: 200px;
   flex: 10;
   margin: 0;
+`;
+
+const Spacer = styled.div`
+  height: 60px;
 `;
 
 export default Lander;

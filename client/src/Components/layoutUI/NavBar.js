@@ -39,52 +39,38 @@ const NavBar = ({ match }) => {
 
   return (
     <StyledLayout>
-      <div style={styles.navbar}>
-        <div style={{ justifyContent: "space-between", padding: "10px" }}>
-          <Row>
-            <Col>
-              <Link to="/">
-                <StyledImage src={BrewDad} />
-              </Link>
-            </Col>
-            <Col>
-              <Link style={{ color: "black" }} to="/">
-                Home
-              </Link>
-              <span style={{ marginRight: "10px" }}></span>
-              {user && (
-                <Link style={{ color: "black" }} to="/profile">
-                  Profile
-                </Link>
-              )}
-              {correctNavBar()}
-            </Col>
-          </Row>
-        </div>
+      <div>
+        <Link to="/">
+          <StyledImage src={BrewDad} />
+        </Link>
+      </div>
+      <div>
+        <Link style={{ color: "black" }} to="/">
+          Home
+        </Link>
+        <span style={{ marginRight: "10px" }}></span>
+        {user && (
+          <Link style={{ color: "black" }} to="/profile">
+            Profile
+          </Link>
+        )}
+        {correctNavBar()}
       </div>
     </StyledLayout>
   );
 };
 
-const styles = {
-  navbar: {
-    background: "#FBF7F3",
-    textAlign: "end",
-  },
-};
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 const StyledLayout = styled.div`
-  max-width: 100%;
-  max-height: 50px
-  margin: 0%;
   display: flex;
-  flex-direction: column;
-  background: "#BFBFBF";
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-height: 50px
+  margin: 0;
+  padding: 0 2rem;
+  background-color: #FBF7F3;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
 `;
 
 const StyledImage = styled.img`
@@ -94,8 +80,8 @@ const StyledImage = styled.img`
   margin-bottom: 0px !important;
   margin-right: 80% !important;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
 `;
 
 export default NavBar;
