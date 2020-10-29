@@ -7,11 +7,13 @@ import FontAwesome from "react-fontawesome";
 
 const Answer = ({ answer, deleteAnswer, editAnswer }) => {
   const [showEditAnswer, setShowEditAnswer] = useState(false);
-
   const handleClose = () => setShowEditAnswer(false);
   const handleShow = () => setShowEditAnswer(true);
   const { user } = useContext(AuthContext);
   const answerOwnedByUser = user && answer && user.id === answer.user_id;
+  const [showDelete, setShowDelete] = useState(false);
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
 
   return (
     <p key={answer.id}>
@@ -41,7 +43,7 @@ const Answer = ({ answer, deleteAnswer, editAnswer }) => {
       <Modal
         show={showEditAnswer}
         onHide={handleClose}
-        backdrop="static"
+        // backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
@@ -64,7 +66,8 @@ const Answer = ({ answer, deleteAnswer, editAnswer }) => {
             border: "none",
             background: "none",
           }}
-          onClick={() => deleteAnswer(answer.id)}
+          // onClick={() => deleteAnswer(answer.id)}
+          onClick={handleShowDelete}
         >
           <span>
             <FontAwesome
@@ -78,6 +81,16 @@ const Answer = ({ answer, deleteAnswer, editAnswer }) => {
           </span>
         </button>
       )}
+      <Modal show={showDelete} onHide={handleCloseDelete}>
+        <Modal.Header>
+          <Modal.Title>Are you sure?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <button onClick={() => deleteAnswer(answer.id)}>Yes, Delete</button>
+          {"  "}
+          <button onClick={handleCloseDelete}>No, Keep</button>
+        </Modal.Body>
+      </Modal>
     </p>
   );
 };

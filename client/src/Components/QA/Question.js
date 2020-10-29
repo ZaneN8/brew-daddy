@@ -191,9 +191,7 @@ const Question = ({
           />
         </Modal.Body>
         <Modal.Footer>
-          <button variant="secondary" onClick={handleAnswerClose}>
-            cancel
-          </button>
+          <button onClick={handleAnswerClose}>cancel</button>
         </Modal.Footer>
       </Modal>
 
