@@ -154,8 +154,8 @@ const Profile = () => {
                 />
               </Modal.Body>
               <Modal.Footer>
-                <button onClick={handleClose}>Close</button>
                 <button onClick={handleSubmit}>Change Picture</button>
+                <button onClick={handleClose}>Close</button>
               </Modal.Footer>
             </Modal>
           </div>
