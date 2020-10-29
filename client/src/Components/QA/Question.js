@@ -24,6 +24,9 @@ const Question = ({
   const handleAnswerClose = () => setShowCAnswers(false);
   const handleAnswerShow = () => setShowCAnswers(true);
   const questionOwnedByUser = user && question && user.id === question.user_id;
+  const [showDelete, setShowDelete] = useState(false);
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
 
   const getAnswers = async () => {
     try {
@@ -125,7 +128,8 @@ const Question = ({
               border: "none",
               background: "none",
             }}
-            onClick={() => deleteQuestion(question.id)}
+            // onClick={() => deleteQuestion(question.id)}
+            onClick={handleShowDelete}
           >
             <span>
               <FontAwesome
@@ -139,6 +143,18 @@ const Question = ({
             </span>
           </button>
         )}
+        <Modal show={showDelete} onHide={handleCloseDelete}>
+          <Modal.Header>
+            <Modal.Title>Are you sure?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <button onClick={() => deleteQuestion(question.id)}>
+              Yes, Delete
+            </button>
+            {"  "}
+            <button onClick={handleCloseDelete}>No, Keep</button>
+          </Modal.Body>
+        </Modal>
       </p>
       {renderAnswers()}
 
