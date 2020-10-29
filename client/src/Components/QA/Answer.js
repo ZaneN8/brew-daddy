@@ -3,6 +3,7 @@ import AnswerForm from "./AnswerForm";
 import { Modal } from "react-bootstrap";
 import { AuthContext } from "../../providers/AuthProvider";
 import styled from "styled-components";
+import FontAwesome from "react-fontawesome";
 
 const Answer = ({ answer, deleteAnswer, editAnswer }) => {
   const [showEditAnswer, setShowEditAnswer] = useState(false);
@@ -17,7 +18,26 @@ const Answer = ({ answer, deleteAnswer, editAnswer }) => {
       <b>Answer:</b>
 
       {answer.body}
-      {answerOwnedByUser && <button onClick={handleShow}>Edit Answer</button>}
+      {answerOwnedByUser && (
+        <button
+          style={{
+            border: "none",
+            background: "none",
+          }}
+          onClick={handleShow}
+        >
+          <span>
+            <FontAwesome
+              style={{
+                border: "none",
+                background: "none",
+                color: "#DADADA",
+              }}
+              name="wrench"
+            />
+          </span>
+        </button>
+      )}
       <Modal
         show={showEditAnswer}
         onHide={handleClose}
@@ -39,7 +59,24 @@ const Answer = ({ answer, deleteAnswer, editAnswer }) => {
         </Modal.Footer>
       </Modal>
       {answerOwnedByUser && (
-        <button onClick={() => deleteAnswer(answer.id)}>Delete</button>
+        <button
+          style={{
+            border: "none",
+            background: "none",
+          }}
+          onClick={() => deleteAnswer(answer.id)}
+        >
+          <span>
+            <FontAwesome
+              style={{
+                border: "none",
+                background: "none",
+                color: "#DADADA",
+              }}
+              name="trash"
+            />
+          </span>
+        </button>
       )}
     </p>
   );

@@ -90,12 +90,11 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
 
   return (
     <StyledLayout>
-      <StyledResultCard>
-        <h1> Questions & Answers</h1>
-        <br />
-
-        {user && <button onClick={handleShow}>Write A Question</button>}
-
+      <div>
+        <StyledTitle> Questions & Answers</StyledTitle>
+        {user && (
+          <StyledButton onClick={handleShow}>Ask a Question</StyledButton>
+        )}
         <Modal show={showCQuestions} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Create Question</Modal.Title>
@@ -120,23 +119,54 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
         ) : (
           <p>No more questions</p>
         )}
-      </StyledResultCard>
+      </div>
     </StyledLayout>
   );
 };
 
+const StyledTitle = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 20px;
+  padding-bottom: 30px;
+`;
+
 const StyledLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  max-width: 60%;
+  // justify-content: center;
   max-width: 100%;
 `;
 
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  // margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  margin-bottom: 10px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
+
 const StyledResultCard = styled.div`
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-  border: 1px solid;
-  border-radius: 30px;
+  // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  // transition: 0.3s;
+  // border: 1px solid;
+  // border-radius: 30px;
   padding: 1em;
 `;
 

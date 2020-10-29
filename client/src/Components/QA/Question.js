@@ -100,11 +100,43 @@ const Question = ({
         <b>Question:{question.body}</b>
 
         {questionOwnedByUser && (
-          <button onClick={handleShow}>Edit Question</button>
+          <button
+            style={{
+              border: "none",
+              background: "none",
+            }}
+            onClick={handleShow}
+          >
+            <span>
+              <FontAwesome
+                style={{
+                  border: "none",
+                  background: "none",
+                  color: "#DADADA",
+                }}
+                name="wrench"
+              />
+            </span>
+          </button>
         )}
         {questionOwnedByUser && (
-          <button onClick={() => deleteQuestion(question.id)}>
-            Delete Question
+          <button
+            style={{
+              border: "none",
+              background: "none",
+            }}
+            onClick={() => deleteQuestion(question.id)}
+          >
+            <span>
+              <FontAwesome
+                style={{
+                  border: "none",
+                  background: "none",
+                  color: "#DADADA",
+                }}
+                name="trash"
+              />
+            </span>
           </button>
         )}
       </p>
@@ -117,12 +149,22 @@ const Question = ({
       )}
       <br />
       {user && (
-        <button style={{ marginTop: "5px" }} onClick={handleAnswerShow}>
-          Create Answer
+        <button
+          style={{ border: "none", background: "none", marginTop: "5px" }}
+          onClick={handleAnswerShow}
+        >
+          <FontAwesome
+            style={{
+              border: "none",
+              background: "none",
+              color: "#DADADA",
+            }}
+            name="plus"
+          />
         </button>
       )}
       <Modal show={showCAnswers}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Create Answer</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -138,21 +180,6 @@ const Question = ({
           </button>
         </Modal.Footer>
       </Modal>
-
-      {questionOwnedByUser && (
-        <button onClick={handleShow}>
-          <span>
-            <FontAwesome
-              style={{
-                border: "none",
-                background: "none",
-                color: "#DADADA",
-              }}
-              name="wrench"
-            />
-          </span>
-        </button>
-      )}
 
       <Modal show={showEditQuestion} onHide={handleClose}>
         <Modal.Header closeButton>

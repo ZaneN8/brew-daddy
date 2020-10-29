@@ -347,7 +347,7 @@ const StyledLayout = styled.div`
 `;
 
 const Box = styled.div`
-  flex: 3;
+  flex: 2;
   display: flex;
   width: 175px;
   min-height: 300px;
@@ -357,12 +357,14 @@ const Box = styled.div`
 `;
 
 const BigBox = styled.div`
-  flex: 7;
+  flex: 9;
   display: flex;
   width: 600px;
   min-height: 300px;
   flex-direction: column;
-  padding: 5%;
+  padding-top: 5%;
+  padding-left:2.5%
+  padding-right:2.5%
   height: 100%;
 `;
 

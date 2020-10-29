@@ -159,7 +159,11 @@ const CoffeeShopReview = ({
           )}
         </Row>
         <Row>
-          <Rater total={5} interactive={false} rating={`${review.rating}`} />
+          <StyledRater
+            total={5}
+            interactive={false}
+            rating={`${review.rating}`}
+          />
           <StyledReviewHeader>{review.title}</StyledReviewHeader>
         </Row>
         <StyledTimeStamp>Reviewed on {reviewTimeStamp()}</StyledTimeStamp>
@@ -168,7 +172,7 @@ const CoffeeShopReview = ({
         <Row>
           <Column1>
             <StyledRating>
-              <Rater
+              <StyledRater
                 total={5}
                 interactive={false}
                 rating={`${review.work_friendly}`}
@@ -178,11 +182,11 @@ const CoffeeShopReview = ({
           </Column1>
           <Column2>
             <StyledRating>
-              <Rater
+              <StyledRater
                 total={5}
                 interactive={false}
                 rating={`${review.coffee_rating}`}
-              />{" "}
+              />
               Coffee Quality
             </StyledRating>
           </Column2>
@@ -190,7 +194,7 @@ const CoffeeShopReview = ({
         <Row>
           <Column1>
             <StyledRating>
-              <Rater
+              <StyledRater
                 total={5}
                 interactive={false}
                 rating={`${review.noise_level}`}
@@ -200,7 +204,11 @@ const CoffeeShopReview = ({
           </Column1>
           <Column2>
             <StyledRating>
-              <Rater total={5} interactive={false} rating={`${review.food}`} />{" "}
+              <StyledRater
+                total={5}
+                interactive={false}
+                rating={`${review.food}`}
+              />{" "}
               Food Quality
             </StyledRating>
           </Column2>
@@ -216,10 +224,10 @@ const CoffeeShopReview = ({
         </Row>
         {!noMoreReviewPics ? (
           <StyledLoadMoreButton onClick={morePics}>
-            Load More...
+            More Pictures...
           </StyledLoadMoreButton>
         ) : (
-          <p>No more pictures</p>
+          <StyledLoadMoreButton>No more pictures</StyledLoadMoreButton>
         )}
 
         <Modal show={showEditForm} onHide={handleClose}>
@@ -245,6 +253,19 @@ const CoffeeShopReview = ({
   );
 };
 
+const StyledRater = styled(Rater)`
+  display: flex;
+
+  .react-rater-star.is-disabled.is-active {
+    color: #e1ccb7 !important;
+    background: none:
+  }
+  .react-rater-star.is-disabled.is-active-half {
+    color: #e1ccb7 !important;
+    background: none:
+  }
+`;
+
 const StyledLayout = styled.div`
   max-width: 1168px;
   margin: auto;
@@ -262,7 +283,7 @@ const Row = styled.div`
 const Column1 = styled.div`
   flex: 5;
   display: flex;
-  flex-directionL column;
+  flex-direction: row;
 `;
 
 const Column2 = styled.div`
@@ -270,12 +291,12 @@ const Column2 = styled.div`
 `;
 
 const StyledLoadMoreButton = styled.button`
-  color: black;
+  color: #2d2721;
   text-align: center;
   font-family: Open Sans;
   font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
+  font-weight: normal;
+  font-size: 16px;
   background: none;
   border: none;
   margin: 0;

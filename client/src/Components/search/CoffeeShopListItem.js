@@ -39,7 +39,7 @@ const CoffeeShopListItem = ({ coffee }) => {
           <Title>
             <Link to={`/coffee_shops/${coffee.id}`}>{coffee.name}</Link>
           </Title>
-          <Rater
+          <StyledRater
             total={5}
             interactive={false}
             rating={`${ratingsData.total_rating}`}
@@ -91,6 +91,18 @@ const Column2 = styled.div`
   flex: 9;
   padding: 1em;
 `;
+
+const StyledRater = styled(Rater)`
+  display: flex;
+  .react-rater-star.is-disabled.is-active {
+    color: #e1ccb7 !important;
+    background: none:
+  }
+  
+  .react-rater-star.is-disabled.is-active-half::before {
+    color: #e1ccb7 !important;
+    background: none:
+  }`;
 
 const Contact = styled.h5`
   font-size: 12px;
