@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormInput } from "../../customHooks/useFormInput";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Form, Container } from "react-bootstrap";
+import { Form, Container, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Register = (props) => {
@@ -37,10 +37,16 @@ const Register = (props) => {
     <Container>
       <h1 className="landing">Register</h1>
       <Form onSubmit={handleSubmit}>
-        <Form.Label>First Name</Form.Label>
-        <Form.Control autoFocus {...firstName} />
-        <Form.Label>Last Name</Form.Label>
-        <Form.Control autoFocus {...lastName} />
+        <Form.Row>
+          <Col>
+            <Form.Label>First Name</Form.Label>
+            <Form.Control autoFocus {...firstName} />
+          </Col>
+          <Col>
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control autoFocus {...lastName} />
+          </Col>
+        </Form.Row>
         <Form.Label>Email</Form.Label>
         <Form.Control autoFocus {...email} />
         <Form.Label>Password</Form.Label>

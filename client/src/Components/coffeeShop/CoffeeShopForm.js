@@ -23,7 +23,7 @@ const CoffeeShopForm = ({
     menu: "",
     website: "",
     contact_info: "",
-    cost: 0,
+    cost: 3, //TODO this is always what it will work
     open: false,
     delivery: false,
     pickup: false,
@@ -234,7 +234,6 @@ const CoffeeShopForm = ({
           </Form.Label>
           <Col>
             <Form.Check
-              checked
               type="radio"
               label="$"
               name="cost"

@@ -56,6 +56,15 @@ const EditProfileForm = ({ hide }) => {
           onChange={handleChange}
         />
       </Form.Group>
+      <Form.Group>
+        <Form.Label> About Me:</Form.Label>
+        <Form.Control
+          type="text"
+          name="about_me"
+          value={userState.about_me}
+          onChange={handleChange}
+        />
+      </Form.Group>
       <button onClick={handleSubmit}>Submit</button>
     </Form>
   );
