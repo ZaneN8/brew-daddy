@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Form } from "react-bootstrap";
 import { AuthContext } from "../../providers/AuthProvider";
+import styled from "styled-components";
 
 const AnswerForm = ({
   question,
@@ -55,7 +56,6 @@ const AnswerForm = ({
 
   return (
     <>
-      <h6>{answerProp ? "Edit Answer" : "Create Answer"}</h6>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Answer</Form.Label>
@@ -66,10 +66,29 @@ const AnswerForm = ({
             onChange={handleChange}
           />
         </Form.Group>
-        <button type="submit">Submit</button>
+        <StyledButton type="submit">Submit</StyledButton>
       </Form>
     </>
   );
 };
+
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
 
 export default AnswerForm;

@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import styled from "styled-components";
-import BrewDad from "../../image/brewDaddyLogo2.svg";
-
+import BrewDad from "../../image/brew-daddy-logo.svg";
+import { Col } from "react-bootstrap";
 // For Basic setup only please change
 const NavBar = ({ match }) => {
   const history = useHistory();
@@ -18,7 +18,7 @@ const NavBar = ({ match }) => {
             onClick={() => handleLogout(history)}
             to=""
           >
-            {"    "}Logout
+            Logout
           </Link>
         </>
       );
@@ -26,11 +26,11 @@ const NavBar = ({ match }) => {
       return (
         <>
           <Link style={{ color: "black", marginLeft: "7px" }} to="/login">
-            {"    "}Login
+            Login
           </Link>
           <span style={{ marginRight: "10px" }}></span>
-          <Link style={{ color: "white" }} to="/register">
-            {"    "}Register
+          <Link style={{ color: "black" }} to="/register">
+            Register
           </Link>
         </>
       );
@@ -39,56 +39,49 @@ const NavBar = ({ match }) => {
 
   return (
     <StyledLayout>
-      <div style={styles.navbar}>
-        <div style={{ justifyContent: "space-between", padding: "10px" }}>
-          <Row>
-            <StyledImage src={BrewDad} />
-            <Link style={{ color: "black" }} to="/">
-              Home
-            </Link>
-            <span style={{ marginRight: "10px" }}></span>
-            {user && (
-              <Link style={{ color: "black" }} to="/profile">
-                Profile{"    "}
-              </Link>
-            )}
-            {correctNavBar()}
-          </Row>
-        </div>
+      <div>
+        <Link to="/">
+          <StyledImage src={BrewDad} />
+        </Link>
+      </div>
+      <div>
+        <Link style={{ color: "black" }} to="/">
+          Home
+        </Link>
+        <span style={{ marginRight: "10px" }}></span>
+        {user && (
+          <Link style={{ color: "black" }} to="/profile">
+            Profile
+          </Link>
+        )}
+        {correctNavBar()}
       </div>
     </StyledLayout>
   );
 };
 
-const styles = {
-  navbar: {
-    background: "#FBF7F3",
-    padding: "10px",
-    textAlign: "end",
-  },
-};
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 const StyledLayout = styled.div`
-  max-width: 100%;
-  max-height: 50px
-  margin: 0%;
   display: flex;
-  flex-direction: column;
-  background: "#BFBFBF";
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-height: 50px
+  margin: 0;
+  padding: 0 2rem;
+  background-color: #FBF7F3;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
 `;
 
 const StyledImage = styled.img`
   display: flex;
   flex: 1;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
   margin-right: 80% !important;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
 `;
 
 export default NavBar;

@@ -19,6 +19,9 @@ const CoffeeShopReview = ({
   const { user } = useContext(AuthContext);
   const [reviewUser, setReviewUser] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
   const [reviewPics, setReviewPics] = useState([]);
   const [page, setPage] = useState(1);
   const [noMoreReviewPics, setNoMoreReviewPics] = useState(false);
@@ -72,6 +75,7 @@ const CoffeeShopReview = ({
       .then((res) => {
         if (typeof deleteReview === "function") {
           deleteReview(id);
+          setShowDelete(false);
         }
       })
       .catch(console.log);
@@ -99,8 +103,17 @@ const CoffeeShopReview = ({
 
   const renderReviewImages = () => {
     return reviewPics.map((revPic) => (
-      <UploadedReviewImage key={revPic.id} src={revPic.image} />
+      <UploadedReviewImage key={revPic.id} url={revPic.image} />
     ));
+  };
+
+  const renderShopImage = () => {
+    if (displayShop && coffeeShop) {
+      return <StyledImage url={coffeeShop.image} />;
+    }
+    if (reviewUser && reviewUser.image) {
+      return <StyledImage url={reviewUser.image} />;
+    }
   };
 
   useEffect(() => {
@@ -111,13 +124,8 @@ const CoffeeShopReview = ({
     <>
       <div key={review.id}>
         <Row>
-          {displayShop && coffeeShop ? (
-            <StyledImage src={coffeeShop.image} />
-          ) : !displayShop && user ? (
-            <StyledImage src={user.image} />
-          ) : (
-            <img src="" />
-          )}
+          {renderShopImage()}
+
           {displayShop && coffeeShop && coffeeShop.name ? (
             <StyledReviewName>
               <Link to={`/coffee_shops/${review.coffee_shop_id}`}>
@@ -152,80 +160,91 @@ const CoffeeShopReview = ({
           {reviewOwnedByUser && (
             <button
               style={{ border: "none", background: "none", color: "#DADADA" }}
-              onClick={handleReviewDelete}
+              onClick={handleShowDelete}
             >
               <FontAwesome name="trash" />
             </button>
           )}
+          <Modal show={showDelete} onHide={handleCloseDelete}>
+            <Modal.Header>
+              <Modal.Title>Are you sure?</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <StyledYesButton onClick={handleReviewDelete}>
+                Yes, Delete
+              </StyledYesButton>
+              {"  "}
+              <StyledNoButton onClick={handleCloseDelete}>
+                No, Keep
+              </StyledNoButton>
+            </Modal.Body>
+          </Modal>
         </Row>
         <Row>
-          <Rater total={5} interactive={false} rating={`${review.rating}`} />
+          <StyledRater
+            total={5}
+            interactive={false}
+            rating={`${review.rating}`}
+          />
           <StyledReviewHeader>{review.title}</StyledReviewHeader>
         </Row>
         <StyledTimeStamp>Reviewed on {reviewTimeStamp()}</StyledTimeStamp>
         <StyledReviewName>{review.body}</StyledReviewName>
         <p>{review.image}</p>
-        <Row>
+        <RatingContainer>
           <Column1>
-            <StyledRating>
-              <Rater
+            <Row>
+              <StyledRater
                 total={5}
                 interactive={false}
                 rating={`${review.work_friendly}`}
               />{" "}
-              Work Friendly
-            </StyledRating>
-          </Column1>
-          <Column2>
-            <StyledRating>
-              <Rater
+              <StyledRating>Work Friendly</StyledRating>
+            </Row>
+            <Row>
+              <StyledRater
                 total={5}
                 interactive={false}
                 rating={`${review.coffee_rating}`}
-              />{" "}
-              Coffee Quality
-            </StyledRating>
-          </Column2>
-        </Row>
-        <Row>
+              />
+              <StyledRating>Coffee Quality </StyledRating>
+            </Row>
+          </Column1>
           <Column1>
-            <StyledRating>
-              <Rater
+            <Row>
+              <StyledRater
                 total={5}
                 interactive={false}
                 rating={`${review.noise_level}`}
               />{" "}
-              Background Noise
-            </StyledRating>
+              <StyledRating>Background Noise</StyledRating>
+            </Row>
+            <Row>
+              <StyledRater
+                total={5}
+                interactive={false}
+                rating={`${review.food}`}
+              />{" "}
+              <StyledRating>Food Quality</StyledRating>
+            </Row>
           </Column1>
-          <Column2>
-            <StyledRating>
-              <Rater total={5} interactive={false} rating={`${review.food}`} />{" "}
-              Food Quality
-            </StyledRating>
-          </Column2>
-        </Row>
+        </RatingContainer>
 
         <Row>
-          <p>{renderReviewImages()}</p>
-          <p>
-            {reviewOwnedByUser && (
-              <ReviewImageUpload reviewProp={review} afterCreate={addImage} />
-            )}
-          </p>
+          <div>{renderReviewImages()}</div>
+
+          {reviewOwnedByUser && (
+            <ReviewImageUpload reviewProp={review} afterCreate={addImage} />
+          )}
         </Row>
         {!noMoreReviewPics ? (
           <StyledLoadMoreButton onClick={morePics}>
-            Load More...
+            More Pictures...
           </StyledLoadMoreButton>
         ) : (
-          <p>No more pictures</p>
+          <StyledLoadMoreButton>No more pictures</StyledLoadMoreButton>
         )}
-
         <Modal show={showEditForm} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Review</Modal.Title>
-          </Modal.Header>
           <Modal.Body>
             <ReviewForm
               shopId={review.coffee_shop_id}
@@ -234,16 +253,31 @@ const CoffeeShopReview = ({
               hide={handleClose}
             />
           </Modal.Body>
-          <Modal.Footer>
-            <button variant="secondary" onClick={handleClose}>
-              Cancel
-            </button>
-          </Modal.Footer>
         </Modal>
       </div>
+      <hr />
     </>
   );
 };
+
+const RatingContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 75%;
+`;
+
+const StyledRater = styled(Rater)`
+  display: flex;
+
+  .react-rater-star.is-disabled.is-active {
+    color: #F08F2D !important;
+    background: none:
+  }
+  .react-rater-star.is-disabled.is-active-half {
+    color: #F08F2D !important;
+    background: none:
+  }
+`;
 
 const StyledLayout = styled.div`
   max-width: 1168px;
@@ -255,14 +289,17 @@ const StyledLayout = styled.div`
 
 const Row = styled.div`
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   grid-column-gap: 5px;
+  padding-right: 20px;
 `;
 
 const Column1 = styled.div`
-  flex: 5;
+  width: 50%;
   display: flex;
-  flex-directionL column;
+  flex-direction: column;
+  flex-shrink: 0;
 `;
 
 const Column2 = styled.div`
@@ -270,12 +307,12 @@ const Column2 = styled.div`
 `;
 
 const StyledLoadMoreButton = styled.button`
-  color: black;
+  color: #2d2721;
   text-align: center;
   font-family: Open Sans;
   font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
+  font-weight: normal;
+  font-size: 16px;
   background: none;
   border: none;
   margin: 0;
@@ -283,10 +320,14 @@ const StyledLoadMoreButton = styled.button`
   cursor: pointer;
 `;
 
-const StyledImage = styled.img`
+const StyledImage = styled.div`
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 const StyledReviewName = styled.div`
@@ -322,11 +363,54 @@ const StyledRating = styled.div`
   line-height: 20px;
 `;
 
-const UploadedReviewImage = styled.img`
+const UploadedReviewImage = styled.div`
   border-radius: 15px;
   margin: 5px;
   width: 50px;
   height: 50px;
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+`;
+
+const StyledYesButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #ff6961;
+  border-radius: 15px;
+  background-color: #ff6961;
+  opacity: 0.9;
+  color: white;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
+const StyledNoButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #86945e;
+  border-radius: 15px;
+  background-color: #86945e;
+  opacity: 0.9;
+  color: white;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 export default CoffeeShopReview;

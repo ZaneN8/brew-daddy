@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import styled from "styled-components";
+import FontAwesome from "react-fontawesome";
 
 const ReviewImageUpload = ({ reviewProp, afterCreate }) => {
   const [show, setShow] = useState(false);
@@ -42,8 +43,18 @@ const ReviewImageUpload = ({ reviewProp, afterCreate }) => {
 
   return (
     <>
-      <PlusButton onClick={handleShow}>+</PlusButton>
-
+      <PlusButton onClick={handleShow}>
+        <span>
+          <FontAwesome
+            style={{
+              border: "none",
+              background: "none",
+              color: "#black",
+            }}
+            name="plus-circle"
+          />
+        </span>
+      </PlusButton>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add Image</Modal.Title>
@@ -57,29 +68,44 @@ const ReviewImageUpload = ({ reviewProp, afterCreate }) => {
           />
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={handleClose}>Close</button>
-          <button onClick={handleSubmit}>Save Changes / SUBMIT</button>
+          <StyledButton onClick={handleSubmit}>Save Image</StyledButton>
+          <StyledButton onClick={handleClose}>Close</StyledButton>
         </Modal.Footer>
       </Modal>
     </>
   );
 };
 
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
+
 const PlusButton = styled.button`
   width: 50px;
   height: 50px;
-  text-align: center;
-  // padding: 0.1em 0.2em;
-  margin: 0 0.1em 0.1em 0;
   border: 0.16em solid #dbd4cc;
   border-radius: 15px;
   background-color: #dbd4cc;
   color: white;
-  text-align: center;
-  font-size: 30px;
-  transition: all 0.2s;
+  font-size: 25px;
+  transition: all 0.5s;
   &:hover {
-     border-color: black;
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
   }
 `;
 

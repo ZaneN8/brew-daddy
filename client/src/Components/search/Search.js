@@ -14,11 +14,11 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
 
   return (
     <StyledPage>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} style={{ width: "100%" }}>
         <StyledGroup>
           <Input
             autoFocus
-            placeholder="Enter to search here"
+            placeholder="E.g. ‘Coffee Roasters’, ‘Red Moose Coffee’"
             name="query"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -28,47 +28,64 @@ const Search = ({ handleSubmit, coffeeShops, query, setQuery, nextPage }) => {
       </Form>
       <br />
       {renderCoffeeShops()}
-      <StyledButton onClick={nextPage}>load more</StyledButton>
+      <StyledButton
+        onClick={nextPage}
+        style={{
+          marginTop: "2rem",
+          marginBottom: "3rem",
+          fontSize: "20px",
+        }}
+      >
+        load more
+      </StyledButton>
     </StyledPage>
   );
 };
 
 const StyledPage = styled.div`
-  padding: 1em 4em 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 `;
+
 const StyledResultCard = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border: 1px solid;
   border-radius: 30px;
-  padding: 1em;
+  padding-bottom: 1em;
+  width: 85%;
 `;
 
 const StyledGroup = styled(Form.Group)`
-  width: 90%;
+  width: 85%;
   display: flex;
   margin: auto;
-  padding: 10px;
+  padding-top: 30px;
 `;
 
 const Input = styled(Form.Control)`
   border-radius: 30px;
-  box-shadow: 0px 2px 6px;
+  box-shadow: 0px 2px 7.5px 2px rgba(0, 0, 0, 0.25);
   color: black;
+  flex-grow: 1;
+  width: 100%;
+  padding: 1.5em;
+
   &:hover {
     background: #e5e5e5;
-    box-shadow: 0px 2px 6px;
+    box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.35);
   }
 `;
 
 const StyledButton = styled.button`
-  background-color: #4d4d4d;
-  margin: 0 0em 0em 2em ;
+  background-color: #2d2721;
+  margin: 0 0em 0em 2em;
   color: white;
   border-radius: 30px;
   border: none;
-  width: 100px;
-  height: 38px;
+  padding: 0.9em 1.2em;
 `;
 
 export default Search;

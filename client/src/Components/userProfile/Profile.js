@@ -92,6 +92,7 @@ const Profile = () => {
   const renderProfileReviews = () => {
     return profileReviews.map((review) => (
       <CoffeeShopReview
+        key={review.id}
         displayShop
         review={review}
         editReview={editReview}
@@ -139,7 +140,7 @@ const Profile = () => {
           <div>
             <StyledProfileImage
               onClick={handleShow}
-              src={user.image ? user.image : userDefaultPhoto}
+              url={user.image ? user.image : userDefaultPhoto}
             />
             <Modal show={changePic} onHide={handleClose}>
               <Modal.Header closeButton>
@@ -154,8 +155,10 @@ const Profile = () => {
                 />
               </Modal.Body>
               <Modal.Footer>
-                <button onClick={handleClose}>Close</button>
-                <button onClick={handleSubmit}>Change Picture</button>
+                <StyledButton onClick={handleSubmit}>
+                  Change Picture
+                </StyledButton>
+                <StyledButton onClick={handleClose}>Close</StyledButton>
               </Modal.Footer>
             </Modal>
           </div>
@@ -186,9 +189,6 @@ const Profile = () => {
             <Modal.Body>
               <EditProfileForm hide={closeEditShow} />
             </Modal.Body>
-            <Modal.Footer>
-              <button onClick={closeEditShow}>Close</button>
-            </Modal.Footer>
           </Modal>
         </div>
         {user && <UserRating userId={user.id} />}
@@ -231,15 +231,12 @@ const Profile = () => {
         </Row>
         <div>
           <Modal show={show} onHide={closeShow}>
-            <Modal.Header closeButton>
+            <Modal.Header>
               <Modal.Title>Create Coffee Shop</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <CoffeeShopForm hide={closeShow} afterCreate={addCoffeeShop} />
             </Modal.Body>
-            <Modal.Footer>
-              <button onClick={closeShow}>Cancel</button>
-            </Modal.Footer>
           </Modal>
         </div>
         <div>{renderProfileCoffeeShop()}</div>
@@ -263,7 +260,7 @@ const StyledCoffeeShop = styled.div`
   margin-bottom: 2rem;
 `;
 
-const CoffeeShopImage = styled.img`
+const CoffeeShopImage = styled.div`
   width: 200px;
   height: 135px;
   flex-shrink: 0;
@@ -357,16 +354,18 @@ const Box = styled.div`
 `;
 
 const BigBox = styled.div`
-  flex: 7;
+  flex: 9;
   display: flex;
   width: 600px;
   min-height: 300px;
   flex-direction: column;
-  padding: 5%;
+  padding-top: 5%;
+  padding-left: 2.5%
+  padding-right: 2.5%
   height: 100%;
 `;
 
-const StyledProfileImage = styled.img`
+const StyledProfileImage = styled.div`
   border-radius: 50%;
   height: 200px;
   width: 200px;
@@ -380,7 +379,7 @@ const StyledProfileImage = styled.img`
 
 const StyledLoadMoreButton = styled.button`
   color: black;
-  text-align: center;
+  text-align: left;
   font-family: Open Sans;
   font-style: normal;
   font-weight: bold;
@@ -394,7 +393,7 @@ const StyledLoadMoreButton = styled.button`
 
 const StyledButton = styled.button`
   display: incline-block;
-  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
   // margin: 0 0.1em 0.1em 0;
   border: 0.16em solid #dbd4cc;
   border-radius: 15px;
@@ -406,9 +405,9 @@ const StyledButton = styled.button`
   font-weight: bold;
   font-size: 12px;
   line-height: 20px;
-  transition: all 0.2s;
+  transition: all 0.5s;
   &:hover {
-    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
   }
 `;
 

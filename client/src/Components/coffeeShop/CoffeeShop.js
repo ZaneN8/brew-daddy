@@ -31,6 +31,9 @@ const CoffeeShop = ({ match, history }) => {
   const handleShow = () => setShowEditForm(true);
   const handleCloseReview = () => setShowReviewForm(false);
   const handleAddReview = () => setShowReviewForm(true);
+  const [showDelete, setShowDelete] = useState(false);
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
 
   useEffect(() => {
     axios
@@ -130,7 +133,7 @@ const CoffeeShop = ({ match, history }) => {
     <div>
       <StyledShop>
         <ImageBox>
-          <StyledImg src={shop.image} />
+          <StyledImg url={shop.image} />
         </ImageBox>
         <InfoRight>
           <StyledCoffeeShopName>
@@ -153,14 +156,38 @@ const CoffeeShop = ({ match, history }) => {
               </button>
             )}
             {shopOwnedByUser && (
-              <button onClick={() => deleteCoffeeShop(shop.id)}>
-                {" "}
-                Delete Coffee Shop
+              <button
+                style={{ border: "none", background: "none" }}
+                // onClick={() => deleteCoffeeShop(shop.id)}
+                onClick={handleShowDelete}
+              >
+                <FontAwesome
+                  style={{
+                    border: "none",
+                    background: "none",
+                    color: "#DADADA",
+                  }}
+                  name="trash"
+                />
               </button>
             )}
+            <Modal show={showDelete} onHide={handleCloseDelete}>
+              <Modal.Header>
+                <Modal.Title>Are you sure?</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <StyledYesButton onClick={() => deleteCoffeeShop(shop.id)}>
+                  Yes, Delete
+                </StyledYesButton>
+                {"  "}
+                <StyledNoButton onClick={handleCloseDelete}>
+                  No, Keep
+                </StyledNoButton>
+              </Modal.Body>
+            </Modal>
             <Modal show={showEditForm} onHide={handleClose}>
               <Modal.Header closeButton>
-                <Modal.Title> Edit Coffee Shop </Modal.Title>
+                <Modal.Title>Edit Coffee Shop</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <CoffeeShopForm
@@ -169,12 +196,9 @@ const CoffeeShop = ({ match, history }) => {
                   afterUpdate={editCoffeeShop}
                 />
               </Modal.Body>
-              <Modal.Footer>
-                <button onClick={handleClose}>Cancel</button>
-              </Modal.Footer>
             </Modal>
           </StyledCoffeeShopName>
-          <Rater
+          <StyledRater
             total={5}
             interactive={false}
             rating={`${ratingsData.total_rating}`}
@@ -182,6 +206,7 @@ const CoffeeShop = ({ match, history }) => {
           <StyledMoney>{shop.cost && shopCost()}</StyledMoney>
           <BoolenBox>
             <Open open={shop.open}>Open{shop.open}</Open>
+            <PickUp pick={shop.pickup}>Pickup{shop.pickup}</PickUp>
             <Delivery delivers={shop.delivery}>
               Delivery{shop.delivery}
             </Delivery>
@@ -189,13 +214,13 @@ const CoffeeShop = ({ match, history }) => {
               Order Online
               {shop.order_online}
             </Online>
-            <PickUp pick={shop.pick_up}>Pick Up{shop.pick_up}</PickUp>
           </BoolenBox>
           <StyledDescription>{shop.description}</StyledDescription>
           <LinkContainer>
             <Menu href={shop.menu} target="_blank">
               Menu
             </Menu>
+            {/* TODO when site/menu not entered it is a dead link */}
             <Website href={shop.website} target="_blank">
               Website
             </Website>
@@ -215,12 +240,6 @@ const CoffeeShop = ({ match, history }) => {
           <br />
           <br />
           <br />
-          {shopOwnedByUser && (
-            <button onClick={() => deleteCoffeeShop(shop.id)}>
-              {" "}
-              Delete Coffee Shop
-            </button>
-          )}
         </InfoRight>
       </StyledShop>
     </div>
@@ -242,8 +261,7 @@ const CoffeeShop = ({ match, history }) => {
   else
     return (
       <StyledPage>
-        <StyledInfoContainer>{renderShopInfo()}</StyledInfoContainer>
-        {/* <div>{renderAllRating()}</div><hr /> */}
+        <div>{renderShopInfo()}</div>
         <CoffeeShopRating ratingsData={ratingsData} />
         <hr />
         <CoffeeShopQuestions questionsShopId={shop.id} />
@@ -259,32 +277,33 @@ const CoffeeShop = ({ match, history }) => {
             </RPics>
           </Column1>
           <Column2>
+            {user && (
+              <StyledButton
+                style={{ marginBottom: "20px" }}
+                onClick={handleAddReview}
+              >
+                Write A Review
+              </StyledButton>
+            )}
             <div>{renderReviews()}</div>
             {!noMoreReviews ? (
-              <button onClick={nextPage}>More reviews</button>
+              <StyledLoadMoreButton onClick={nextPage}>
+                More reviews
+              </StyledLoadMoreButton>
             ) : (
-              <p>No More Reviews</p>
+              <StyledLoadMoreButton>No More Reviews</StyledLoadMoreButton>
             )}
-            <hr />
-            <br />
-            {user && <button onClick={handleAddReview}> Write Review</button>}
-            <Modal show={showReviewForm}>
-              <Modal.Header closeButton onHide={handleCloseReview}>
-                <Modal.Title>Create Review</Modal.Title>.
-              </Modal.Header>
+            <Modal show={showReviewForm} onHide={handleCloseReview}>
               <Modal.Body>
                 <ReviewForm
                   hide={handleCloseReview}
                   afterCreate={addReview}
                   shopId={shop.id}
                 />
-                <Modal.Footer>
-                  <button onClick={handleCloseReview}>Cancel</button>
-                </Modal.Footer>
               </Modal.Body>
             </Modal>
             <br />
-            <hr />
+
             <Button onClick={history.goBack}>BACK</Button>
           </Column2>
         </Row>
@@ -296,9 +315,89 @@ const StyledPage = styled.div`
   padding: 3em 6em 1em;
 `;
 
-const StyledInfoContainer = styled.div`
-  // border: 1px solid black; //take out when done
+const StyledLoadMoreButton = styled.button`
+  color: #2d2721;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 `;
+
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
+
+const StyledYesButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #ff6961;
+  border-radius: 15px;
+  background-color: #ff6961;
+  opacity: 0.9;
+  color: white;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
+const StyledNoButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #86945e;
+  border-radius: 15px;
+  background-color: #86945e;
+  opacity: 0.9;
+  color: white;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
+
+const StyledRater = styled(Rater)`
+  display: flex;
+  margin: 4px;
+  .react-rater-star.is-disabled.is-active {
+    color: #F08F2D !important;
+    background: none:
+  }
+  .react-rater-star.is-disabled.is-active-half::before {
+    color: #F08F2D !important;
+    background: none:
+  }`;
 
 const InfoRight = styled.div`
   padding-left: 50px;
@@ -308,10 +407,11 @@ const InfoRight = styled.div`
 
 const ImageBox = styled.div``;
 
-const StyledImg = styled.img`
-  heigth: 400px;
+const StyledImg = styled.div`
+  height: 400px;
   width: 350px;
-  border-radius: 20%;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  border-radius: 30px;
   background-image: url(${(props) => props.url});
   background-repeat: no-repeat;
   background-size: cover;
@@ -331,14 +431,21 @@ const StyledCoffeeShopName = styled.h1`
   font-size: 36px;
   line-height: 49px;
   flex-wrap: wrap;
+  margin-bottom: 0px;
 `;
 
 const StyledMoney = styled.div`
   color: #86945e;
+  letter-spacing: 0.2em;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: sans-serif;
 `;
 
 const BoolenBox = styled.div`
   display: flex;
+  margin-top: 12px
+  margin-bottom: 12px
 `;
 
 const Open = styled.p`
@@ -382,6 +489,8 @@ const Online = styled.p`
 `;
 const StyledDescription = styled.p`
   overflow: hidden;
+  margin-top: 12px;
+  margin-bottom: 4px;
 `;
 
 const LinkContainer = styled.div`
@@ -390,15 +499,17 @@ const LinkContainer = styled.div`
 
 const Menu = styled.a`
   display: flex;
-  margin-right: 2rem;
+  margin: 4px 4px 4px;
 `;
 
 const Website = styled.a`
   display: flex;
+  margin: 4px 4px 4px;
 `;
 
 const Contact = styled.h5`
   font-size: 12px;
+  margin: 4px;
 `;
 
 const Button = styled.button`
