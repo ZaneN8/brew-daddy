@@ -156,6 +156,7 @@ const CoffeeShop = ({ match, history }) => {
               <button
                 style={{ border: "none", background: "none" }}
                 onClick={() => deleteCoffeeShop(shop.id)}
+                // onClick={() => deleteCoffeeShop(shop.id)}
               >
                 <FontAwesome
                   style={{
@@ -167,6 +168,7 @@ const CoffeeShop = ({ match, history }) => {
                 />
               </button>
             )}
+
             <Modal show={showEditForm} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title> Edit Coffee Shop </Modal.Title>
@@ -247,7 +249,6 @@ const CoffeeShop = ({ match, history }) => {
     return (
       <StyledPage>
         <StyledInfoContainer>{renderShopInfo()}</StyledInfoContainer>
-        {/* <div>{renderAllRating()}</div><hr /> */}
         <CoffeeShopRating ratingsData={ratingsData} />
         <hr />
         <CoffeeShopQuestions questionsShopId={shop.id} />

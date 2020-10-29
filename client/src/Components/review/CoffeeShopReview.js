@@ -19,9 +19,9 @@ const CoffeeShopReview = ({
   const { user } = useContext(AuthContext);
   const [reviewUser, setReviewUser] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
-  // const [showDelete, setShowDelete] = useState(false);
-  // const handleCloseDelete = () => setShowDelete(false);
-  // const handleShowDelete = () => setShowDelete(true);
+  const [showDelete, setShowDelete] = useState(false);
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
   const [reviewPics, setReviewPics] = useState([]);
   const [page, setPage] = useState(1);
   const [noMoreReviewPics, setNoMoreReviewPics] = useState(false);
@@ -163,21 +163,22 @@ const CoffeeShopReview = ({
           {reviewOwnedByUser && (
             <button
               style={{ border: "none", background: "none", color: "#DADADA" }}
-              onClick={handleReviewDelete}
-              // onClick={handleShowDelete}
+              // onClick={handleReviewDelete}
+              onClick={handleShowDelete}
             >
               <FontAwesome name="trash" />
             </button>
           )}
-          {/* <Modal show={showDelete} onHide={handleClose}>
+          <Modal show={showDelete} onHide={handleCloseDelete}>
             <Modal.Header>
               <Modal.Title>Are you sure?</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <button onClick={handleReviewDelete}>Yes, Delete</button>
-              <button onClick={handleClose}>No, Keep</button>
+              {"  "}
+              <button onClick={handleCloseDelete}>No, Keep</button>
             </Modal.Body>
-          </Modal> */}
+          </Modal>
         </Row>
         <Row>
           <StyledRater
