@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 const About = () => (
   <>
@@ -11,12 +11,12 @@ const About = () => (
       to study, or has your favorite panini sandwich like no where else. Connect
       with other coffee aficionados and support local businesses.
     </p>
-    <FinePrint>*All Starbucks submissions will be removed*</FinePrint>
+    {/* <FinePrint>*All Starbucks submissions will be removed*</FinePrint> */}
   </>
 );
 
 export default About;
 
-const FinePrint = styled.p`
-  font-weight: 6px;
-`;
+// const FinePrint = styled.p`
+//   font-weight: 6px;
+// `;

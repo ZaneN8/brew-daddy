@@ -74,8 +74,8 @@ const Team = () => {
               front-end building custom React components, pagination for the
               questions, answers, and review sections, also helping with the
               styling on this project. A special thanks to my entire family but
-              especially his beautiful wife Leah and two amazing children Milo
-              and Coco for their continued support over the course of this
+              especially my beautiful wife Leah and two amazing children Milo
+              and Coco for their unending support over the course of this
               project.
             </p>{" "}
           </Card>
