@@ -17,7 +17,7 @@ const Answer = ({ answer, deleteAnswer, editAnswer }) => {
 
   return (
     <p key={answer.id}>
-      <b>Answer:</b>
+      <b>Answer: </b>
 
       {answer.body}
       {answerOwnedByUser && (

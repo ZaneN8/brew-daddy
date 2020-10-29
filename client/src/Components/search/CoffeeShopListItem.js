@@ -22,7 +22,7 @@ const CoffeeShopListItem = ({ coffee }) => {
       .get(`/api/coffee_shops/${coffee.id}/average_stats`)
       .then((res) => {
         setRatingsData(res.data);
-        //Need to normalize Rating data and do calcuate
+        //Need to normalize Rating data and do calculate
       })
       .catch((err) => {
         console.log("ERROR Setting Rating Data");
@@ -114,25 +114,31 @@ const Column1 = styled.div`
 `;
 
 const Column2 = styled.div`
-  flex: 7;
-  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // flex: 7;
+  // padding: 1.5em;
+  padding: 0 2em;
 `;
 
 const StyledMoney = styled.div`
   color: #86945e;
+  letter-spacing: 0.1em;
 `;
 
 const StyledRater = styled(Rater)`
   display: flex;
   .react-rater-star.is-disabled.is-active {
-    color: #e1ccb7 !important;
-    background: none:
+    color: #f0af6d !important;
+    background: none;
   }
-  
+
   .react-rater-star.is-disabled.is-active-half::before {
-    color: #e1ccb7 !important;
-    background: none:
-  }`;
+    color: #f0af6d !important;
+    background: none;
+  }
+`;
 
 const Contact = styled.h5`
   font-size: 12px;

@@ -62,8 +62,8 @@ const Input = styled(Form.Control)`
 `;
 
 const StyledButton = styled.button`
-  background-color: #4d4d4d;
-  margin: 0 0em 0em 2em ;
+  background-color: #2d2721;
+  margin: 0 0em 0em 2em;
   color: white;
   border-radius: 30px;
   border: none;

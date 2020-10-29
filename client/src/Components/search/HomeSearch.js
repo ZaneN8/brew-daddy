@@ -27,7 +27,7 @@ const HomeSearch = () => {
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label style={{ color: "white", width: "600px" }}>
-            Search
+            <StyledSearchText>Find The Coffee You Deserve</StyledSearchText>
           </Form.Label>
           <Form.Control
             className="form"
@@ -51,6 +51,14 @@ const StyledLargeForm = styled.div`
   .form {
     border-radius: 30px;
   }
+`;
+
+const StyledSearchText = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 44px;
 `;
 
 export default HomeSearch;

@@ -390,7 +390,7 @@ const StyledLoadMoreButton = styled.button`
 
 const StyledButton = styled.button`
   display: incline-block;
-  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
   // margin: 0 0.1em 0.1em 0;
   border: 0.16em solid #dbd4cc;
   border-radius: 15px;
@@ -402,9 +402,9 @@ const StyledButton = styled.button`
   font-weight: bold;
   font-size: 12px;
   line-height: 20px;
-  transition: all 0.2s;
+  transition: all 0.5s;
   &:hover {
-    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
   }
 `;
 

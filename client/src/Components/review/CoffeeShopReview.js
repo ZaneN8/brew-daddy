@@ -197,7 +197,7 @@ const CoffeeShopReview = ({
               interactive={false}
               rating={`${review.work_friendly}`}
             />{" "}
-            <div>Work Friendly</div>
+            <StyledRating>Work Friendly</StyledRating>
           </Row>
           <Row>
             <StyledRater
@@ -205,7 +205,7 @@ const CoffeeShopReview = ({
               interactive={false}
               rating={`${review.coffee_rating}`}
             />
-            <div>Coffee Quality </div>
+            <StyledRating>Coffee Quality </StyledRating>
           </Row>
         </Column1>
         <Column1>
@@ -215,7 +215,7 @@ const CoffeeShopReview = ({
               interactive={false}
               rating={`${review.noise_level}`}
             />{" "}
-            <div>Background Noise</div>
+            <StyledRating>Background Noise</StyledRating>
           </Row>
           <Row>
             <StyledRater
@@ -223,7 +223,7 @@ const CoffeeShopReview = ({
               interactive={false}
               rating={`${review.food}`}
             />{" "}
-            <div>Food Quality</div>
+            <StyledRating>Food Quality</StyledRating>
           </Row>
         </Column1>
 

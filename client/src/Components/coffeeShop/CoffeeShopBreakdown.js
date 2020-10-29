@@ -41,8 +41,7 @@ const CoffeeShopBreakdown = ({ match }) => {
 
   return (
     <>
-      <br />
-      Breakdown:
+      Review Breakdown:
       {renderBreakdown()}
     </>
   );
@@ -51,7 +50,6 @@ const CoffeeShopBreakdown = ({ match }) => {
 const StyledProgress = styled(ProgressBar)`
   margin-bottom: 1rem;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
-
   .progress-bar {
     background-color: #2d2721 !important;
   }

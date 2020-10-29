@@ -91,13 +91,13 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
   return (
     <StyledLayout>
       <div>
-        <StyledTitle> Questions & Answers</StyledTitle>
+        <StyledTitle>Questions & Answers</StyledTitle>
         {user && (
           <StyledButton onClick={handleShow}>Ask a Question</StyledButton>
         )}
         <Modal show={showCQuestions} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Create Question</Modal.Title>
+            <Modal.Title>Ask A Question</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <QuestionForm

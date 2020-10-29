@@ -100,7 +100,7 @@ const Question = ({
   return (
     <div key={question.id}>
       <p>
-        <b>Question:{question.body}</b>
+        <b>Question: {question.body}</b>
 
         {questionOwnedByUser && (
           <button
