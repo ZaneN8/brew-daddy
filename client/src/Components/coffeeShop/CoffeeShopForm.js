@@ -233,27 +233,37 @@ const CoffeeShopForm = ({
             Cost
           </Form.Label>
           <Col>
-            <Form.Check
-              checked
+          <Form.Check
               type="radio"
               label="$"
               name="cost"
+              checked={coffeeShopState.cost == 1}
               onChange={handleChange}
-              value={coffeeShopState.cost}
+              value="1"
             />
             <Form.Check
               type="radio"
               label="$$"
               name="cost"
+              checked={coffeeShopState.cost == 2}
               onChange={handleChange}
-              value={coffeeShopState.cost}
+              value="2"
             />
             <Form.Check
               type="radio"
               label="$$$"
               name="cost"
+              checked={coffeeShopState.cost == 3}
               onChange={handleChange}
-              value={coffeeShopState.cost}
+              value="3"
+            />
+            <Form.Check
+              type="radio"
+              label="$$$$"
+              name="cost"
+              checked={coffeeShopState.cost == 4}
+              onChange={handleChange}
+              value="4"
             />
           </Col>
         </Form.Group>
