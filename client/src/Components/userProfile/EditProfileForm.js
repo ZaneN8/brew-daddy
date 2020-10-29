@@ -62,6 +62,8 @@ const EditProfileForm = ({ hide }) => {
         <Form.Control
           type="text"
           name="about_me"
+          as="textarea"
+          rows={3}
           value={userState.about_me}
           onChange={handleChange}
         />

@@ -37,7 +37,7 @@ const Team = () => {
           </Card>
         </Column2>
         <Column1>
-          <StyledImage url="https://media-exp1.licdn.com/dms/image/C4E03AQHvD8L1w00uxg/profile-displayphoto-shrink_800_800/0?e=1609372800&v=beta&t=5OpzzA5eeBetDZai1EZlbjqz-FViQ61qQtwjofOgcBU" />
+          <StyledImage url="w00uxg/profile-displayphoto-shrink_800_800/0?e=1609372800&v=beta&t=5OpzzA5eeBetDZai1EZlbjqz-FViQ61qQtwjofOgcBUhttps://media-exp1.licdn.com/dms/image/C4E03AQHvD8L1" />
         </Column1>
       </Row>
       <Row>

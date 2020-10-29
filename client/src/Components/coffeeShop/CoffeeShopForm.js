@@ -124,7 +124,7 @@ const CoffeeShopForm = ({
 
   return (
     <div>
-      <h1>{shopProp ? "Edit Shop" : "Create a CoffeeShop"}</h1>
+      {/* <h1>{shopProp ? "Edit Shop" : "Create a CoffeeShop"}</h1> */}
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Name</Form.Label>

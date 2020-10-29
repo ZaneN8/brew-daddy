@@ -148,11 +148,13 @@ const Question = ({
             <Modal.Title>Are you sure?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <button onClick={() => deleteQuestion(question.id)}>
+            <StyledYesButton onClick={() => deleteQuestion(question.id)}>
               Yes, Delete
-            </button>
+            </StyledYesButton>
             {"  "}
-            <button onClick={handleCloseDelete}>No, Keep</button>
+            <StyledNoButton onClick={handleCloseDelete}>
+              No, Keep
+            </StyledNoButton>
           </Modal.Body>
         </Modal>
       </p>
@@ -191,7 +193,7 @@ const Question = ({
           />
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={handleAnswerClose}>cancel</button>
+          <StyledButton onClick={handleAnswerClose}>cancel</StyledButton>
         </Modal.Footer>
       </Modal>
 
@@ -208,12 +210,31 @@ const Question = ({
           />
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={handleClose}>Cancel</button>
+          <StyledButton onClick={handleClose}>Cancel</StyledButton>
         </Modal.Footer>
       </Modal>
     </div>
   );
 };
+
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
 
 const StyledLoadMoreAButton = styled.button`
   font-family: Open Sans;
@@ -227,6 +248,45 @@ const StyledLoadMoreAButton = styled.button`
   margin: 0;
   padding: 0;
   cursor: pointer;
+`;
+
+const StyledYesButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #86945e;
+  border-radius: 15px;
+  background-color: #86945e;
+  opacity: 0.9;
+  color: white;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
+const StyledNoButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #ff6961;
+  border-radius: 15px;
+  background-color: #ff6961;
+  opacity: 0.9;
+  color: white;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 export default Question;

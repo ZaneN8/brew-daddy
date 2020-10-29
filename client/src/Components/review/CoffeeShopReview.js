@@ -169,9 +169,13 @@ const CoffeeShopReview = ({
               <Modal.Title>Are you sure?</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <button onClick={handleReviewDelete}>Yes, Delete</button>
+              <StyledYesButton onClick={handleReviewDelete}>
+                Yes, Delete
+              </StyledYesButton>
               {"  "}
-              <button onClick={handleCloseDelete}>No, Keep</button>
+              <StyledNoButton onClick={handleCloseDelete}>
+                No, Keep
+              </StyledNoButton>
             </Modal.Body>
           </Modal>
         </Row>
@@ -237,11 +241,7 @@ const CoffeeShopReview = ({
         ) : (
           <StyledLoadMoreButton>No more pictures</StyledLoadMoreButton>
         )}
-
         <Modal show={showEditForm} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Review</Modal.Title>
-          </Modal.Header>
           <Modal.Body>
             <ReviewForm
               shopId={review.coffee_shop_id}
@@ -250,11 +250,6 @@ const CoffeeShopReview = ({
               hide={handleClose}
             />
           </Modal.Body>
-          <Modal.Footer>
-            <button variant="secondary" onClick={handleClose}>
-              Cancel
-            </button>
-          </Modal.Footer>
         </Modal>
         <hr />
       </div>
@@ -366,6 +361,45 @@ const UploadedReviewImage = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+`;
+
+const StyledYesButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #86945e;
+  border-radius: 15px;
+  background-color: #86945e;
+  opacity: 0.9;
+  color: white;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
+const StyledNoButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #ff6961;
+  border-radius: 15px;
+  background-color: #ff6961;
+  opacity: 0.9;
+  color: white;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 export default CoffeeShopReview;

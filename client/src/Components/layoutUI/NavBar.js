@@ -18,7 +18,7 @@ const NavBar = ({ match }) => {
             onClick={() => handleLogout(history)}
             to=""
           >
-            {"    "}Logout
+            Logout
           </Link>
         </>
       );
@@ -26,11 +26,11 @@ const NavBar = ({ match }) => {
       return (
         <>
           <Link style={{ color: "black", marginLeft: "7px" }} to="/login">
-            {"    "}Login
+            Login
           </Link>
           <span style={{ marginRight: "10px" }}></span>
           <Link style={{ color: "black" }} to="/register">
-            {"    "}Register
+            Register
           </Link>
         </>
       );
@@ -49,12 +49,12 @@ const NavBar = ({ match }) => {
             </Col>
             <Col>
               <Link style={{ color: "black" }} to="/">
-                Home{"    "}
+                Home
               </Link>
               <span style={{ marginRight: "10px" }}></span>
               {user && (
                 <Link style={{ color: "black" }} to="/profile">
-                  Profile{"    "}
+                  Profile
                 </Link>
               )}
               {correctNavBar()}

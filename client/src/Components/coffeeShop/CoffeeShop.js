@@ -176,16 +176,18 @@ const CoffeeShop = ({ match, history }) => {
                 <Modal.Title>Are you sure?</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <button onClick={() => deleteCoffeeShop(shop.id)}>
+                <StyledYesButton onClick={() => deleteCoffeeShop(shop.id)}>
                   Yes, Delete
-                </button>
+                </StyledYesButton>
                 {"  "}
-                <button onClick={handleCloseDelete}>No, Keep</button>
+                <StyledNoButton onClick={handleCloseDelete}>
+                  No, Keep
+                </StyledNoButton>
               </Modal.Body>
             </Modal>
             <Modal show={showEditForm} onHide={handleClose}>
               <Modal.Header closeButton>
-                <Modal.Title> Edit Coffee Shop </Modal.Title>
+                <Modal.Title>Edit Coffee Shop</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <CoffeeShopForm
@@ -194,9 +196,6 @@ const CoffeeShop = ({ match, history }) => {
                   afterUpdate={editCoffeeShop}
                 />
               </Modal.Body>
-              <Modal.Footer>
-                <button onClick={handleClose}>Cancel</button>
-              </Modal.Footer>
             </Modal>
           </StyledCoffeeShopName>
           <StyledRater
@@ -285,21 +284,18 @@ const CoffeeShop = ({ match, history }) => {
               <p>No More Reviews</p>
             )}
             <hr />
-            <br />
-            {user && <button onClick={handleAddReview}> Write Review</button>}
+            {user && (
+              <StyledButton onClick={handleAddReview}>
+                Write A Review
+              </StyledButton>
+            )}
             <Modal show={showReviewForm}>
-              <Modal.Header closeButton onHide={handleCloseReview}>
-                <Modal.Title>Create Review</Modal.Title>.
-              </Modal.Header>
               <Modal.Body>
                 <ReviewForm
                   hide={handleCloseReview}
                   afterCreate={addReview}
                   shopId={shop.id}
                 />
-                <Modal.Footer>
-                  <button onClick={handleCloseReview}>Cancel</button>
-                </Modal.Footer>
               </Modal.Body>
             </Modal>
             <br />
@@ -322,6 +318,45 @@ const StyledButton = styled.button`
   border-radius: 15px;
   background-color: #dbd4cc;
   color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
+
+const StyledYesButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #86945e;
+  border-radius: 15px;
+  background-color: #86945e;
+  opacity: 0.9;
+  color: white;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
+const StyledNoButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #ff6961;
+  border-radius: 15px;
+  background-color: #ff6961;
+  opacity: 0.9;
+  color: white;
   text-align: center;
   font-family: Open Sans;
   font-style: normal;

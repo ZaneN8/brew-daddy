@@ -154,8 +154,10 @@ const Profile = () => {
                 />
               </Modal.Body>
               <Modal.Footer>
-                <button onClick={handleSubmit}>Change Picture</button>
-                <button onClick={handleClose}>Close</button>
+                <StyledButton onClick={handleSubmit}>
+                  Change Picture
+                </StyledButton>
+                <StyledButton onClick={handleClose}>Close</StyledButton>
               </Modal.Footer>
             </Modal>
           </div>
@@ -186,9 +188,6 @@ const Profile = () => {
             <Modal.Body>
               <EditProfileForm hide={closeEditShow} />
             </Modal.Body>
-            <Modal.Footer>
-              <button onClick={closeEditShow}>Close</button>
-            </Modal.Footer>
           </Modal>
         </div>
         {user && <UserRating userId={user.id} />}
@@ -231,6 +230,7 @@ const Profile = () => {
         </Row>
         <div>
           <Modal show={show} onHide={closeShow}>
+            <Modal.Title>Create Coffee Shop</Modal.Title>
             <Modal.Body>
               <CoffeeShopForm hide={closeShow} afterCreate={addCoffeeShop} />
             </Modal.Body>

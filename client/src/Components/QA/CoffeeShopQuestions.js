@@ -107,7 +107,7 @@ const CoffeeShopQuestions = ({ questionsShopId }) => {
             />
           </Modal.Body>
           <Modal.Footer>
-            <button onClick={handleClose}>Cancel</button>
+            <StyledButton onClick={handleClose}>Cancel</StyledButton>
           </Modal.Footer>
         </Modal>
 

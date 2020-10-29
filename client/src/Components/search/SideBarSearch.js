@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import styled from "styled-components";
 
-
 const SideBarSearch = ({
   setCityQuery,
   setStateQuery,
@@ -54,6 +53,7 @@ const StyledForm = styled(Form)`
 
 const StyledGroup = styled(Form.Group)`
   display: flex;
+  justify-content: left;
   margin: auto;
   backgroud-color: #cccccc;
 `;
@@ -74,6 +74,6 @@ const Input = styled(Form.Control)`
 
 const InvisibleButton = styled.button`
   display: none;
-`
+`;
 
 export default SideBarSearch;
