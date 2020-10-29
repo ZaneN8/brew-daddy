@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import styled from "styled-components";
-import BrewDad from "../../image/brewDaddyLogo2.svg";
-
+import BrewDad from "../../image/brew-daddy-logo.svg";
+import { Col } from "react-bootstrap";
 // For Basic setup only please change
 const NavBar = ({ match }) => {
   const history = useHistory();
@@ -42,19 +42,23 @@ const NavBar = ({ match }) => {
       <div style={styles.navbar}>
         <div style={{ justifyContent: "space-between", padding: "10px" }}>
           <Row>
-            <Link to="/">
-              <StyledImage src={BrewDad} />
-            </Link>
-            <Link style={{ color: "black" }} to="/">
-              Home{"    "}
-            </Link>
-            <span style={{ marginRight: "10px" }}></span>
-            {user && (
-              <Link style={{ color: "black" }} to="/profile">
-                Profile{"    "}
+            <Col>
+              <Link to="/">
+                <StyledImage src={BrewDad} />
               </Link>
-            )}
-            {correctNavBar()}
+            </Col>
+            <Col>
+              <Link style={{ color: "black" }} to="/">
+                Home{"    "}
+              </Link>
+              <span style={{ marginRight: "10px" }}></span>
+              {user && (
+                <Link style={{ color: "black" }} to="/profile">
+                  Profile{"    "}
+                </Link>
+              )}
+              {correctNavBar()}
+            </Col>
           </Row>
         </div>
       </div>
@@ -65,7 +69,6 @@ const NavBar = ({ match }) => {
 const styles = {
   navbar: {
     background: "#FBF7F3",
-    padding: "10px",
     textAlign: "end",
   },
 };
@@ -87,6 +90,8 @@ const StyledLayout = styled.div`
 const StyledImage = styled.img`
   display: flex;
   flex: 1;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
   margin-right: 80% !important;
   border-radius: 50%;
   width: 100px;

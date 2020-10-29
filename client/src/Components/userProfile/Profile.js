@@ -231,15 +231,9 @@ const Profile = () => {
         </Row>
         <div>
           <Modal show={show} onHide={closeShow}>
-            <Modal.Header closeButton>
-              <Modal.Title>Create Coffee Shop</Modal.Title>
-            </Modal.Header>
             <Modal.Body>
               <CoffeeShopForm hide={closeShow} afterCreate={addCoffeeShop} />
             </Modal.Body>
-            <Modal.Footer>
-              <button onClick={closeShow}>Cancel</button>
-            </Modal.Footer>
           </Modal>
         </div>
         <div>{renderProfileCoffeeShop()}</div>

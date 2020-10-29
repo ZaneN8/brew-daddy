@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { AuthContext } from "../../providers/AuthProvider";
+import BrewDad from "../../image/Brew_Daddy.jpeg";
+import styled from "styled-components";
 
 const CoffeeShopForm = ({
   history,
@@ -17,8 +19,7 @@ const CoffeeShopForm = ({
     city: "",
     state: "",
     address: "",
-    image:
-      "https://cdn.pixabay.com/photo/2015/12/08/00/26/coffee-shop-1081713_1280.jpg",
+    image: "",
     zip: "",
     menu: "",
     website: "",
@@ -238,14 +239,14 @@ const CoffeeShopForm = ({
               label="$"
               name="cost"
               onChange={handleChange}
-              value={coffeeShopState.cost}
+              value={coffeeShopState.cost == 1}
             />
             <Form.Check
               type="radio"
               label="$$"
               name="cost"
               onChange={handleChange}
-              value={coffeeShopState.cost}
+              value={coffeeShopState.cost == 2}
             />
             <Form.Check
               type="radio"
@@ -325,10 +326,30 @@ const CoffeeShopForm = ({
             />
           </Col>
         </Form.Group>
-        <button type="submit">Submit</button>
+        <StyledButton type="submit">Submit</StyledButton>
+        <StyledButton onClick={hide}>Cancel</StyledButton>
       </Form>
     </div>
   );
 };
+
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
 
 export default CoffeeShopForm;

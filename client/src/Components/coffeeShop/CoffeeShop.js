@@ -262,7 +262,7 @@ const CoffeeShop = ({ match, history }) => {
   else
     return (
       <StyledPage>
-        <StyledInfoContainer>{renderShopInfo()}</StyledInfoContainer>
+        <div>{renderShopInfo()}</div>
         <CoffeeShopRating ratingsData={ratingsData} />
         <hr />
         <CoffeeShopQuestions questionsShopId={shop.id} />
@@ -315,17 +315,32 @@ const StyledPage = styled.div`
   padding: 3em 6em 1em;
 `;
 
-const StyledInfoContainer = styled.div`
-  // border: 1px solid black; //take out when done
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 const StyledRater = styled(Rater)`
   display: flex;
+  margin: 4px;
   .react-rater-star.is-disabled.is-active {
     color: #e1ccb7 !important;
     background: none:
   }
-  
   .react-rater-star.is-disabled.is-active-half::before {
     color: #e1ccb7 !important;
     background: none:
@@ -363,14 +378,20 @@ const StyledCoffeeShopName = styled.h1`
   font-size: 36px;
   line-height: 49px;
   flex-wrap: wrap;
+  margin-bottom: 0px;
 `;
 
 const StyledMoney = styled.div`
   color: #86945e;
+  letter-spacing: 2px;
+  padding: 3px;
+  margin-top: 3px;
 `;
 
 const BoolenBox = styled.div`
   display: flex;
+  margin-top: 12px
+  margin-bottom: 12px
 `;
 
 const Open = styled.p`
@@ -414,6 +435,8 @@ const Online = styled.p`
 `;
 const StyledDescription = styled.p`
   overflow: hidden;
+  margin-top: 12px;
+  margin-bottom: 4px;
 `;
 
 const LinkContainer = styled.div`
@@ -422,15 +445,17 @@ const LinkContainer = styled.div`
 
 const Menu = styled.a`
   display: flex;
-  margin-right: 2rem;
+  margin: 4px 4px 4px;
 `;
 
 const Website = styled.a`
   display: flex;
+  margin: 4px 4px 4px;
 `;
 
 const Contact = styled.h5`
   font-size: 12px;
+  margin: 4px;
 `;
 
 const Button = styled.button`

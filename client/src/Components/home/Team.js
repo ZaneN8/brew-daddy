@@ -6,7 +6,7 @@ const Team = () => {
     <>
       <Row>
         <Column1>
-          <StyledImage src="https://images.unsplash.com/photo-1587085580271-cf1389892268?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
+          <StyledImage url="https://cdn.shopify.com/s/files/1/0863/0604/products/hammerhead8x10.jpg?v=1531877548" />
         </Column1>
         <Column2>
           <Card>
@@ -25,7 +25,7 @@ const Team = () => {
       <Row>
         <Column2>
           <Card>
-            <h3 style={{ textAlign: "right" }}>Zane Newsom</h3>
+            <h3 style={{ textAlign: "right" }}>Simon Johnston</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
@@ -37,16 +37,16 @@ const Team = () => {
           </Card>
         </Column2>
         <Column1>
-          <StyledImage src="https://cdn.shopify.com/s/files/1/0863/0604/products/Marmoset8x10.jpg?v=1531867498" />
+          <StyledImage url="https://media-exp1.licdn.com/dms/image/C4E03AQHvD8L1w00uxg/profile-displayphoto-shrink_800_800/0?e=1609372800&v=beta&t=5OpzzA5eeBetDZai1EZlbjqz-FViQ61qQtwjofOgcBU" />
         </Column1>
       </Row>
       <Row>
         <Column1>
-          <StyledImage src="https://images.unsplash.com/photo-1587085580271-cf1389892268?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
+          <StyledImage url="https://cdn.shopify.com/s/files/1/0863/0604/products/Marmoset8x10.jpg?v=1531867498" />
         </Column1>
         <Column2>
           <Card>
-            <h3 style={{ textAlign: "left" }}>Simon Johnston</h3>
+            <h3 style={{ textAlign: "left" }}>Zane Newsom</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
@@ -73,7 +73,7 @@ const Team = () => {
           </Card>
         </Column2>
         <Column1>
-          <StyledImage src="https://images.unsplash.com/photo-1587085580271-cf1389892268?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
+          <StyledImage url="https://images.unsplash.com/photo-1587085580271-cf1389892268?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
         </Column1>
       </Row>
     </>
@@ -103,15 +103,15 @@ const Column2 = styled.div`
   flex: 8;
 `;
 
-const StyledImage = styled.img`
+const StyledImage = styled.div`
   border-radius: 50%;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
   width:200px;
   height 200px;
-  // background-image: url(${(props) => props.url});
-  // background-repeat: no-repeat;
-  // background-size: cover;
-  // background-position: center;
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 const StyledLayout = styled.div`

@@ -44,12 +44,12 @@ const Lander = () => {
             </Card2>
           </Column2>
           <Column1>
-            <StyledImage src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
+            <StyledImage url="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
           </Column1>
         </Row>
         <Row>
           <Column1>
-            <StyledImage src="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
+            <StyledImage url="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" />
           </Column1>
           <Column2>
             <Card2>
@@ -95,6 +95,7 @@ const StyledLayout = styled.div`
 
 const Row = styled.div`
   display: flex;
+  padding-top: 2.5% !important;
 `;
 
 const Card1 = styled.div`
@@ -124,21 +125,23 @@ const Column1 = styled.div`
   flex: 5;
   display: flex;
   flex-directionL column;
+  justify-content: space-between;
 `;
 
 const Column2 = styled.div`
   flex: 5;
 `;
 
-const StyledImage = styled.img`
+// TODO remove .img
+const StyledImage = styled.div`
   border-radius: 15px;
   width: 500px;
   height: 500px;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.35);
-  // background-image: url(${(props) => props.url});
-  // background-repeat: no-repeat;
-  // background-size: cover;
-  // background-position: center;
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 const Wrapper = styled.div`

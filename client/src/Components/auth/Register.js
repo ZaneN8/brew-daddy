@@ -4,6 +4,7 @@ import { useFormInput } from "../../customHooks/useFormInput";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Form, Container, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const Register = (props) => {
   const email = useFormInput("", "Email");
@@ -55,12 +56,31 @@ const Register = (props) => {
         <Form.Control type="password" {...passwordConfirmation} />
         <br />
         <br />
-        <button type="submit">Register</button>
+        <StyledButton type="submit">Register</StyledButton>
       </Form>
       <br />
       <Link to="/">Back</Link>
     </Container>
   );
 };
+
+const StyledButton = styled.button`
+  display: incline-block;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border: 0.16em solid #dbd4cc;
+  border-radius: 15px;
+  background-color: #dbd4cc;
+  color: black;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  transition: all 0.5s;
+  &:hover {
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  }
+`;
 
 export default Register;

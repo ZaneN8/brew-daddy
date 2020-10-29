@@ -106,14 +106,14 @@ const CoffeeShopReview = ({
     ));
   };
 
-  // const renderShopImage = () => {
-  //   if (displayShop && coffeeShop) {
-  //     return <StyledImage url={coffeeShop.image} />;
-  //   }
-  //   if (user && user.image) {
-  //     return <StyledImage url={user.image} />;
-  //   }
-  // };
+  const renderShopImage = () => {
+    if (displayShop && coffeeShop) {
+      return <StyledImage url={coffeeShop.image} />;
+    }
+    if (reviewUser && reviewUser.image) {
+      return <StyledImage url={reviewUser.image} />;
+    }
+  };
 
   useEffect(() => {
     getReviewImages();
@@ -123,12 +123,8 @@ const CoffeeShopReview = ({
     <>
       <div key={review.id}>
         <Row>
-          {displayShop && coffeeShop ? (
-            <StyledImage url={coffeeShop.image} />
-          ) : (
-            <StyledImage url={user.image} />
-          )}
-          {/* {renderShopImage()} */}
+          {renderShopImage()}
+
           {displayShop && coffeeShop && coffeeShop.name ? (
             <StyledReviewName>
               <Link to={`/coffee_shops/${review.coffee_shop_id}`}>
@@ -163,7 +159,6 @@ const CoffeeShopReview = ({
           {reviewOwnedByUser && (
             <button
               style={{ border: "none", background: "none", color: "#DADADA" }}
-              // onClick={handleReviewDelete}
               onClick={handleShowDelete}
             >
               <FontAwesome name="trash" />
@@ -191,58 +186,49 @@ const CoffeeShopReview = ({
         <StyledTimeStamp>Reviewed on {reviewTimeStamp()}</StyledTimeStamp>
         <StyledReviewName>{review.body}</StyledReviewName>
         <p>{review.image}</p>
-        <Row>
-          <Column1>
-            <StyledRating>
-              <StyledRater
-                total={5}
-                interactive={false}
-                rating={`${review.work_friendly}`}
-              />{" "}
-              Work Friendly
-            </StyledRating>
-          </Column1>
-          <Column2>
-            <StyledRating>
-              <StyledRater
-                total={5}
-                interactive={false}
-                rating={`${review.coffee_rating}`}
-              />
-              Coffee Quality
-            </StyledRating>
-          </Column2>
-        </Row>
-        <Row>
-          <Column1>
-            <StyledRating>
-              <StyledRater
-                total={5}
-                interactive={false}
-                rating={`${review.noise_level}`}
-              />{" "}
-              Background Noise
-            </StyledRating>
-          </Column1>
-          <Column2>
-            <StyledRating>
-              <StyledRater
-                total={5}
-                interactive={false}
-                rating={`${review.food}`}
-              />{" "}
-              Food Quality
-            </StyledRating>
-          </Column2>
-        </Row>
+        <Column1>
+          <Row>
+            <StyledRater
+              total={5}
+              interactive={false}
+              rating={`${review.work_friendly}`}
+            />{" "}
+            <div>Work Friendly</div>
+          </Row>
+          <Row>
+            <StyledRater
+              total={5}
+              interactive={false}
+              rating={`${review.coffee_rating}`}
+            />
+            <div>Coffee Quality </div>
+          </Row>
+        </Column1>
+        <Column1>
+          <Row>
+            <StyledRater
+              total={5}
+              interactive={false}
+              rating={`${review.noise_level}`}
+            />{" "}
+            <div>Background Noise</div>
+          </Row>
+          <Row>
+            <StyledRater
+              total={5}
+              interactive={false}
+              rating={`${review.food}`}
+            />{" "}
+            <div>Food Quality</div>
+          </Row>
+        </Column1>
 
         <Row>
           <div>{renderReviewImages()}</div>
-          <p>
-            {reviewOwnedByUser && (
-              <ReviewImageUpload reviewProp={review} afterCreate={addImage} />
-            )}
-          </p>
+
+          {reviewOwnedByUser && (
+            <ReviewImageUpload reviewProp={review} afterCreate={addImage} />
+          )}
         </Row>
         {!noMoreReviewPics ? (
           <StyledLoadMoreButton onClick={morePics}>
@@ -270,6 +256,7 @@ const CoffeeShopReview = ({
             </button>
           </Modal.Footer>
         </Modal>
+        <hr />
       </div>
     </>
   );
@@ -300,6 +287,7 @@ const Row = styled.div`
   display: flex;
   align-items: center;
   grid-column-gap: 5px;
+  padding-right: 20px;
 `;
 
 const Column1 = styled.div`
