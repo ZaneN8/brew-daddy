@@ -53,7 +53,7 @@ const User = ({ match }) => {
         setPage(page + 1);
       })
       .catch((err) => {
-        alert("ERROR: could not retrive more reviews, User.js");
+        alert("ERROR: could not retrieve more reviews, User.js");
       });
   };
 

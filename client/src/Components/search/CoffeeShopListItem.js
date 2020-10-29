@@ -33,7 +33,7 @@ const CoffeeShopListItem = ({ coffee }) => {
     <StyledResultCard key={coffee.id}>
       <Row>
         <Column1>
-          <img src={coffee.image} />
+          <CoffeeShopImage url={coffee.image} />
         </Column1>
         <Column2>
           <Title>
@@ -63,6 +63,17 @@ const CoffeeShopListItem = ({ coffee }) => {
     </StyledResultCard>
   );
 };
+
+const CoffeeShopImage = styled.div`
+  width: 212.25px;
+  height: 100%;
+  flex-shrink: 0;
+  border-radius: 30px 0px 0px 30px;
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+`;
 
 const StyledResultCard = styled.div`
   display: flex;
@@ -97,13 +108,13 @@ const Row = styled.div`
 `;
 
 const Column1 = styled.div`
-  flex: 1;
+  flex: 3;
   display: centered;
   flex-direction: column;
 `;
 
 const Column2 = styled.div`
-  flex: 9;
+  flex: 7;
   padding: 1em;
 `;
 
