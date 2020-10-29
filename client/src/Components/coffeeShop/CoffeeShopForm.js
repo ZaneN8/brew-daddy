@@ -23,7 +23,7 @@ const CoffeeShopForm = ({
     menu: "",
     website: "",
     contact_info: "",
-    cost: 3, //TODO this is always what it will work
+    cost: 1, //TODO this is always what it will work
     open: false,
     delivery: false,
     pickup: false,
@@ -141,6 +141,7 @@ const CoffeeShopForm = ({
             name="description"
             value={coffeeShopState.description}
             onChange={handleChange}
+            required
           />
         </Form.Group>
         <Form.Group>
@@ -202,7 +203,6 @@ const CoffeeShopForm = ({
               <Form.Label>Menu</Form.Label>
               <Form.Control
                 name="menu"
-                required
                 value={coffeeShopState.menu}
                 onChange={handleChange}
               />
@@ -213,7 +213,6 @@ const CoffeeShopForm = ({
               <Form.Label>Website</Form.Label>
               <Form.Control
                 name="website"
-                required
                 value={coffeeShopState.website}
                 onChange={handleChange}
               />
@@ -226,6 +225,7 @@ const CoffeeShopForm = ({
             name="contact_info"
             onChange={handleChange}
             value={coffeeShopState.contact_info}
+            required
           />
         </Form.Group>
         <Form.Group as={Row}>
@@ -250,6 +250,13 @@ const CoffeeShopForm = ({
             <Form.Check
               type="radio"
               label="$$$"
+              name="cost"
+              onChange={handleChange}
+              value={coffeeShopState.cost}
+            />
+            <Form.Check
+              type="radio"
+              label="$$$$"
               name="cost"
               onChange={handleChange}
               value={coffeeShopState.cost}

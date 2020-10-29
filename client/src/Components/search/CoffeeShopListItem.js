@@ -39,13 +39,14 @@ const CoffeeShopListItem = ({ coffee }) => {
           <Title>
             <Link to={`/coffee_shops/${coffee.id}`}>{coffee.name}</Link>
           </Title>
-          <StyledRater
-            total={5}
-            interactive={false}
-            rating={`${ratingsData.total_rating}`}
-          />{" "}
-          {coffee.cost && shopCost()}
-          <br />
+          <StyledMoney>
+            <StyledRater
+              total={5}
+              interactive={false}
+              rating={`${ratingsData.total_rating}`}
+            />{" "}
+            {coffee.cost && shopCost()}
+          </StyledMoney>
           <Contact>
             <b> Address: </b> {coffee.address} {coffee.city}, {coffee.state}{" "}
             {coffee.zip}
@@ -53,9 +54,9 @@ const CoffeeShopListItem = ({ coffee }) => {
             <b> Contact: </b> {coffee.contact_info} <br />
             {/* Rating: {ratingsData.total_rating} */}
             <br />
-            {/* {coffee.description}{" "} */}
-            <CoffeeDesc coffee={coffee} />{" "}
-            <Link to={`/coffee_shops/${coffee.id}`}>Read More...</Link>
+            <StyledDesc>{coffee.description}</StyledDesc>{" "}
+            {/* <CoffeeDesc coffee={coffee} />{" "} */}
+            {/* <Link to={`/coffee_shops/${coffee.id}`}>Read More...</Link> */}
           </Contact>
         </Column2>
       </Row>
@@ -77,6 +78,20 @@ const StyledResultCard = styled.div`
   height: 200px;
 `;
 
+const StyledDesc = styled.div`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  text-overflow: "…";
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+`;
+
 const Row = styled.div`
   display: flex;
 `;
@@ -90,6 +105,10 @@ const Column1 = styled.div`
 const Column2 = styled.div`
   flex: 9;
   padding: 1em;
+`;
+
+const StyledMoney = styled.div`
+  color: #86945e;
 `;
 
 const StyledRater = styled(Rater)`

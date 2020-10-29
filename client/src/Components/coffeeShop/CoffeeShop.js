@@ -183,7 +183,7 @@ const CoffeeShop = ({ match, history }) => {
               </Modal.Footer>
             </Modal>
           </StyledCoffeeShopName>
-          <Rater
+          <StyledRater
             total={5}
             interactive={false}
             rating={`${ratingsData.total_rating}`}
@@ -205,6 +205,7 @@ const CoffeeShop = ({ match, history }) => {
             <Menu href={shop.menu} target="_blank">
               Menu
             </Menu>
+            {/* TODO when site/menu not entered it is a dead link */}
             <Website href={shop.website} target="_blank">
               Website
             </Website>
@@ -302,6 +303,18 @@ const StyledPage = styled.div`
 const StyledInfoContainer = styled.div`
   // border: 1px solid black; //take out when done
 `;
+
+const StyledRater = styled(Rater)`
+  display: flex;
+  .react-rater-star.is-disabled.is-active {
+    color: #e1ccb7 !important;
+    background: none:
+  }
+  
+  .react-rater-star.is-disabled.is-active-half::before {
+    color: #e1ccb7 !important;
+    background: none:
+  }`;
 
 const InfoRight = styled.div`
   padding-left: 50px;

@@ -103,6 +103,15 @@ const CoffeeShopReview = ({
     ));
   };
 
+  const renderShopImage = () => {
+    if (displayShop && coffeeShop) {
+      return <StyledImage url={coffeeShop.image} />;
+    }
+    if (user && user.image) {
+      return <StyledImage url={user.image} />;
+    }
+  };
+
   useEffect(() => {
     getReviewImages();
   }, []);
@@ -113,11 +122,10 @@ const CoffeeShopReview = ({
         <Row>
           {displayShop && coffeeShop ? (
             <StyledImage url={coffeeShop.image} />
-          ) : !displayShop && user ? (
-            <StyledImage url={user.image} />
           ) : (
-            <img src="" />
+            <StyledImage url={user.image} />
           )}
+          {/* {renderShopImage()} */}
           {displayShop && coffeeShop && coffeeShop.name ? (
             <StyledReviewName>
               <Link to={`/coffee_shops/${review.coffee_shop_id}`}>

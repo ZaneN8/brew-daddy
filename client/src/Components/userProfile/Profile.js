@@ -363,8 +363,8 @@ const BigBox = styled.div`
   min-height: 300px;
   flex-direction: column;
   padding-top: 5%;
-  padding-left:2.5%
-  padding-right:2.5%
+  padding-left: 2.5%
+  padding-right: 2.5%
   height: 100%;
 `;
 

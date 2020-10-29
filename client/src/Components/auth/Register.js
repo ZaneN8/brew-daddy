@@ -44,11 +44,11 @@ const Register = (props) => {
           </Col>
           <Col>
             <Form.Label>Last Name</Form.Label>
-            <Form.Control autoFocus {...lastName} />
+            <Form.Control {...lastName} />
           </Col>
         </Form.Row>
         <Form.Label>Email</Form.Label>
-        <Form.Control autoFocus {...email} />
+        <Form.Control {...email} />
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" {...password} />
         <Form.Label>Password Confirmation</Form.Label>
