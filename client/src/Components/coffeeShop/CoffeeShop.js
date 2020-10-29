@@ -31,6 +31,9 @@ const CoffeeShop = ({ match, history }) => {
   const handleShow = () => setShowEditForm(true);
   const handleCloseReview = () => setShowReviewForm(false);
   const handleAddReview = () => setShowReviewForm(true);
+  const [showDelete, setShowDelete] = useState(false);
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
 
   useEffect(() => {
     axios
@@ -155,8 +158,8 @@ const CoffeeShop = ({ match, history }) => {
             {shopOwnedByUser && (
               <button
                 style={{ border: "none", background: "none" }}
-                onClick={() => deleteCoffeeShop(shop.id)}
                 // onClick={() => deleteCoffeeShop(shop.id)}
+                onClick={handleShowDelete}
               >
                 <FontAwesome
                   style={{
@@ -168,7 +171,18 @@ const CoffeeShop = ({ match, history }) => {
                 />
               </button>
             )}
-
+            <Modal show={showDelete} onHide={handleCloseDelete}>
+              <Modal.Header>
+                <Modal.Title>Are you sure?</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <button onClick={() => deleteCoffeeShop(shop.id)}>
+                  Yes, Delete
+                </button>
+                {"  "}
+                <button onClick={handleCloseDelete}>No, Keep</button>
+              </Modal.Body>
+            </Modal>
             <Modal show={showEditForm} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title> Edit Coffee Shop </Modal.Title>
