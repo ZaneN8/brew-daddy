@@ -106,7 +106,7 @@ const Profile = () => {
       <StyledCoffeeShop className="coffeeShopRender" key={coffeeShop.id}>
         <CoffeeShopImage url={coffeeShop.image} />
         <CoffeeShopNameText>
-          <a href={`/coffee_shops/${coffeeShop.id}`}>{coffeeShop.name}</a>
+          <Link to={`/coffee_shops/${coffeeShop.id}`}>{coffeeShop.name}</Link>
         </CoffeeShopNameText>
         <CoffeeShopLocationText>
           {coffeeShop.state}, {coffeeShop.city}, {coffeeShop.zip}

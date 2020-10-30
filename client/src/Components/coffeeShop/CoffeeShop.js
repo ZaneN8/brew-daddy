@@ -312,7 +312,7 @@ const CoffeeShop = ({ match, history }) => {
 };
 
 const StyledPage = styled.div`
-  padding: 3em 6em 1em;
+  padding: 3em 18em;
 `;
 
 const StyledLoadMoreButton = styled.button`
