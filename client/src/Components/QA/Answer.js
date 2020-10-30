@@ -119,9 +119,9 @@ const StyledYesButton = styled.button`
 const StyledNoButton = styled.button`
   display: incline-block;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
-  border: 0.16em solid ##86945e;
+  border: 0.16em solid #86945e;
   border-radius: 15px;
-  background-color: ##86945e;
+  background-color: #86945e;
   opacity: 0.9;
   color: white;
   text-align: center;
